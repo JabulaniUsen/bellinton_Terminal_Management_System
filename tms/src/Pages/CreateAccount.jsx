@@ -6,12 +6,51 @@ import AdditionalDetails from './CreateAccount/AdditionalDetails';
 import Security from './CreateAccount/Security';
 import TermsAndConditions from './CreateAccount/TermsAndConditions';
 import Credentials from './CreateAccount/Credentials';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 function CreateAccount() {
   const [activeTab, setActiveTab] = useState('personalInfo'); // Initial active tab
+  const [formData, setFormData] = useState({
+    personalInfo: {},
+    credentials: {},
+    permissions: {},
+    additionalDetails: {},
+    security: {},
+    termsAndConditions: {},
+  });
 
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
+  };
+
+  const handleFormUpdate = (tabName, data) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [tabName]: data,
+    }));
+  };
+
+  const handleNextButtonClick = () => {
+    
+    switch (activeTab) {
+      case 'personalInfo':
+        setActiveTab('credentials');
+        break;
+      case 'credentials':
+        setActiveTab('permissions');
+        break;
+      case 'permissions':
+        setActiveTab('additionalDetails');
+        break;
+      case 'additionalDetails':
+        setActiveTab('security');
+        break;
+      case 'security':
+        setActiveTab('termsAndConditions');
+      default:
+        break;
+    }
   };
 
   const renderTabContent = () => {
@@ -33,14 +72,28 @@ function CreateAccount() {
     }
   };
 
+  const handleSubmitAllForms = () => {
+    // Submit all forms using the collected form data
+    // (you can send formData to your backend or handle it as needed)
+    console.log('Form data to submit:', formData);
+  };
+
   return (
     <div >
       <Header />
 
       <div className="">
-        <div className="head text-center roboto">
-          <h2 className='text-3xl font-bold'>Create a user account to use  </h2>
-          <p className='font-bold text-xl my-2'>Make sure you enter the right information to avoid errors</p>
+        <div className="head flex flex-col justify-center items-center text-center gap-2 roboto">
+          <h2 className='text-3xl font-bold'>
+            {activeTab === 'permissions'
+              ? 'Tick in agreement to this permission'
+              : 'Create a user account to use'}
+          </h2>
+          <p className='font-semibold text-xl my-2 w-[700px]'>
+            {activeTab === 'permissions'
+              ? 'Before you proceed, we need your consent to collect and process certain information for the optimal functioning of our services.'
+              : 'Make sure you enter the right information to avoid errors'}
+          </p>
         </div>
 
         <div className="tabSwitch flex items-center justify-center my-10">
@@ -64,8 +117,20 @@ function CreateAccount() {
           </p>
         </div>
 
-        <div className=" my-28">
+        <div className=" mt-28">
           {renderTabContent()}
+        </div>
+
+        <div className="footer flex justify-end mx-[150px]">
+          {activeTab !== 'termsAndConditions' ? (
+            <button className='bg-[#20007F] py-3 px-5 rounded-xl text-white roboto font-semibold flex items-center gap-10' onClick={handleNextButtonClick}>
+              Next <FontAwesomeIcon icon={faAngleRight} className='px-2 py-[0.3rem] rounded-full border-[4px] font-bold' />
+            </button>
+          ) : (
+            <button className='bg-[#20007F] py-3 px-5 rounded-xl text-white roboto font-semibold flex items-center gap-10' onClick={handleSubmitAllForms}>
+              Submit All <FontAwesomeIcon icon={faAngleRight} className='px-2 py-[0.3rem] rounded-full border-[4px] font-bold' />
+            </button>
+          )}
         </div>
       </div>
     </div>

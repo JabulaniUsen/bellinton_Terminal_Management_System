@@ -7,3 +7,24 @@
 .roboto {
     font-family: 'Roboto', sans-serif;
 }
+
+/* Checkbox styles */
+.permissions-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .checkbox {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    gap: 10px;
+    font-size: 24px;
+  }
+  
+  .checkbox input {
+    width: 20px; 
+    height: 20px;
+  }
+  
