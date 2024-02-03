@@ -1,12 +1,12 @@
 import { useState } from 'react'
+import CreateAccount from './Pages/CreateAccount'
 
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <h1>Hello world</h1>
+      <CreateAccount/>
     </>
   )
 }
