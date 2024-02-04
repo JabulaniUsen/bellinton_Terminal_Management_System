@@ -32,7 +32,6 @@ function CreateAccount() {
   };
 
   const handleNextButtonClick = () => {
-    
     switch (activeTab) {
       case 'personalInfo':
         setActiveTab('credentials');
@@ -48,6 +47,10 @@ function CreateAccount() {
         break;
       case 'security':
         setActiveTab('termsAndConditions');
+        break;
+      case 'termsAndConditions':
+        console.log('User agreed to terms and conditions');
+        break;
       default:
         break;
     }
@@ -82,7 +85,7 @@ function CreateAccount() {
     <div >
       <Header />
 
-      <div className="">
+      <div className="mb-10">
         <div className="head flex flex-col justify-center items-center text-center gap-2 roboto">
           <h2 className='text-3xl font-bold'>
             {activeTab === 'permissions'
@@ -97,22 +100,22 @@ function CreateAccount() {
         </div>
 
         <div className="tabSwitch flex items-center justify-center my-10">
-          <p className={`tabs py-2 px-5 border-[1px] font-semibold border-black ${activeTab === 'personalInfo' ? 'activeTab bg-[#20007F] border-0 text-white' : ''}`} onClick={() => handleTabClick('personalInfo')}>
+          <p className={`tabs py-2 px-5 border-[1px] font-semibold cursor-pointer border-black ${activeTab === 'personalInfo' ? 'activeTab bg-[#20007F] border-0 text-white' : ''}`} onClick={() => handleTabClick('personalInfo')}>
             Personal info
           </p>
-          <p className={`tabs py-2 px-5 border-[1px] font-semibold border-black ${activeTab === 'credentials' ? 'activeTab bg-[#20007F] border-0 text-white' : ''}`} onClick={() => handleTabClick('credentials')}>
+          <p className={`tabs py-2 px-5 border-[1px] font-semibold cursor-pointer border-black ${activeTab === 'credentials' ? 'activeTab bg-[#20007F] border-0 text-white' : ''}`} onClick={() => handleTabClick('credentials')}>
             Credentials
           </p>
-          <p className={`tabs py-2 px-5 border-[1px] font-semibold border-black ${activeTab === 'permissions' ? 'activeTab bg-[#20007F] border-0 text-white' : ''}`} onClick={() => handleTabClick('permissions')}>
+          <p className={`tabs py-2 px-5 border-[1px] font-semibold cursor-pointer border-black ${activeTab === 'permissions' ? 'activeTab bg-[#20007F] border-0 text-white' : ''}`} onClick={() => handleTabClick('permissions')}>
             Permissions
           </p>
-          <p className={`tabs py-2 px-5 border-[1px] font-semibold border-black ${activeTab === 'additionalDetails' ? 'activeTab bg-[#20007F] border-0 text-white' : ''}`} onClick={() => handleTabClick('additionalDetails')}>
+          <p className={`tabs py-2 px-5 border-[1px] font-semibold cursor-pointer border-black ${activeTab === 'additionalDetails' ? 'activeTab bg-[#20007F] border-0 text-white' : ''}`} onClick={() => handleTabClick('additionalDetails')}>
             Additional Details
           </p>
-          <p className={`tabs py-2 px-5 border-[1px] font-semibold border-black ${activeTab === 'security' ? 'activeTab bg-[#20007F] border-0 text-white' : ''}`} onClick={() => handleTabClick('security')}>
+          <p className={`tabs py-2 px-5 border-[1px] font-semibold cursor-pointer border-black ${activeTab === 'security' ? 'activeTab bg-[#20007F] border-0 text-white' : ''}`} onClick={() => handleTabClick('security')}>
             Security
           </p>
-          <p className={`tabs py-2 px-5 border-[1px] font-semibold border-black ${activeTab === 'termsAndConditions' ? 'activeTab bg-[#20007F] border-0 text-white' : ''}`} onClick={() => handleTabClick('termsAndConditions')}>
+          <p className={`tabs py-2 px-5 border-[1px] font-semibold cursor-pointer border-black ${activeTab === 'termsAndConditions' ? 'activeTab bg-[#20007F] border-0 text-white' : ''}`} onClick={() => handleTabClick('termsAndConditions')}>
             Terms and Conditions
           </p>
         </div>
@@ -127,8 +130,8 @@ function CreateAccount() {
               Next <FontAwesomeIcon icon={faAngleRight} className='px-2 py-[0.3rem] rounded-full border-[4px] font-bold' />
             </button>
           ) : (
-            <button className='bg-[#20007F] py-3 px-5 rounded-xl text-white roboto font-semibold flex items-center gap-10' onClick={handleSubmitAllForms}>
-              Submit All <FontAwesomeIcon icon={faAngleRight} className='px-2 py-[0.3rem] rounded-full border-[4px] font-bold' />
+            <button className='bg-[#20007F] py-3 px-5 rounded-xl text-white roboto font-semibold flex items-center gap-10' onClick={handleNextButtonClick}>
+              Agree, Next <FontAwesomeIcon icon={faAngleRight} className='px-2 py-[0.3rem] rounded-full border-[4px] font-bold' />
             </button>
           )}
         </div>
