@@ -1,4 +1,8 @@
 import React from 'react'
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
+const percentage = 66;
 
 const QuickOverview = () => {
   return (
@@ -39,6 +43,20 @@ const QuickOverview = () => {
                         <div className="price">
                             <p className='font-semibold public-san'>$6,871 <span className='text-[#637381]'>(28.2%)</span></p>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div className="">
+                <div className="progressBar">
+                    <div style={{ width: 300, height: 300 }}>
+                        <CircularProgressbar 
+                        value={66}
+                        styles={buildStyles({
+                            // Colors
+                            pathColor: 'linear-gradient(90deg, #4000ff, #212b36)',
+                            trailColor: '#edeff2',
+                        })}
+                        />
                     </div>
                 </div>
             </div>

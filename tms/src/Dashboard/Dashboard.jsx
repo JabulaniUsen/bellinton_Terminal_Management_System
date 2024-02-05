@@ -16,7 +16,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Header from './Components/Header';
 import Home from './Tabs/Home';
-import TabContent2 from './Tabs/TabContent2';
+import Operations from './Tabs/Operations';
 import TabContent3 from './Tabs/TabContent3';
 import TabContent4 from './Tabs/TabContent4';
 
@@ -156,7 +156,7 @@ const Dashboard = () => {
 
         <div className="flex-grow">
           {activeTab === 1 && <Home />}
-          {activeTab === 2 && <TabContent2 />}
+          {activeTab === 2 && <Operations />}
           {activeTab === 3 && <TabContent3 />}
           {activeTab === 4 && <TabContent4 />}
         </div>
