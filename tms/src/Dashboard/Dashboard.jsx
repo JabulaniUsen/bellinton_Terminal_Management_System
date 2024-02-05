@@ -15,7 +15,7 @@ import {
   faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
 import Header from './Components/Header';
-import TabContent1 from './Tabs/TabContent1';
+import Home from './Tabs/Home';
 import TabContent2 from './Tabs/TabContent2';
 import TabContent3 from './Tabs/TabContent3';
 import TabContent4 from './Tabs/TabContent4';
@@ -62,9 +62,10 @@ const Dashboard = () => {
       label: 'Dashboard',
       icon: faChartBar,
       subButtons: [
-        { label: 'Operations', tabNumber: 1, icon: faCog },
-        { label: 'Finance', tabNumber: 2, icon: faCog },
-        { label: 'Reports', tabNumber: 3, icon: faCog },
+        { label: 'Home', tabNumber: 1 },
+        { label: 'Operations', tabNumber: 2, icon: faCog },
+        { label: 'Finance', tabNumber: 3, icon: faCog },
+        { label: 'Reports', tabNumber: 4, icon: faCog },
       ]
     },
     {
@@ -153,8 +154,8 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="flex-grow p-4">
-          {activeTab === 1 && <TabContent1 />}
+        <div className="flex-grow">
+          {activeTab === 1 && <Home />}
           {activeTab === 2 && <TabContent2 />}
           {activeTab === 3 && <TabContent3 />}
           {activeTab === 4 && <TabContent4 />}
