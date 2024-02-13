@@ -17,8 +17,9 @@ import {
 import Header from './Components/Header';
 import Home from './Tabs/Home';
 import Operations from './Tabs/Operations';
-import TabContent3 from './Tabs/TabContent3';
 import TabContent4 from './Tabs/TabContent4';
+import Vessel from './Tabs/Vessel';
+import ViewVessels from './Tabs/VesselComponents/ViewVessels';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -94,7 +95,8 @@ const Dashboard = () => {
       subButtons: [
         { label: 'View Vessels', tabNumber: 13, icon: faCog },
         { label: 'Add Vessels', tabNumber: 14, icon: faCog },
-        { label: 'Manage Voyages', tabNumber: 15, icon: faCog }
+        { label: 'Manage Voyages', tabNumber: 15, icon: faCog },
+        { label: 'View Vessels2', tabNumber: 16, icon: faCog }
       ]
     },
     {
@@ -157,8 +159,8 @@ const Dashboard = () => {
         <div className="flex-grow">
           {activeTab === 1 && <Home />}
           {activeTab === 2 && <Operations />}
-          {activeTab === 3 && <TabContent3 />}
-          {activeTab === 4 && <TabContent4 />}
+          {activeTab === 5 && <Vessel />}
+          {activeTab === 16 && <ViewVessels />}
         </div>
       </div>
     </div>

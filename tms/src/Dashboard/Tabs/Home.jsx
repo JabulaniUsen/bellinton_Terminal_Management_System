@@ -2,6 +2,7 @@ import React from 'react'
 import ContainerDetails from './HomeComponents/ContainerDetails'
 import QuickOverview from './HomeComponents/QuickOverview'
 import Intro from '../Components/Intro'
+import RecentTransactions from './HomeComponents/RecentTransactions'
 
 function Home() {
   return (
@@ -9,6 +10,7 @@ function Home() {
       <Intro/>
       <ContainerDetails/>
       <QuickOverview/>
+      <RecentTransactions/>
     </div>
 
   )
