@@ -2,72 +2,39 @@ import React from 'react';
 
 const ViewVessels = () => {
   const data = [
-    { id: 1, name: 'Vessel 1', type: 'Cargo', origin: 'Port A', destination: 'Port B', status: 'In Transit' },
-    { id: 2, name: 'Vessel 2', type: 'Container', origin: 'Port C', destination: 'Port D', status: 'Awaiting Delivery' },
-    // Add more data objects as needed
+    { id: 'VSL001', name: 'Ocean Voyager', ETA: '9/5/2023 8:00', ETD: '9/10/2023 8:00', status: 'In Transit', totalContainer: '150', action: '[View Details]' },
+    { id: 'VSL002', name: 'Nautical Spirit', ETA: '9/7/2023 14:00', ETD: '-', status: 'At Port', totalContainer: '120', action: '[View Details]' },
+    { id: 'VSL003', name: 'Ocean Voyager', ETA: '9/5/2023 8:00', ETD: '9/10/2023 8:00', status: 'In Transit', totalContainer: '150', action: '[View Details]' },
+    { id: 'VSL004', name: 'Nautical Spirit', ETA: '9/7/2023 14:00', ETD: '-', status: 'At Port', totalContainer: '120', action: '[View Details]' },
+    { id: 'VSL005', name: 'Ocean Voyager', ETA: '9/5/2023 8:00', ETD: '9/10/2023 8:00', status: 'In Transit', totalContainer: '150', action: '[View Details]' },
+    { id: 'VSL006', name: 'Nautical Spirit', ETA: '9/7/2023 14:00', ETD: '-', status: 'At Port', totalContainer: '120', action: '[View Details]' },
   ];
 
   const generateTable = () => {
-    const rows = [];
-    const rowCount = 6;
-    const columnCount = 7;
-
-    for (let i = 0; i < rowCount; i++) {
-      const cells = [];
-      const bgColor = i % 2 === 0 ? 'white' : 'black';
-      const textColor = i % 2 === 0 ? 'black' : 'white';
-
-      for (let j = 0; j < columnCount; j++) {
-        const cellData = data[i % data.length]; // Use data in a circular manner
-
-        let cellContent = '';
-        switch (j) {
-          case 0:
-            cellContent = cellData.id;
-            break;
-          case 1:
-            cellContent = cellData.name;
-            break;
-          case 2:
-            cellContent = cellData.type;
-            break;
-          case 3:
-            cellContent = cellData.origin;
-            break;
-          case 4:
-            cellContent = cellData.destination;
-            break;
-          case 5:
-            cellContent = cellData.status;
-            break;
-          default:
-            cellContent = `Row ${i + 1}, Col ${j + 1}`;
-        }
-
-        cells.push(
-          <td key={j} style={{ backgroundColor: bgColor, color: textColor, padding: '10px', borderBottom: '1px solid #ddd' }}>
-            {cellContent}
-          </td>
-        );
-      }
-
-      rows.push(<tr key={i}>{cells}</tr>);
-    }
-
-    return rows;
+    return data.map((rowData, index) => (
+      <tr key={index} style={{ backgroundColor: index % 2 === 0 ? 'white' : 'black', color: index % 2 === 0 ? 'black' : 'white' }}>
+        <td className='p-4'>{rowData.id}</td>
+        <td className='p-4'>{rowData.name}</td>
+        <td className='p-4'>{rowData.ETA}</td>
+        <td className='p-4'>{rowData.ETD}</td>
+        <td className='p-4'>{rowData.status}</td>
+        <td className='p-4'>{rowData.totalContainer}</td>
+        <td className='p-4 cursor-pointer'>{rowData.action}</td>
+      </tr>
+    ));
   };
 
   return (
-    <table style={{ backgroundColor: 'black', color: 'white', borderBottom: '1px solid #ddd', width: '100%' }}>
+    <table className='border border-bl bg-black text-white w-full mt-[4rem]'>
       <thead>
         <tr>
-          <th>Vessel ID</th>
-          <th>Vessel Name</th>
-          <th>ETA</th>
-          <th>ETD</th>
-          <th>Status</th>
-          <th>Total Containers</th>
-          <th>Action</th>
+          <th className='py-3'>Vessel ID</th>
+          <th className='py-3'>Vessel Name</th>
+          <th className='py-3'>ETA</th>
+          <th className='py-3'>ETD</th>
+          <th className='py-3'>Status</th>
+          <th className='py-3'>Total Containers</th>
+          <th className='py-3'>Action</th>
         </tr>
       </thead>
       <tbody>{generateTable()}</tbody>

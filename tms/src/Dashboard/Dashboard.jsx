@@ -20,6 +20,7 @@ import Operations from './Tabs/Operations';
 import TabContent4 from './Tabs/TabContent4';
 import Vessel from './Tabs/Vessel';
 import ViewVessels from './Tabs/VesselComponents/ViewVessels';
+import AddVessel from './Tabs/VesselComponents/AddVessel';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -161,6 +162,8 @@ const Dashboard = () => {
           {activeTab === 2 && <Operations />}
           {activeTab === 5 && <Vessel />}
           {activeTab === 16 && <ViewVessels />}
+          {activeTab === 6 && <AddVessel />}
+
         </div>
       </div>
     </div>
