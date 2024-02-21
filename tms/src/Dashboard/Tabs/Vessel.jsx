@@ -1,10 +1,9 @@
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, {useState} from 'react'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from 'react';
 import ViewVessels from './VesselComponents/ViewVessels';
 
 function Vessel() {
-
   const [vesselId, setVesselId] = useState('');
   const [eta, setEta] = useState('');
   const [company, setCompany] = useState('');
@@ -24,6 +23,10 @@ function Vessel() {
 
   const [showViewVessels, setShowViewVessels] = useState(false);
 
+
+  const handleCloseViewVessels = () => {
+    setShowViewVessels(false);
+  };
   const handleViewDetails = () => {
     // Handle the button click and access the form field values here
     console.log({
@@ -45,7 +48,6 @@ function Vessel() {
       discharged,
     });
 
-    // Set the state to show ViewVessels component
     setShowViewVessels(true);
   };
 
@@ -55,9 +57,12 @@ function Vessel() {
         <h2 className='text-3xl font-bold'>View Vessels</h2>
       </div>
 
-      { showViewVessels ? (
-        <ViewVessels/> 
-      ):(
+      {showViewVessels && (
+        <div className=" flex items-center justify-center">
+          <ViewVessels onClose={handleCloseViewVessels} />
+        </div>
+      )}
+      {!showViewVessels && (
         <form className='my-7 mx-2 flex justify-evenly gap-10 relative'>
         <div className="flex flex-col gap-12">
           <div className="viewinfo">
@@ -65,7 +70,7 @@ function Vessel() {
             <div className="vesselInformation roboto flex flex-col gap-10">
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>Vessel ID:</label>
-                <div className="border-2 border-[#828282] rounded-lg p-3 w-[347px] flex items-center">
+                <div className=" border-[#828282] border-[1px] rounded-lg p-3 w-[347px] flex items-center">
                   <input type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your vessel ID..." />
                   <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </div>
@@ -74,13 +79,18 @@ function Vessel() {
             <div className="flex flex-col gap-5">
               <div className="">
                 <label htmlFor="" className='text-[1em]'>ETA (Estimated Time of Arrival):</label>
-                  <div className="border-2 my-2 border-[#828282] rounded-lg p-3 w-[347px] flex items-center">
-                    <input type="date" className='bg-transparent outline-none w-full' name="id" id="" />
+                  <div className="flex gap-2">
+                    <div className=" my-2 border-[#828282] border-[1px] rounded-lg p-3 w-[320px] flex items-center">
+                      <input type="date" className='bg-transparent outline-none w-full' name="id" id="" />
+                    </div>
+                    <div className=" my-2 border-[#828282] border-[1px] rounded-lg p-3  flex items-center">
+                      <input type="time" className='bg-transparent outline-none w-full' name="id" id="" />
+                    </div>
                   </div>
               </div>
                 <div className="flex items-center gap-3">
                   <label htmlFor="" className='text-[1em] '>Company:</label>
-                  <div className="border-2 border-[#828282] rounded-lg p-3 w-[347px] flex items-center">
+                  <div className=" border-[#828282] border-[1px] rounded-lg p-3 w-[347px] flex items-center">
                     <input type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter shipping line..." />
                   </div>
                 </div>
@@ -92,7 +102,7 @@ function Vessel() {
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center gap-2">
                 <label htmlFor="" className=''>Origin Port:</label>
-                <select className="border-2 my-2 border-[#828282] rounded-lg p-3 w-[150px] flex items-center">
+                <select className=" my-2 border-[#828282] border-[1px] rounded-lg p-3 w-[150px] flex items-center">
                   <option value=""></option>
                   <option value="volvo">Volvo</option>
                   <option value="volvo">Volvo</option>
@@ -102,7 +112,7 @@ function Vessel() {
 
               <div className="flex items-center gap-2">
                 <label htmlFor="" className=''>Destination Port:</label>
-                <select className="border-2 my-2 border-[#828282] rounded-lg p-3 w-[150px] flex items-center">
+                <select className=" my-2 border-[#828282] border-[1px] rounded-lg p-3 w-[150px] flex items-center">
                   <option value=""></option>
                   <option value="volvo">Volvo</option>
                   <option value="volvo">Volvo</option>
@@ -112,7 +122,7 @@ function Vessel() {
 
               <div className="flex items-center gap-2">
                 <label htmlFor="" className=''> Stop</label>
-                <select className="border-2 my-2 border-[#828282] rounded-lg p-3 w-[150px] flex items-center">
+                <select className=" my-2 border-[#828282] border-[1px] rounded-lg p-3 w-[150px] flex items-center">
                   <option value=""></option>
                   <option value="volvo">Volvo</option>
                   <option value="volvo">Volvo</option>
@@ -151,15 +161,20 @@ function Vessel() {
 
               <div>
                 <label htmlFor="" className='text-[1em] '>Vessel Name:</label>
-                <div className="border-2 border-[#828282] rounded-lg p-3 w-[347px] flex items-center">
+                <div className=" border-[#828282] border-[1px] rounded-lg p-3 w-[347px] flex items-center">
                   <input type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your vessel name..." />
                 </div>
               </div>
               <div>
                 <label htmlFor="" className='text-[1em] '>ETD (Estimated Time of Departure):</label>
-                <div className="border-2 border-[#828282] my-2 rounded-lg p-3 w-[347px] flex items-center">
-                  <input type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter input..." />
-                </div>
+                <div className="flex gap-2">
+                    <div className=" my-2 border-[#828282] border-[1px] rounded-lg p-3 w-[240px] flex items-center">
+                      <input type="date" className='bg-transparent outline-none w-full' name="id" id="" />
+                    </div>
+                    <div className=" my-2 border-[#828282] border-[1px] rounded-lg p-3  flex items-center">
+                      <input type="time" className='bg-transparent outline-none w-full' name="id" id="" />
+                    </div>
+                  </div>
               </div>
           </div>
 

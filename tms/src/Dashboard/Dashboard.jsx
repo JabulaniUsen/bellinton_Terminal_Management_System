@@ -21,6 +21,10 @@ import TabContent4 from './Tabs/TabContent4';
 import Vessel from './Tabs/Vessel';
 import ViewVessels from './Tabs/VesselComponents/ViewVessels';
 import AddVessel from './Tabs/VesselComponents/AddVessel';
+import ManageVoyage from './Tabs/VesselComponents/ManageVoyage';
+import LockVessel from './Tabs/VesselComponents/LockVessel';
+import ViewManifest from './Tabs/ManifestComponents/ViewManifest';
+import CreateManifest from './Tabs/ManifestComponents/CreateManifest';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -71,13 +75,14 @@ const Dashboard = () => {
       ]
     },
     {
-      label: 'Container',
+      label: 'Vessel',
       icon: faCube,
       subButtons: [
-        { label: 'View Containers', tabNumber: 5, icon: faCog },
-        { label: 'Add Containers', tabNumber: 6, icon: faCog },
-        { label: 'Container Transfers', tabNumber: 7, icon: faCog },
-        { label: 'Containers Status', tabNumber: 8, icon: faCog }
+        { label: 'View Vessels', tabNumber: 5, icon: faCog },
+        { label: 'Add Vessels', tabNumber: 6, icon: faCog },
+        { label: 'Manage Voyages', tabNumber: 7, icon: faCog },
+        { label: 'Lock Vessels', tabNumber: 8, icon: faCog },
+        // { label: 'View Container2', tabNumber: 16, icon: faCog }
       ]
     },
     {
@@ -91,13 +96,12 @@ const Dashboard = () => {
       ]
     },
     {
-      label: 'Vessels',
+      label: 'Container',
       icon: faShip,
       subButtons: [
-        { label: 'View Vessels', tabNumber: 13, icon: faCog },
-        { label: 'Add Vessels', tabNumber: 14, icon: faCog },
-        { label: 'Manage Voyages', tabNumber: 15, icon: faCog },
-        { label: 'View Vessels2', tabNumber: 16, icon: faCog }
+        { label: 'View Container', tabNumber: 13, icon: faCog },
+        { label: 'Add Container', tabNumber: 14, icon: faCog },
+        { label: 'Container Transfer', tabNumber: 15, icon: faCog },
       ]
     },
     {
@@ -160,10 +164,19 @@ const Dashboard = () => {
         <div className="flex-grow">
           {activeTab === 1 && <Home />}
           {activeTab === 2 && <Operations />}
-          {activeTab === 5 && <Vessel />}
-          {activeTab === 16 && <ViewVessels />}
-          {activeTab === 6 && <AddVessel />}
 
+          {/* Vessel */}
+          {activeTab === 5 && <Vessel />}
+          {activeTab === 6 && <AddVessel />}
+          {activeTab === 7 && <ManageVoyage/>}
+          {activeTab === 8 && <LockVessel/>}
+
+          {/* Manifest  */}
+          {activeTab === 9 && <ViewManifest/>}
+          {activeTab === 10 && <CreateManifest/>}
+
+
+          {activeTab === 16 && <ViewVessels />}
         </div>
       </div>
     </div>

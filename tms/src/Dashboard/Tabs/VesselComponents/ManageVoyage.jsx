@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, {useState} from 'react'
 import { motion } from 'framer-motion';
 
-function AddVessel() {
+function ManageVoyage() {
 
   const [vesselId, setVesselId] = useState('');
   const [eta, setEta] = useState('');
@@ -21,7 +21,6 @@ function AddVessel() {
   const [inTransit, setInTransit] = useState(false);
   const [awaitingDelivery, setAwaitingDelivery] = useState(false);
   const [discharged, setDischarged] = useState(false);
-  const [showViewVessels, setShowViewVessels] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   
@@ -52,16 +51,19 @@ function AddVessel() {
 
     const [stops, setStops] = useState([
     { id: '', placeholder: 'Enter the name of the stop', type: 'number' },
-    { id: '', placeholder: 'Enter the name of the stop', type: 'number' },
-    { id: '', placeholder: 'Enter the name of the stop', type: 'text' },
   ]);
 
   const handleModalOK = () => {
     setShowSuccessModal(false);
+
+    // Navigate to the Home tab (replace this with your actual navigation logic)
+    // Example: history.push('/home');
   };
 
+  // Function to handle edit button (Close modal and allow editing)
   const handleModalEdit = () => {
     setShowSuccessModal(false);
+    // Additional logic to reset or handle editing
   };
 
   const addStop = (e) => {
@@ -72,7 +74,7 @@ function AddVessel() {
   return (
     <div className='p-10 roboto'>
       <div className="header">
-        <h2 className='text-3xl font-bold'>Add Vessels</h2>
+        <h2 className='text-3xl font-bold'>Manage Voyage</h2>
       </div>
 
       {/* { showViewVessels ? (
@@ -93,24 +95,61 @@ function AddVessel() {
                 <input type="number" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[243px]' name="id" id="" placeholder="Enter the estimated time of arrival..." />
               </div>
               <div className="flex items-center gap-3">
-                <label htmlFor="" className='text-[1em] '>Company:</label>
+                <label htmlFor="" className='text-[1em] '>Total Containers on Board:</label>
+                <input type="text" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[400px]' name="id" id="" placeholder="Enter the name if the shipping company..." />
+              </div>
+            </div>
+          </div>
+
+          <div className="voyageDetails">
+            <h3 className='text-lg font-semibold my-5'>Update ETA:</h3>
+            <div className="vesselInformation roboto flex flex-col gap-10">
+
+              <div className="flex items-center gap-3">
+                <label htmlFor="" className='text-[1em] '>Update ETA:</label>
+                <input type="number" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[400px]' name="id" id="" placeholder="Enter your vessel ID..." />
+              </div>
+              <div className="flex items-center gap-3">
+                <label htmlFor="" className='text-[1em] '>ETA (Estimated Time of Arrival):</label>
+                <input type="number" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[243px]' name="id" id="" placeholder="Enter the estimated time of arrival..." />
+              </div>
+              <div className="flex items-center gap-3">
+                <label htmlFor="" className='text-[1em] '>Update Status:</label>
                 <input type="text" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[400px]' name="id" id="" placeholder="Enter the name if the shipping company..." />
               </div>
             </div>
           </div>
 
           {/* stops */}
-          <div className="stops">
-            <h3 className='text-lg font-semibold my-5'>Stops:</h3>
-            <div className="vesselInformation roboto flex flex-col gap-10">
+          <div className="routingDetails">
+            <h3 className='text-lg font-semibold my-5'>Route Details:</h3>
+            <div className="vesselInformation roboto grid grid-cols-2 gap-y-5">
+                <div className="route flex items-center gap-3">
+                  <label htmlFor="" className='text-[1em]'>Origin Port</label>
+                  <input
+                    type='text'
+                    className='border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[150px]'
+                    name='Origin Port'
+                    placeholder='Port A, B or C'
+                  />
+                </div>
+                <div className="route flex items-center gap-3">
+                  <label htmlFor="" className='text-[1em]'>Destination Port</label>
+                  <input
+                    type='text'
+                    className='border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[150px]'
+                    name="Destination Port"
+                    placeholder='Port A, B or C'
+                  />
+                </div>
               {stops.map((stop, index) => (
-                <div className="stops flex items-center gap-3" key={index}>
-                  <label htmlFor="" className='text-[1em]'>{`Enter the name of the stop #${index + 1}:`}</label>
+                <div className="route flex items-center gap-3" key={index}>
+                  <label htmlFor="" className='text-[1em]'>Stop:</label>
                   <input
                     type={stop.type}
-                    className='border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[250px]'
+                    className='border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[150px]'
                     name={`stop-${index}`}
-                    placeholder={stop.placeholder}
+                    placeholder='Port A, B or C'
                   />
                 </div>
               ))}
@@ -189,7 +228,7 @@ function AddVessel() {
                 </div>
               </div>
         </div>
-        <button onClick={handleViewDetails} className='bg-[#4000FF] px-8 absolute bottom-[-4rem] right-0 py-1 rounded-lg text-white'>Create Vessel</button>
+        <button onClick={handleViewDetails} className='bg-[#4000FF] px-8 absolute bottom-[-4rem] right-0 py-1 rounded-lg text-white'>Create Voyage</button>
       </form>
 
       {/* Success Modal */}
@@ -215,4 +254,4 @@ function AddVessel() {
   )
 }
 
-export default AddVessel
+export default ManageVoyage
