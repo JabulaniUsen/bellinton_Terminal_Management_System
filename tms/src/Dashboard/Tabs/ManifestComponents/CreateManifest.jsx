@@ -2,10 +2,10 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, {useState} from 'react'
 import UploadBox from "./UploadBox";
+import { motion } from 'framer-motion';
 
 
 const CreateManifest = () => {
-      // State variables for input fields
   const [cargoId, setCargoId] = useState('');
   const [vesselId, setVesselId] = useState('');
   const [origin, setOrigin] = useState('');
@@ -20,10 +20,12 @@ const CreateManifest = () => {
   const [socStatus, setSocStatus] = useState('');
   const [containerClassification, setContainerClassification] = useState('');
   const [showUpload, setShowUpload] = useState(false)
+  const [uploadSuccess, setUploadSuccess] = useState(false)
 
 
   const closeUploadBox = () => {
     setShowUpload(false);
+    setUploadSuccess(true);
   };
   const handleUpload = () => {
     setShowUpload(!showUpload);
@@ -48,6 +50,11 @@ const CreateManifest = () => {
       containerClassification,
     });
   };
+
+  const handleModalOK = () => {
+    setUploadSuccess(false);
+  };
+
   return (
     <div className='m-10'>
         <div className="head flex justify-between">
@@ -229,6 +236,23 @@ const CreateManifest = () => {
 
         { showUpload &&
             <UploadBox closeUploadBox={closeUploadBox}/>
+        }
+
+        {uploadSuccess && 
+            <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            transition={{ duration: 0.3 }}
+            className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-[#F2F2F2] bg-opacity-50"
+          >
+            <div className="bg-[#ffff] px-8 py-6 rounded-3xl text-center">
+              <p className="text-2xl font-semibold mb-4">Manifest Uploaded successfully!</p>
+              <div className="flex justify-center space-x-4">
+                <button onClick={handleModalOK} className="bg-[#4000FF] text-white px-6 py-1 rounded-full">OK</button>
+              </div>
+            </div>
+          </motion.div>
         }
     </div>
   )

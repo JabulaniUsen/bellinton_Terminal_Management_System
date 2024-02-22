@@ -192,7 +192,6 @@ function AddVessel() {
         <button onClick={handleViewDetails} className='bg-[#4000FF] px-8 absolute bottom-[-4rem] right-0 py-1 rounded-lg text-white'>Create Vessel</button>
       </form>
 
-      {/* Success Modal */}
       {showSuccessModal && (
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}

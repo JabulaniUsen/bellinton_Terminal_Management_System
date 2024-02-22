@@ -1,11 +1,15 @@
 import { useState } from "react";
 import UploadBox from "./UploadBox";
+import { motion } from 'framer-motion';
+
 
 const ViewManifest = () => {
   const [showManifestData, setShowManifestData] = useState(true);
   const [cargoId, setCargoId] = useState("");
   const [errorText, setErrorText] = useState(false);
   const [showUpload, setShowUpload] = useState(false)
+  const [uploadSuccess, setUploadSuccess] = useState(false)
+
 
   const manifestData = [
     { cargoId: 1, description: 'Item 1', quantity: 10, weight: 50, destination: 'Destination 1', status: 'Pending', remarks: 'None', category: 'Electronics' },
@@ -30,10 +34,14 @@ const ViewManifest = () => {
   
   const closeUploadBox = () => {
     setShowUpload(false);
+    setUploadSuccess(true) 
   };
   const handleUpload = () => {
     setShowUpload(!showUpload);
   }
+  const handleModalOK = () => {
+    setUploadSuccess(false);
+  };
 
   return (
     <div className='p-10 roboto '>
@@ -69,9 +77,9 @@ const ViewManifest = () => {
 
       <div className={`my-10 mx-5 ${!showManifestData ? '' : 'hidden'}`}>
         <div className="manifestDetails">
-          <p>Manifest ID: <span>MAN-2024-001</span></p>
-          <p>Date: <span>February 17, 2024</span></p>
-          <p>Terminal: <span>Port of Lagos</span></p>
+          <p className="font-semibold">Manifest ID: <span className="font-normal">MAN-2024-001</span></p>
+          <p className="font-semibold">Date: <span className="font-normal">February 17, 2024</span></p>
+          <p className="font-semibold">Terminal: <span className="font-normal">Port of Lagos</span></p>
         </div>
 
         <div className="table overflow-x-auto my-10">
@@ -108,6 +116,22 @@ const ViewManifest = () => {
       { showUpload &&
         <UploadBox closeUploadBox={closeUploadBox}/>
       }
+              {uploadSuccess && 
+            <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            transition={{ duration: 0.3 }}
+            className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-[#F2F2F2] bg-opacity-50"
+          >
+            <div className="bg-[#ffff] px-8 py-6 rounded-3xl text-center">
+              <p className="text-2xl font-bold mb-4">Manifest Uploaded successfully!</p>
+              <div className="flex justify-center space-x-4">
+                <button onClick={handleModalOK} className="bg-[#4000FF] text-white px-6 py-1 rounded-full">OK</button>
+              </div>
+            </div>
+          </motion.div>
+        }
     </div>
   );
 };
