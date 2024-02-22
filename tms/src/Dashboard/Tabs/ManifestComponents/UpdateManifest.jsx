@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import SuccessBox from './SuccessBox';
 
 
-const CreateManifest = () => {
+const UpdateManifest = () => {
   const [cargoId, setCargoId] = useState('');
   const [vesselId, setVesselId] = useState('');
   const [origin, setOrigin] = useState('');
@@ -60,76 +60,25 @@ const CreateManifest = () => {
   return (
     <div className='m-10'>
         <div className="head flex justify-between">
-            <h3 className='text-2xl font-bold'>Create Manifest</h3>
+            <h3 className='text-2xl font-bold'>Update Manifest</h3>
             <button className='text-[#0095FF] underline text-lg' onClick={handleUpload}>Upload Manifest</button>
         </div>
 
-        <div className="my-10 mx-5">
-            <div className="">
-                <h4 className='text-lg font-semibold py-1 border-b-[1px] border-[#999999]'>Add Container to Manifest</h4>
-            </div>
+        <div className="mb-10 mx-5">
 
-            <div className="body my-5 grid grid-cols-2 gap-20">
-                <div className="col1 flex flex-col gap-4">
-                    <div className="flex justify-between items-center">
-                        <label htmlFor="name" className='font-semibold text-base'>Cargo/BL ID:</label>
-                        <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <input type="text" className='outline-none w-full' />
-                            <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
-                        </div>
-                    </div>
-                    <div className="flex justify-between items-center">
-                        <label htmlFor="name" className='font-semibold text-base'>Vessel ID:</label>
-                        <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <input type="text" className='outline-none w-full' />
-                            <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
-                        </div>
-                    </div>
-                    <div className="containerSize flex flex-col gap-3">
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="10FT" id="10FT" />
-                            <label htmlFor="name" className='text-base'>10FT</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="20FT" id="20FT" />
-                            <label htmlFor="name" className='text-base'>20FT</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="40FT" id="40FT" />
-                            <label htmlFor="name" className='text-base'>40FT</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="45FT" id="45FT" />
-                            <label htmlFor="name" className='text-base'>45FT</label>
-                        </div>
-                    </div>
-                </div> 
-                <div className="col2 flex flex-col gap-4">
-                    <div className="flex justify-between items-center">
-                        <label htmlFor="name" className='font-semibold text-base'>Origin:</label>
-                        <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <input type="text" className='outline-none w-full' />
-                        </div>
-                    </div>
-                    <div className="flex justify-between items-center">
-                        <label htmlFor="name" className='font-semibold text-base'>Destination:</label>
-                        <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <input type="text" className='outline-none w-full' />
-                        </div>
-                    </div>
-                    <div className="flex justify-between items-center">
-                        <label htmlFor="name" className='font-semibold text-base'>Status:</label>
-                        <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <input type="text" className='outline-none w-full' />
-                        </div>
-                    </div>
+            <div className="flex justify-between items-center w-[500px] my-7">
+                <label htmlFor="name" className='font-semibold text-lg'>Select Cargo ID to update:</label>
+                <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
+                    <select name="" id="" className='outline-none w-[250px]'>
+                        <option value="Option1"></option>
+                        <option value="Option2">Option2</option>
+                        <option value="Option3">Option3</option>
+                    </select>
                 </div>
             </div>
-        </div>
 
-        <div className="my-10 mx-5">
             <div className="">
-                <h4 className='text-lg font-semibold py-1 border-b-[1px] border-[#999999]'>BL Level Information</h4>
+                <h4 className='text-lg font-semibold py-1 border-b-[1px] border-[#999999]'>Update BL Level Information</h4>
             </div>
 
             <div className="body my-5 grid grid-cols-2 gap-20">
@@ -177,10 +126,9 @@ const CreateManifest = () => {
             </div>
         </div>
 
-
         <div className="my-10 mx-5">
             <div className="">
-                <h4 className='text-lg font-semibold py-1 border-b-[1px] border-[#999999]'>Cargo Level Information</h4>
+                <h4 className='text-lg font-semibold py-1 border-b-[1px] border-[#999999]'>Update Cargo Level Information</h4>
             </div>
 
             <div className="body my-5 grid grid-cols-2 gap-20">
@@ -217,7 +165,7 @@ const CreateManifest = () => {
                         <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                             {/* <input type="text" className='outline-none w-full' /> */}
                             <select name="" id="" className='outline-none w-[180px]'>
-                                <option value="">Select</option>
+                                <option value="Option 1"></option>
                                 <option value="Option3">Option1</option>
                                 <option value="Option2">Option2</option>
                                 <option value="Option3">Option3</option>
@@ -227,13 +175,15 @@ const CreateManifest = () => {
                 </div>
 
             </div>
-
-
         </div>
-        <div className="buttons flex gap-5 justify-center items-center my-20">
-            <button className='text-white bg-[#000] px-10 py-1 rounded-lg'>Add another item</button>
-            <button className='text-white bg-[#637381] px-10 py-1 rounded-lg'>Remove just added</button>
-            <button className='text-white bg-[#4000FF] px-10 py-1 rounded-lg' onClick={handleSubmit}>Submit</button>
+
+        <div className="flex items-center gap-2 justify-center mt-10">
+            <input type="checkbox" name="" id="" />
+            <p>I agree to commit all the changes to this manifest.</p>
+        </div>
+        <div className="buttons flex gap-5 justify-center items-center my-10">
+            <button className='text-white bg-[#4000FF] px-10 py-1 rounded-lg' onClick={handleSubmit}>Complete Manifest Amendment</button>
+            <button className='text-white bg-[#637381] px-10 py-1 rounded-lg'>Reset</button>
         </div>
 
         { showUpload &&
@@ -247,4 +197,4 @@ const CreateManifest = () => {
   )
 }
 
-export default CreateManifest
+export default UpdateManifest

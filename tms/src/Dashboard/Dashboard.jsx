@@ -26,6 +26,7 @@ import LockVessel from './Tabs/VesselComponents/LockVessel';
 import ViewManifest from './Tabs/ManifestComponents/ViewManifest';
 import CreateManifest from './Tabs/ManifestComponents/CreateManifest';
 import LockManifest from './Tabs/ManifestComponents/LockManifest';
+import UpdateManifest from './Tabs/ManifestComponents/UpdateManifest';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -175,7 +176,7 @@ const Dashboard = () => {
           {/* Manifest  */}
           {activeTab === 9 && <ViewManifest/>}
           {activeTab === 10 && <CreateManifest/>}
-          
+          {activeTab === 11 && <UpdateManifest/>}
           {activeTab === 12 && <LockManifest/>}
 
 
