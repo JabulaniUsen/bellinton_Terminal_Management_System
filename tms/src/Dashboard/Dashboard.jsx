@@ -17,7 +17,7 @@ import {
 import Header from './Components/Header';
 import Home from './Tabs/Home';
 import Operations from './Tabs/Operations';
-import TabContent4 from './Tabs/TabContent4';
+import TabContent4 from './Tabs/Finance';
 import Vessel from './Tabs/Vessel';
 import ViewVessels from './Tabs/VesselComponents/ViewVessels';
 import AddVessel from './Tabs/VesselComponents/AddVessel';
@@ -27,6 +27,7 @@ import ViewManifest from './Tabs/ManifestComponents/ViewManifest';
 import CreateManifest from './Tabs/ManifestComponents/CreateManifest';
 import LockManifest from './Tabs/ManifestComponents/LockManifest';
 import UpdateManifest from './Tabs/ManifestComponents/UpdateManifest';
+import Finance from './Tabs/Finance';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -166,6 +167,7 @@ const Dashboard = () => {
         <div className="flex-grow">
           {activeTab === 1 && <Home />}
           {activeTab === 2 && <Operations />}
+          {activeTab === 3 && <Finance/>}
 
           {/* Vessel */}
           {activeTab === 5 && <Vessel />}
