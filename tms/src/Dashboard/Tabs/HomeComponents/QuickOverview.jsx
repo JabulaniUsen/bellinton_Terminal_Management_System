@@ -1,14 +1,16 @@
 import React from 'react'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import circleAlert from '../../../assets/alert-circle.png'
+import CircularBar from 'react-multicolor-circular-progress-bar';
 
 const percentage = 66;
 
 const QuickOverview = () => {
   return (
     <div className=''>
-        <div className="grid grid-cols-2">
-            <div className="container-shadow rounded-3xl p-7 m-6">
+        <div className="flex justify-between items-center">
+            <div className="container-shadow rounded-3xl p-7 mx-6">
                 <h2 className='text-xl font-bold poppins'>Quick Overview</h2>
                 <div className="flex flex-col">
                     <div className=" flex items-center gap-[4.9rem]">
@@ -46,17 +48,45 @@ const QuickOverview = () => {
                     </div>
                 </div>
             </div>
-            <div className="">
-                <div className="progressBar">
-                    <div style={{ width: 300, height: 300 }}>
-                        <CircularProgressbar 
-                        value={66}
-                        styles={buildStyles({
-                            // Colors
-                            pathColor: 'linear-gradient(90deg, #4000ff, #212b36)',
-                            trailColor: '#edeff2',
-                        })}
-                        />
+            <div className="w-[400px] flex ">
+                {/* <div className="">
+                    <CircularBar
+                        scale={2}
+                        angleTransition={[180]}
+                        colors={['#7459D9','#b9acec', '#FF974A']}
+                        stroke={ {color:'', width:5}}
+                    />
+                </div> */}
+                <div className="">
+                    <div className="head flex items-center gap-1">
+                        <h3 className='text-xl'>Key Activities</h3>
+                        <img src={circleAlert} alt="" />
+                    </div>
+
+                    <div className="body poppins flex flex-col gap-8 my-10">
+                        <div className="flex item gap-5 items-center">
+                            <div className='bg-[#7459D9] h-[4.5px] w-9 rounded-full'></div>
+                            <div className="">
+                                <p>Overdue Payments</p>
+                                <p className='font-semibold'>N3,124,213</p>
+                            </div>
+                        </div>
+
+                        <div className="flex item gap-5 items-center">
+                            <div className='bg-[#b9acec] h-[4.5px] w-9 rounded-full'></div>
+                            <div className="">
+                                <p>Uncollected Containers</p>
+                                <p className='font-semibold'>1,523</p>
+                            </div>
+                        </div>
+
+                        <div className="flex item gap-5 items-center">
+                            <div className='bg-[#7459D9] h-[4.5px] w-9 rounded-full'></div>
+                            <div className="">
+                                <p>Vessels Arriving Soon</p>
+                                <p className='font-semibold'>213</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

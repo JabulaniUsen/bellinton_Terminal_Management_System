@@ -3,13 +3,13 @@ import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 
 const DciChart = () => {
   const lineData = [
-    { name: 'Page A', pageViews: 20, uniqueVisitors: 40, sales: 50, },
-    { name: 'Page B', pageViews: 25, uniqueVisitors: 50, sales: 38, },
-    { name: 'Page C', pageViews: 28, uniqueVisitors: 38, sales: 54, },
-    { name: 'Page D', pageViews: 25, uniqueVisitors: 60, sales: 45, },
-    { name: 'Page E', pageViews: 30, uniqueVisitors: 40, sales: 60, },
-    { name: 'Page F', pageViews: 37, uniqueVisitors: 48, sales: 33, },
-    { name: 'Page G', pageViews: 20, uniqueVisitors: 20, sales: 50, },
+    { name: 'Jan', pageViews: 20, uniqueVisitors: 40, sales: 50, },
+    { name: 'Mar', pageViews: 25, uniqueVisitors: 50, sales: 38, },
+    { name: 'May', pageViews: 28, uniqueVisitors: 38, sales: 54, },
+    { name: 'July', pageViews: 25, uniqueVisitors: 60, sales: 45, },
+    { name: 'Sep', pageViews: 30, uniqueVisitors: 40, sales: 60, },
+    { name: 'Nov', pageViews: 37, uniqueVisitors: 48, sales: 33, },
+    { name: 'Dec', pageViews: 20, uniqueVisitors: 20, sales: 50, },
   ];
 
   const renderBar = (props) => {
