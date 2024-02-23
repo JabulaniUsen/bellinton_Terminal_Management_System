@@ -8,6 +8,7 @@ import TermsAndConditions from './CreateAccount/TermsAndConditions';
 import Credentials from './CreateAccount/Credentials';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 function CreateAccount() {
   const [activeTab, setActiveTab] = useState('personalInfo'); // Initial active tab
@@ -130,9 +131,11 @@ function CreateAccount() {
               Next <FontAwesomeIcon icon={faAngleRight} className='px-2 py-[0.3rem] rounded-full border-[4px] font-bold' />
             </button>
           ) : (
-            <button className='bg-[#20007F] py-3 px-5 rounded-xl text-white roboto font-semibold flex items-center gap-10' onClick={handleNextButtonClick}>
-              Agree, Next <FontAwesomeIcon icon={faAngleRight} className='px-2 py-[0.3rem] rounded-full border-[4px] font-bold' />
-            </button>
+            <Link to='/signin'>
+              <button className='bg-[#20007F] py-3 px-5 rounded-xl text-white roboto font-semibold flex items-center gap-10' onClick={handleNextButtonClick}>
+                Agree, Next <FontAwesomeIcon icon={faAngleRight} className='px-2 py-[0.3rem] rounded-full border-[4px] font-bold' />
+              </button>
+            </Link>
           )}
         </div>
       </div>

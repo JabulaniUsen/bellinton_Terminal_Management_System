@@ -96,7 +96,7 @@ function ManageVoyage() {
               </div>
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>Total Containers on Board:</label>
-                <input type="text" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[400px]' name="id" id="" placeholder="Enter the name if the shipping company..." />
+                <input type="text" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[282px]' name="id" id="" placeholder="Enter the name if the shipping company..." />
               </div>
             </div>
           </div>
@@ -107,7 +107,7 @@ function ManageVoyage() {
 
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>Update ETA:</label>
-                <input type="number" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[400px]' name="id" id="" placeholder="Enter your vessel ID..." />
+                <input type="number" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[383px]' name="id" id="" placeholder="Enter your vessel ID..." />
               </div>
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>ETA (Estimated Time of Arrival):</label>
@@ -115,7 +115,7 @@ function ManageVoyage() {
               </div>
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>Update Status:</label>
-                <input type="text" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[400px]' name="id" id="" placeholder="Enter the name if the shipping company..." />
+                <input type="text" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[366px]' name="id" id="" placeholder="Enter the name if the shipping company..." />
               </div>
             </div>
           </div>
@@ -123,7 +123,7 @@ function ManageVoyage() {
           {/* stops */}
           <div className="routingDetails">
             <h3 className='text-lg font-semibold my-5'>Route Details:</h3>
-            <div className="vesselInformation roboto grid grid-cols-2 gap-y-5">
+            <div className="vesselInformation roboto grid grid-cols-2 place-items-baseline gap-y-5">
                 <div className="route flex items-center gap-3">
                   <label htmlFor="" className='text-[1em]'>Origin Port</label>
                   <input

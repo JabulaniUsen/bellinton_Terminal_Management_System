@@ -85,8 +85,12 @@ function Signin() {
             </div>
           </div>
           <div className="btns flex gap-7 items-center justify-center my-2">
-            <button type="submit" className='rounded-lg bg-[#20007F] px-[34px] py-[15px] text-white font-semibold'>Sign in</button>
-            <button className='rounded-lg bg-[#20007F] px-[34px] py-[15px] text-white font-semibold'>Create Account</button>
+            <Link to='/dashboard'>
+              <button type="submit" className='rounded-lg bg-[#20007F] px-[34px] py-[15px] text-white font-semibold'>Sign in</button>
+            </Link>
+            <Link to='/'> 
+              <button className='rounded-lg bg-[#20007F] px-[34px] py-[15px] text-white font-semibold'>Create Account</button>
+            </Link>
           </div>
           <Link to='/forgotten-password'>
             <div className="forgotPaasword flex gap-2 items-center justify-center cursor-pointer">
