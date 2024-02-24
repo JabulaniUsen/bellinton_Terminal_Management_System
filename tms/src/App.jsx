@@ -11,8 +11,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<CreateAccount />} />
-        <Route path='/signin' element={<Signin/>} />
+        <Route path="/create-account" element={<CreateAccount />} />
+        <Route path='/' element={<Signin/>} />
         <Route path='/forgotten-password' element={<ForgottenPassword/>} />
         <Route path='/reset-password-instructions' element={<PasswordResetInstructions/>} />
         <Route path='/change-password' element={<ChangePassword/>} />

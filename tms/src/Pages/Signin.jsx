@@ -88,7 +88,7 @@ function Signin() {
             <Link to='/dashboard'>
               <button type="submit" className='rounded-lg bg-[#20007F] px-[34px] py-[15px] text-white font-semibold'>Sign in</button>
             </Link>
-            <Link to='/'> 
+            <Link to='/create-account'> 
               <button className='rounded-lg bg-[#20007F] px-[34px] py-[15px] text-white font-semibold'>Create Account</button>
             </Link>
           </div>

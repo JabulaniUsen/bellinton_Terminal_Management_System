@@ -81,7 +81,7 @@ function AddVessel() {
         <form className='my-7 mx-5 flex gap-12 relative'>
         <div className="flex flex-col gap-12">
           <div className="viewinfo">
-            <h3 className='text-lg font-semibold my-5'>View Information</h3>
+            <h3 className='text-lg font-semibold my-5'>Vessel Information</h3>
             <div className="vesselInformation roboto flex flex-col gap-10">
 
               <div className="flex items-center gap-3">
@@ -90,7 +90,7 @@ function AddVessel() {
               </div>
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>ETA (Estimated Time of Arrival):</label>
-                <input type="number" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[243px]' name="id" id="" placeholder="Enter the estimated time of arrival..." />
+                <input type="date" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[243px]' name="id" id="" placeholder="Enter the estimated time of arrival..." />
               </div>
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>Company:</label>
@@ -124,7 +124,7 @@ function AddVessel() {
         </div>
 
         <div className="">
-          <h3 className='text-lg font-semibold my-5'>Container Details:</h3>
+          <h3 className='text-lg font-semibold my-5'>Cargo Details:</h3>
           <div className="containerType flex flex-col gap-8">
               <div>
                 <label htmlFor="" className='text-[1em] '>Total Containers on Board:</label>
@@ -142,7 +142,7 @@ function AddVessel() {
               <div>
                 <label htmlFor="" className='text-[1em] '>ETD (Estimated Time of Departure):</label>
                 <div className=" border-[#828282] border-[1px] my-2 rounded-lg p-3 flex items-center">
-                  <input type="text" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter input..." />
+                  <input type="date" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter input..." />
                 </div>
               </div>
           </div>
@@ -169,23 +169,23 @@ function AddVessel() {
           <h3 className='text-lg font-semibold my-5'>Container Details:</h3>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">Regular</label>
-                  <input type="text" className='w-[150px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+                  <input type="text" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
                 </div>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">OOG</label>
-                  <input type="text" className='w-[150px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+                  <input type="text" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
                 </div>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">OTFR</label>
-                  <input type="text" className='w-[150px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+                  <input type="text" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
                 </div>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">Reefer</label>
-                  <input type="text" className='w-[150px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+                  <input type="text" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
                 </div>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">Hazardous</label>
-                  <input type="text" className='w-[150px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+                  <input type="text" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
                 </div>
               </div>
         </div>

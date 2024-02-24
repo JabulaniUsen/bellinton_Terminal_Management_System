@@ -131,7 +131,7 @@ function CreateAccount() {
               Next <FontAwesomeIcon icon={faAngleRight} className='px-2 py-[0.3rem] rounded-full border-[4px] font-bold' />
             </button>
           ) : (
-            <Link to='/signin'>
+            <Link to='/'>
               <button className='bg-[#20007F] py-3 px-5 rounded-xl text-white roboto font-semibold flex items-center gap-10' onClick={handleNextButtonClick}>
                 Agree, Next <FontAwesomeIcon icon={faAngleRight} className='px-2 py-[0.3rem] rounded-full border-[4px] font-bold' />
               </button>

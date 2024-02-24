@@ -55,7 +55,7 @@ const Dashboard = () => {
           {subButtons.map((subButton) => (
             <button
               key={subButton.label}
-              className="block w-full text-left py-2 px-4 hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
+              className="block w-full text-left py-2 px-4 rounded-md hover:bg-[#360bb8]"
               onClick={() => setActiveTab(subButton.tabNumber)}
             >
               {subButton.label}
