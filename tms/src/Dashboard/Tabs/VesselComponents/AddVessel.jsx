@@ -75,9 +75,6 @@ function AddVessel() {
         <h2 className='text-3xl font-bold'>Add Vessels</h2>
       </div>
 
-      {/* { showViewVessels ? (
-        <ViewVessels/> 
-      ):( */}
         <form className='my-7 mx-5 flex gap-12 relative'>
         <div className="flex flex-col gap-12">
           <div className="viewinfo">

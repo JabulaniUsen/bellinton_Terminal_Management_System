@@ -19,7 +19,6 @@ import Home from './Tabs/Home';
 import Operations from './Tabs/Operations';
 import TabContent4 from './Tabs/Finance';
 import Vessel from './Tabs/Vessel';
-import ViewVessels from './Tabs/VesselComponents/ViewVessels';
 import AddVessel from './Tabs/VesselComponents/AddVessel';
 import ManageVoyage from './Tabs/VesselComponents/ManageVoyage';
 import LockVessel from './Tabs/VesselComponents/LockVessel';

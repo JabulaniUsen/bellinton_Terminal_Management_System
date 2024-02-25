@@ -9,6 +9,7 @@ const ViewManifest = () => {
   const [errorText, setErrorText] = useState(false);
   const [showUpload, setShowUpload] = useState(false)
   const [uploadSuccess, setUploadSuccess] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('');
 
 
   const manifestData = [
@@ -16,21 +17,26 @@ const ViewManifest = () => {
     { cargoId: 2, description: 'Item 2', quantity: 5, weight: 30, destination: 'Destination 2', status: 'Shipped', remarks: 'Fragile', category: 'Clothing' },
   ];
 
-  const getManifestData = () => {
-    if (cargoId.trim() !== "") {
-      setShowManifestData(false);
-      setErrorText(false);
-    } else {
-      setErrorText(true);
-      setShowManifestData(true);
-    }
-  };
+  const filteredData = manifestData.filter((rowData) =>
+  String(rowData.cargoId).toLowerCase().includes(searchQuery.toLowerCase())
+);
+
+
+const getManifestData = () => {
+  if (searchQuery.trim() !== "") {
+    // Update the logic to filter the data based on searchQuery
+    setShowManifestData(false);
+    setErrorText(false);
+  } else {
+    setErrorText(true);
+  }
+};
 
   
-  const handleInputChange = (e) => {
-    setCargoId(e.target.value);
-    setErrorText(false); 
-  };
+  // const handleInputChange = (e) => {
+  //   setCargoId(e.target.value);
+  //   setErrorText(false); 
+  // };
   
   const closeUploadBox = () => {
     setShowUpload(false);
@@ -50,7 +56,7 @@ const ViewManifest = () => {
         <button className='text-[#0095FF] underline text-lg' onClick={handleUpload}>Upload Manifest</button>
       </div>
 
-      <div className={`${!showManifestData ? 'hidden' : ''}`}>
+      <div >
         <div className="flex justify-between items-center">
           <div className="">
             <div className="flex gap-2 my-10 mx-5">
@@ -58,8 +64,8 @@ const ViewManifest = () => {
               <div className="">
                 <input
                   type="text"
-                  onChange={handleInputChange}
-                  value={cargoId}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   className='border-[1px] border-[#8f8f8f] outline-none p-2 w-[300px] rounded '
                   id="cargoid"
                   name="cargoid"
@@ -75,48 +81,52 @@ const ViewManifest = () => {
         </div>
       </div>
 
-      <div className={`my-10 mx-5 ${!showManifestData ? '' : 'hidden'}`}>
-        <div className="manifestDetails">
-          <p className="font-semibold">Manifest ID: <span className="font-normal">MAN-2024-001</span></p>
+      <div className={`my-10 mx-5 `}>
+        {filteredData.map((rowData, index) => (
+          <div className="manifestDetails">
+          <p className="font-semibold">Cargo ID: <span className="font-normal">{rowData.cargoId}</span></p>
           <p className="font-semibold">Date: <span className="font-normal">February 17, 2024</span></p>
           <p className="font-semibold">Terminal: <span className="font-normal">Port of Lagos</span></p>
         </div>
+        ))}
 
-        <div className="table overflow-x-auto my-10">
-          <table className="border border-collapse">
-            <thead>
-              <tr>
-                <th className="border border-black p-2">Cargo ID</th>
-                <th className="border border-black p-2">Shipper Name</th>
-                <th className="border border-black p-2">Shipper Address</th>
-                <th className="border border-black p-2">Consignee Name</th>
-                <th className="border border-black p-2">Consignee Address</th>
-                <th className="border border-black p-2">Seal No.</th>
-                <th className="border border-black p-2">Package Qty</th>
-                <th className="border border-black p-2">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {manifestData.map((item, index) => (
-                <tr key={index}>
-                  <td className="border border-black p-2">{item.cargoId}</td>
-                  <td className="border border-black p-2">{item.description}</td>
-                  <td className="border border-black p-2">{item.quantity}</td>
-                  <td className="border border-black p-2">{item.weight}</td>
-                  <td className="border border-black p-2">{item.destination}</td>
-                  <td className="border border-black p-2">{item.status}</td>
-                  <td className="border border-black p-2">{item.remarks}</td>
-                  <td className="border border-black p-2">{item.category}</td>
+{showManifestData && (
+          <div className="table overflow-x-auto my-10">
+            <table className="border border-collapse">
+              <thead>
+                <tr>
+                  <th className="border border-black p-2">Cargo ID</th>
+                  <th className="border border-black p-2">Description</th>
+                  <th className="border border-black p-2">Quantity</th>
+                  <th className="border border-black p-2">Weight</th>
+                  <th className="border border-black p-2">Destination</th>
+                  <th className="border border-black p-2">Status</th>
+                  <th className="border border-black p-2">Remarks</th>
+                  <th className="border border-black p-2">Category</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {filteredData.map((rowData, index) => (
+                  <tr key={index}>
+                    <td className="border border-black p-2">{rowData.cargoId}</td>
+                    <td className="border border-black p-2">{rowData.description}</td>
+                    <td className="border border-black p-2">{rowData.quantity}</td>
+                    <td className="border border-black p-2">{rowData.weight}</td>
+                    <td className="border border-black p-2">{rowData.destination}</td>
+                    <td className="border border-black p-2">{rowData.status}</td>
+                    <td className="border border-black p-2">{rowData.remarks}</td>
+                    <td className="border border-black p-2">{rowData.category}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
       { showUpload &&
         <UploadBox closeUploadBox={closeUploadBox}/>
       }
-              {uploadSuccess && 
+          {uploadSuccess && 
             <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}

@@ -1,10 +1,9 @@
 import { faLeaf, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
-import ViewVessels from './VesselComponents/ViewVessels';
 import filter from '../../assets/filter.png'
 
-function Vessel() {
+function Vessel () {
   const [vesselId, setVesselId] = useState('');
   const [eta, setEta] = useState('');
   const [company, setCompany] = useState('');
@@ -21,8 +20,8 @@ function Vessel() {
   const [inTransit, setInTransit] = useState(false);
   const [awaitingDelivery, setAwaitingDelivery] = useState(false);
   const [discharged, setDischarged] = useState(false);
-  const [showViewVessels, setShowViewVessels] = useState(false);
   const [filterMode, setFilterMode] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('');
 
 
   const handleCloseViewVessels = () => {
@@ -30,7 +29,6 @@ function Vessel() {
   };
   const handleViewDetails = (e) => {
     e.preventDefault()
-    // Handle the button click and access the form field values here
     console.log({
       vesselId,
       eta,
@@ -49,7 +47,7 @@ function Vessel() {
       awaitingDelivery,
       discharged,
     });
-
+    setSearchQuery(e.target.value);
     setShowViewVessels(true);
   };
 
@@ -59,6 +57,26 @@ function Vessel() {
   const undoHandleFilter = () => {
     setFilterMode(false)
   }
+
+  const vessselsData = [
+    { vesselId: 'VSL001', name: 'Ocean Voyager', eta: '9/5/2023 8:00', etd: '9/10/2023 8:00', status: 'In Transit', totalContainer: '150', action: '[View Details]' },
+    { vesselId: 'VSL002', name: 'Nautical Spirit', eta: '9/7/2023 14:00', etd: '-', status: 'At Port', totalContainer: '120', action: '[View Details]' },
+    { vesselId: 'VSL003', name: 'Ocean Voyager', eta: '9/5/2023 8:00', etd: '9/10/2023 8:00', status: 'In Transit', totalContainer: '150', action: '[View Details]' },
+    { vesselId: 'VSL004', name: 'Nautical Spirit', eta: '9/7/2023 14:00', etd: '-', status: 'At Port', totalContainer: '120', action: '[View Details]' },
+    { vesselId: 'VSL005', name: 'Ocean Voyager', eta: '9/5/2023 8:00', etd: '9/10/2023 8:00', status: 'In Transit', totalContainer: '150', action: '[View Details]' },
+    { vesselId: 'VSL006', name: 'Nautical Spirit', eta: '9/7/2023 14:00', etd: '-', status: 'At Port', totalContainer: '120', action: '[View Details]' },
+  ];
+
+  const filteredData = vessselsData.filter (
+    (rowData) => 
+    rowData.vesselId.toLowerCase().includes(searchQuery.toLowerCase())
+    // rowData.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    // rowData.eta.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    // rowData.etd.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    // rowData.status.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    // rowData.totalContainer.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    // rowData.action.toLowerCase().includes(searchQuery.toLowerCase())
+  )
 
   return (
     <div className='p-10 roboto'>
@@ -79,7 +97,7 @@ function Vessel() {
                   <div className="flex items-center gap-3 ">
                     <label htmlFor="" className='text-[1em] '>Vessel ID:</label>
                     <div className=" border-[#828282] border-[1px] rounded-lg p-3 w-[347px] flex items-center">
-                      <input type="text" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your vessel ID..." />
+                      <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} type="text" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your vessel ID..." />
                       <FontAwesomeIcon icon={faMagnifyingGlass} />
                     </div>
                     <img src={filter} className='cursor-pointer' onClick={handleFilter} alt="" />
@@ -87,7 +105,7 @@ function Vessel() {
                 </div>
               </div>
             </div>
-          <button onClick={handleViewDetails} className='bg-[#4000FF] px-8  py-1 rounded-lg text-white w-[200px] flex-1 m-auto'>View Details</button>
+          {/* <button onClick={handleViewDetails} className='bg-[#4000FF] px-8  py-1 rounded-lg text-white w-[200px] flex-1 m-auto'>View Details</button> */}
           </div>
         </form>
       )}
@@ -104,7 +122,7 @@ function Vessel() {
                     <div className="flex items-center gap-3 ">
                       <label htmlFor="" className='text-[1em] '>Vessel ID:</label>
                       <div className=" border-[#828282] border-[1px] rounded-lg p-3 w-[347px] flex items-center">
-                        <input type="text" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your vessel ID..." />
+                        <input value={searchQuery} type="text" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your vessel ID..." />
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                       </div>
                       <img src={filter} className='cursor-pointer' onClick={undoHandleFilter} alt="" />
@@ -115,17 +133,17 @@ function Vessel() {
                         <label htmlFor="" className='text-[1em]'>ETA (Estimated Time of Arrival):</label>
                         <div className="flex gap-2">
                           <div className=" my-2 border-[#828282] border-[1px] rounded-lg p-3 w-[320px] flex items-center">
-                            <input type="date" className='bg-transparent outline-none w-full' name="id" id="" />
+                            <input value={searchQuery} type="date" className='bg-transparent outline-none w-full' name="id" id="" />
                           </div>
                           <div className=" my-2 border-[#828282] border-[1px] rounded-lg p-3  flex items-center">
-                            <input type="time" className='bg-transparent outline-none w-full' name="id" id="" />
+                            <input value={searchQuery} type="time" className='bg-transparent outline-none w-full' name="id" id="" />
                           </div>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
                         <label htmlFor="" className='text-[1em] '>Company:</label>
                         <div className=" border-[#828282] border-[1px] rounded-lg p-3 w-[347px] flex items-center">
-                          <input type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter shipping line..." />
+                          <input value={searchQuery} type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter shipping line..." />
                         </div>
                       </div>
                     </div>
@@ -172,23 +190,23 @@ function Vessel() {
               <div className="containerType flex flex-col gap-8">
                   <div className="inputs">
                     <div className="">
-                      <input type="checkbox" className='w-[30px]' name="" id="" />
+                      <input value={searchQuery} type="checkbox" className='w-[30px]' name="" id="" />
                       <label htmlFor="">Regular</label>
                     </div>
                     <div className="">
-                      <input type="checkbox" className='w-[30px]' name="" id="" />
+                      <input value={searchQuery} type="checkbox" className='w-[30px]' name="" id="" />
                       <label htmlFor="">OOG</label>
                     </div>
                     <div className="">
-                      <input type="checkbox" className='w-[30px]' name="" id="" />
+                      <input value={searchQuery} type="checkbox" className='w-[30px]' name="" id="" />
                       <label htmlFor="">OTFR</label>
                     </div>
                     <div className="">
-                      <input type="checkbox" className='w-[30px]' name="" id="" />
+                      <input value={searchQuery} type="checkbox" className='w-[30px]' name="" id="" />
                       <label htmlFor="">Reefer</label>
                     </div>
                     <div className="">
-                      <input type="checkbox" className='w-[30px]' name="" id="" />
+                      <input value={searchQuery} type="checkbox" className='w-[30px]' name="" id="" />
                       <label htmlFor="">Hazardous</label>
                     </div>
                   </div>
@@ -196,17 +214,17 @@ function Vessel() {
                   <div>
                     <label htmlFor="" className='text-[1em] '>Vessel Name:</label>
                     <div className=" border-[#828282] border-[1px] rounded-lg p-3 w-[347px] flex items-center">
-                      <input type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your vessel name..." />
+                      <input value={searchQuery} type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your vessel name..." />
                     </div>
                   </div>
                   <div>
                     <label htmlFor="" className='text-[1em] '>ETD (Estimated Time of Departure):</label>
                     <div className="flex gap-2">
                         <div className=" my-2 border-[#828282] border-[1px] rounded-lg p-3 w-[240px] flex items-center">
-                          <input type="date" className='bg-transparent outline-none w-full' name="id" id="" />
+                          <input value={searchQuery} type="date" className='bg-transparent outline-none w-full' name="id" id="" />
                         </div>
                         <div className=" my-2 border-[#828282] border-[1px] rounded-lg p-3  flex items-center">
-                          <input type="time" className='bg-transparent outline-none w-full' name="id" id="" />
+                          <input value={searchQuery} type="time" className='bg-transparent outline-none w-full' name="id" id="" />
                         </div>
                       </div>
                   </div>
@@ -216,15 +234,15 @@ function Vessel() {
                 <h3 className='text-[#808080] text-xl mt-5 mb-3'>Status:</h3>
                 <div className="inputs">
                   <div className="">
-                    <input type="checkbox" className='w-[30px]' name="" id="" />
+                    <input value={searchQuery} type="checkbox" className='w-[30px]' name="" id="" />
                     <label htmlFor="">In Transit</label>
                   </div>
                   <div className="">
-                    <input type="checkbox" className='w-[30px]' name="" id="" />
+                    <input value={searchQuery} type="checkbox" className='w-[30px]' name="" id="" />
                     <label htmlFor="">Awaiting Delivery</label>
                   </div>
                   <div className="">
-                    <input type="checkbox" className='w-[30px]' name="" id="" />
+                    <input value={searchQuery} type="checkbox" className='w-[30px]' name="" id="" />
                     <label htmlFor="">Discharged</label>
                   </div>
                 </div>
@@ -238,7 +256,32 @@ function Vessel() {
 
 
         <div className=" flex items-center justify-center">
-          <ViewVessels onClose={handleCloseViewVessels} />
+          <table className='border border-bl bg-black text-white w-full mt-[4rem]'>
+            <thead>
+              <tr>
+                <th className='py-3'>Vessel ID</th>
+                <th className='py-3'>Vessel Name</th>
+                <th className='py-3'>ETA</th>
+                <th className='py-3'>ETD</th>
+                <th className='py-3'>Status</th>
+                <th className='py-3'>Total Containers</th>
+                <th className='py-3'>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredData.map ((rowData, index) => (
+                <tr key={index} style={{ backgroundColor: index % 2 === 0 ? 'white' : 'black', color: index % 2 === 0 ? 'black' : 'white' }}>
+                  <td className='p-4'>{rowData.vesselId}</td>
+                  <td className='p-4'>{rowData.name}</td>
+                  <td className='p-4'>{rowData.eta}</td>
+                  <td className='p-4'>{rowData.etd}</td>
+                  <td className='p-4'>{rowData.status}</td>
+                  <td className='p-4'>{rowData.totalContainer}</td>
+                  <td className='p-4 cursor-pointer'>{rowData.action}</td>
+                </tr>
+            ))}  
+            </tbody>
+          </table>
         </div>
     </div>
   )
