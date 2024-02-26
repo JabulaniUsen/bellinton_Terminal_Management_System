@@ -58,13 +58,25 @@ const ContainerTransfer= () => {
                     <div className="flex flex-col ">
                         <label htmlFor="name" className='font-semibold text-base'>Container ID:</label>
                         <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <input type="text" className='outline-none w-full' placeholder='Enter the Container ID' />
+                            {/* <input type="text" className='outline-none w-full' placeholder='Enter the Container ID' /> */}
+                            <select className='outline-none w-full' name="" id="">
+                                <option value="" className='text-[#a1a1a1]'>Enter the unique identifier for the container</option>
+                                <option value="CON12345">CON12345</option>
+                                <option value="CON14534">CON14534</option>
+                                <option value="CON24565">CON24565</option>
+                                <option value="CON30923">CON30923</option>
+                            </select>
                         </div>
                     </div>
                     <div className="flex flex-col ">
-                        <label htmlFor="name" className='font-semibold text-base'>Transfer Form:</label>
+                        <label htmlFor="name" className='font-semibold text-base'>Transfer From:</label>
                         <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <input type="text" className='outline-none w-full' placeholder='Select the current location of the container' />
+                            <select className='outline-none w-full' name="" id="">
+                                <option value="" className='text-[#a1a1a1]'>Select current location of the container</option>
+                                <option value="CON12345">Lagos</option>
+                                <option value="CON14534">Kaduna</option>
+                                <option value="CON24565">Akwa Ibom</option>
+                            </select>
                         </div>
                     </div>
                     <div className="flex flex-col ">
@@ -84,7 +96,12 @@ const ContainerTransfer= () => {
                     <div className="flex flex-col ">
                         <label htmlFor="name" className='font-semibold text-base'>Transfer To:</label>
                         <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <input type="text" className='outline-none w-full' placeholder='Select the destination location for the container.' />
+                            <select className='outline-none w-full' name="" id="">
+                                <option value="" className='text-[#a1a1a1]'>Select the destined location of the container</option>
+                                <option value="CON12345">Lagos</option>
+                                <option value="CON14534">Kaduna</option>
+                                <option value="CON24565">Akwa Ibom</option>
+                            </select>
                         </div>
                     </div>
                     

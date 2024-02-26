@@ -68,7 +68,14 @@ const AddContainer = () => {
                     <div className="flex flex-col ">
                         <label htmlFor="name" className='font-semibold text-base'>Container ID:</label>
                         <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <input type="text" className='outline-none w-full' placeholder='Enter the unique identifier for the container.' />
+                            {/* <input type="text" className='outline-none w-full' placeholder='Enter the unique identifier for the container.' /> */}
+                            <select className='outline-none w-full' name="" id="">
+                                <option value="" className='text-[#a1a1a1]'>Enter the unique identifier for the container</option>
+                                <option value="CON12345">CON12345</option>
+                                <option value="CON14534">CON14534</option>
+                                <option value="CON24565">CON24565</option>
+                                <option value="CON30923">CON30923</option>
+                            </select>
                         </div>
                     </div>
                     <div className="containerSize flex flex-col gap-3 my-3">
@@ -147,46 +154,34 @@ const AddContainer = () => {
                             <label htmlFor="name" className='text-base'>Export Empty</label>
                         </div>
                     </div>
-                    <div className="containerSize flex flex-col gap-3 my-3 ">
-                        <div className='font-semibold text-base'>Gate:</div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="10FT" id="10FT" />
-                            <label htmlFor="name" className='text-base'>Gate-in</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="20FT" id="20FT" />
-                            <label htmlFor="name" className='text-base'>Gate-out</label>
-                        </div>
-                    </div>
-                    
-
                 </div> 
                 <div className="col2 flex flex-col gap-10">
                     <div className="flex flex-col ">
                         <label htmlFor="name" className='font-semibold text-base'>Cargo/BL ID:</label>
                         <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <input type="text" className='outline-none w-full' />
-                            <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
+                            <select className='outline-none w-full' name="" id="">
+                                <option value="" className='text-[#a1a1a1]'>Select Cargo/BL ID</option>
+                                <option value="CON12345">CON12345</option>
+                                <option value="CON14534">CON14534</option>
+                                <option value="CON24565">CON24565</option>
+                                <option value="CON30923">CON30923</option>
+                            </select>
                         </div>
                     </div>
                     <div className="flex flex-col ">
                         <label htmlFor="name" className='font-semibold text-base'>Customer Name:</label>
                         <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <input type="text" className='outline-none w-full' placeholder='Enter the name of the customer associated with the container' />
+                            {/* <input type="text" className='outline-none w-full' placeholder='Enter the name of the customer associated with the container' /> */}
+                            <select className='outline-none w-full' name="" id="">
+                                <option value="" className='text-[#a1a1a1]'>Select name of the customer associated with the container</option>
+                                <option value="CON12345">Adeyemi Olu</option>
+                                <option value="CON14534">Michael Adebayo</option>
+                                <option value="CON24565">Williams Odunayo</option>
+                                <option value="CON30923">Jabulani Usen</option>
+                            </select>
                         </div>
                     </div>
-                    <div className="flex flex-col ">
-                        <label htmlFor="name" className='font-semibold text-base'>Arrival Date:</label>
-                        <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <input type="date" className='outline-none w-full'/>
-                        </div>
-                    </div>
-                    <div className="flex flex-col ">
-                        <label htmlFor="name" className='font-semibold text-base'>Depature Date:</label>
-                        <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <input type="date" className='outline-none w-full' />
-                        </div>
-                    </div>
+                    
                     <div className="flex flex-col ">
                         <label htmlFor="name" className='font-semibold text-base'>Temperature (for Reefer):</label>
                         <div className="border-[#999999] rounded border-[1px] flex items-center p-2">

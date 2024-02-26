@@ -12,7 +12,9 @@ import {
   faSignOutAlt,
   faUserAlt,
   faChevronDown,
-  faChevronRight
+  faChevronRight,
+  faFile,
+  faFileContract
 } from '@fortawesome/free-solid-svg-icons';
 import Header from './Components/Header';
 import Home from './Tabs/Home';
@@ -30,6 +32,7 @@ import Finance from './Tabs/Finance';
 import ViewContainer from './Tabs/ContainerComponents/ViewContainer';
 import AddContainer from './Tabs/ContainerComponents/AddContainter';
 import ContainerTransfer from './Tabs/ContainerComponents/ContainerTransfer';
+import Report from './Tabs/Report';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -142,6 +145,28 @@ const Dashboard = () => {
         { label: 'Payment', tabNumber: 27, icon: faCog },
         { label: 'Receivables', tabNumber: 28, icon: faCog }
       ]
+    },
+    {
+      label: 'Documentation',
+      icon: faFile,
+      tabNumber: 30
+      // subButtons: [
+      //   { label: 'Create Invoice', tabNumber: 29, icon: faCog },
+      //   { label: 'View Invoice', tabNumber: 30, icon: faCog },
+      //   { label: 'Payment', tabNumber: 31, icon: faCog },
+      //   { label: 'Receivables', tabNumber: 28, icon: faCog }
+      // ]
+    },
+    {
+      label: 'Report',
+      icon: faFileContract,
+      tabNumber: 31
+      // subButtons: [
+      //   { label: 'Create Invoice', tabNumber: 29, icon: faCog },
+      //   { label: 'View Invoice', tabNumber: 30, icon: faCog },
+      //   { label: 'Payment', tabNumber: 31, icon: faCog },
+      //   { label: 'Receivables', tabNumber: 28, icon: faCog }
+      // ]
     }
   ];
   
@@ -175,6 +200,7 @@ const Dashboard = () => {
           {activeTab === 1 && <Home />}
           {activeTab === 2 && <Operations />}
           {activeTab === 3 && <Finance/>}
+          {activeTab === 4 && <Report/>}
 
           {/* Vessel */}
           {activeTab === 5 && <Vessel />}
