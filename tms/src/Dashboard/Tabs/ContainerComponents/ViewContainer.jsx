@@ -69,28 +69,28 @@ const ViewContainer = () => {
           <div className="table overflow-x-auto my-10">
           <table className="border border-collapse">
             <thead>
-              <tr>
-                <th className="border bg-black text-white p-2">Container ID</th>
-                <th className="border bg-black text-white p-2">Status</th>
-                <th className="border bg-black text-white p-2">Arrival Date</th>
-                <th className="border bg-black text-white p-2">Depature Date</th>
-                <th className="border bg-black text-white p-2">Type</th>
-                <th className="border bg-black text-white p-2">Vessel Name</th>
-                <th className="border bg-black text-white p-2">Customer Name</th>
-                <th className="border bg-black text-white p-2">Action</th>
+              <tr className="border-2 border-black">
+                <th className="border  bg-black text-white p-2">Container ID</th>
+                <th className="border  bg-black text-white p-2">Status</th>
+                <th className="border  bg-black text-white p-2">Arrival Date</th>
+                <th className="border  bg-black text-white p-2">Depature Date</th>
+                <th className="border  bg-black text-white p-2">Type</th>
+                <th className="border  bg-black text-white p-2">Vessel Name</th>
+                <th className="border  bg-black text-white p-2">Customer Name</th>
+                <th className="border  bg-black text-white p-2">Action</th>
               </tr>
             </thead>
             <tbody >
               {data.map((rowData, index) => (
-                <tr key={index}>
-                  <td className="border border-b-black p-2">{rowData.containerId}</td>
-                  <td className="border border-b-black p-2">{rowData.status}</td>
-                  <td className="border border-b-black p-2">{rowData.arrivalDate}</td>
-                  <td className="border border-b-black p-2">{rowData.depatureDate}</td>
-                  <td className="border border-b-black p-2">{rowData.type}</td>
-                  <td className="border border-b-black p-2">{rowData.vesselName}</td>
-                  <td className="border border-b-black p-2">{rowData.customerName}</td>
-                  <td className="border border-b-black p-2">{rowData.action}</td>
+                <tr key={index} className="border-2 border-black">
+                  <td className="border border-black p-2">{rowData.containerId}</td>
+                  <td className="border border-black p-2">{rowData.status}</td>
+                  <td className="border border-black p-2">{rowData.arrivalDate}</td>
+                  <td className="border border-black p-2">{rowData.depatureDate}</td>
+                  <td className="border border-black p-2">{rowData.type}</td>
+                  <td className="border border-black p-2">{rowData.vesselName}</td>
+                  <td className="border border-black p-2">{rowData.customerName}</td>
+                  <td className="border border-black p-2">{rowData.action}</td>
                 </tr>
               ))}
             </tbody>

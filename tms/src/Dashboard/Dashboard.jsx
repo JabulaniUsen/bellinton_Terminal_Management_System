@@ -29,6 +29,7 @@ import UpdateManifest from './Tabs/ManifestComponents/UpdateManifest';
 import Finance from './Tabs/Finance';
 import ViewContainer from './Tabs/ContainerComponents/ViewContainer';
 import AddContainer from './Tabs/ContainerComponents/AddContainter';
+import ContainerTransfer from './Tabs/ContainerComponents/ContainerTransfer';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -185,6 +186,7 @@ const Dashboard = () => {
           {/* Container */}
           {activeTab === 13 && <ViewContainer/>}
           {activeTab === 14  && <AddContainer/>}
+          {activeTab === 15 && <ContainerTransfer/>}
 
 
 
