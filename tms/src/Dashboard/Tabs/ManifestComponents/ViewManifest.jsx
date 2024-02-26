@@ -9,21 +9,32 @@ const ViewManifest = () => {
   const [errorText, setErrorText] = useState(false);
   const [showUpload, setShowUpload] = useState(false)
   const [uploadSuccess, setUploadSuccess] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('');
+  const [moreInfo, setMoreInfo] = useState(false);
 
 
-  const manifestData = [
+  const initialData = [
     { cargoId: 1, description: 'Item 1', quantity: 10, weight: 50, destination: 'Destination 1', status: 'Pending', remarks: 'None', category: 'Electronics' },
     { cargoId: 2, description: 'Item 2', quantity: 5, weight: 30, destination: 'Destination 2', status: 'Shipped', remarks: 'Fragile', category: 'Clothing' },
   ];
+  const handleSearch = () => {
+    const filteredData = initialData.filter(item =>
+      item.cargoId.toString().includes(searchTerm.toLowerCase())
+    );
+    
 
+    // Update the state with the filtered data
+    setData(filteredData);
+    setMoreInfo(true)
+  };
 
+  const resetSearch = () => {
+    // Reset the search term and show all data
+    setSearchTerm('');
+    setData(initialData);
+  };
 
-  
-  // const handleInputChange = (e) => {
-  //   setCargoId(e.target.value);
-  //   setErrorText(false); 
-  // };
+  const [data, setData] = useState(initialData);
+  const [searchTerm, setSearchTerm] = useState('');
   
   const closeUploadBox = () => {
     setShowUpload(false);
@@ -51,8 +62,8 @@ const ViewManifest = () => {
               <div className="">
                 <input
                   type="text"
-                  value={searchQuery}
-                  // onChange={(e) => setSearchQuery(e.target.value)}
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   className='border-[1px] border-[#8f8f8f] outline-none p-2 w-[300px] rounded '
                   id="cargoid"
                   name="cargoid"
@@ -64,51 +75,57 @@ const ViewManifest = () => {
         </div>
 
         <div className="flex flex-col justify-center items-center my-10">
-          <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={getManifestData}>View</button>
+          <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handleSearch} >View</button>
         </div>
       </div>
 
-      <div className={`my-10 mx-5 `}>
-        {manifestData.map((rowData, index) => (
-          <div className="manifestDetails">
-          <p className="font-semibold">Cargo ID: <span className="font-normal">{rowData.cargoId}</span></p>
-          <p className="font-semibold">Date: <span className="font-normal">February 17, 2024</span></p>
-          <p className="font-semibold">Terminal: <span className="font-normal">Port of Lagos</span></p>
-        </div>
-        ))}
-
-{showManifestData && (
-          <div className="table overflow-x-auto my-10">
-            <table className="border border-collapse">
-              <thead>
-                <tr>
-                  <th className="border border-black p-2">Cargo ID</th>
-                  <th className="border border-black p-2">Description</th>
-                  <th className="border border-black p-2">Quantity</th>
-                  <th className="border border-black p-2">Weight</th>
-                  <th className="border border-black p-2">Destination</th>
-                  <th className="border border-black p-2">Status</th>
-                  <th className="border border-black p-2">Remarks</th>
-                  <th className="border border-black p-2">Category</th>
-                </tr>
-              </thead>
-              <tbody>
-                {manifestData.map((rowData, index) => (
-                  <tr key={index}>
-                    <td className="border border-black p-2">{rowData.cargoId}</td>
-                    <td className="border border-black p-2">{rowData.description}</td>
-                    <td className="border border-black p-2">{rowData.quantity}</td>
-                    <td className="border border-black p-2">{rowData.weight}</td>
-                    <td className="border border-black p-2">{rowData.destination}</td>
-                    <td className="border border-black p-2">{rowData.status}</td>
-                    <td className="border border-black p-2">{rowData.remarks}</td>
-                    <td className="border border-black p-2">{rowData.category}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      <div className={`moreInfo my-10 mx-5 `}>
+        {moreInfo &&         
+        <div className="">
+          {data.map((rowData, index) => (
+            <div className="manifestDetails" key={index}>
+            <p className="font-semibold">Cargo ID: <span className="font-normal">{rowData.cargoId}</span></p>
+            <p className="font-semibold">Date: <span className="font-normal">February 17, 2024</span></p>
+            <p className="font-semibold">Terminal: <span className="font-normal">Port of Lagos</span></p>
           </div>
-        )}
+          ))}
+        </div>
+        }
+
+
+          {showManifestData && 
+          <div className="table overflow-x-auto my-10">
+          <table className="border border-collapse">
+            <thead>
+              <tr>
+                <th className="border border-black p-2">Cargo ID</th>
+                <th className="border border-black p-2">Description</th>
+                <th className="border border-black p-2">Quantity</th>
+                <th className="border border-black p-2">Weight</th>
+                <th className="border border-black p-2">Destination</th>
+                <th className="border border-black p-2">Status</th>
+                <th className="border border-black p-2">Remarks</th>
+                <th className="border border-black p-2">Category</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((rowData, index) => (
+                <tr key={index}>
+                  <td className="border border-black p-2">{rowData.cargoId}</td>
+                  <td className="border border-black p-2">{rowData.description}</td>
+                  <td className="border border-black p-2">{rowData.quantity}</td>
+                  <td className="border border-black p-2">{rowData.weight}</td>
+                  <td className="border border-black p-2">{rowData.destination}</td>
+                  <td className="border border-black p-2">{rowData.status}</td>
+                  <td className="border border-black p-2">{rowData.remarks}</td>
+                  <td className="border border-black p-2">{rowData.category}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        }
+
       </div>
       { showUpload &&
         <UploadBox closeUploadBox={closeUploadBox}/>
