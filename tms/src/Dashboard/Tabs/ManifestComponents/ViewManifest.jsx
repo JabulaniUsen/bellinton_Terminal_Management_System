@@ -17,20 +17,7 @@ const ViewManifest = () => {
     { cargoId: 2, description: 'Item 2', quantity: 5, weight: 30, destination: 'Destination 2', status: 'Shipped', remarks: 'Fragile', category: 'Clothing' },
   ];
 
-  const filteredData = manifestData.filter((rowData) =>
-  String(rowData.cargoId).toLowerCase().includes(searchQuery.toLowerCase())
-);
 
-
-const getManifestData = () => {
-  if (searchQuery.trim() !== "") {
-    // Update the logic to filter the data based on searchQuery
-    setShowManifestData(false);
-    setErrorText(false);
-  } else {
-    setErrorText(true);
-  }
-};
 
   
   // const handleInputChange = (e) => {
@@ -65,7 +52,7 @@ const getManifestData = () => {
                 <input
                   type="text"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  // onChange={(e) => setSearchQuery(e.target.value)}
                   className='border-[1px] border-[#8f8f8f] outline-none p-2 w-[300px] rounded '
                   id="cargoid"
                   name="cargoid"
@@ -82,7 +69,7 @@ const getManifestData = () => {
       </div>
 
       <div className={`my-10 mx-5 `}>
-        {filteredData.map((rowData, index) => (
+        {manifestData.map((rowData, index) => (
           <div className="manifestDetails">
           <p className="font-semibold">Cargo ID: <span className="font-normal">{rowData.cargoId}</span></p>
           <p className="font-semibold">Date: <span className="font-normal">February 17, 2024</span></p>
@@ -106,7 +93,7 @@ const getManifestData = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredData.map((rowData, index) => (
+                {manifestData.map((rowData, index) => (
                   <tr key={index}>
                     <td className="border border-black p-2">{rowData.cargoId}</td>
                     <td className="border border-black p-2">{rowData.description}</td>

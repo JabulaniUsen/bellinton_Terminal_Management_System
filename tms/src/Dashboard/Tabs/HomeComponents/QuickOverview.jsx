@@ -2,7 +2,6 @@ import React from 'react'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import circleAlert from '../../../assets/alert-circle.png'
-import CircularBar from 'react-multicolor-circular-progress-bar';
 
 const percentage = 66;
 
