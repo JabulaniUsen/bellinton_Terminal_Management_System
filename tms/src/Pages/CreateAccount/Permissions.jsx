@@ -1,89 +1,93 @@
-import React from 'react';
-import { useFormik } from 'formik';
+import React, { useState } from 'react';
 
 function Permissions() {
-  const formik = useFormik({
-    initialValues: {
-      locationInformation: false,
-      dataSharing: false,
-      storage: false,
-      usageAnalytics: false,
-      dataRetention: false,
-      paymentInformation: false,
-    },
-    onSubmit: (values) => {
-      // Handle form submission here
-      console.log('Form values:', values);
-    },
+  const [formData, setFormData] = useState({
+    locationInformation: false,
+    dataSharing: false,
+    storage: false,
+    usageAnalytics: false,
+    dataRetention: false,
+    paymentInformation: false,
   });
+
+  const handleChange = (e) => {
+    const { name, checked } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: checked }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form values:', formData);
+    // Add any additional logic for form submission here
+  };
 
   return (
     <div className='lg:mx-[320px] mx-10 roboto'>
-      <form onSubmit={formik.handleSubmit} className="permissions-form">
+      <form onSubmit={handleSubmit} className="permissions-form">
         <div className="checkbox">
           <input
             type="checkbox"
-            id="Location information"
-            name="Location information"
-            checked={formik.values.locationInformation}
-            onChange={formik.handleChange}
+            id="locationInformation"
+            name="locationInformation"
+            checked={formData.locationInformation}
+            onChange={handleChange}
           />
-          <label htmlFor="Location information">Location information</label>
+          <label htmlFor="locationInformation">Location information</label>
         </div>
 
         <div className="checkbox">
           <input
             type="checkbox"
-            id="Data Retention"
-            name="Data Retention"
-            checked={formik.values.dataRetention}
-            onChange={formik.handleChange}
+            id="dataRetention"
+            name="dataRetention"
+            checked={formData.dataRetention}
+            onChange={handleChange}
           />
-          <label htmlFor="Data Retention">Data Retention</label>
+          <label htmlFor="dataRetention">Data Retention</label>
         </div>
 
         <div className="checkbox">
           <input
             type="checkbox"
-            id="Data Sharing"
-            name="Data Sharing"
-            checked={formik.values.dataSharing}
-            onChange={formik.handleChange}
+            id="dataSharing"
+            name="dataSharing"
+            checked={formData.dataSharing}
+            onChange={handleChange}
           />
-          <label htmlFor="Data Sharing">Data Sharing</label>
+          <label htmlFor="dataSharing">Data Sharing</label>
         </div>
 
         <div className="checkbox">
           <input
             type="checkbox"
-            id="Storage"
-            name="Storage"
-            checked={formik.values.storage}
-            onChange={formik.handleChange}
+            id="storage"
+            name="storage"
+            checked={formData.storage}
+            onChange={handleChange}
           />
-          <label htmlFor="Storage">Option 3</label>
+          <label htmlFor="storage">Storage</label>
         </div>
 
         <div className="checkbox">
           <input
             type="checkbox"
-            id="Usage Analytics"
-            name="Usage Analytics"
-            checked={formik.values.usageAnalytics}
-            onChange={formik.handleChange}
+            id="usageAnalytics"
+            name="usageAnalytics"
+            checked={formData.usageAnalytics}
+            onChange={handleChange}
           />
-          <label htmlFor="Usage Analytics">Usage Analytics</label>
+          <label htmlFor="usageAnalytics">Usage Analytics</label>
         </div>
 
         <div className="checkbox">
           <input
             type="checkbox"
-            id="Payment Information"
-            name="Payment Information"
-            checked={formik.values.paymentInformation}
-            onChange={formik.handleChange}
+            id="paymentInformation"
+            name="paymentInformation"
+            checked={formData.paymentInformation}
+            onChange={handleChange}
           />
-          <label htmlFor="Payment Information">Payment Information</label>
+          <label htmlFor="paymentInformation">Payment Information</label>
         </div>
 
         {/* <button type="submit">Submit</button> */}

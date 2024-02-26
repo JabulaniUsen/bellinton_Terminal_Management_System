@@ -43,6 +43,10 @@
   width: 20px; 
   height: 20px;
 }
+.agree input {
+  width: 20px; 
+  height: 20px;
+}
 
 .signin {
   background-image: url(./assets/signinBg.png);

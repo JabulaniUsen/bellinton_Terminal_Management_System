@@ -13,9 +13,10 @@ const ViewManifest = () => {
 
 
   const initialData = [
-    { cargoId: 1, description: 'Item 1', quantity: 10, weight: 50, destination: 'Destination 1', status: 'Pending', remarks: 'None', category: 'Electronics' },
-    { cargoId: 2, description: 'Item 2', quantity: 5, weight: 30, destination: 'Destination 2', status: 'Shipped', remarks: 'Fragile', category: 'Clothing' },
+    { cargoId: '001', shipperName: 'ABC Shipping', shipperAddress: '123 Main St.', weight: 50, consigneeName: 'XYZ Company', status: 'Pending', consigneeAddress: '456 Elm St', sealNo: '20', packageQty: '20' },
+    { cargoId: '002', shipperName: 'DEF Logistics', shipperAddress: '789 Oak St.', weight: 30, consigneeName: 'LMN Corporation', status: 'In transit', consigneeAddress: '101 Pine St.', sealNo: '14', packageQty: '20' },
   ];
+  
   const handleSearch = () => {
     const filteredData = initialData.filter(item =>
       item.cargoId.toString().includes(searchTerm.toLowerCase())
@@ -31,6 +32,7 @@ const ViewManifest = () => {
     // Reset the search term and show all data
     setSearchTerm('');
     setData(initialData);
+    setMoreInfo(false)
   };
 
   const [data, setData] = useState(initialData);
@@ -38,7 +40,7 @@ const ViewManifest = () => {
   
   const closeUploadBox = () => {
     setShowUpload(false);
-    setUploadSuccess(true) 
+    // setUploadSuccess(true) 
   };
   const handleUpload = () => {
     setShowUpload(!showUpload);
@@ -48,8 +50,8 @@ const ViewManifest = () => {
   };
 
   return (
-    <div className='p-10 roboto '>
-      <div className="head flex justify-between">
+    <div className='py-10 roboto '>
+      <div className="head flex justify-between mx-5">
         <h3 className='text-2xl font-bold'>View Manifest</h3>
         <button className='text-[#0095FF] underline text-lg' onClick={handleUpload}>Upload Manifest</button>
       </div>
@@ -57,17 +59,23 @@ const ViewManifest = () => {
       <div >
         <div className="flex justify-between items-center">
           <div className="">
-            <div className="flex gap-2 my-10 mx-5">
+            <div className="flex gap-2 my-10 mx-7">
               <label htmlFor="" className='text-lg font-bold'>Select Cargo ID:</label>
               <div className="">
-                <input
-                  type="text"
+                <select
+                  name="cargoId"
+                  id="cargoId"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className='border-[1px] border-[#8f8f8f] outline-none p-2 w-[300px] rounded '
-                  id="cargoid"
-                  name="cargoid"
-                />
+                >
+                  <option value="">Select Cargo ID</option>
+                  {initialData.map((item) => (
+                    <option key={item.cargoId} value={item.cargoId}>
+                      {item.cargoId}
+                    </option>
+                  ))}
+                </select>
                 {errorText && <p className="text-red-600">Please enter your cargo Id</p>}
               </div>
             </div>
@@ -97,32 +105,37 @@ const ViewManifest = () => {
           <div className="table overflow-x-auto my-10">
           <table className="border border-collapse">
             <thead>
-              <tr>
-                <th className="border border-black p-2">Cargo ID</th>
-                <th className="border border-black p-2">Description</th>
-                <th className="border border-black p-2">Quantity</th>
-                <th className="border border-black p-2">Weight</th>
-                <th className="border border-black p-2">Destination</th>
-                <th className="border border-black p-2">Status</th>
-                <th className="border border-black p-2">Remarks</th>
-                <th className="border border-black p-2">Category</th>
+              <tr className="grid grid-cols-9 border border-black">
+                <th className=" border bg-black text-white py-2">Cargo ID</th>
+                <th className=" border bg-black text-white py-2">Shipper Name</th>
+                <th className=" border bg-black text-white py-2">Shipper Address</th>
+                <th className=" border bg-black text-white py-2">Weight</th>
+                <th className=" border bg-black text-white py-2">Consignee Name</th>
+                <th className=" border bg-black text-white py-2">Consignee Address</th>
+                <th className=" border bg-black text-white py-2">Seal No.</th>
+                <th className=" border bg-black text-white py-2">Package Qty</th>
+                <th className=" border bg-black text-white py-2">Status</th>
               </tr>
             </thead>
             <tbody>
               {data.map((rowData, index) => (
-                <tr key={index}>
-                  <td className="border border-black p-2">{rowData.cargoId}</td>
-                  <td className="border border-black p-2">{rowData.description}</td>
-                  <td className="border border-black p-2">{rowData.quantity}</td>
-                  <td className="border border-black p-2">{rowData.weight}</td>
-                  <td className="border border-black p-2">{rowData.destination}</td>
-                  <td className="border border-black p-2">{rowData.status}</td>
-                  <td className="border border-black p-2">{rowData.remarks}</td>
-                  <td className="border border-black p-2">{rowData.category}</td>
+                <tr key={index} className="grid grid-cols-9 text-center">
+                  <td className="border border-black px-4 py-2">{rowData.cargoId}</td>
+                  <td className="border border-black px-4 py-2">{rowData.shipperName}</td>
+                  <td className="border border-black px-4 py-2">{rowData.shipperAddress}</td>
+                  <td className="border border-black px-4 py-2">{rowData.weight}</td>
+                  <td className="border border-black px-4 py-2">{rowData.consigneeName}</td>
+                  <td className="border border-black px-4 py-2">{rowData.consigneeAddress}</td>
+                  <td className="border border-black px-4 py-2">{rowData.packageQty}</td>
+                  <td className="border border-black px-4 py-2">{rowData.sealNo}</td>
+                  <td className="border border-black px-4 py-2">{rowData.status}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <div className="flex flex-col justify-end items-end my-10">
+            <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={resetSearch} >Back</button>
+          </div>
         </div>
         }
 

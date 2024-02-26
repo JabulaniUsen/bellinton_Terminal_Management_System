@@ -1,7 +1,8 @@
-import { faMagnifyingGlass, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, {useState} from 'react'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useFormik } from 'formik';
 
 function ManageVoyage() {
 
@@ -17,41 +18,58 @@ function ManageVoyage() {
   const [reefer, setReefer] = useState(false);
   const [hazardous, setHazardous] = useState(false);
   const [vesselName, setVesselName] = useState('');
+  const [voyageNumber, setVoyageNumber] = useState('')
   const [etd, setEtd] = useState('');
   const [inTransit, setInTransit] = useState(false);
   const [awaitingDelivery, setAwaitingDelivery] = useState(false);
   const [discharged, setDischarged] = useState(false);
+  const formik = useFormik({
+    initialValues: {
+      vesselId: '',
+      eta: '',
+      company: '',
+      originPort: '',
+      destinationPort: '',
+      stop: '',
+      regular: '',
+      oog: '',
+      otfr: '',
+      reefer: '',
+      hazardous: '',
+      vesselName: '',
+      etd: '',
+      inTransit: '',
+      awaitingDelivery: '',
+      discharged: '',
+      voyageNumber: '',
+    },
+    onSubmit: (values) => {
+      console.log(values);
+      setShowSuccessModal(true);
+    },
+    validate: (values) => {
+      const errors = {};
+
+      if (!values.vesselId) {
+        errors.vesselId = 'Vessel ID is required';
+      }
+      if (!values.vesselName) {
+        errors.vesselName = 'Vessel Name is required';
+      }
+      if (!values.voyageNumber) {
+        errors.voyageNumber = 'Voyage Number is required';
+      }
+
+      return errors;
+    },
+  });
+
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-  
   const handleViewDetails = (e) => {
     e.preventDefault();
-    console.log({
-      vesselId,
-      eta,
-      company,
-      originPort,
-      destinationPort,
-      stop,
-      regular,
-      oog,
-      otfr,
-      reefer,
-      hazardous,
-      vesselName,
-      etd,
-      inTransit,
-      awaitingDelivery,
-      discharged,
-    });
-
-    setShowSuccessModal(true);
-
+    formik.handleSubmit();
   };
-
-    const [stops, setStops] = useState([
-    { id: '', placeholder: 'Enter the name of the stop', type: 'number' },
-  ]);
 
   const handleModalOK = () => {
     setShowSuccessModal(false);
@@ -66,11 +84,23 @@ function ManageVoyage() {
     // Additional logic to reset or handle editing
   };
 
+
+
+  const {
+    values,
+    handleChange,
+    handleSubmit,
+    errors,
+    touched,
+  } = formik;
+
+  const [stops, setStops] = useState([
+  { id: '', placeholder: 'Enter the name of the stop', type: 'number' },
+]);
   const addStop = (e) => {
     e.preventDefault();
     setStops([...stops, { id: '', placeholder: 'Enter the name of the stop', type: 'text' }]);
   };
-
   return (
     <div className='p-10 roboto'>
       <div className="header">
@@ -88,15 +118,27 @@ function ManageVoyage() {
 
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>Vessel ID:</label>
-                <input type="number" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[400px]' name="id" id="" placeholder="Enter your vessel ID..." />
+                <input
+                  type="text"
+                  className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[400px]'
+                  name="vesselId"
+                  id=""
+                  placeholder="Enter your voyage number..."
+                  value={values.vesselId}
+                  onChange={handleChange}
+                  onBlur={formik.handleBlur}
+                />
               </div>
+                {errors.vesselId && touched.vesselId && (
+                  <p className="text-red-500 my-[-2rem]">{errors.vesselId}</p>
+                )}
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>ETA (Estimated Time of Arrival):</label>
-                <input type="number" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[243px]' name="id" id="" placeholder="Enter the estimated time of arrival..." />
+                <input type="date" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[243px]' name="id" id="" placeholder="Enter the estimated time of arrival..." />
               </div>
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>Total Containers on Board:</label>
-                <input type="text" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[282px]' name="id" id="" placeholder="Enter the name if the shipping company..." />
+                <input type="text" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[282px]' name="id" id="" placeholder="Enter the total number of containers on board" />
               </div>
             </div>
           </div>
@@ -107,11 +149,11 @@ function ManageVoyage() {
 
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>Update ETA:</label>
-                <input type="number" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[383px]' name="id" id="" placeholder="Enter your vessel ID..." />
+                <input type="date" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[383px]' name="id" id="" placeholder="Enter your vessel ID..." />
               </div>
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>ETA (Estimated Time of Arrival):</label>
-                <input type="number" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[243px]' name="id" id="" placeholder="Enter the estimated time of arrival..." />
+                <input type="text" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[243px]' name="id" id="" placeholder=" Example: 2 hours" />
               </div>
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>Update Status:</label>
@@ -175,13 +217,45 @@ function ManageVoyage() {
               <div>
                 <label htmlFor="" className='text-[1em] '>Vessel Name:</label>
                 <div className=" border-[#828282] border-[1px] rounded-lg p-3 flex items-center">
-                  <input type="text" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your vessel name..." />
+                <input
+                  type="text"
+                  className='bg-transparent outline-none w-full'
+                  name="vesselName"
+                  id=""
+                  placeholder="Enter your vessel name..."
+                  value={values.vesselName}
+                  onChange={handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                
                 </div>
+                {errors.vesselName && touched.vesselName && (
+                  <p className="text-red-500">{errors.vesselName}</p>
+                )}
               </div>
+
+              <div>
+                <label htmlFor="" className='text-[1em] '>Voyage Number:</label>
+                <div className=" border-[#828282] border-[1px] rounded-lg p-3 flex items-center">
+                  <input     
+                    type="text"
+                    className='bg-transparent outline-none w-full'
+                    name="voyageNumber"
+                    id=""
+                    placeholder="Enter your voyage number..."
+                    value={values.voyageNumber}
+                    onChange={handleChange}
+                    onBlur={formik.handleBlur}/>
+                </div>
+                {errors.voyageNumber && touched.voyageNumber && (
+                  <p className="text-red-500">{errors.voyageNumber}</p>
+                )}
+              </div> 
+              
               <div>
                 <label htmlFor="" className='text-[1em] '>ETD (Estimated Time of Departure):</label>
                 <div className=" border-[#828282] border-[1px] my-2 rounded-lg p-3 flex items-center">
-                  <input type="text" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter input..." />
+                  <input type="date" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter input..." />
                 </div>
               </div>
           </div>
@@ -228,7 +302,14 @@ function ManageVoyage() {
                 </div>
               </div>
         </div>
-        <button onClick={handleViewDetails} className='bg-[#4000FF] px-8 absolute bottom-[-4rem] right-0 py-1 rounded-lg text-white'>Create Voyage</button>
+        <button 
+        onClick={handleViewDetails} 
+        type='submit'
+        disabled={!formik.isValid}
+        className='bg-[#4000FF] px-8 absolute bottom-[-4rem] right-0 py-1 rounded-lg text-white'>
+          Create Voyage
+        </button>
+
       </form>
 
       {/* Success Modal */}

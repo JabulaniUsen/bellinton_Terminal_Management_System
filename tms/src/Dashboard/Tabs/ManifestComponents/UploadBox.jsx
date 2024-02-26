@@ -18,7 +18,6 @@ const UploadBox = ({ closeUploadBox }) => {
     if (file && isValidFileType(file)) {
       setSelectedFile(file);
       setErrorMessage('');
-      // Optionally close the UploadBox after file selection
       closeUploadBox();
     } else {
       setSelectedFile(null);
@@ -37,7 +36,6 @@ const UploadBox = ({ closeUploadBox }) => {
     if (file && isValidFileType(file)) {
       setSelectedFile(file);
       setErrorMessage('');
-      // Optionally close the UploadBox after file selection
       closeUploadBox();
     } else {
       setSelectedFile(null);

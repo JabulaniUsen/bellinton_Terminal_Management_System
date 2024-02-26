@@ -51,8 +51,8 @@ function AddVessel() {
   };
 
     const [stops, setStops] = useState([
-    { id: '', placeholder: 'Enter the name of the stop', type: 'number' },
-    { id: '', placeholder: 'Enter the name of the stop', type: 'number' },
+    { id: '', placeholder: 'Enter the name of the stop', type: 'text' },
+    { id: '', placeholder: 'Enter the name of the stop', type: 'text' },
     { id: '', placeholder: 'Enter the name of the stop', type: 'text' },
   ]);
 
@@ -83,7 +83,7 @@ function AddVessel() {
 
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>Vessel ID:</label>
-                <input type="number" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[400px]' name="id" id="" placeholder="Enter your vessel ID..." />
+                <input type="text" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[400px]' name="id" id="" placeholder="Enter your vessel ID..." />
               </div>
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>ETA (Estimated Time of Arrival):</label>
@@ -136,6 +136,14 @@ function AddVessel() {
                   <input type="text" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your vessel name..." />
                 </div>
               </div>
+
+              <div>
+                <label htmlFor="" className='text-[1em] '>Voyage Number:</label>
+                <div className=" border-[#828282] border-[1px] rounded-lg p-3 flex items-center">
+                  <input type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your voyage number..." />
+                </div>
+              </div>
+
               <div>
                 <label htmlFor="" className='text-[1em] '>ETD (Estimated Time of Departure):</label>
                 <div className=" border-[#828282] border-[1px] my-2 rounded-lg p-3 flex items-center">
@@ -166,23 +174,23 @@ function AddVessel() {
           <h3 className='text-lg font-semibold my-5'>Container Details:</h3>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">Regular</label>
-                  <input type="text" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+                  <input type="number" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
                 </div>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">OOG</label>
-                  <input type="text" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+                  <input type="number" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
                 </div>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">OTFR</label>
-                  <input type="text" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+                  <input type="number" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
                 </div>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">Reefer</label>
-                  <input type="text" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+                  <input type="number" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
                 </div>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">Hazardous</label>
-                  <input type="text" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+                  <input type="number" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
                 </div>
               </div>
         </div>

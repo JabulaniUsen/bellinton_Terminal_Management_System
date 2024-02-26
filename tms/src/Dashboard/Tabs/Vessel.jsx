@@ -1,290 +1,160 @@
-import { faLeaf, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
-import filter from '../../assets/filter.png'
-
-function Vessel () {
-  const [vesselId, setVesselId] = useState('');
-  const [eta, setEta] = useState('');
-  const [company, setCompany] = useState('');
-  const [originPort, setOriginPort] = useState('');
-  const [destinationPort, setDestinationPort] = useState('');
-  const [stop, setStop] = useState('');
-  const [regular, setRegular] = useState(false);
-  const [oog, setOog] = useState(false);
-  const [otfr, setOtfr] = useState(false);
-  const [reefer, setReefer] = useState(false);
-  const [hazardous, setHazardous] = useState(false);
-  const [vesselName, setVesselName] = useState('');
-  const [etd, setEtd] = useState('');
-  const [inTransit, setInTransit] = useState(false);
-  const [awaitingDelivery, setAwaitingDelivery] = useState(false);
-  const [discharged, setDischarged] = useState(false);
-  const [filterMode, setFilterMode] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('');
+import { useState } from "react";
+import { motion } from 'framer-motion';
 
 
-  const handleCloseViewVessels = () => {
-    setShowViewVessels(false);
-  };
-  const handleViewDetails = (e) => {
-    e.preventDefault()
-    console.log({
-      vesselId,
-      eta,
-      company,
-      originPort,
-      destinationPort,
-      stop,
-      regular,
-      oog,
-      otfr,
-      reefer,
-      hazardous,
-      vesselName,
-      etd,
-      inTransit,
-      awaitingDelivery,
-      discharged,
-    });
-    setSearchQuery(e.target.value);
-    setShowViewVessels(true);
-  };
+const Vessel = () => {
+  const [showManifestData, setShowManifestData] = useState(true);
+  const [vesselId, setvesselId] = useState("");
+  const [errorText, setErrorText] = useState(false);
+  const [showUpload, setShowUpload] = useState(false)
+  const [uploadSuccess, setUploadSuccess] = useState(false)
+  const [moreInfo, setMoreInfo] = useState(false);
 
-  const handleFilter = () => {
-    setFilterMode(!filterMode);
-  }
-  const undoHandleFilter = () => {
-    setFilterMode(false)
-  }
 
-  const vessselsData = [
-    { vesselId: 'VSL001', name: 'Ocean Voyager', eta: '9/5/2023 8:00', etd: '9/10/2023 8:00', status: 'In Transit', totalContainer: '150', action: '[View Details]' },
-    { vesselId: 'VSL002', name: 'Nautical Spirit', eta: '9/7/2023 14:00', etd: '-', status: 'At Port', totalContainer: '120', action: '[View Details]' },
-    { vesselId: 'VSL003', name: 'Ocean Voyager', eta: '9/5/2023 8:00', etd: '9/10/2023 8:00', status: 'In Transit', totalContainer: '150', action: '[View Details]' },
-    { vesselId: 'VSL004', name: 'Nautical Spirit', eta: '9/7/2023 14:00', etd: '-', status: 'At Port', totalContainer: '120', action: '[View Details]' },
-    { vesselId: 'VSL005', name: 'Ocean Voyager', eta: '9/5/2023 8:00', etd: '9/10/2023 8:00', status: 'In Transit', totalContainer: '150', action: '[View Details]' },
-    { vesselId: 'VSL006', name: 'Nautical Spirit', eta: '9/7/2023 14:00', etd: '-', status: 'At Port', totalContainer: '120', action: '[View Details]' },
+  const initialData = [
+    { vesselId: '001', vesselName: 'Ocean Voyage', eta: '9/5/2024 8:00', etd: '9/5/2024 8:00', totalContainers: 100, status: 'At Port', action: 'View Details'},
+    { vesselId: '002', vesselName: 'Nautical Spirit', eta: '3/6/2024 14:30', etd: '9/5/2024 8:00', totalContainers: 140, status: 'In transit', action: 'View Details'},
   ];
+  
+  const handleSearch = () => {
+    const filteredData = initialData.filter(item =>
+      item.vesselId.toString().includes(searchTerm.toLowerCase())
+    );
+    
 
-  const filteredData = vessselsData.filter (
-    (rowData) => 
-    rowData.vesselId.toLowerCase().includes(searchQuery.toLowerCase())
-    // rowData.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    // rowData.eta.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    // rowData.etd.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    // rowData.status.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    // rowData.totalContainer.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    // rowData.action.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+    // Update the state with the filtered data
+    setData(filteredData);
+    setMoreInfo(true)
+  };
+
+  const resetSearch = () => {
+    // Reset the search term and show all data
+    setSearchTerm('');
+    setData(initialData);
+    setMoreInfo(false)
+  };
+
+  const [data, setData] = useState(initialData);
+  const [searchTerm, setSearchTerm] = useState('');
+  
+  const closeUploadBox = () => {
+    setShowUpload(false);
+    // setUploadSuccess(true) 
+  };
+  const handleUpload = () => {
+    setShowUpload(!showUpload);
+  }
+  const handleModalOK = () => {
+    setUploadSuccess(false);
+  };
 
   return (
-    <div className='p-10 roboto'>
-      <div className="header">
-        <h2 className='text-3xl font-bold'>View Vessels</h2>
+    <div className='py-10 roboto '>
+      <div className="head flex justify-between mx-5">
+        <h3 className='text-2xl font-bold'>View Vessel</h3>
       </div>
 
-
-
-      {!filterMode && (
-        <form className='flex flex-col  '>
-          <div className="my-7 mx-2 flex gap-10 relative flex-col">
-            <div className="flex flex-col gap-12">
-              <div className="viewinfo">
-                <h3 className='text-lg font-semibold my-5'>View Information</h3>
-
-                <div className="vesselInformation roboto flex flex-col gap-10">
-                  <div className="flex items-center gap-3 ">
-                    <label htmlFor="" className='text-[1em] '>Vessel ID:</label>
-                    <div className=" border-[#828282] border-[1px] rounded-lg p-3 w-[347px] flex items-center">
-                      <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} type="text" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your vessel ID..." />
-                      <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    </div>
-                    <img src={filter} className='cursor-pointer' onClick={handleFilter} alt="" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          {/* <button onClick={handleViewDetails} className='bg-[#4000FF] px-8  py-1 rounded-lg text-white w-[200px] flex-1 m-auto'>View Details</button> */}
-          </div>
-        </form>
-      )}
-
-
-        {filterMode && (
-          <form className='flex flex-col justify-end items-end'>
-          <div className="my-7 mx-2 flex gap-10 relative">
-            <div className="flex flex-col gap-12">
-              <div className="viewinfo">
-                <h3 className='text-lg font-semibold my-5'>View Information</h3>
-
-                <div className="vesselInformation roboto flex flex-col gap-10">
-                    <div className="flex items-center gap-3 ">
-                      <label htmlFor="" className='text-[1em] '>Vessel ID:</label>
-                      <div className=" border-[#828282] border-[1px] rounded-lg p-3 w-[347px] flex items-center">
-                        <input value={searchQuery} type="text" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your vessel ID..." />
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                      </div>
-                      <img src={filter} className='cursor-pointer' onClick={undoHandleFilter} alt="" />
-                    </div>
-
-                    <div className="flex flex-col gap-5">
-                      <div className="">
-                        <label htmlFor="" className='text-[1em]'>ETA (Estimated Time of Arrival):</label>
-                        <div className="flex gap-2">
-                          <div className=" my-2 border-[#828282] border-[1px] rounded-lg p-3 w-[320px] flex items-center">
-                            <input value={searchQuery} type="date" className='bg-transparent outline-none w-full' name="id" id="" />
-                          </div>
-                          <div className=" my-2 border-[#828282] border-[1px] rounded-lg p-3  flex items-center">
-                            <input value={searchQuery} type="time" className='bg-transparent outline-none w-full' name="id" id="" />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <label htmlFor="" className='text-[1em] '>Company:</label>
-                        <div className=" border-[#828282] border-[1px] rounded-lg p-3 w-[347px] flex items-center">
-                          <input value={searchQuery} type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter shipping line..." />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-              <div className="vesselRoute w-[600px]">
-                <h3 className='text-lg font-semibold my-5'>Vessel Route</h3>
-                <div className="flex flex-wrap gap-4">
-                  <div className="flex items-center gap-2">
-                    <label htmlFor="" className=''>Origin Port:</label>
-                    <select className=" my-2 border-[#828282] border-[1px] rounded-lg p-3 w-[150px] flex items-center">
-                      <option value=""></option>
-                      <option value="volvo">Volvo</option>
-                      <option value="volvo">Volvo</option>
-                      <option value="volvo">Volvo</option>
-                    </select>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <label htmlFor="" className=''>Destination Port:</label>
-                    <select className=" my-2 border-[#828282] border-[1px] rounded-lg p-3 w-[150px] flex items-center">
-                      <option value=""></option>
-                      <option value="volvo">Volvo</option>
-                      <option value="volvo">Volvo</option>
-                      <option value="volvo">Volvo</option>
-                    </select>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <label htmlFor="" className=''> Stop</label>
-                    <select className=" my-2 border-[#828282] border-[1px] rounded-lg p-3 w-[150px] flex items-center">
-                      <option value=""></option>
-                      <option value="volvo">Volvo</option>
-                      <option value="volvo">Volvo</option>
-                      <option value="volvo">Volvo</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="">
-              <h3 className='text-lg font-semibold my-5'>Container Type:</h3>
-              <div className="containerType flex flex-col gap-8">
-                  <div className="inputs">
-                    <div className="">
-                      <input value={searchQuery} type="checkbox" className='w-[30px]' name="" id="" />
-                      <label htmlFor="">Regular</label>
-                    </div>
-                    <div className="">
-                      <input value={searchQuery} type="checkbox" className='w-[30px]' name="" id="" />
-                      <label htmlFor="">OOG</label>
-                    </div>
-                    <div className="">
-                      <input value={searchQuery} type="checkbox" className='w-[30px]' name="" id="" />
-                      <label htmlFor="">OTFR</label>
-                    </div>
-                    <div className="">
-                      <input value={searchQuery} type="checkbox" className='w-[30px]' name="" id="" />
-                      <label htmlFor="">Reefer</label>
-                    </div>
-                    <div className="">
-                      <input value={searchQuery} type="checkbox" className='w-[30px]' name="" id="" />
-                      <label htmlFor="">Hazardous</label>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="" className='text-[1em] '>Vessel Name:</label>
-                    <div className=" border-[#828282] border-[1px] rounded-lg p-3 w-[347px] flex items-center">
-                      <input value={searchQuery} type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your vessel name..." />
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="" className='text-[1em] '>ETD (Estimated Time of Departure):</label>
-                    <div className="flex gap-2">
-                        <div className=" my-2 border-[#828282] border-[1px] rounded-lg p-3 w-[240px] flex items-center">
-                          <input value={searchQuery} type="date" className='bg-transparent outline-none w-full' name="id" id="" />
-                        </div>
-                        <div className=" my-2 border-[#828282] border-[1px] rounded-lg p-3  flex items-center">
-                          <input value={searchQuery} type="time" className='bg-transparent outline-none w-full' name="id" id="" />
-                        </div>
-                      </div>
-                  </div>
-              </div>
-
-              <div className="status">
-                <h3 className='text-[#808080] text-xl mt-5 mb-3'>Status:</h3>
-                <div className="inputs">
-                  <div className="">
-                    <input value={searchQuery} type="checkbox" className='w-[30px]' name="" id="" />
-                    <label htmlFor="">In Transit</label>
-                  </div>
-                  <div className="">
-                    <input value={searchQuery} type="checkbox" className='w-[30px]' name="" id="" />
-                    <label htmlFor="">Awaiting Delivery</label>
-                  </div>
-                  <div className="">
-                    <input value={searchQuery} type="checkbox" className='w-[30px]' name="" id="" />
-                    <label htmlFor="">Discharged</label>
-                  </div>
-                </div>
-                
+      <div >
+        <div className="flex justify-between items-center">
+          <div className="">
+            <div className="flex gap-2 my-10 mx-7">
+              <label htmlFor="" className='text-lg font-bold'>Select Cargo ID:</label>
+              <div className="">
+                <select
+                  name="vesselId"
+                  id="vesselId"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className='border-[1px] border-[#8f8f8f] outline-none p-2 w-[300px] rounded '
+                >
+                  <option value="">Select Cargo ID</option>
+                  {initialData.map((item) => (
+                    <option key={item.vesselId} value={item.vesselId}>
+                      {item.vesselId}
+                    </option>
+                  ))}
+                </select>
+                {errorText && <p className="text-red-600">Please enter your cargo Id</p>}
               </div>
             </div>
           </div>
-          <button onClick={handleViewDetails} className='bg-[#4000FF] px-8  py-1 rounded-lg text-white'>View Details</button>
-        </form>
-        )}
+        </div>
+
+        <div className="flex flex-col justify-center items-center my-10">
+          <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handleSearch} >View</button>
+        </div>
+      </div>
+
+      <div className={`moreInfo my-10 mx-5 `}>
+        {/* {moreInfo &&         
+        <div className="">
+          {data.map((rowData, index) => (
+            <div className="manifestDetails" key={index}>
+            <p className="font-semibold">Cargo ID: <span className="font-normal">{rowData.vesselId}</span></p>
+            <p className="font-semibold">Date: <span className="font-normal">February 17, 2024</span></p>
+            <p className="font-semibold">Terminal: <span className="font-normal">Port of Lagos</span></p>
+          </div>
+          ))}
+        </div>
+        } */}
 
 
-        <div className=" flex items-center justify-center">
-          <table className='border border-bl bg-black text-white w-full mt-[4rem]'>
+          {showManifestData && 
+          <div className="table overflow-x-auto my-10">
+          <table className="border border-collapse">
             <thead>
-              <tr>
-                <th className='py-3'>Vessel ID</th>
-                <th className='py-3'>Vessel Name</th>
-                <th className='py-3'>ETA</th>
-                <th className='py-3'>ETD</th>
-                <th className='py-3'>Status</th>
-                <th className='py-3'>Total Containers</th>
-                <th className='py-3'>Action</th>
+              <tr className="grid grid-cols-7 border border-black">
+                <th className=" border bg-black text-white py-2">Vessel ID</th>
+                <th className=" border bg-black text-white py-2">Shipper Name</th>
+                <th className=" border bg-black text-white py-2">Shipper Address</th>
+                <th className=" border bg-black text-white py-2">etd</th>
+                <th className=" border bg-black text-white py-2">Status</th>
+                <th className=" border bg-black text-white py-2">Total Containers</th>
+                <th className=" border bg-black text-white py-2">Action</th>
               </tr>
             </thead>
             <tbody>
-              {filteredData.map ((rowData, index) => (
-                <tr key={index} style={{ backgroundColor: index % 2 === 0 ? 'white' : 'black', color: index % 2 === 0 ? 'black' : 'white' }}>
-                  <td className='p-4'>{rowData.vesselId}</td>
-                  <td className='p-4'>{rowData.name}</td>
-                  <td className='p-4'>{rowData.eta}</td>
-                  <td className='p-4'>{rowData.etd}</td>
-                  <td className='p-4'>{rowData.status}</td>
-                  <td className='p-4'>{rowData.totalContainer}</td>
-                  <td className='p-4 cursor-pointer'>{rowData.action}</td>
+              {data.map((rowData, index) => (
+                <tr key={index} className="grid grid-cols-7">
+                  <td className="border border-black px-4 py-2">{rowData.vesselId}</td>
+                  <td className="border border-black px-4 py-2">{rowData.vesselName}</td>
+                  <td className="border border-black px-4 py-2">{rowData.eta}</td>       
+                  <td className="border border-black px-4 py-2">{rowData.etd}</td>
+                  <td className="border border-black px-4 py-2">{rowData.status}</td>
+                  <td className="border border-black px-4 py-2">{rowData.totalContainers}</td>
+                  <td className="border border-black px-4 py-2 underline cursor-pointer">[ {rowData.action} ]</td>
                 </tr>
-            ))}  
+              ))}
             </tbody>
           </table>
+          <div className="flex flex-col justify-end items-end my-10">
+            <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={resetSearch} >Back</button>
+          </div>
         </div>
-    </div>
-  )
-}
+        }
 
-export default Vessel
+      </div>
+      { showUpload &&
+        <UploadBox closeUploadBox={closeUploadBox}/>
+      }
+          {uploadSuccess && 
+            <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            transition={{ duration: 0.3 }}
+            className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-[#F2F2F2] bg-opacity-50"
+          >
+            <div className="bg-[#ffff] px-8 py-6 rounded-3xl text-center">
+              <p className="text-2xl font-bold mb-4">Manifest Uploaded successfully!</p>
+              <div className="flex justify-center space-x-4">
+                <button onClick={handleModalOK} className="bg-[#4000FF] text-white px-6 py-1 rounded-full">OK</button>
+              </div>
+            </div>
+          </motion.div>
+        }
+    </div>
+  );
+};
+
+export default Vessel;

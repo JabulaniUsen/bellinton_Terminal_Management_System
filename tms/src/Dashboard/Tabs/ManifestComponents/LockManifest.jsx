@@ -5,10 +5,28 @@ import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 const LockManifest = () => {
   const [lockMessage, setLockMessage] = useState(false)
+  const [moreInfo, setMoreInfo] = useState(false);
 
   const manifestData = [
-    { vesselName: "Ocean Voyager", eta: '2023-09-05 08:00 AM', etd: "2023-09-10 02:00 PM", status: "In Transit", manifestStatus: 'Complete'}
+    { vesselId: '001', vesselName: "Ocean Voyager", eta: '2024-11-04 09:00 AM', etd: "2023-09-10 14:00 PM", status: "In Transit", manifestStatus: 'Complete'},
+    { vesselId: '002', vesselName: "Amazon", eta: '2024-12-07 10:00 PM', etd: "2023-09-10 17:01 PM", status: "Pending", manifestStatus: 'Inomplete'},
+    { vesselId: '003', vesselName: "Aliexpress", eta: '2024-19-02 15:50 AM', etd: "2023-09-10 12:40 PM", status: "Pending", manifestStatus: 'Inomplete'},
+    { vesselId: '004', vesselName: "Ocean Voyager", eta: '2024-09-04 20:30 PM', etd: "2023-09-10 18:35 PM", status: "In Transit", manifestStatus: 'Complete'}
   ];
+
+  const handleSearch = () => {
+    const filteredData = manifestData.filter(item =>
+      item.vesselId.toString().includes(searchTerm.toLowerCase())
+    );
+  
+    // Update the state with the filtered data
+    setData(filteredData);
+    setMoreInfo(true);
+  };
+  
+  const [data, setData] = useState(manifestData);
+  const [searchTerm, setSearchTerm] = useState('');
+  
 
   const handleShowMessage = () => {
     setLockMessage(true)
@@ -18,13 +36,40 @@ const LockManifest = () => {
     setLockMessage(false)
   }
 
+
   return (
     <div className='m-10 oxygen'>
         <div className="head flex justify-between">
             <h3 className='text-2xl font-bold'>Lock Manifest</h3>
         </div>
 
-        { manifestData.map ((item, index) => (
+        <div className="">
+            <div className="flex gap-2 my-10">
+              <label htmlFor="" className='text-lg font-bold'>Select Cargo ID:</label>
+              <div className="">
+                <select
+                  name="cargoId"
+                  id="cargoId"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className='border-[1px] border-[#8f8f8f] outline-none p-2 w-[300px] rounded '
+                >
+                  <option value="">Select Cargo ID</option>
+                  {manifestData.map((item) => (
+                    <option key={item.cargoId} value={item.cargoId}>
+                      {item.vesselId}
+                    </option>
+                  ))}
+                </select>
+                {/* {errorText && <p className="text-red-600">Please enter your cargo Id</p>} */}
+              </div>
+            <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handleSearch} >View</button>
+            </div>
+          </div>
+
+        {moreInfo && 
+          <div className="">
+            {data.map ((item, index) => (
             <div className="vesselInfo my-5 flex flex-col gap-5" key={index}>
             <div className="">
                 <p className='font-semibold mb-4 text-lg'>Vessel Information</p>      
@@ -44,6 +89,8 @@ const LockManifest = () => {
             </div>
         </div>
         )) }
+          </div>
+        }
 
 
 
@@ -51,15 +98,15 @@ const LockManifest = () => {
           <table className="border border-collapse">
             <thead>
               <tr>
-                <th className="border border-black p-2 px-5 text-center">Vessel Name</th>
-                <th className="border border-black p-2 px-5 text-center">ETA</th>
-                <th className="border border-black p-2 px-5 text-center">ETD</th>
-                <th className="border border-black p-2 px-5 text-center">Status</th>
-                <th className="border border-black p-2 px-5 text-center">Manifest Status</th>
+                <th className="border text-white bg-black p-2 px-5 text-center">Vessel Name</th>
+                <th className="border text-white bg-black p-2 px-5 text-center">ETA</th>
+                <th className="border text-white bg-black p-2 px-5 text-center">ETD</th>
+                <th className="border text-white bg-black p-2 px-5 text-center">Status</th>
+                <th className="border text-white bg-black p-2 px-5 text-center">Manifest Status</th>
               </tr>
             </thead>
             <tbody>
-              {manifestData.map((item, index) => (
+              {data.map((item, index) => (
                 <tr key={index}>
                   <td className="border border-black p-2 px-5 text-center">{item.vesselName}</td>
                   <td className="border border-black p-2 px-5 text-center">{item.eta}</td>
@@ -79,33 +126,33 @@ const LockManifest = () => {
 
 
         {lockMessage && 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1, }}
-          exit={{ opacity: 0, scale: 0.5 }}
-          transition={{ duration: 0.3 }}
-          className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-[#d9d9d9a1] "
-        >
-          <div className="bg-[#ffffffd3] shadow w-[471px] px-8 py-6 rounded-lg flex flex-col text-center">
-            <div className="">
-              <FontAwesomeIcon icon={faCircleExclamation} className='text-red-500 text-2xl'/>
-            </div>
-            <p className="text-2xl font-semibold py-2 my-2 border-b-[1px] border-dashed border-black">COSCO FUZHOU - 119w</p>
-            <p className='text-xl font-semibold'>Manifest Is LOCKED</p>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1, }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            transition={{ duration: 0.3 }}
+            className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-[#d9d9d9a1] "
+          >
+            <div className="bg-[#ffffffd3] shadow w-[471px] px-8 py-6 rounded-lg flex flex-col text-center">
+              <div className="">
+                <FontAwesomeIcon icon={faCircleExclamation} className='text-red-500 text-2xl'/>
+              </div>
+              <p className="text-2xl font-semibold py-2 my-2 border-b-[1px] border-dashed border-black">COSCO FUZHOU - 119w</p>
+              <p className='text-xl font-semibold'>Manifest Is LOCKED</p>
 
-            <div className="texts my-6 gap-3 flex flex-col justify-center items-center">
-              <p>There Have Been:</p>
-              <p>192 Invoice Issued,</p>
-              <p>O Telex Status(es) Confirmed On The Manifest.</p>
-              <p>You Can Only Add More To This Manifest By Following The Steps In The Form Instructions. Are You Sure You Want To Upload Additional Manifest?</p>
-            </div>
+              <div className="texts my-6 gap-3 flex flex-col justify-center items-center">
+                <p>There Have Been:</p>
+                <p>192 Invoice Issued,</p>
+                <p>O Telex Status(es) Confirmed On The Manifest.</p>
+                <p>You Can Only Add More To This Manifest By Following The Steps In The Form Instructions. Are You Sure You Want To Upload Additional Manifest?</p>
+              </div>
 
 
-            <div className="flex justify-center space-x-4">
-              <button onClick={handleOk} className="bg-[#4000FF] text-white px-20 py-3 rounded-3xl">OK</button>
+              <div className="flex justify-center space-x-4">
+                <button onClick={handleOk} className="bg-[#4000FF] text-white px-20 py-3 rounded-3xl">OK</button>
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
         }
     </div>
   )

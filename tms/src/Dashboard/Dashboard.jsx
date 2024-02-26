@@ -54,16 +54,21 @@ const Dashboard = () => {
 
       {selectedButton === label && (
         <div className="top-full left-0 mt-2 p-2 bg-[#4000FF] text-white shadow-lg rounded-md">
-          {subButtons.map((subButton) => (
-            <button
-              key={subButton.label}
-              className="block w-full text-left py-2 px-4 rounded-md hover:bg-[#360bb8]"
-              onClick={() => setActiveTab(subButton.tabNumber)}
-            >
-              {subButton.label}
-            </button>
-          ))}
-        </div>
+        {subButtons.map((subButton) => (
+          <button
+            key={subButton.label}
+            className={`block w-full text-left py-2 px-4 rounded-md ${
+              activeTab === subButton.tabNumber ? 'bg-[#3a0aca]' : 'hover:bg-[#360bb8]'
+            }`}
+            onClick={() => {
+              setActiveTab(subButton.tabNumber);
+              setActiveSubButton(subButton.label);
+            }}
+          >
+            {subButton.label}
+          </button>
+        ))}
+      </div>
       )}
     </div>
   );
