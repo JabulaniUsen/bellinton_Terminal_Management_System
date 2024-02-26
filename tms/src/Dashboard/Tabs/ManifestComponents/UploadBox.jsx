@@ -4,12 +4,26 @@ import uploadImg from '../../../assets/upload.png';
 
 const UploadBox = ({ closeUploadBox }) => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const isValidFileType = (file) => {
+    const allowedTypes = ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+
+    return allowedTypes.includes(file.type);
+  };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    setSelectedFile(file);
-    // Optionally close the UploadBox after file selection
-    closeUploadBox();
+
+    if (file && isValidFileType(file)) {
+      setSelectedFile(file);
+      setErrorMessage('');
+      // Optionally close the UploadBox after file selection
+      closeUploadBox();
+    } else {
+      setSelectedFile(null);
+      setErrorMessage('Invalid file type. Please select a CSV or XLSX file.');
+    }
   };
 
   const handleDragOver = (event) => {
@@ -19,9 +33,16 @@ const UploadBox = ({ closeUploadBox }) => {
   const handleDrop = (event) => {
     event.preventDefault();
     const file = event.dataTransfer.files[0];
-    setSelectedFile(file);
-    // Optionally close the UploadBox after file selection
-    closeUploadBox();
+
+    if (file && isValidFileType(file)) {
+      setSelectedFile(file);
+      setErrorMessage('');
+      // Optionally close the UploadBox after file selection
+      closeUploadBox();
+    } else {
+      setSelectedFile(null);
+      setErrorMessage('Invalid file type. Please drop a CSV or XLSX file.');
+    }
   };
 
   const handleBackdropClick = () => {
@@ -46,16 +67,22 @@ const UploadBox = ({ closeUploadBox }) => {
         <label htmlFor="fileInput" className='text-center flex flex-col justify-center items-center gap-3 cursor-pointer'>
           <img src={uploadImg} alt="" className="cursor-pointer" />
           <p className="poppins text-[#416072] mb-4">
-            Drag and drop choose file to upload your files. <br />
-            All csv, xlsx types are supported          
+            Drag and drop or choose file to upload your files. <br />
+            Only CSV and XLSX types are supported.          
           </p>
         </label>
         <input
           type="file"
           id="fileInput"
+          accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
           className="hidden"
           onChange={handleFileChange}
         />
+        {errorMessage && (
+          <p className="text-red-600">
+            {errorMessage}
+          </p>
+        )}
         {selectedFile && (
           <p className="text-green-600">
             Selected file: {selectedFile.name}

@@ -27,6 +27,7 @@ import CreateManifest from './Tabs/ManifestComponents/CreateManifest';
 import LockManifest from './Tabs/ManifestComponents/LockManifest';
 import UpdateManifest from './Tabs/ManifestComponents/UpdateManifest';
 import Finance from './Tabs/Finance';
+import ViewContainer from './Tabs/ContainerComponents/ViewContainer';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -179,6 +180,9 @@ const Dashboard = () => {
           {activeTab === 10 && <CreateManifest/>}
           {activeTab === 11 && <UpdateManifest/>}
           {activeTab === 12 && <LockManifest/>}
+
+          {/* Container */}
+          {activeTab === 13 && <ViewContainer/>}
 
 
           {activeTab === 16 && <ViewVessels />}
