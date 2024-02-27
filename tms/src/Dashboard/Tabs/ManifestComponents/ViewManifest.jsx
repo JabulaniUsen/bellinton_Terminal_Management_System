@@ -1,6 +1,8 @@
 import { useState } from "react";
 import UploadBox from "./UploadBox";
 import { motion } from 'framer-motion';
+import Select from 'react-select';
+
 
 
 const ViewManifest = () => {
@@ -59,32 +61,25 @@ const ViewManifest = () => {
       <div >
         <div className="flex justify-between items-center">
           <div className="">
-            <div className="flex gap-2 my-10 mx-7">
+            <div className="flex gap-2 my-10 mx-7 items-center">
               <label htmlFor="" className='text-lg font-bold'>Select Cargo ID:</label>
               <div className="">
-                <select
-                  name="cargoId"
-                  id="cargoId"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className='border-[1px] border-[#8f8f8f] outline-none p-2 w-[300px] rounded '
-                >
-                  <option value="">Select Cargo ID</option>
-                  {initialData.map((item) => (
-                    <option key={item.cargoId} value={item.cargoId}>
-                      {item.cargoId}
-                    </option>
-                  ))}
-                </select>
-                {errorText && <p className="text-red-600">Please enter your cargo Id</p>}
+                <Select
+                  options={initialData.map((item) => ({ value: item.cargoId, label: item.cargoId }))}
+                  value={{ value: searchTerm, label: searchTerm }}
+                  onChange={(selectedOption) => setSearchTerm(selectedOption.value)}
+                  isSearchable
+                  placeholder="Select Cargo ID"
+                  className='outline-none p-2 w-[300px] rounded'
+                />
+                {errorText && <p className="text-red-600">Please enter your Cargo ID</p>}
               </div>
+              <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handleSearch} >View</button>
+
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col justify-center items-center my-10">
-          <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handleSearch} >View</button>
-        </div>
       </div>
 
       <div className={`moreInfo my-10 mx-5 `}>

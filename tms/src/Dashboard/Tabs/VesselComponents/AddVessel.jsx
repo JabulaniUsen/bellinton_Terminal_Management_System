@@ -140,7 +140,7 @@ function AddVessel() {
               <div>
                 <label htmlFor="" className='text-[1em] '>Voyage Number:</label>
                 <div className=" border-[#828282] border-[1px] rounded-lg p-3 flex items-center">
-                  <input type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your voyage number..." />
+                  <input type="text" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your voyage number..." />
                 </div>
               </div>
 

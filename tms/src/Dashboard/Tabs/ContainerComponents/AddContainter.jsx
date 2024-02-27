@@ -1,7 +1,9 @@
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faCaretDown, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, {useState} from 'react'
 import { motion } from 'framer-motion';
+import Select from 'react-select';
+
 
 
 const AddContainer = () => {
@@ -55,6 +57,28 @@ const AddContainer = () => {
     setUploadSuccess(false);
   };
 
+  const dummyOptions = [
+    { value: '', label: 'Enter the unique identifier for the container', isDisabled: true },
+    { value: 'CON12345', label: 'CON12345' },
+    { value: 'CON14534', label: 'CON14534' },
+    { value: 'CON24565', label: 'CON24565' },
+    { value: 'CON30923', label: 'CON30923' },
+  ];
+  const options2 = [
+    { value: '', label: 'Select Cargo/BL ID', isDisabled: true },
+    { value: '0012345', label: 'CON12345' },
+    { value: '0014534', label: 'CON14534' },
+    { value: '0024565', label: 'CON24565' },
+    { value: '0030923', label: 'CON30923' },
+  ];
+  const options3 = [
+    { value: '', label: 'Select name of customer associated with container', isDisabled: true },
+    { value: 'CON12345', label: 'Adeyemi Olu' },
+    { value: 'CON14534', label: 'Michael Adebayo' },
+    { value: 'CON24565', label: 'Williams Odunayo' },
+    { value: 'CON30923', label: 'Jabulani Usen' },
+  ];
+
   return (
     <div className='m-10'>
 
@@ -67,15 +91,13 @@ const AddContainer = () => {
                 <div className="col1 flex flex-col gap-4">
                     <div className="flex flex-col ">
                         <label htmlFor="name" className='font-semibold text-base'>Container ID:</label>
-                        <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            {/* <input type="text" className='outline-none w-full' placeholder='Enter the unique identifier for the container.' /> */}
-                            <select className='outline-none w-full' name="" id="">
-                                <option value="" className='text-[#a1a1a1]'>Enter the unique identifier for the container</option>
-                                <option value="CON12345">CON12345</option>
-                                <option value="CON14534">CON14534</option>
-                                <option value="CON24565">CON24565</option>
-                                <option value="CON30923">CON30923</option>
-                            </select>
+                        <div className="rounded flex items-center py-2">
+                            <Select
+                                options={dummyOptions}
+                                isSearchable
+                                placeholder="Search Cargo ID"
+                                className='w-full'
+                            />
                         </div>
                     </div>
                     <div className="containerSize flex flex-col gap-3 my-3">
@@ -158,27 +180,24 @@ const AddContainer = () => {
                 <div className="col2 flex flex-col gap-10">
                     <div className="flex flex-col ">
                         <label htmlFor="name" className='font-semibold text-base'>Cargo/BL ID:</label>
-                        <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <select className='outline-none w-full' name="" id="">
-                                <option value="" className='text-[#a1a1a1]'>Select Cargo/BL ID</option>
-                                <option value="CON12345">CON12345</option>
-                                <option value="CON14534">CON14534</option>
-                                <option value="CON24565">CON24565</option>
-                                <option value="CON30923">CON30923</option>
-                            </select>
+                        <div className="rounded flex items-center py-2">
+                            <Select
+                                options={options2}
+                                isSearchable
+                                placeholder="Select Cargo/BL ID"
+                                className='w-full'
+                            />
                         </div>
                     </div>
                     <div className="flex flex-col ">
                         <label htmlFor="name" className='font-semibold text-base'>Customer Name:</label>
-                        <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            {/* <input type="text" className='outline-none w-full' placeholder='Enter the name of the customer associated with the container' /> */}
-                            <select className='outline-none w-full' name="" id="">
-                                <option value="" className='text-[#a1a1a1]'>Select name of the customer associated with the container</option>
-                                <option value="CON12345">Adeyemi Olu</option>
-                                <option value="CON14534">Michael Adebayo</option>
-                                <option value="CON24565">Williams Odunayo</option>
-                                <option value="CON30923">Jabulani Usen</option>
-                            </select>
+                        <div className=" roundedflex items-center py-2">
+                            <Select
+                                options={options3}
+                                isSearchable
+                                placeholder="Select name of the customer associated with the container"
+                                className='w-full'
+                            />
                         </div>
                     </div>
                     

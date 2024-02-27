@@ -210,7 +210,7 @@ function ManageVoyage() {
               <div>
                 <label htmlFor="" className='text-[1em] '>Total Containers on Board:</label>
                 <div className=" border-[#828282] border-[1px] rounded-lg p-3 flex items-center">
-                  <input type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your vessel name..." />
+                  <input type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter No. of container..." />
                 </div>
               </div>
 
@@ -286,7 +286,7 @@ function ManageVoyage() {
                 </div>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">OOG</label>
-                  <input type="text" className='w-[150px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+                  <input type="number" className='w-[150px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
                 </div>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">OTFR</label>
@@ -307,7 +307,7 @@ function ManageVoyage() {
         type='submit'
         disabled={!formik.isValid}
         className='bg-[#4000FF] px-8 absolute bottom-[-4rem] right-0 py-1 rounded-lg text-white'>
-          Create Voyage
+          Update Voyage
         </button>
 
       </form>

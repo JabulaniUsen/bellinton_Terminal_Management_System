@@ -1,9 +1,10 @@
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, {useState} from 'react'
 import UploadBox from "./UploadBox";
 import { motion } from 'framer-motion';
 import SuccessBox from './SuccessBox';
+import Select from 'react-select';
 
 
 const CreateManifest = () => {
@@ -57,6 +58,13 @@ const CreateManifest = () => {
     setUploadSuccess(false);
   };
 
+  const dummyOptions = [
+    { value: 'option1', label: 'Option 1' },
+    { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3' },
+    // Add more options as needed
+  ];
+
   return (
     <div className='m-10'>
         <div className="head flex justify-between">
@@ -73,16 +81,24 @@ const CreateManifest = () => {
                 <div className="col1 flex flex-col gap-4">
                     <div className="flex justify-between items-center">
                         <label htmlFor="name" className='font-semibold text-base'>Cargo/BL ID:</label>
-                        <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <input type="text" className='outline-none w-full' />
-                            <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
+                        <div className="rounded w-[250px] flex items-center p-2">
+                            <Select
+                                options={dummyOptions}
+                                isSearchable
+                                placeholder="Search Cargo ID"
+                                className='w-full'
+                            />
                         </div>
                     </div>
                     <div className="flex justify-between items-center">
                         <label htmlFor="name" className='font-semibold text-base'>Vessel ID:</label>
-                        <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <input type="text" className='outline-none w-full' />
-                            <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
+                        <div className="rounded w-[250px] flex items-center p-2">
+                            <Select
+                                options={dummyOptions}
+                                isSearchable
+                                placeholder="Search Vessel ID"
+                                className='w-full'
+                            />
                         </div>
                     </div>
                     <div className="containerSize flex flex-col gap-3">
@@ -186,9 +202,9 @@ const CreateManifest = () => {
             <div className="body my-5 grid grid-cols-2 gap-20">
                 <div className="col1 flex flex-col gap-4">
                     <div className="flex justify-between items-center">
-                        <label htmlFor="name" className='font-semibold text-base'>Seal Number:</label>
+                        <label htmlFor="name" className='font-semibold text-base'>No of Containers:</label>
                         <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <input type="text" className='outline-none w-full' />
+                            <input type="number" className='outline-none w-full' />
                         </div>
                     </div>
                     <div className="flex justify-between items-center">

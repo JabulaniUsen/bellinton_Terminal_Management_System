@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { motion } from 'framer-motion';
+import Select from 'react-select';
+
 
 
 const Vessel = () => {
@@ -57,25 +59,20 @@ const Vessel = () => {
       <div >
         <div className="flex justify-between items-center">
           <div className="">
-            <div className="flex gap-2 my-10 mx-7">
+            <div className="flex gap-2 my-10 mx-7 items-center">
               <label htmlFor="" className='text-lg font-bold'>Select Cargo ID:</label>
               <div className="">
-                <select
-                  name="vesselId"
-                  id="vesselId"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className='border-[1px] border-[#8f8f8f] outline-none p-2 w-[300px] rounded '
-                >
-                  <option value="">Select Cargo ID</option>
-                  {initialData.map((item) => (
-                    <option key={item.vesselId} value={item.vesselId}>
-                      {item.vesselId}
-                    </option>
-                  ))}
-                </select>
-                {errorText && <p className="text-red-600">Please enter your cargo Id</p>}
-              </div>
+                  <Select
+                    options={initialData.map((item) => ({ value: item.vesselId, label: item.vesselId }))}
+                    value={{ value: searchTerm, label: searchTerm }}
+                    onChange={(selectedOption) => setSearchTerm(selectedOption.value)}
+                    isSearchable
+                    placeholder="Select Cargo ID"
+                    className='outline-none p-2 w-[300px] rounded '
+                  />
+                  {errorText && <p className="text-red-600">Please enter your cargo Id</p>}
+                </div>
+
             </div>
           </div>
         </div>
