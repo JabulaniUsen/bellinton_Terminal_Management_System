@@ -124,7 +124,7 @@ const AddContainer = () => {
                         <label htmlFor="name" className='font-semibold text-base'>Container ID:</label>
                         <div className="rounded flex items-center py-2">
                         <div ref={inputRef}>
-                            <div className="flex items-center justify-between pr-3 pl-2 py-1 rounded border-[#999999] border w-[230px]">
+                            <div className="flex items-center justify-between pr-3 pl-2 py-1 rounded border-[#999999] border w-[400px]">
                                 <input
                                     type="text"
                                     value={inputValue}
