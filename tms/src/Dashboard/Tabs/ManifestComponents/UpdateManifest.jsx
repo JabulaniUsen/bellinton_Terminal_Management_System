@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { motion } from 'framer-motion';
+import Select from 'react-select';
 
 
 const UpdateManifest = () => {
@@ -41,9 +42,25 @@ const UpdateManifest = () => {
     setUpdateSuccess(true)
   };
 
-  const handleModalOK = () => {
-    setUpdateSuccess(false);
-  };
+    const handleModalOK = () => {
+      setUpdateSuccess(false);
+    };
+    const initialData = [
+        { cargoId: 'CON73872', shipperName: 'ABC Shipping', shipperAddress: '123 Main St.', weight: 50, consigneeName: 'XYZ Company', status: 'Pending', consigneeAddress: '456 Elm St', sealNo: '20', packageQty: '20' },
+        { cargoId: 'CON16273', shipperName: 'DEF Logistics', shipperAddress: '789 Oak St.', weight: 30, consigneeName: 'LMN Corporation', status: 'In transit', consigneeAddress: '101 Pine St.', sealNo: '14', packageQty: '20' },
+    ];
+    const [data, setData] = useState(initialData);
+    const [searchTerm, setSearchTerm] = useState('');
+    
+    const handleSearch = () => {
+        const filteredData = initialData.filter(item =>
+          item.cargoId.toString().includes(searchTerm.toLowerCase())
+        );
+        
+    
+        // Update the state with the filtered data
+        setData(filteredData);
+      };
 
   return (
     <div className='m-10'>
@@ -53,14 +70,17 @@ const UpdateManifest = () => {
 
         <div className="mb-10 mx-5">
 
-            <div className="flex justify-between items-center w-[500px] my-7">
+            <div className="flex justify-between items-center w-[550px] my-7">
                 <label htmlFor="name" className='font-semibold text-lg'>Select Cargo ID to update:</label>
-                <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                    <select name="" id="" className='outline-none w-[250px]'>
-                        <option value="Option1"></option>
-                        <option value="Option2">Option2</option>
-                        <option value="Option3">Option3</option>
-                    </select>
+                <div className="">
+                <Select
+                  options={initialData.map((item) => ({ value: item.cargoId, label: item.cargoId }))}
+                  value={{ value: searchTerm, label: searchTerm }}
+                  onChange={(selectedOption) => setSearchTerm(selectedOption.value)}
+                  isSearchable
+                  placeholder="Select Cargo ID"
+                  className='outline-none p-2 w-[300px] rounded'
+                />
                 </div>
             </div>
 

@@ -123,7 +123,7 @@ function ManageVoyage() {
                   className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[400px]'
                   name="vesselId"
                   id=""
-                  placeholder="Enter your voyage number..."
+                  placeholder="Enter vessel ID..."
                   value={values.vesselId}
                   onChange={handleChange}
                   onBlur={formik.handleBlur}
@@ -282,7 +282,7 @@ function ManageVoyage() {
           <h3 className='text-lg font-semibold my-5'>Container Details:</h3>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">Regular</label>
-                  <input type="text" className='w-[150px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+                  <input type="number" className='w-[150px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
                 </div>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">OOG</label>

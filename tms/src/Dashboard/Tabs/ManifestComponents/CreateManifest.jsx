@@ -1,6 +1,6 @@
-import { faMagnifyingGlass, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faMagnifyingGlass, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, {useState} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import UploadBox from "./UploadBox";
 import { motion } from 'framer-motion';
 import SuccessBox from './SuccessBox';
@@ -23,7 +23,56 @@ const CreateManifest = () => {
   const [containerClassification, setContainerClassification] = useState('');
   const [showUpload, setShowUpload] = useState(false)
   const [uploadSuccess, setUploadSuccess] = useState(false)
+  const [searchValue, setSearchValue] = useState('');
+  const [inputValue, setInputValue] = useState('');
+  const [inputValue2, setInputValue2] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions2, setSuggestions2] = useState([]);
+  const inputRef = useRef(null);
 
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+  const handleClickOutside = (event) => {
+    if (inputRef.current && !inputRef.current.contains(event.target)) {
+      setSuggestions([]);
+      setSuggestions2([]);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+
+    // Filter suggestions based on the input value
+    const filteredSuggestions = data.filter((item) =>
+      item.toLowerCase().includes(value.toLowerCase())
+    );
+    setSuggestions(filteredSuggestions);
+  };
+
+  const handleInputChange2 = (e) => {
+    const value = e.target.value;
+    setInputValue2(value);
+
+    const filteredSuggestions2 = data2.filter((item) =>
+    item.toLowerCase().includes(value.toLowerCase())
+  );
+    setSuggestions2(filteredSuggestions2)
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setInputValue(suggestion);
+    setSuggestions([]);
+  };
+  const handleSuggestionClick2 = (suggestion2) => {
+    setInputValue2(suggestion2);
+    setSuggestions2([]);
+  };
 
   const closeUploadBox = () => {
     setShowUpload(false);
@@ -58,12 +107,18 @@ const CreateManifest = () => {
     setUploadSuccess(false);
   };
 
-  const dummyOptions = [
-    { value: 'option1', label: 'Option 1' },
-    { value: 'option2', label: 'Option 2' },
-    { value: 'option3', label: 'Option 3' },
-    // Add more options as needed
-  ];
+
+
+  const data = ["CON237", "CON126", "CON132", "CON342", "CON372"];
+  const data2 = ["CON237", "CON126", "CON132", "CON342", "CON372"];
+
+  const handleSearchChange = (selectedOption) => {
+    if (selectedOption) {
+        console.log('Selected Option:', selectedOption);
+    } else {
+        console.log('Search Value not found in the database:', searchValue);
+    }
+};
 
   return (
     <div className='m-10'>
@@ -79,26 +134,56 @@ const CreateManifest = () => {
 
             <div className="body my-5 grid grid-cols-2 gap-20">
                 <div className="col1 flex flex-col gap-4">
-                    <div className="flex justify-between items-center">
-                        <label htmlFor="name" className='font-semibold text-base'>Cargo/BL ID:</label>
+                    <div className="flex justify-between ">
+                        <label htmlFor="name" className='mt-3 font-semibold text-base'>Cargo/BL ID:</label>
                         <div className="rounded w-[250px] flex items-center p-2">
-                            <Select
+                            {/* <Select
                                 options={dummyOptions}
                                 isSearchable
                                 placeholder="Search Cargo ID"
                                 className='w-full'
-                            />
+                            /> */}
+                            <div ref={inputRef}>
+                                <div className="flex items-center justify-between pr-3 pl-2 py-1 rounded border-[#999999] border w-[230px]">
+                                    <input
+                                        type="text"
+                                        value={inputValue}
+                                        onChange={handleInputChange}
+                                        className='outline-none'
+                                    />
+                                    <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
+                                </div>
+                                <ul className=''>
+                                    {suggestions.map((suggestion, index) => (
+                                    <li key={index} className='cursor-pointer hover:bg-slate-100 p-2' onClick={() => handleSuggestionClick(suggestion)}>
+                                        {suggestion}
+                                    </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div className="flex justify-between items-center">
                         <label htmlFor="name" className='font-semibold text-base'>Vessel ID:</label>
                         <div className="rounded w-[250px] flex items-center p-2">
-                            <Select
-                                options={dummyOptions}
-                                isSearchable
-                                placeholder="Search Vessel ID"
-                                className='w-full'
-                            />
+                        <div ref={inputRef}>
+                                <div className="flex items-center justify-between pr-3 pl-2 py-1 rounded border-[#999999] border w-[230px]">
+                                    <input
+                                        type="text"
+                                        value={inputValue2}
+                                        onChange={handleInputChange2}
+                                        className='outline-none'
+                                    />
+                                    <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
+                                </div>
+                                <ul className=''>
+                                    {suggestions2.map((suggestion, index) => (
+                                    <li key={index} className='cursor-pointer hover:bg-slate-100 p-2' onClick={() => handleSuggestionClick2(suggestion)}>
+                                        {suggestion}
+                                    </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div className="containerSize flex flex-col gap-3">
@@ -254,10 +339,6 @@ const CreateManifest = () => {
 
         { showUpload &&
             <UploadBox closeUploadBox={closeUploadBox}/>
-        }
-
-        { uploadSuccess && 
-            <SuccessBox handleModalOK={handleModalOK} />
         }
     </div>
   )

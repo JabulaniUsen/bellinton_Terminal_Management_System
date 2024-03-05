@@ -126,7 +126,7 @@ function AddVessel() {
               <div>
                 <label htmlFor="" className='text-[1em] '>Total Containers on Board:</label>
                 <div className=" border-[#828282] border-[1px] rounded-lg p-3 flex items-center">
-                  <input type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your vessel name..." />
+                  <input type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter the total number of containers on board..." />
                 </div>
               </div>
 

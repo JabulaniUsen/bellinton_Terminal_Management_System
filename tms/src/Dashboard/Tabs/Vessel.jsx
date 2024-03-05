@@ -14,13 +14,13 @@ const Vessel = () => {
 
 
   const initialData = [
-    { vesselId: '001', vesselName: 'Ocean Voyage', eta: '9/5/2024 8:00', etd: '9/5/2024 8:00', totalContainers: 100, status: 'At Port', action: 'View Details'},
-    { vesselId: '002', vesselName: 'Nautical Spirit', eta: '3/6/2024 14:30', etd: '9/5/2024 8:00', totalContainers: 140, status: 'In transit', action: 'View Details'},
+    { vesselId: 'VS72873', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Ocean Voyage', eta: '9/5/2024 8:00', etd: '9/5/2024 8:00', totalContainers: 100, status: 'At Port', action: 'View Details'},
+    { vesselId: 'VS27832', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Nautical Spirit', eta: '3/6/2024 14:30', etd: '9/5/2024 8:00', totalContainers: 140, status: 'In transit', action: 'View Details'},
   ];
   
   const handleSearch = () => {
     const filteredData = initialData.filter(item =>
-      item.vesselId.toString().includes(searchTerm.toLowerCase())
+      item.vesselId.toLowerCase().includes(searchTerm.toLowerCase())
     );
     
 
@@ -50,6 +50,19 @@ const Vessel = () => {
     setUploadSuccess(false);
   };
 
+  // Show more details
+
+  const [selectedVesselDetails, setSelectedVesselDetails] = useState(null);
+
+  const showVesselDetails = (vesselId) => {
+    const details = initialData.find(item => item.vesselId === vesselId);
+    setSelectedVesselDetails(details);
+  };
+
+  const closeDetailsBox = () => {
+    setSelectedVesselDetails(null);
+  };
+
   return (
     <div className='py-10 roboto '>
       <div className="head flex justify-between mx-5">
@@ -60,7 +73,7 @@ const Vessel = () => {
         <div className="flex justify-between items-center">
           <div className="">
             <div className="flex gap-2 my-10 mx-7 items-center">
-              <label htmlFor="" className='text-lg font-bold'>Select Cargo ID:</label>
+              <label htmlFor="" className='text-lg font-bold'>Select Vessel ID:</label>
               <div className="">
                   <Select
                     options={initialData.map((item) => ({ value: item.vesselId, label: item.vesselId }))}
@@ -119,7 +132,7 @@ const Vessel = () => {
                   <td className="border border-black px-4 py-2">{rowData.etd}</td>
                   <td className="border border-black px-4 py-2">{rowData.status}</td>
                   <td className="border border-black px-4 py-2">{rowData.totalContainers}</td>
-                  <td className="border border-black px-4 py-2 underline cursor-pointer">[ {rowData.action} ]</td>
+                  <td className="border border-black px-4 py-2" ><button onClick={() => showVesselDetails(rowData.vesselId)} className="underline">[ {rowData.action} ]</button></td>
                 </tr>
               ))}
             </tbody>
@@ -150,6 +163,38 @@ const Vessel = () => {
             </div>
           </motion.div>
         }
+
+      {selectedVesselDetails && 
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.5 }}
+          transition={{ duration: 0.3 }}
+          className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-[#F2F2F2] bg-opacity-50"
+        >
+          <div className="bg-[#ffff] px-20 py-10 rounded-xl text-center shadow-2xl">
+            <p className="text-2xl font-bold mb-8">More Details</p>
+            <div className="text-left flex flex-col gap-4">
+              <p className="font-semibold">• Vessel Name: <span className="font-normal">{selectedVesselDetails.vesselName}</span></p>
+              <p className="font-semibold">• IMO Number: <span className="font-normal">{selectedVesselDetails.imoNumber}</span></p>
+              <p className="font-semibold">• Status: <span className="font-normal">{selectedVesselDetails.status}</span></p>
+              <p className="font-semibold">• ETA (Estimated Time of Arrival): <span className="font-normal">{selectedVesselDetails.eta}</span></p>
+              <p className="font-semibold">• ETD (Estimated Time of Departure): <span className="font-normal">{selectedVesselDetails.etd}</span></p>
+              <p className="font-semibold">• Next Port: <span className="font-normal">{selectedVesselDetails.nextPort}</span></p>
+              <p className="font-semibold">• Last Port: <span className="font-normal">{selectedVesselDetails.lastPort}</span></p>
+              <div className="flex gap-4">
+                <p className="font-semibold">• Cargo Information: <span className="font-normal">{selectedVesselDetails.cargoInfo}</span></p>
+                <p className="font-semibold">Destination: <span className="font-normal">{selectedVesselDetails.Destination}</span></p>
+              </div>
+              <p className="font-semibold">• Agent/Operator: <span className="font-normal">{selectedVesselDetails.Agent}</span></p>
+             
+            </div>
+            <div className="flex justify-center space-x-4 mt-4">
+              <button onClick={closeDetailsBox} className="bg-[#4000FF] text-white px-6 py-1 rounded-full">Close</button>
+            </div>
+          </div>
+        </motion.div>
+      }
     </div>
   );
 };
