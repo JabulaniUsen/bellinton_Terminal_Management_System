@@ -1,6 +1,6 @@
 import { faCaretDown, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, {useState} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import { motion } from 'framer-motion';
 import Select from 'react-select';
 
@@ -22,7 +22,37 @@ const AddContainer = () => {
   const [containerClassification, setContainerClassification] = useState('');
   const [showUpload, setShowUpload] = useState(false)
   const [uploadSuccess, setUploadSuccess] = useState(false)
+  const [inputValue, setInputValue] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const inputRef = useRef(null);
 
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+  const handleClickOutside = (event) => {
+    if (inputRef.current && !inputRef.current.contains(event.target)) {
+      setSuggestions([]);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+
+    // Filter suggestions based on the input value
+    const filteredSuggestions = data.filter((item) =>
+      item.toLowerCase().includes(value.toLowerCase())
+    );
+    setSuggestions(filteredSuggestions);
+  };
+  const handleSuggestionClick = (suggestion) => {
+    setInputValue(suggestion);
+    setSuggestions([]);
+  };
 
   const closeUploadBox = () => {
     setShowUpload(false);
@@ -64,6 +94,7 @@ const AddContainer = () => {
     { value: 'CON24565', label: 'CON24565' },
     { value: 'CON30923', label: 'CON30923' },
   ];
+  const data = ["CON237", "CON126", "CON132", "CON342", "CON372"]
   const options2 = [
     { value: '', label: 'Select Cargo/BL ID', isDisabled: true },
     { value: '0012345', label: 'CON12345' },
@@ -92,14 +123,26 @@ const AddContainer = () => {
                     <div className="flex flex-col ">
                         <label htmlFor="name" className='font-semibold text-base'>Container ID:</label>
                         <div className="rounded flex items-center py-2">
-                            <Select
-                                options={dummyOptions}
-                                isSearchable
-                                placeholder="Search Cargo ID"
-                                className='w-full'
-                            />
+                        <div ref={inputRef}>
+                            <div className="flex items-center justify-between pr-3 pl-2 py-1 rounded border-[#999999] border w-[230px]">
+                                <input
+                                    type="text"
+                                    value={inputValue}
+                                    onChange={handleInputChange}
+                                    className='outline-none'
+                                />
+                                <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
+                            </div>
+                            <ul className=''>
+                                {suggestions.map((suggestion, index) => (
+                                <li key={index} className='cursor-pointer hover:bg-slate-100 p-2' onClick={() => handleSuggestionClick(suggestion)}>
+                                    {suggestion}
+                                </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
+                </div>
                     <div className="containerSize flex flex-col gap-3 my-3">
                         <div className='font-semibold text-base'>Container Size:</div>
                         <div className="flex items-center gap-2">

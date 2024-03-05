@@ -112,6 +112,12 @@ const CreateManifest = () => {
   const data = ["CON237", "CON126", "CON132", "CON342", "CON372"];
   const data2 = ["CON237", "CON126", "CON132", "CON342", "CON372"];
 
+  const dummyOptions = [
+    { value: 'ABCD', label: 'ABCD' },
+    { value: 'EFGH', label: 'EFGH' },
+    { value: 'IJKL', label: 'IJKL' },
+    { value: 'MNOP', label: 'MNOP' },
+  ];
   const handleSearchChange = (selectedOption) => {
     if (selectedOption) {
         console.log('Selected Option:', selectedOption);
@@ -163,8 +169,8 @@ const CreateManifest = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="flex justify-between items-center">
-                        <label htmlFor="name" className='font-semibold text-base'>Vessel ID:</label>
+                    <div className="flex justify-between">
+                        <label htmlFor="name" className='mt-3 font-semibold text-base'>Vessel ID:</label>
                         <div className="rounded w-[250px] flex items-center p-2">
                         <div ref={inputRef}>
                                 <div className="flex items-center justify-between pr-3 pl-2 py-1 rounded border-[#999999] border w-[230px]">
@@ -315,14 +321,14 @@ const CreateManifest = () => {
                     </div>
                     <div className="flex justify-between items-center">
                         <label htmlFor="name" className='font-semibold text-base'>Container Classification:</label>
-                        <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
+                        <div className=" w-[215px] flex items-center p-2">
                             {/* <input type="text" className='outline-none w-full' /> */}
-                            <select name="" id="" className='outline-none w-[180px]'>
-                                <option value="">Select</option>
-                                <option value="Option3">Option1</option>
-                                <option value="Option2">Option2</option>
-                                <option value="Option3">Option3</option>
-                            </select>
+                            <Select
+                                options={dummyOptions}
+                                isSearchable
+                                placeholder="Search Cargo ID"
+                                className='w-full'
+                            />
                         </div>
                     </div>
                 </div>
