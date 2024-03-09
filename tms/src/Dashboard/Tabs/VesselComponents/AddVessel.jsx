@@ -1,6 +1,6 @@
 import { faMagnifyingGlass, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, {useState} from 'react'
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 function AddVessel() {
@@ -23,7 +23,39 @@ function AddVessel() {
   const [discharged, setDischarged] = useState(false);
   const [showViewVessels, setShowViewVessels] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const inputRef = useRef(null);
 
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+  const handleClickOutside = (event) => {
+    if (inputRef.current && !inputRef.current.contains(event.target)) {
+      setSuggestions([]);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+
+    const filteredSuggestions = data.filter((item) =>
+      item.toLowerCase().includes(value.toLowerCase())
+    );
+    setSuggestions(filteredSuggestions);
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setInputValue(suggestion);
+    setSuggestions([]);
+  };
+
+  const data = ["VSL237", "VSL126", "VSL132", "VSL342", "VSL372"];
   
   const handleViewDetails = (e) => {
     e.preventDefault();
@@ -81,13 +113,31 @@ function AddVessel() {
             <h3 className='text-lg font-semibold my-5'>Vessel Information</h3>
             <div className="vesselInformation roboto flex flex-col gap-10">
 
-              <div className="flex items-center gap-3">
-                <label htmlFor="" className='text-[1em] '>Vessel ID:</label>
-                <input type="text" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[400px]' name="id" id="" placeholder="Enter your vessel ID..." />
+              <div className="flex gap-3">
+                <label htmlFor="" className='text-[1em] mt-4'>Vessel ID:</label>
+                <div ref={inputRef}>
+                  <div className="flex items-center justify-between pr-3 pl-2 py-3 rounded-lg border-[#999999] border w-[400px]">
+                    <input
+                      type="text"
+                      value={inputValue}
+                      onChange={handleInputChange}
+                      className='outline-none'
+                    />
+                    <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
+                  </div>
+                  <ul className=''>
+                      {suggestions.map((suggestion, index) => (
+                      <li key={index} className='cursor-pointer hover:bg-slate-100 p-2' onClick={() => handleSuggestionClick(suggestion)}>
+                          {suggestion}
+                      </li>
+                      ))}
+                  </ul>
+              </div>
+                {/* <input type="text" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[400px]' name="id" id="" placeholder="Enter your vessel ID..." /> */}
               </div>
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>ETA (Estimated Time of Arrival):</label>
-                <input type="date" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[243px]' name="id" id="" placeholder="Enter the estimated time of arrival..." />
+                <input type="date" className=' border-[#828282] border-[1px] rounded-lg p-3  w-[243px]' name="id" id="" placeholder="Enter the estimated time of arrival..." />
               </div>
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>Company:</label>

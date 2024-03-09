@@ -4,9 +4,9 @@ import Select from 'react-select';
 
 
 
-const ViewContainer = () => {
+const ViewCustomer = () => {
   const [showManifestData, setShowManifestData] = useState(true);
-  const [containerId, setcontainerId] = useState("");
+  const [customerId, setcustomerId] = useState("");
   const [errorText, setErrorText] = useState(false);
   const [showUpload, setShowUpload] = useState(false)
   const [uploadSuccess, setUploadSuccess] = useState(false)
@@ -14,13 +14,13 @@ const ViewContainer = () => {
 
 
   const initialData = [
-    { containerId: 'VS72873', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Ocean Voyage', eta: '9/5/2024 8:00', etd: '9/5/2024 8:00', totalContainers: 100, status: 'At Port', action: 'View Details', type: 'Dry', customerName: 'ABC Shipping'},
-    { containerId: 'VS27832', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Nautical Spirit', eta: '3/6/2024 14:30', etd: '9/5/2024 8:00', totalContainers: 140, status: 'In transit', action: 'View Details', type: 'Refregirated', customerName: 'ABC Shipping'},
+    { customerId: '1001', customerName: 'ABC Shipping Co.', contactPerson: 'John Smith', email: 'john@abcshipping.com', phone: '+1 (555) 123-4567', address: '123 Main Street'},
+    { customerId: '1002', customerName: 'XYZ Logistics', contactPerson: 'Emily Dao', email: 'john@abcshipping.com', phone: '+1 (555) 123-4567', address: '123 Main Street'},
   ];
   
   const handleSearch = () => {
     const filteredData = initialData.filter(item =>
-      item.containerId.toLowerCase().includes(searchTerm.toLowerCase())
+      item.customerName.toLowerCase().includes(searchTerm.toLowerCase())
     );
     
 
@@ -54,8 +54,8 @@ const ViewContainer = () => {
 
   const [selectedVesselDetails, setSelectedVesselDetails] = useState(null);
 
-  const showVesselDetails = (containerId) => {
-    const details = initialData.find(item => item.containerId === containerId);
+  const showVesselDetails = (customerId) => {
+    const details = initialData.find(item => item.customerName === customerName);
     setSelectedVesselDetails(details);
   };
 
@@ -66,24 +66,24 @@ const ViewContainer = () => {
   return (
     <div className='py-10 roboto '>
       <div className="head flex justify-between mx-5">
-        <h3 className='text-2xl font-bold'>View Container</h3>
+        <h3 className='text-2xl font-bold'>View Customer</h3>
       </div>
 
       <div >
         <div className="flex justify-between items-center">
           <div className="">
             <div className="flex gap-2 my-10 mx-7 items-center">
-              <label htmlFor="" className='text-lg font-bold'>Select Container ID:</label>
+              <label htmlFor="" className='text-lg font-bold'>Enter Customers Name:</label>
               <div className="">
                   <Select
-                    options={initialData.map((item) => ({ value: item.containerId, label: item.containerId }))}
+                    options={initialData.map((item) => ({ value: item.customerName, label: item.customerName }))}
                     value={{ value: searchTerm, label: searchTerm }}
                     onChange={(selectedOption) => setSearchTerm(selectedOption.value)}
                     isSearchable
                     placeholder="Select Cargo ID"
                     className='outline-none p-2 w-[300px] rounded '
                   />
-                  {errorText && <p className="text-red-600">Please enter your cargo Id</p>}
+                  {errorText && <p className="text-red-600">Please enter customers name</p>}
                 </div>
 
             </div>
@@ -100,7 +100,7 @@ const ViewContainer = () => {
         <div className="">
           {data.map((rowData, index) => (
             <div className="manifestDetails" key={index}>
-            <p className="font-semibold">Cargo ID: <span className="font-normal">{rowData.containerId}</span></p>
+            <p className="font-semibold">Cargo ID: <span className="font-normal">{rowData.customerId}</span></p>
             <p className="font-semibold">Date: <span className="font-normal">February 17, 2024</span></p>
             <p className="font-semibold">Terminal: <span className="font-normal">Port of Lagos</span></p>
           </div>
@@ -113,28 +113,25 @@ const ViewContainer = () => {
           <div className="table overflow-x-auto my-10">
           <table className="border border-collapse">
             <thead>
-              <tr className="grid grid-cols-8 border border-black">
-                <th className=" border bg-black text-white py-2">Container ID</th>
-                <th className=" border bg-black text-white py-2">Status</th>
-                <th className=" border bg-black text-white py-2">eta</th>
-                <th className=" border bg-black text-white py-2">etd</th>
-                <th className=" border bg-black text-white py-2">Type</th>
-                <th className=" border bg-black text-white py-2">Vessel Name</th>
+              <tr className="grid grid-cols-6 border border-black">
+                <th className=" border bg-black text-white py-2">Customer ID</th>
                 <th className=" border bg-black text-white py-2">Customer Name</th>
-                <th className=" border bg-black text-white py-2">Action</th>
+                <th className=" border bg-black text-white py-2">Contact Person</th>
+                <th className=" border bg-black text-white py-2">Email</th>
+                <th className=" border bg-black text-white py-2">Phone</th>
+                <th className=" border bg-black text-white py-2">Address</th>
               </tr>
             </thead>
             <tbody>
               {data.map((rowData, index) => (
-                <tr key={index} className="grid grid-cols-8">
-                  <td className="border border-black px-2 py-2">{rowData.containerId}</td>
-                  <td className="border border-black px-2 py-2">{rowData.status}</td>
-                  <td className="border border-black px-2 py-2">{rowData.eta}</td>       
-                  <td className="border border-black px-2 py-2">{rowData.etd}</td>
-                  <td className="border border-black px-2 py-2">{rowData.type}</td>
-                  <td className="border border-black px-2 py-2">{rowData.vesselName}</td>
-                  <td className="border border-black px-2 py-2">{rowData.customerName}</td>
-                  <td className="border border-black px-2 py-2" ><button onClick={() => showVesselDetails(rowData.containerId)} className="underline">[ {rowData.action} ]</button></td>
+                <tr key={index} className="grid grid-cols-6">
+                  <td className="border border-black px-4 py-2">{rowData.customerId}</td>
+                  <td className="border border-black px-4 py-2">{rowData.customerName}</td>
+                  <td className="border border-black px-4 py-2">{rowData.contactPerson}</td>       
+                  <td className="border border-black px-2 text-sm py-2">{rowData.email}</td>
+                  <td className="border border-black px-4 py-2">{rowData.phone}</td>
+                  <td className="border border-black px-4 py-2">{rowData.address}</td>
+                  {/* <td className="border border-black px-4 py-2" ><button onClick={() => showVesselDetails(rowData.customerId)} className="underline">[ {rowData.action} ]</button></td> */}
                 </tr>
               ))}
             </tbody>
@@ -182,11 +179,11 @@ const ViewContainer = () => {
               <p className="font-semibold">• Status: <span className="font-normal">{selectedVesselDetails.status}</span></p>
               <p className="font-semibold">• ETA (Estimated Time of Arrival): <span className="font-normal">{selectedVesselDetails.eta}</span></p>
               <p className="font-semibold">• ETD (Estimated Time of Departure): <span className="font-normal">{selectedVesselDetails.etd}</span></p>
-              <p className="font-semibold">• Next Port: <span className="font-normal">{selectedVesselDetails.nextPort}</span></p>
-              <p className="font-semibold">• Last Port: <span className="font-normal">{selectedVesselDetails.lastPort}</span></p>
+              <p className="font-semibold">• Next Port: <span className="font-normal">{selectedVesselDetails.contactPerson}</span></p>
+              <p className="font-semibold">• Last Port: <span className="font-normal">{selectedVesselDetails.email}</span></p>
               <div className="flex gap-4">
-                <p className="font-semibold">• Cargo Information: <span className="font-normal">{selectedVesselDetails.cargoInfo}</span></p>
-                <p className="font-semibold">Destination: <span className="font-normal">{selectedVesselDetails.Destination}</span></p>
+                <p className="font-semibold">• Cargo Information: <span className="font-normal">{selectedVesselDetails.phone}</span></p>
+                <p className="font-semibold">address: <span className="font-normal">{selectedVesselDetails.address}</span></p>
               </div>
               <p className="font-semibold">• Agent/Operator: <span className="font-normal">{selectedVesselDetails.Agent}</span></p>
              
@@ -201,4 +198,10 @@ const ViewContainer = () => {
   );
 };
 
-export default ViewContainer;
+export default ViewCustomer;
+
+
+
+
+
+

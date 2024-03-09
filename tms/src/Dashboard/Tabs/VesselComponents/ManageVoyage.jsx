@@ -1,28 +1,42 @@
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useFormik } from 'formik';
 
 function ManageVoyage() {
+  const [inputValue, setInputValue] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const inputRef = useRef(null);
 
-  const [vesselId, setVesselId] = useState('');
-  const [eta, setEta] = useState('');
-  const [company, setCompany] = useState('');
-  const [originPort, setOriginPort] = useState('');
-  const [destinationPort, setDestinationPort] = useState('');
-  const [stop, setStop] = useState('');
-  const [regular, setRegular] = useState(false);
-  const [oog, setOog] = useState(false);
-  const [otfr, setOtfr] = useState(false);
-  const [reefer, setReefer] = useState(false);
-  const [hazardous, setHazardous] = useState(false);
-  const [vesselName, setVesselName] = useState('');
-  const [voyageNumber, setVoyageNumber] = useState('')
-  const [etd, setEtd] = useState('');
-  const [inTransit, setInTransit] = useState(false);
-  const [awaitingDelivery, setAwaitingDelivery] = useState(false);
-  const [discharged, setDischarged] = useState(false);
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+  const handleClickOutside = (event) => {
+    if (inputRef.current && !inputRef.current.contains(event.target)) {
+      setSuggestions([]);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+
+    const filteredSuggestions = data.filter((item) =>
+      item.toLowerCase().includes(value.toLowerCase())
+    );
+    setSuggestions(filteredSuggestions);
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setInputValue(suggestion);
+    setSuggestions([]);
+  };
+
   const formik = useFormik({
     initialValues: {
       vesselId: '',
@@ -96,11 +110,14 @@ function ManageVoyage() {
 
   const [stops, setStops] = useState([
   { id: '', placeholder: 'Enter the name of the stop', type: 'number' },
-]);
+  ]);
   const addStop = (e) => {
     e.preventDefault();
     setStops([...stops, { id: '', placeholder: 'Enter the name of the stop', type: 'text' }]);
   };
+
+  const data = ["VSL237", "VSL126", "VSL132", "VSL342", "VSL372"];
+
   return (
     <div className='p-10 roboto'>
       <div className="header">
@@ -116,9 +133,9 @@ function ManageVoyage() {
             <h3 className='text-lg font-semibold my-5'>View Information</h3>
             <div className="vesselInformation roboto flex flex-col gap-10">
 
-              <div className="flex items-center gap-3">
-                <label htmlFor="" className='text-[1em] '>Vessel ID:</label>
-                <input
+              <div className="flex gap-3">
+                <label htmlFor="" className='text-[1em] mt-[13px]'>Vessel ID:</label>
+                {/* <input
                   type="text"
                   className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[400px]'
                   name="vesselId"
@@ -127,7 +144,25 @@ function ManageVoyage() {
                   value={values.vesselId}
                   onChange={handleChange}
                   onBlur={formik.handleBlur}
-                />
+                /> */}
+                <div ref={inputRef}>
+                  <div className="flex items-center justify-between pr-3 pl-2 py-3 rounded-lg border-[#999999] border w-[400px]">
+                    <input
+                      type="text"
+                      value={inputValue}
+                      onChange={handleInputChange}
+                      className='outline-none'
+                    />
+                    <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
+                  </div>
+                  <ul className=''>
+                      {suggestions.map((suggestion, index) => (
+                      <li key={index} className='cursor-pointer hover:bg-slate-100 p-2' onClick={() => handleSuggestionClick(suggestion)}>
+                          {suggestion}
+                      </li>
+                      ))}
+                  </ul>
+              </div>
               </div>
                 {errors.vesselId && touched.vesselId && (
                   <p className="text-red-500 my-[-2rem]">{errors.vesselId}</p>

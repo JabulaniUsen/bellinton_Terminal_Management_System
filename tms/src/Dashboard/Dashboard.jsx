@@ -33,10 +33,15 @@ import ViewContainer from './Tabs/ContainerComponents/ViewContainer';
 import AddContainer from './Tabs/ContainerComponents/AddContainter';
 import ContainerTransfer from './Tabs/ContainerComponents/ContainerTransfer';
 import Report from './Tabs/Report';
+import ViewCustomer from './Tabs/CustomerComponents/ViewCustomer';
+import AddCustomer from './Tabs/CustomerComponents/AddCustomer';
+import ManageCustomer from './Tabs/CustomerComponents/ManageCustomer';
+import YardManagement from './Tabs/YardManagement';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
   const [selectedButton, setSelectedButton] = useState(null);
+  const [activeSubButton, setActiveSubButton] = useState(null)
 
   const TabButton = ({ tabNumber, label, icon, subButtons }) => (
     <div className="relative">
@@ -120,12 +125,13 @@ const Dashboard = () => {
     {
       label: 'Yard Mgt',
       icon: faWarehouse,
+      // tabNumber: 16,
       subButtons: [
-        { label: 'View Yard Map', tabNumber: 17, icon: faCog },
+        { label: 'Yard Overview', tabNumber: 17, icon: faCog },
         { label: 'Gate In/Out', tabNumber: 18, icon: faCog },
         { label: 'Transfer', tabNumber: 19, icon: faCog },
         { label: 'Yard Activity', tabNumber: 20, icon: faCog }
-      ]
+      ],
     },
     {
       label: 'Customers',
@@ -133,7 +139,7 @@ const Dashboard = () => {
       subButtons: [
         { label: 'View Customer', tabNumber: 21, icon: faCog },
         { label: 'Add Customer', tabNumber: 22, icon: faCog },
-        { label: 'View Invoice', tabNumber: 23, icon: faCog },
+        { label: 'Manage Customer', tabNumber: 23, icon: faCog },
       ]
     },
     {
@@ -219,6 +225,13 @@ const Dashboard = () => {
           {activeTab === 14  && <AddContainer/>}
           {activeTab === 15 && <ContainerTransfer/>}
 
+          {/* Customer */}
+          {activeTab === 21 && <ViewCustomer/>}
+          {activeTab === 22 && <AddCustomer/>}
+          {activeTab === 23 && <ManageCustomer/>}
+
+          {/* Yard Mgt */}
+          {activeTab === 17 && <YardManagement/>}
 
 
         </div>

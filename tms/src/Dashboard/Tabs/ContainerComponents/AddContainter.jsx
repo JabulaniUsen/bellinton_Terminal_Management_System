@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, {useState, useRef, useEffect} from 'react'
 import { motion } from 'framer-motion';
 import Select from 'react-select';
+import SuccessBox from '../ManifestComponents/SuccessBox';
+import UploadBox from '../ManifestComponents/UploadBox';
 
 
 
@@ -60,8 +62,8 @@ const AddContainer = () => {
   };
 
   const handleUpload = () => {
-    setShowUpload(!showUpload);
-  }
+    setShowUpload(true);
+  };
 
   // Function to handle form submission
   const handleSubmit = () => {
@@ -114,8 +116,9 @@ const AddContainer = () => {
     <div className='m-10'>
 
         <div className="my-10 mx-5">
-            <div className="">
-                <h4 className='text-lg font-semibold py-1 border-b-[1px] border-[#999999]'>Add Container to Manifest</h4>
+            <div className="flex justify-between items-center py-1 border-b-[1px] border-[#999999]">
+                <h4 className='text-lg font-semibold'>Add Container to Manifest</h4>
+                <button className='text-[#0095FF] text-lg' onClick={handleUpload}>Upload</button>
             </div>
 
             <div className="body my-5 grid grid-cols-2 gap-20">
@@ -263,12 +266,7 @@ const AddContainer = () => {
             </div>
         </div>
 
-        
-
-
-        { uploadSuccess && 
-            <SuccessBox handleModalOK={handleModalOK} />
-        }
+        {showUpload && <UploadBox closeUploadBox={closeUploadBox} />}
     </div>
   )
 }
