@@ -86,29 +86,17 @@ const ViewCustomer = () => {
                   {errorText && <p className="text-red-600">Please enter customers name</p>}
                 </div>
 
+              <div className="flex gap-3 justify-center items-center my-10">
+                <button className=' text-white bg-[#4000FF] rounded-xl py-2 px-10' onClick={handleSearch} >View</button>
+                <button className=' text-white bg-[#4000FF] rounded-xl py-2 px-10' >Add Customer</button>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col justify-center items-center my-10">
-          <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handleSearch} >View</button>
-        </div>
       </div>
 
       <div className={`moreInfo my-10 mx-5 `}>
-        {/* {moreInfo &&         
-        <div className="">
-          {data.map((rowData, index) => (
-            <div className="manifestDetails" key={index}>
-            <p className="font-semibold">Cargo ID: <span className="font-normal">{rowData.customerId}</span></p>
-            <p className="font-semibold">Date: <span className="font-normal">February 17, 2024</span></p>
-            <p className="font-semibold">Terminal: <span className="font-normal">Port of Lagos</span></p>
-          </div>
-          ))}
-        </div>
-        } */}
-
-
           {showManifestData && 
           <div className="table overflow-x-auto my-10">
           <table className="border border-collapse">
@@ -131,7 +119,6 @@ const ViewCustomer = () => {
                   <td className="border border-black px-2 text-sm py-2">{rowData.email}</td>
                   <td className="border border-black px-4 py-2">{rowData.phone}</td>
                   <td className="border border-black px-4 py-2">{rowData.address}</td>
-                  {/* <td className="border border-black px-4 py-2" ><button onClick={() => showVesselDetails(rowData.customerId)} className="underline">[ {rowData.action} ]</button></td> */}
                 </tr>
               ))}
             </tbody>

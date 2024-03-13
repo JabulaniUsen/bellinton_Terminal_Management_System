@@ -135,13 +135,13 @@ const UpdateManifest = () => {
             <div className="body my-5 grid grid-cols-2 gap-20">
                 <div className="col1 flex flex-col gap-4">
                     <div className="flex justify-between items-center">
-                        <label htmlFor="name" className='font-semibold text-base'>No of Container:</label>
+                        <label htmlFor="name" className='font-semibold text-base'>Seal Number:</label>
                         <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                             <input type="text" className='outline-none w-full' />
                         </div>
                     </div>
                     <div className="flex justify-between items-center">
-                        <label htmlFor="name" className='font-semibold text-base'>Package Qty:</label>
+                        <label htmlFor="name" className='font-semibold text-base'>No of Containers:</label>
                         <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                             <input type="text" className='outline-none w-full' />
                         </div>

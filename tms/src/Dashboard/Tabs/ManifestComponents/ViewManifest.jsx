@@ -21,7 +21,7 @@ const ViewManifest = () => {
   
   const handleSearch = () => {
     const filteredData = initialData.filter(item =>
-      item.cargoId.toString().includes(searchTerm.toLowerCase())
+      item.cargoId.toString().includes(searchTerm.toUpperCase())
     );
     
 
@@ -129,7 +129,8 @@ const ViewManifest = () => {
             </tbody>
           </table>
           <div className="flex flex-col justify-end items-end my-10">
-            <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={resetSearch} >Back</button>
+            {/* <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={resetSearch} >Back</button> */}
+            <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10'>Print</button>
           </div>
         </div>
         }
