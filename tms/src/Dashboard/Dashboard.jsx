@@ -37,6 +37,10 @@ import ViewCustomer from './Tabs/CustomerComponents/ViewCustomer';
 import AddCustomer from './Tabs/CustomerComponents/AddCustomer';
 import ManageCustomer from './Tabs/CustomerComponents/ManageCustomer';
 import YardManagement from './Tabs/YardManagement';
+import ViewAgencies from './Tabs/CustomerComponents/ViewAgencies';
+import ManageAgencies from './Tabs/CustomerComponents/ManageAgencies';
+import ViewAgent from './Tabs/CustomerComponents/ViewAgent';
+import ManageAgent from './Tabs/CustomerComponents/ManageAgent';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -137,9 +141,12 @@ const Dashboard = () => {
       label: 'Customers',
       icon: faUserAlt,
       subButtons: [
-        { label: 'View Customer', tabNumber: 21, icon: faCog },
-        { label: 'Add Customer', tabNumber: 22, icon: faCog },
+        { label: 'View/Add Customer', tabNumber: 21, icon: faCog },
         { label: 'Manage Customer', tabNumber: 23, icon: faCog },
+        { label: 'View/Add Agencies', tabNumber: 22, icon: faCog },
+        { label: 'Manage Agencies', tabNumber: 24, icon: faCog },
+        { label: 'View/Add Agents', tabNumber: 32, icon: faCog },
+        { label: 'Manage Agents', tabNumber: 33, icon: faCog },
       ]
     },
     {
@@ -227,8 +234,19 @@ const Dashboard = () => {
 
           {/* Customer */}
           {activeTab === 21 && <ViewCustomer/>}
-          {activeTab === 22 && <AddCustomer/>}
           {activeTab === 23 && <ManageCustomer/>}
+          {activeTab === 22 && <ViewAgencies/>}
+          {activeTab === 24 && <ManageAgencies/>}
+          {activeTab === 32 && <ViewAgent/>}
+          {activeTab === 33 && <ManageAgent/>}
+
+
+          {/* { label: 'View/Add Customer', tabNumber: 21, icon: faCog },
+        { label: 'Manage Customer', tabNumber: 23, icon: faCog },
+        { label: 'View/Add Agencies', tabNumber: 22, icon: faCog },
+        { label: 'Manage Agencies', tabNumber: 24, icon: faCog },
+        { label: 'View/Add Agents', tabNumber: 32, icon: faCog },
+        { label: 'Manage Agents', tabNumber: 33, icon: faCog }, */}
 
           {/* Yard Mgt */}
           {activeTab === 17 && <YardManagement/>}

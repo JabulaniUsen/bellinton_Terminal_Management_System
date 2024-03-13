@@ -138,11 +138,11 @@ const ManageCustomer = () => {
                         }}>
                         <div className="modal-content bg-white p-10 rounded-xl">
                             <h3 className="text-2xl font-bold mb-7 text-center">Edit Customer Data</h3>
-                            <div className="form flex flex-col gap-5  justify-center">
+                            <div className="form flex flex-col gap-2  justify-center">
                                 <div className="flex gap-10 items-center justify-between ">
                                     <label htmlFor="editedCustomerName" className='font-semibold text-base'>Customer Name:</label>
                                     <input
-                                        className='outline-none border-b-[1px] border-gray-600'
+                                        className='outline-none rounded-lg px-3 py-2 border-[1px] border-gray-600'
                                         type="text"
                                         id="editedCustomerName"
                                         value={selectedCustomer?.customerName || ''}
@@ -155,7 +155,7 @@ const ManageCustomer = () => {
                                 <div className="flex gap-10 items-center justify-between ">
                                     <label htmlFor="editedContactPerson" className='font-semibold text-base'>Contact Person:</label>
                                     <input
-                                        className='outline-none border-b-[1px] border-gray-600'
+                                        className='outline-none rounded-lg px-2 py-1 border-[1px] border-gray-600'
                                         type="text"
                                         id="editedContactPerson"
                                         value={selectedCustomer?.contactPerson || ''}
@@ -168,7 +168,7 @@ const ManageCustomer = () => {
                                 <div className="flex gap-10 items-center justify-between ">
                                     <label htmlFor="editedCustomerEmail" className='font-semibold text-base'>Email:</label>
                                     <input
-                                        className='outline-none border-b-[1px] border-gray-600'
+                                        className='outline-none rounded-lg px-2 py-1 border-[1px] border-gray-600'
                                         type="email"
                                         id="editedCustomerEmail"
                                         value={selectedCustomer?.email || ''}
@@ -181,7 +181,7 @@ const ManageCustomer = () => {
                                 <div className="flex gap-10 items-center justify-between ">
                                     <label htmlFor="editedCustomerPhone" className='font-semibold text-base'>Phone:</label>
                                     <input
-                                        className='outline-none border-b-[1px] border-gray-600'
+                                        className='outline-none rounded-lg px-2 py-1 border-[1px] border-gray-600'
                                         type="text"
                                         id="editedCustomerPhone"
                                         value={selectedCustomer?.phone || ''}
@@ -194,7 +194,7 @@ const ManageCustomer = () => {
                                 <div className="flex gap-10 items-center justify-between ">
                                     <label htmlFor="editedCustomerAddress" className='font-semibold text-base'>Address:</label>
                                     <input
-                                        className='outline-none border-b-[1px] border-gray-600'
+                                        className='outline-none rounded-lg px-2 py-1 border-[1px] border-gray-600'
                                         type="text"
                                         id="editedCustomerAddress"
                                         value={selectedCustomer?.address || ''}
@@ -207,7 +207,7 @@ const ManageCustomer = () => {
                                 <div className="flex gap-10 items-center justify-between ">
                                     <label htmlFor="editedCustomerCity" className='font-semibold text-base'>City:</label>
                                     <input
-                                        className='outline-none border-b-[1px] border-gray-600'
+                                        className='outline-none rounded-lg px-2 py-1 border-[1px] border-gray-600'
                                         type="text"
                                         id="editedCustomerCity"
                                         value={selectedCustomer?.city || ''}
@@ -220,7 +220,7 @@ const ManageCustomer = () => {
                                 <div className="flex gap-10 items-center justify-between ">
                                     <label htmlFor="editedCustomerStateProvince" className='font-semibold text-base'>State/Province:</label>
                                     <input
-                                        className='outline-none border-b-[1px] border-gray-600'
+                                        className='outline-none rounded-lg px-2 py-1 border-[1px] border-gray-600'
                                         type="text"
                                         id="editedCustomerStateProvince"
                                         value={selectedCustomer?.stateProvice || ''}
@@ -233,7 +233,7 @@ const ManageCustomer = () => {
                                 <div className="flex gap-10 items-center justify-between ">
                                     <label htmlFor="editedCustomerPostalCode" className='font-semibold text-base'>Postal Code:</label>
                                     <input
-                                        className='outline-none border-b-[1px] border-gray-600'
+                                        className='outline-none rounded-lg px-2 py-1 border-[1px] border-gray-600'
                                         type="text"
                                         id="editedCustomerPostalCode"
                                         value={selectedCustomer?.postalCode || ''}
@@ -246,7 +246,7 @@ const ManageCustomer = () => {
                                 <div className="flex gap-10 items-center justify-between ">
                                     <label htmlFor="editedCustomerCountry" className='font-semibold text-base'>Country:</label>
                                     <input
-                                        className='outline-none border-b-[1px] border-gray-600'
+                                        className='outline-none rounded-lg px-2 py-1 border-[1px] border-gray-600'
                                         type="text"
                                         id="editedCustomerCountry"
                                         value={selectedCustomer?.country || ''}

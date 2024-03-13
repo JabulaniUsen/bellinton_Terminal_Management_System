@@ -1,4 +1,4 @@
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
@@ -6,8 +6,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import UploadBox from '../ManifestComponents/UploadBox';
 
 
-const AddCustomer = () => {
+const AddAgencies = () => {
   const [inputValue, setInputValue] = useState('');
+  const [agencyId, setAgencyId] = useState("CFC-AG-0001-0000")
   const [suggestions, setSuggestions] = useState([]);
   const inputRef = useRef(null);
   const [showUpload, setShowUpload] = useState(false)
@@ -27,8 +28,8 @@ const AddCustomer = () => {
   };
 
   const initialFormData = {
-    customerID: '',
-    customerName: '',
+    AgencyID: 'CFC-AG-0001-0000',
+    AgencyName: '',
     email: '',
     phoneNumber: '',
     contactPerson: '',
@@ -48,7 +49,7 @@ const AddCustomer = () => {
     // Perform any form submission logic here
 
     // Show notification with pop-up animation
-    toast.success('Customer added successfully', {
+    toast.success('Agency added successfully', {
       position: 'top-right',
       autoClose: 3000,
       hideProgressBar: true,
@@ -101,23 +102,22 @@ const AddCustomer = () => {
   return (
     <div className='m-10'>
       <div className="head">
-        <h3 className='text-2xl font-bold'>Add Customer</h3>
+        <h3 className='text-2xl font-bold'>Create Agency</h3>
       </div>
 
       <form action="" onSubmit={handleSubmit} >
         <div className='my-10 grid grid-cols-2'>
           <div className="sideOne">
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="name" className='text-base font-semibold'>Customer ID:</label>
+              <label htmlFor="name" className='text-base font-semibold'>Agency ID:</label>
               <div ref={inputRef}>
                 <div className="flex items-center justify-between pr-3 pl-2 py-2 rounded-md border-gray-500 border w-[400px]">
                   <input
                     type="text"
-                    value={inputValue}
+                    value={agencyId}
                     onChange={handleInputChange}
-                    className='outline-none'
+                    className='outline-none w-full'
                 />
-                <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
               </div>
               <ul className=''>
                 {suggestions.map((suggestion, index) => (
@@ -129,8 +129,8 @@ const AddCustomer = () => {
             </div>
             </div>
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="name" className='text-base font-semibold'>Customer Name:</label>
-              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="customerName" name="customerName" placeholder='Enter customer name:' />
+              <label htmlFor="name" className='text-base font-semibold'>Agency Name:</label>
+              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="AgencyName" name="AgencyName" placeholder='Enter Agency name:' />
             </div>
             <div className="flex flex-col gap-2 my-5">
               <label htmlFor="name" className='text-base font-semibold'>Email:</label>
@@ -143,6 +143,11 @@ const AddCustomer = () => {
             <div className="flex flex-col gap-2 my-5">
               <label htmlFor="name" className='text-base font-semibold'>Contact Person:</label>
               <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="contactPerson" name="contactPerson" placeholder='Enter contact person' />
+            </div>
+            <div className="flex flex-col gap-2 my-5">
+              <label htmlFor="name" className='text-base font-semibold'>Note:</label>
+              {/* <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="contactPerson" name="contactPerson" placeholder='Enter contact person' /> */}
+              <textarea className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' placeholder='Enter Any additional notes or comments regarding the customer' name="" id="" cols="30" rows="3"></textarea>
             </div>
           </div>
 
@@ -167,12 +172,23 @@ const AddCustomer = () => {
               <label htmlFor="name" className='text-base font-semibold'>Postal Code:</label>
               <input required type="number" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="postalCode" name="postalCode" placeholder='Enter Postal Code:' />
             </div>
+            <div className="flex flex-col gap-2 my-5">
+              <label htmlFor="name" className='text-base font-semibold'>Billing Address:</label>
+              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="billingAddress" name="billingAddress" placeholder='Enter Billing Address:' />
+            </div>
 
+            <div className="upload">
+                <label htmlFor="uploadLetter" className='text-[#0095FF] font-semibold flex items-center gap-2'>
+                    Upload Letter of Authority 
+                    <FontAwesomeIcon icon={faUpload}/>
+                </label>
+                <input type="file" name="uploadLetter" id="uploadLetter" style={{display: 'none'}} />
+            </div>
           </div>
         </div>
         <div className="flex justify-center items-center gap-5 text-lg">
           <p onClick={handleUpload} className='underline text-[#4000FF] font-semibold cursor-pointer'>Upload CSV/XLS</p>
-          <button type="submit" className='bg-[#4000FF] hover:bg-[#3a0ec0] rounded-lg text-white px-10 py-2'>Add Customer</button>
+          <button type="submit" className='bg-[#4000FF] hover:bg-[#3a0ec0] rounded-lg text-white px-10 py-2'>Add Agency</button>
           <button type="reset" className='bg-[#828282] rounded-lg text-white px-12 py-2'>Reset</button>
         </div>
       </form>
@@ -183,4 +199,4 @@ const AddCustomer = () => {
   )
 }
 
-export default AddCustomer
+export default AddAgencies

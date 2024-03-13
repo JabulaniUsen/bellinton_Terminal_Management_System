@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from 'framer-motion';
 import Select from 'react-select';
+import AddCustomer from "./AddCustomer";
 
 
 
@@ -11,7 +12,8 @@ const ViewCustomer = () => {
   const [showUpload, setShowUpload] = useState(false)
   const [uploadSuccess, setUploadSuccess] = useState(false)
   const [moreInfo, setMoreInfo] = useState(false);
-
+  const [ViewCustomer, setViewCustomer] = useState(true)
+  const [addCustomer, setAddCustomer] = useState(false)
 
   const initialData = [
     { customerId: '1001', customerName: 'ABC Shipping Co.', contactPerson: 'John Smith', email: 'john@abcshipping.com', phone: '+1 (555) 123-4567', address: '123 Main Street'},
@@ -50,8 +52,6 @@ const ViewCustomer = () => {
     setUploadSuccess(false);
   };
 
-  // Show more details
-
   const [selectedVesselDetails, setSelectedVesselDetails] = useState(null);
 
   const showVesselDetails = (customerId) => {
@@ -63,8 +63,15 @@ const ViewCustomer = () => {
     setSelectedVesselDetails(null);
   };
 
+  const handleAddCustomer = () => {
+    setViewCustomer(false)
+    setAddCustomer(true)
+  }
+
   return (
-    <div className='py-10 roboto '>
+    <div>
+      { ViewCustomer && 
+      <div className='py-10 roboto '>
       <div className="head flex justify-between mx-5">
         <h3 className='text-2xl font-bold'>View Customer</h3>
       </div>
@@ -80,7 +87,7 @@ const ViewCustomer = () => {
                     value={{ value: searchTerm, label: searchTerm }}
                     onChange={(selectedOption) => setSearchTerm(selectedOption.value)}
                     isSearchable
-                    placeholder="Select Cargo ID"
+                    placeholder="Select Customer name"
                     className='outline-none p-2 w-[300px] rounded '
                   />
                   {errorText && <p className="text-red-600">Please enter customers name</p>}
@@ -88,7 +95,7 @@ const ViewCustomer = () => {
 
               <div className="flex gap-3 justify-center items-center my-10">
                 <button className=' text-white bg-[#4000FF] rounded-xl py-2 px-10' onClick={handleSearch} >View</button>
-                <button className=' text-white bg-[#4000FF] rounded-xl py-2 px-10' >Add Customer</button>
+                <button className=' text-white bg-[#4000FF] rounded-xl py-2 px-10' onClick={handleAddCustomer} >Add Customer</button>
               </div>
             </div>
           </div>
@@ -181,6 +188,8 @@ const ViewCustomer = () => {
           </div>
         </motion.div>
       }
+    </div> }
+    { addCustomer && <AddCustomer/> }
     </div>
   );
 };
