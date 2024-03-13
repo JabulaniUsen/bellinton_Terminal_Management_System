@@ -1,7 +1,8 @@
-import { faMagnifyingGlass, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCaretDown, faMagnifyingGlass, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { Select } from '@mui/material';
 
 function AddVessel() {
 
@@ -26,6 +27,30 @@ function AddVessel() {
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const inputRef = useRef(null);
+  const [countries, setCountries] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState(null);
+
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const response = await fetch('https://restcountries.com/v2/all');
+        if (!response.ok) {
+          throw new Error('Failed to fetch countries');
+        }
+        const data = await response.json();
+        const formattedCountries = data.map(country => ({
+          value: country.alpha2Code,
+          label: country.name,
+        }));
+        setCountries(formattedCountries);
+      } catch (error) {
+        console.error('Error fetching countries:', error.message);
+      }
+    };
+
+    fetchCountries();
+  }, []);
+  
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
@@ -56,7 +81,7 @@ function AddVessel() {
   };
 
   const data = ["VSL237", "VSL126", "VSL132", "VSL342", "VSL372"];
-  
+
   const handleViewDetails = (e) => {
     e.preventDefault();
     console.log({
@@ -111,19 +136,19 @@ function AddVessel() {
         <div className="flex flex-col gap-12">
           <div className="viewinfo">
             <h3 className='text-lg font-semibold my-5'>Vessel Information</h3>
-            <div className="vesselInformation roboto flex flex-col gap-10">
+            <div className="vesselInformation roboto flex flex-col items-start justify-stretch gap-3">
 
               <div className="flex gap-3">
-                <label htmlFor="" className='text-[1em] mt-4'>Vessel ID:</label>
+                <label htmlFor="" className='text-[1em] mt-3'>Vessel ID:</label>
                 <div ref={inputRef}>
-                  <div className="flex items-center justify-between pr-3 pl-2 py-3 rounded-lg border-[#999999] border w-[400px]">
+                  <div className="flex items-center justify-between pr-3 pl-2 py-3 rounded border-[#828282] border-2 w-[340px]">
                     <input
                       type="text"
                       value={inputValue}
                       onChange={handleInputChange}
                       className='outline-none'
                     />
-                    <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
+                    <FontAwesomeIcon icon={faMagnifyingGlass} className='' />
                   </div>
                   <ul className=''>
                       {suggestions.map((suggestion, index) => (
@@ -133,15 +158,52 @@ function AddVessel() {
                       ))}
                   </ul>
               </div>
-                {/* <input type="text" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[400px]' name="id" id="" placeholder="Enter your vessel ID..." /> */}
               </div>
               <div className="flex items-center gap-3">
-                <label htmlFor="" className='text-[1em] '>ETA (Estimated Time of Arrival):</label>
-                <input type="date" className=' border-[#828282] border-[1px] rounded-lg p-3  w-[243px]' name="id" id="" placeholder="Enter the estimated time of arrival..." />
+                <label htmlFor="" className='text-[1em] '>Voyage Number:</label>
+                <input required type="text" 
+                  className=' flex items-center justify-between pr-3 pl-2 py-3 rounded border-[#828282] border-2 w-[293px]' 
+                  name="id" 
+                  id="" 
+                  placeholder="Enter the voyage number" 
+                />
               </div>
               <div className="flex items-center gap-3">
-                <label htmlFor="" className='text-[1em] '>Company:</label>
-                <input type="text" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[400px]' name="id" id="" placeholder="Enter the name if the shipping company..." />
+                <label htmlFor="" className='text-[1em] '>Vessel Name:</label>
+                <div ref={inputRef}>
+                  <Select
+                    options={countries}
+                    value={selectedCountry}
+                    onChange={(selectedOption) => setSelectedCountry(selectedOption.value)}
+                    placeholder='Select a country'
+                    className='w-[312px]  border-[#828282] border '
+                  />
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <label htmlFor="" className='text-[1em] '>Vessel Nationality:</label>
+                <div ref={inputRef}>
+                  <Select
+                    options={countries}
+                    value={selectedCountry}
+                    onChange={(selectedOption) => setSelectedCountry(selectedOption.value)}
+                    placeholder='Select a country'
+                    className='w-[279px] border border-[#828282]'
+                  />
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <label htmlFor="" className='text-[1em] '>Vessel Destination:</label>
+                <div ref={inputRef}>
+                <Select
+                  options={countries}
+                  value={selectedCountry}
+                  onChange={(selectedOption) => setSelectedCountry(selectedOption)}
+                  placeholder="Select a country"
+                  className="w-[274px]  border-[#828282] border "
+                />
+
+                </div>
               </div>
             </div>
           </div>
@@ -149,13 +211,13 @@ function AddVessel() {
           {/* stops */}
           <div className="stops">
             <h3 className='text-lg font-semibold my-5'>Stops:</h3>
-            <div className="vesselInformation roboto flex flex-col gap-10">
+            <div className="vesselInformation roboto flex flex-col gap-2">
               {stops.map((stop, index) => (
-                <div className="stops flex items-center gap-3" key={index}>
-                  <label htmlFor="" className='text-[1em]'>{`Enter the name of the stop #${index + 1}:`}</label>
+                <div className="stops flex items-center gap-2" key={index}>
+                  <label htmlFor="" className='text-[1em]'>{`Enter name of stop #${index + 1}:`}</label>
                   <input
                     type={stop.type}
-                    className='border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[250px]'
+                    className='border-[#828282] border-[1px] py-3 rounded px-3 flex items-center w-[251px]'
                     name={`stop-${index}`}
                     placeholder={stop.placeholder}
                   />
@@ -171,80 +233,115 @@ function AddVessel() {
         </div>
 
         <div className="">
-          <h3 className='text-lg font-semibold my-5'>Cargo Details:</h3>
-          <div className="containerType flex flex-col gap-8">
-              <div>
-                <label htmlFor="" className='text-[1em] '>Total Containers on Board:</label>
-                <div className=" border-[#828282] border-[1px] rounded-lg p-3 flex items-center">
-                  <input type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter the total number of containers on board..." />
+            <div className="containerType flex flex-col gap-2 mt-12">
+              <div className='flex items-center justify-between'>
+                <label htmlFor="" className='text-[1em] '>AIS Type:</label>
+        
+                 <Select
+                    options={countries}
+                    value={selectedCountry}
+                    onChange={(selectedOption) => setSelectedCountry(selectedOption.value)}
+                    placeholder='Select a country'
+                    className='w-[310px] border border-[#828282]'
+                  />
+              </div>
+
+              <div className='flex items-center justify-between'>
+                <label htmlFor="" className='text-[1em]'>Ship Type:</label>
+        
+                  <Select
+                    options={countries}
+                    value={selectedCountry}
+                    onChange={(selectedOption) => setSelectedCountry(selectedOption.value)}
+                    placeholder='Select a country'
+                    className='w-[310px] border border-[#828282]'
+                  />
+              </div>
+
+              <div className='flex items-center justify-between'>
+                <label htmlFor="" className='text-[1em]'>IMO Number:</label>
+                <div className=" border-[#828282] border-[1px] rounded px-3 py-4 flex items-center">
+                  <input required type="text" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter IMO number" />
                 </div>
               </div>
 
-              <div>
-                <label htmlFor="" className='text-[1em] '>Vessel Name:</label>
-                <div className=" border-[#828282] border-[1px] rounded-lg p-3 flex items-center">
-                  <input type="text" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your vessel name..." />
+              <div className='flex items-center justify-between'>
+                <label htmlFor="" className='text-[1em] '>Ships Draft:</label>
+                <div className=" border-[#828282] border-[1px] my-2 rounded px-3 py-4 flex items-center">
+                  <input required type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="0.00" />
                 </div>
               </div>
 
-              <div>
-                <label htmlFor="" className='text-[1em] '>Voyage Number:</label>
-                <div className=" border-[#828282] border-[1px] rounded-lg p-3 flex items-center">
-                  <input type="text" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter your voyage number..." />
+              <div className='flex items-center justify-between'>
+                <label htmlFor="" className='text-[1em] '>Call Sign:</label>
+                <div className=" border-[#828282] border-[1px] my-2 rounded px-3 py-4 flex items-center">
+                  <input required type="text" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter the call sign number" />
                 </div>
               </div>
 
-              <div>
-                <label htmlFor="" className='text-[1em] '>ETD (Estimated Time of Departure):</label>
-                <div className=" border-[#828282] border-[1px] my-2 rounded-lg p-3 flex items-center">
-                  <input type="date" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter input..." />
+              <div className='flex items-center justify-between'>
+                <label htmlFor="" className='text-[1em] '>Ships LOA:</label>
+                <div className=" border-[#828282] border-[1px] my-2 rounded px-3 py-4 flex items-center">
+                  <input required type="text" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter the LOA number" />
                 </div>
               </div>
           </div>
 
-          <div className="status">
-            <h3 className='text-lg font-semibold my-5 '>Status:</h3>
+          
+
+          <h3 className='text-lg font-semibold my-5'>Container Type:</h3>
+          <div className="flex justify-evenly gap-5">
             <div className="inputs">
-              <div className="">
-                <input type="checkbox" className='w-[30px]' name="" id="" />
-                <label htmlFor="">In Transit</label>
+              <div className="flex gap-3 justify-between my-2">
+                <label htmlFor="">Regular</label>
+                <input required type="number" className=' border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
               </div>
-              <div className="">
-                <input type="checkbox" className='w-[30px]' name="" id="" />
-                <label htmlFor="">Awaiting Delivery</label>
+              <div className="flex gap-3 justify-between my-2">
+                <label htmlFor="">OOG</label>
+                <input required type="number" className=' border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
               </div>
-              <div className="">
-                <input type="checkbox" className='w-[30px]' name="" id="" />
-                <label htmlFor="">Discharged</label>
+              <div className="flex gap-3 justify-between my-2">
+                <label htmlFor="">OTFR</label>
+                <input required type="number" className=' border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+              </div>
+              <div className="flex gap-3 justify-between my-2">
+                <label htmlFor="">Reefer</label>
+                <input required type="number" className=' border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+              </div>
+              <div className="flex gap-3 justify-between my-2">
+                <label htmlFor="">Hazardous</label>
+                <input required type="number" className=' border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
               </div>
             </div>
+            <div className="status">
+              <div className="inputs">
+              <h3 className='text-base my-5'>Status:</h3>
+                <div className="flex items-center gap-1 my-3">
+                  <input required type="checkbox" className='check' name="" id="" />
+                  <label htmlFor="">In Transit</label>
+                </div>
+                <div className="flex items-center gap-1 my-3">
+                  <input required type="checkbox" className='check' name="" id="" />
+                  <label htmlFor="">Awaiting Delivery</label>
+                </div>
+                <div className="flex items-center gap-1 my-3">
+                  <input required type="checkbox" className='check' name="" id="" />
+                  <label htmlFor="">Discharged</label>
+                </div>
+            </div>
           </div>
-
-          <div className="inputs">
-          <h3 className='text-lg font-semibold my-5'>Container Details:</h3>
-                <div className="flex gap-3 justify-between my-2">
-                  <label htmlFor="">Regular</label>
-                  <input type="number" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
-                </div>
-                <div className="flex gap-3 justify-between my-2">
-                  <label htmlFor="">OOG</label>
-                  <input type="number" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
-                </div>
-                <div className="flex gap-3 justify-between my-2">
-                  <label htmlFor="">OTFR</label>
-                  <input type="number" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
-                </div>
-                <div className="flex gap-3 justify-between my-2">
-                  <label htmlFor="">Reefer</label>
-                  <input type="number" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
-                </div>
-                <div className="flex gap-3 justify-between my-2">
-                  <label htmlFor="">Hazardous</label>
-                  <input type="number" className='w-[350px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
-                </div>
-              </div>
+          </div>
+          <div className='flex items-center justify-between my-5'>
+            <label htmlFor="" className='text-[1em]'>Total Containers on Board:</label>
+            <div className=" border-[#828282] border-[1px] rounded p-3  flex items-center w-[250px]">
+              <input required type="text" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter the total number of containers on board" />
+            </div>
+          </div>
+          <div className="flex justify-center mt-10 gap-5">
+            <button className='bg-[#20007f] px-8 py-2 rounded-xl text-white text-lg'>Upload Vessel</button>
+            <button onClick={handleViewDetails} className='bg-[#4000FF] px-8 py-2 rounded-xl text-white text-lg'>Create Vessel</button>
+          </div>
         </div>
-        <button onClick={handleViewDetails} className='bg-[#4000FF] px-8 absolute bottom-[-4rem] right-0 py-1 rounded-lg text-white'>Create Vessel</button>
       </form>
 
       {showSuccessModal && (

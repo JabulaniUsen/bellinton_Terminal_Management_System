@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from 'framer-motion';
 import Select from 'react-select';
+import filter from '../../assets/filter.png'
 
 
 
@@ -11,9 +12,27 @@ const Vessel = () => {
   const [showUpload, setShowUpload] = useState(false)
   const [uploadSuccess, setUploadSuccess] = useState(false)
   const [moreInfo, setMoreInfo] = useState(false);
+  const itemsPerPage = 4;
+  const [currentPage, setCurrentPage] = useState(1);
 
 
   const initialData = [
+    { vesselId: 'VS72873', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Ocean Voyage', eta: '9/5/2024 8:00', etd: '9/5/2024 8:00', totalContainers: 100, status: 'At Port', action: 'View Details'},
+    { vesselId: 'VS27832', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Nautical Spirit', eta: '3/6/2024 14:30', etd: '9/5/2024 8:00', totalContainers: 140, status: 'In transit', action: 'View Details'},
+    { vesselId: 'VS72873', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Ocean Voyage', eta: '9/5/2024 8:00', etd: '9/5/2024 8:00', totalContainers: 100, status: 'At Port', action: 'View Details'},
+    { vesselId: 'VS27832', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Nautical Spirit', eta: '3/6/2024 14:30', etd: '9/5/2024 8:00', totalContainers: 140, status: 'In transit', action: 'View Details'},
+    { vesselId: 'VS72873', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Ocean Voyage', eta: '9/5/2024 8:00', etd: '9/5/2024 8:00', totalContainers: 100, status: 'At Port', action: 'View Details'},
+    { vesselId: 'VS27832', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Nautical Spirit', eta: '3/6/2024 14:30', etd: '9/5/2024 8:00', totalContainers: 140, status: 'In transit', action: 'View Details'},
+    { vesselId: 'VS72873', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Ocean Voyage', eta: '9/5/2024 8:00', etd: '9/5/2024 8:00', totalContainers: 100, status: 'At Port', action: 'View Details'},
+    { vesselId: 'VS27832', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Nautical Spirit', eta: '3/6/2024 14:30', etd: '9/5/2024 8:00', totalContainers: 140, status: 'In transit', action: 'View Details'},
+    { vesselId: 'VS72873', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Ocean Voyage', eta: '9/5/2024 8:00', etd: '9/5/2024 8:00', totalContainers: 100, status: 'At Port', action: 'View Details'},
+    { vesselId: 'VS27832', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Nautical Spirit', eta: '3/6/2024 14:30', etd: '9/5/2024 8:00', totalContainers: 140, status: 'In transit', action: 'View Details'},
+    { vesselId: 'VS72873', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Ocean Voyage', eta: '9/5/2024 8:00', etd: '9/5/2024 8:00', totalContainers: 100, status: 'At Port', action: 'View Details'},
+    { vesselId: 'VS27832', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Nautical Spirit', eta: '3/6/2024 14:30', etd: '9/5/2024 8:00', totalContainers: 140, status: 'In transit', action: 'View Details'},
+    { vesselId: 'VS72873', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Ocean Voyage', eta: '9/5/2024 8:00', etd: '9/5/2024 8:00', totalContainers: 100, status: 'At Port', action: 'View Details'},
+    { vesselId: 'VS27832', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Nautical Spirit', eta: '3/6/2024 14:30', etd: '9/5/2024 8:00', totalContainers: 140, status: 'In transit', action: 'View Details'},
+    { vesselId: 'VS72873', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Ocean Voyage', eta: '9/5/2024 8:00', etd: '9/5/2024 8:00', totalContainers: 100, status: 'At Port', action: 'View Details'},
+    { vesselId: 'VS27832', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Nautical Spirit', eta: '3/6/2024 14:30', etd: '9/5/2024 8:00', totalContainers: 140, status: 'In transit', action: 'View Details'},
     { vesselId: 'VS72873', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Ocean Voyage', eta: '9/5/2024 8:00', etd: '9/5/2024 8:00', totalContainers: 100, status: 'At Port', action: 'View Details'},
     { vesselId: 'VS27832', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Nautical Spirit', eta: '3/6/2024 14:30', etd: '9/5/2024 8:00', totalContainers: 140, status: 'In transit', action: 'View Details'},
   ];
@@ -63,6 +82,18 @@ const Vessel = () => {
     setSelectedVesselDetails(null);
   };
 
+  //  Handle next and previous buttons
+  const totalPages = Math.ceil(initialData.length / itemsPerPage);
+  const startIdx = (currentPage - 1) * itemsPerPage;
+  const endIdx = startIdx + itemsPerPage;
+  
+
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const displayedData = data.slice(startIndex, endIndex);
+
+
   return (
     <div className='py-10 roboto '>
       <div className="head flex justify-between mx-5">
@@ -71,44 +102,32 @@ const Vessel = () => {
 
       <div >
         <div className="flex justify-between items-center">
-          <div className="">
-            <div className="flex gap-2 my-10 mx-7 items-center">
+          <div className="flex items-center gap-3">
+            <div className="flex gap-2 my-10 ml-7 items-center">
               <label htmlFor="" className='text-lg font-bold'>Select Vessel ID:</label>
               <div className="">
-                  <Select
-                    options={initialData.map((item) => ({ value: item.vesselId, label: item.vesselId }))}
-                    value={{ value: searchTerm, label: searchTerm }}
-                    onChange={(selectedOption) => setSearchTerm(selectedOption.value)}
-                    isSearchable
-                    placeholder="Select Cargo ID"
-                    className='outline-none p-2 w-[300px] rounded '
-                  />
-                  {errorText && <p className="text-red-600">Please enter your cargo Id</p>}
-                </div>
-
+                <Select
+                  options={initialData.map((item) => ({ value: item.vesselId, label: item.vesselId }))}
+                  value={{ value: searchTerm, label: searchTerm }}
+                  onChange={(selectedOption) => setSearchTerm(selectedOption.value)}
+                  isSearchable
+                  placeholder="Select Cargo ID"
+                  className='outline-none p-2 w-[300px] rounded '
+                />
+                {errorText && <p className="text-red-600">Please enter your cargo Id</p>}
+              </div>
+            </div>
+            <img src={filter} alt="" />
+            <div className="flex justify-center items-center">
+              <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handleSearch} >View</button>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col justify-center items-center my-10">
-          <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handleSearch} >View</button>
-        </div>
+
       </div>
 
       <div className={`moreInfo my-10 mx-5 `}>
-        {/* {moreInfo &&         
-        <div className="">
-          {data.map((rowData, index) => (
-            <div className="manifestDetails" key={index}>
-            <p className="font-semibold">Cargo ID: <span className="font-normal">{rowData.vesselId}</span></p>
-            <p className="font-semibold">Date: <span className="font-normal">February 17, 2024</span></p>
-            <p className="font-semibold">Terminal: <span className="font-normal">Port of Lagos</span></p>
-          </div>
-          ))}
-        </div>
-        } */}
-
-
           {showManifestData && 
           <div className="table overflow-x-auto my-10">
           <table className="border border-collapse">
@@ -124,7 +143,7 @@ const Vessel = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((rowData, index) => (
+              {data.slice(startIdx, endIdx).map((rowData, index) => (
                 <tr key={index} className="grid grid-cols-7">
                   <td className="border border-black px-4 py-2">{rowData.vesselId}</td>
                   <td className="border border-black px-4 py-2">{rowData.vesselName}</td>
@@ -137,6 +156,24 @@ const Vessel = () => {
               ))}
             </tbody>
           </table>
+
+          <div className="flex justify-end gap-1 items-center">
+                    <button
+                    className="text-[#4000FF] font-semibold text-lg"
+                    disabled={currentPage === 1}
+                    onClick={() => setCurrentPage(currentPage - 1)}
+                    >
+                    [Previous Page]
+                    </button>
+                    <button
+                    className="text-[#4000FF] font-semibold text-lg"
+                    disabled={currentPage === totalPages}
+                    onClick={() => setCurrentPage(currentPage + 1)}
+                    >
+                    [Next Page]
+                    </button>
+                </div>
+
           <div className="flex flex-col justify-end items-end my-10">
             <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={resetSearch} >Back</button>
           </div>

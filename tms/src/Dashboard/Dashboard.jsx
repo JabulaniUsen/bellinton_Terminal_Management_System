@@ -233,7 +233,6 @@ const Dashboard = () => {
           {/* Yard Mgt */}
           {activeTab === 17 && <YardManagement/>}
 
-
         </div>
       </div>
     </div>
