@@ -119,34 +119,20 @@ function ManageVoyage() {
   const data = ["VSL237", "VSL126", "VSL132", "VSL342", "VSL372"];
 
   return (
-    <div className='p-10 roboto'>
+    <div className='p-10 roboto mb-20'>
       <div className="header">
         <h2 className='text-3xl font-bold'>Manage Voyage</h2>
       </div>
-
-      {/* { showViewVessels ? (
-        <ViewVessels/> 
-      ):( */}
-        <form className='my-7 mx-5 flex gap-12 relative'>
+        <form className='my-7 mx-5 grid grid-cols-2 gap-10 relative'>
         <div className="flex flex-col gap-12">
           <div className="viewinfo">
             <h3 className='text-lg font-semibold my-5'>View Information</h3>
-            <div className="vesselInformation roboto flex flex-col gap-10">
+            <div className="vesselInformation roboto flex flex-col gap-3">
 
               <div className="flex gap-3">
                 <label htmlFor="" className='text-[1em] mt-[13px]'>Vessel ID:</label>
-                {/* <input
-                  type="text"
-                  className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[400px]'
-                  name="vesselId"
-                  id=""
-                  placeholder="Enter vessel ID..."
-                  value={values.vesselId}
-                  onChange={handleChange}
-                  onBlur={formik.handleBlur}
-                /> */}
                 <div ref={inputRef}>
-                  <div className="flex items-center justify-between pr-3 pl-2 py-3 rounded-lg border-[#999999] border w-[400px]">
+                  <div className="flex items-center justify-between pr-3 pl-2 py-3 rounded border-[#999999] border w-[370px]">
                     <input
                       type="text"
                       value={inputValue}
@@ -158,41 +144,43 @@ function ManageVoyage() {
                   <ul className=''>
                       {suggestions.map((suggestion, index) => (
                       <li key={index} className='cursor-pointer hover:bg-slate-100 p-2' onClick={() => handleSuggestionClick(suggestion)}>
-                          {suggestion}
+                        {suggestion}
                       </li>
                       ))}
                   </ul>
               </div>
               </div>
-                {errors.vesselId && touched.vesselId && (
-                  <p className="text-red-500 my-[-2rem]">{errors.vesselId}</p>
-                )}
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>ETA (Estimated Time of Arrival):</label>
-                <input type="date" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[243px]' name="id" id="" placeholder="Enter the estimated time of arrival..." />
+                <input required type="date" className=' border-[#828282] border-[1px] rounded p-3 w-[213px]' name="id" id="" placeholder="Enter the estimated time of arrival..." />
               </div>
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>Total Containers on Board:</label>
-                <input type="text" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[282px]' name="id" id="" placeholder="Enter the total number of containers on board" />
+                <input required type="text" className=' border-[#828282] border-[1px] rounded p-3 flex items-center w-[251px]' name="id" id="" placeholder="Enter the total number of containers on board" />
               </div>
             </div>
           </div>
 
           <div className="voyageDetails">
-            <h3 className='text-lg font-semibold my-5'>Update ETA:</h3>
-            <div className="vesselInformation roboto flex flex-col gap-10">
+            <h3 className='text-lg font-semibold my-5'>Update Voyage Details:</h3>
+            <div className="vesselInformation roboto flex flex-col gap-3">
 
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>Update ETA:</label>
-                <input type="date" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[383px]' name="id" id="" placeholder="Enter your vessel ID..." />
+                <input required type="date" className=' border-[#828282] border-[1px] rounded p-3  w-[353px]' name="id" id="" placeholder="Enter your vessel ID..." />
               </div>
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>ETA (Estimated Time of Arrival):</label>
-                <input type="text" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[243px]' name="id" id="" placeholder=" Example: 2 hours" />
+                <input required type="text" className=' border-[#828282] border-[1px] rounded p-3 flex items-center w-[213px]' name="id" id="" placeholder=" Example: 2 hours" />
               </div>
               <div className="flex items-center gap-3">
                 <label htmlFor="" className='text-[1em] '>Update Status:</label>
-                <input type="text" className=' border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[366px]' name="id" id="" placeholder="Enter the name if the shipping company..." />
+                {/* <input required type="text" className=' border-[#828282] border-[1px] rounded p-3 flex items-center w-[366px]' name="id" id="" placeholder="Enter the name if the shipping company..." /> */}
+                <select name="" id="" className=' border-[#828282] border-[1px] rounded p-3 flex items-center w-[336px]'>
+                  <option value="">Select status</option>
+                  <option value="In transit">In Transit</option>
+                  <option value="Arrived at destination">Arrived At Destination</option>
+                </select>
               </div>
             </div>
           </div>
@@ -200,12 +188,12 @@ function ManageVoyage() {
           {/* stops */}
           <div className="routingDetails">
             <h3 className='text-lg font-semibold my-5'>Route Details:</h3>
-            <div className="vesselInformation roboto grid grid-cols-2 place-items-baseline gap-y-5">
+            <div className="vesselInformation roboto flex flex-wrap gap-5">
                 <div className="route flex items-center gap-3">
                   <label htmlFor="" className='text-[1em]'>Origin Port</label>
                   <input
                     type='text'
-                    className='border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[150px]'
+                    className='border-[#828282] border-[1px] rounded p-3 flex items-center w-[150px]'
                     name='Origin Port'
                     placeholder='Port A, B or C'
                   />
@@ -214,7 +202,7 @@ function ManageVoyage() {
                   <label htmlFor="" className='text-[1em]'>Destination Port</label>
                   <input
                     type='text'
-                    className='border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[150px]'
+                    className='border-[#828282] border-[1px] rounded p-3 flex items-center w-[150px]'
                     name="Destination Port"
                     placeholder='Port A, B or C'
                   />
@@ -224,7 +212,7 @@ function ManageVoyage() {
                   <label htmlFor="" className='text-[1em]'>Stop:</label>
                   <input
                     type={stop.type}
-                    className='border-[#828282] border-[1px] rounded-lg p-3 flex items-center w-[150px]'
+                    className='border-[#828282] border-[1px] rounded p-3 flex items-center w-[150px]'
                     name={`stop-${index}`}
                     placeholder='Port A, B or C'
                   />
@@ -241,17 +229,17 @@ function ManageVoyage() {
 
         <div className="">
           <h3 className='text-lg font-semibold my-5'>Container Details:</h3>
-          <div className="containerType flex flex-col gap-8">
+          <div className="containerType flex flex-col gap-4">
               <div>
                 <label htmlFor="" className='text-[1em] '>Total Containers on Board:</label>
-                <div className=" border-[#828282] border-[1px] rounded-lg p-3 flex items-center">
-                  <input type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter No. of container..." />
+                <div className=" border-[#828282] border-[1px] rounded p-3 flex items-center">
+                  <input required type="number" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter No. of container..." />
                 </div>
               </div>
 
               <div>
                 <label htmlFor="" className='text-[1em] '>Vessel Name:</label>
-                <div className=" border-[#828282] border-[1px] rounded-lg p-3 flex items-center">
+                <div className=" border-[#828282] border-[1px] rounded p-3 flex items-center">
                 <input
                   type="text"
                   className='bg-transparent outline-none w-full'
@@ -264,14 +252,11 @@ function ManageVoyage() {
                 />
                 
                 </div>
-                {errors.vesselName && touched.vesselName && (
-                  <p className="text-red-500">{errors.vesselName}</p>
-                )}
               </div>
 
               <div>
                 <label htmlFor="" className='text-[1em] '>Voyage Number:</label>
-                <div className=" border-[#828282] border-[1px] rounded-lg p-3 flex items-center">
+                <div className=" border-[#828282] border-[1px] rounded p-3 flex items-center">
                   <input     
                     type="text"
                     className='bg-transparent outline-none w-full'
@@ -282,15 +267,12 @@ function ManageVoyage() {
                     onChange={handleChange}
                     onBlur={formik.handleBlur}/>
                 </div>
-                {errors.voyageNumber && touched.voyageNumber && (
-                  <p className="text-red-500">{errors.voyageNumber}</p>
-                )}
               </div> 
               
               <div>
                 <label htmlFor="" className='text-[1em] '>ETD (Estimated Time of Departure):</label>
-                <div className=" border-[#828282] border-[1px] my-2 rounded-lg p-3 flex items-center">
-                  <input type="date" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter input..." />
+                <div className=" border-[#828282] border-[1px] my-2 rounded p-3 flex items-center">
+                  <input required type="date" className='bg-transparent outline-none w-full' name="id" id="" placeholder="Enter input..." />
                 </div>
               </div>
           </div>
@@ -299,15 +281,15 @@ function ManageVoyage() {
             <h3 className='text-lg font-semibold my-5 '>Status:</h3>
             <div className="inputs">
               <div className="">
-                <input type="checkbox" className='w-[30px]' name="" id="" />
+                <input required type="checkbox" className='w-[20px] h-[20px] mr-2' name="" id="" />
                 <label htmlFor="">In Transit</label>
               </div>
               <div className="">
-                <input type="checkbox" className='w-[30px]' name="" id="" />
+                <input required type="checkbox" className='w-[20px] h-[20px] mr-2' name="" id="" />
                 <label htmlFor="">Awaiting Delivery</label>
               </div>
               <div className="">
-                <input type="checkbox" className='w-[30px]' name="" id="" />
+                <input required type="checkbox" className='w-[20px] h-[20px] mr-2' name="" id="" />
                 <label htmlFor="">Discharged</label>
               </div>
             </div>
@@ -317,23 +299,23 @@ function ManageVoyage() {
           <h3 className='text-lg font-semibold my-5'>Container Details:</h3>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">Regular</label>
-                  <input type="number" className='w-[150px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+                  <input required type="number" className='w-[150px] border-[1px] p-1 border-[#828282] rounded' placeholder='Enter the quantity' name="" id="" />
                 </div>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">OOG</label>
-                  <input type="number" className='w-[150px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+                  <input required type="number" className='w-[150px] border-[1px] p-1 border-[#828282] rounded' placeholder='Enter the quantity' name="" id="" />
                 </div>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">OTFR</label>
-                  <input type="text" className='w-[150px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+                  <input required type="text" className='w-[150px] border-[1px] p-1 border-[#828282] rounded' placeholder='Enter the quantity' name="" id="" />
                 </div>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">Reefer</label>
-                  <input type="text" className='w-[150px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+                  <input required type="text" className='w-[150px] border-[1px] p-1 border-[#828282] rounded' placeholder='Enter the quantity' name="" id="" />
                 </div>
                 <div className="flex gap-3 justify-between my-2">
                   <label htmlFor="">Hazardous</label>
-                  <input type="text" className='w-[150px] border-[1px] p-1 border-[#828282] rounded-lg' placeholder='Enter the quantity' name="" id="" />
+                  <input required type="text" className='w-[150px] border-[1px] p-1 border-[#828282] rounded' placeholder='Enter the quantity' name="" id="" />
                 </div>
               </div>
         </div>
@@ -341,7 +323,7 @@ function ManageVoyage() {
         onClick={handleViewDetails} 
         type='submit'
         disabled={!formik.isValid}
-        className='bg-[#4000FF] px-8 absolute bottom-[-4rem] right-0 py-1 rounded-lg text-white'>
+        className='bg-[#4000FF] px-8 absolute bottom-[-7rem] right-1/2 py-2 text-lg rounded-xl text-white cursor-pointer'>
           Update Voyage
         </button>
 

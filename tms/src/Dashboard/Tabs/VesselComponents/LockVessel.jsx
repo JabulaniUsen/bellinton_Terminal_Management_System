@@ -9,15 +9,15 @@ const LockManifest = () => {
   const [moreInfo, setMoreInfo] = useState(false);
 
   const vesselData = [
-    { vesselId: '001', vesselName: "Ocean Voyager", eta: '2024-11-04 09:00 AM', etd: "2023-09-10 14:00 PM", status: "In Transit", manifestStatus: 'Complete'},
-    { vesselId: '002', vesselName: "Amazon", eta: '2024-12-07 10:00 PM', etd: "2023-09-10 17:01 PM", status: "Pending", manifestStatus: 'Inomplete'},
-    { vesselId: '003', vesselName: "Aliexpress", eta: '2024-19-02 15:50 AM', etd: "2023-09-10 12:40 PM", status: "Pending", manifestStatus: 'Inomplete'},
-    { vesselId: '004', vesselName: "Ocean Voyager", eta: '2024-09-04 20:30 PM', etd: "2023-09-10 18:35 PM", status: "In Transit", manifestStatus: 'Complete'}
+    { vesselId: 'VSL001', vesselName: "Ocean Voyager", eta: '2024-11-04 09:00 AM', etd: "2023-09-10 14:00 PM", status: "In Transit", manifestStatus: 'Complete'},
+    { vesselId: 'VSL002', vesselName: "Amazon", eta: '2024-12-07 10:00 PM', etd: "2023-09-10 17:01 PM", status: "Pending", manifestStatus: 'Inomplete'},
+    { vesselId: 'VSL003', vesselName: "Aliexpress", eta: '2024-19-02 15:50 AM', etd: "2023-09-10 12:40 PM", status: "Pending", manifestStatus: 'Inomplete'},
+    { vesselId: 'VSL004', vesselName: "Ocean Voyager", eta: '2024-09-04 20:30 PM', etd: "2023-09-10 18:35 PM", status: "In Transit", manifestStatus: 'Complete'}
   ];
 
   const handleSearch = () => {
     const filteredData = vesselData.filter(item =>
-      item.vesselId.toString().includes(searchTerm.toLowerCase())
+      item.vesselId.toString().includes(searchTerm.toUpperCase())
     );
   
     // Update the state with the filtered data

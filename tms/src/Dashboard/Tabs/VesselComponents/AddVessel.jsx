@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Select } from '@mui/material';
+import UploadBox from '../ManifestComponents/UploadBox';
 
 function AddVessel() {
 
@@ -29,6 +30,7 @@ function AddVessel() {
   const inputRef = useRef(null);
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(null);
+  const [showUpload, setShowUpload] = useState(false)
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -124,6 +126,15 @@ function AddVessel() {
   const addStop = (e) => {
     e.preventDefault();
     setStops([...stops, { id: '', placeholder: 'Enter the name of the stop', type: 'text' }]);
+  };
+
+  // Upload Vessel 
+
+  const handleUpload = () => {
+    setShowUpload(!showUpload);
+  }
+  const closeUploadBox = () => {
+    setShowUpload(false);
   };
 
   return (
@@ -338,8 +349,8 @@ function AddVessel() {
             </div>
           </div>
           <div className="flex justify-center mt-10 gap-5">
-            <button className='bg-[#20007f] px-8 py-2 rounded-xl text-white text-lg'>Upload Vessel</button>
-            <button onClick={handleViewDetails} className='bg-[#4000FF] px-8 py-2 rounded-xl text-white text-lg'>Create Vessel</button>
+            <p onClick={handleUpload} className='bg-[#20007f] px-8 py-2 rounded-xl text-white text-lg cursor-pointer'>Upload Vessel</p>
+            <button type='submit' onSubmit={handleViewDetails} className='bg-[#4000FF] px-8 py-2 rounded-xl text-white text-lg'>Create Vessel</button>
           </div>
         </div>
       </form>
@@ -361,7 +372,9 @@ function AddVessel() {
           </div>
         </motion.div>
       )}
-
+      { showUpload &&
+        <UploadBox closeUploadBox={closeUploadBox}/>
+      }
     </div>
   )
 }

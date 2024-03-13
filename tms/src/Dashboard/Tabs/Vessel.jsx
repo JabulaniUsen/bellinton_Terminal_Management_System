@@ -12,7 +12,7 @@ const Vessel = () => {
   const [showUpload, setShowUpload] = useState(false)
   const [uploadSuccess, setUploadSuccess] = useState(false)
   const [moreInfo, setMoreInfo] = useState(false);
-  const itemsPerPage = 4;
+  const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
 
 
@@ -117,7 +117,7 @@ const Vessel = () => {
                 {errorText && <p className="text-red-600">Please enter your cargo Id</p>}
               </div>
             </div>
-            <img src={filter} alt="" />
+            {/* <img src={filter} alt="" /> */}
             <div className="flex justify-center items-center">
               <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handleSearch} >View</button>
             </div>
@@ -157,7 +157,7 @@ const Vessel = () => {
             </tbody>
           </table>
 
-          <div className="flex justify-end gap-1 items-center">
+          <div className="flex justify-end gap-1 items-center my-4">
                     <button
                     className="text-[#4000FF] font-semibold text-lg"
                     disabled={currentPage === 1}
@@ -175,7 +175,7 @@ const Vessel = () => {
                 </div>
 
           <div className="flex flex-col justify-end items-end my-10">
-            <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={resetSearch} >Back</button>
+            <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={resetSearch} >Reset</button>
           </div>
         </div>
         }
@@ -227,7 +227,7 @@ const Vessel = () => {
              
             </div>
             <div className="flex justify-center space-x-4 mt-4">
-              <button onClick={closeDetailsBox} className="bg-[#4000FF] text-white px-6 py-1 rounded-full">Close</button>
+              <button onClick={closeDetailsBox} className="bg-[#4000FF] text-white px-6 py-1 rounded-full">Print</button>
             </div>
           </div>
         </motion.div>
