@@ -12,6 +12,7 @@ import empty from '../../assets/empty.svg'
 import loaded from '../../assets/loaded.svg'
 import locked from '../../assets/locked.svg'
 import damaged from '../../assets/damaged.svg'
+import Notification from './YardManagementComponent/Notification'
 
 
 const YardManagement = () => {
@@ -124,6 +125,8 @@ const YardManagement = () => {
             </div>
           </div>
         </div>
+
+        <Notification/>
     </div>
   )
 }
