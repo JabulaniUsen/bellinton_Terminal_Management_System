@@ -41,6 +41,8 @@ import ViewAgencies from './Tabs/CustomerComponents/ViewAgencies';
 import ManageAgencies from './Tabs/CustomerComponents/ManageAgencies';
 import ViewAgent from './Tabs/CustomerComponents/ViewAgent';
 import ManageAgent from './Tabs/CustomerComponents/ManageAgent';
+import ViewContainerList from './Tabs/YardManagementComponent/ViewContainerList';
+import YardReport from './Tabs/YardManagementComponent/YardReport';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -249,7 +251,9 @@ const Dashboard = () => {
         { label: 'Manage Agents', tabNumber: 33, icon: faCog }, */}
 
           {/* Yard Mgt */}
-          {activeTab === 17 && <YardManagement/>}
+          {/* {activeTab === 17 && <YardManagement/>} */}
+          {/* {activeTab === 17 && <ViewContainerList/>} */}
+          {activeTab === 17 && <YardReport/>}
 
         </div>
       </div>
