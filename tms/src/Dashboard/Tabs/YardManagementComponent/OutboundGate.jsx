@@ -13,7 +13,7 @@ const OutboundGate = () => {
   return (
     <div className='m-10 poppins'>
       <h2 className='font-bold text-2xl'>Outbound Gate Exit</h2>
-      <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-10">
+      <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-12">
         <div className="mt-10">
           <div>
             <div className="my-10">
@@ -58,6 +58,10 @@ const OutboundGate = () => {
                   <label htmlFor="movementType" className="block font-semibold text-base">Driver Verification:</label>
                   <input type='checkbox' className='w-[20px] h-[20px]' required/>
               </div>
+            </div>
+            <div className="flex justify-between gap-4 items-center my-7">
+              <label htmlFor="location" className="text-lg font-bold">Signature/Confirmation: </label>
+              <input type='text' className='border-gray-400 border-[1px] rounded-lg p-1 w-[300px]' placeholder='Enter security code' required/>
             </div>
           </div>
         </div>
@@ -106,6 +110,10 @@ const OutboundGate = () => {
                     <input type="radio" id="falseOption" name="securityCheck" value="false" required />
                     <label htmlFor="falseOption" className="ml-1">False</label>
                   </div>
+              </div>
+              <div className="flex justify-between my-7">
+                <label htmlFor="description" className="block font-semibold text-base">Security Check Notes: </label>
+                <textarea className='border-gray-400 border-[1px] rounded-lg p-4 w-[300px]' required name="description" id="description" rows="3"></textarea>
               </div>
             </div>
 
