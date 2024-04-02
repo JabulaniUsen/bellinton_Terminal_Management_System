@@ -4,7 +4,7 @@ import { faEye, faEyeSlash, faLock } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import logo from '../assets/logo.png'
+import logo from '../assets/logo.svg'
 
 function Signin() {
 

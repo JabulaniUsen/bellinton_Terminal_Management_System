@@ -43,6 +43,9 @@ import ViewAgent from './Tabs/CustomerComponents/ViewAgent';
 import ManageAgent from './Tabs/CustomerComponents/ManageAgent';
 import ViewContainerList from './Tabs/YardManagementComponent/ViewContainerList';
 import YardReport from './Tabs/YardManagementComponent/YardReport';
+import ContainerMgt from './Tabs/YardManagementComponent/ContainerMgt';
+import ContainerTracking from './Tabs/YardManagementComponent/ContainerTracking';
+import ContainerMovement from './Tabs/YardManagementComponent/ContainerMovement';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -134,9 +137,17 @@ const Dashboard = () => {
       // tabNumber: 16,
       subButtons: [
         { label: 'Yard Overview', tabNumber: 17, icon: faCog },
-        { label: 'Gate In/Out', tabNumber: 18, icon: faCog },
-        { label: 'Transfer', tabNumber: 19, icon: faCog },
-        { label: 'Yard Activity', tabNumber: 20, icon: faCog }
+        { label: 'Container Mgt.', tabNumber: 18, icon: faCog },
+        { label: 'Container Tracking', tabNumber: 19, icon: faCog },
+        { label: 'Container Movement', tabNumber: 20, icon: faCog },
+        { label: 'Inbound Gate Entry', tabNumber: 34, icon: faCog },
+        { label: 'Outbound Gate Entry', tabNumber: 35, icon: faCog },
+        { label: 'Gate Access Control', tabNumber: 36, icon: faCog },
+        { label: 'Gate Incident', tabNumber: 37, icon: faCog },
+        { label: 'Equipement Mgt', tabNumber: 38, icon: faCog },
+        { label: 'Yard Queue', tabNumber: 39, icon: faCog },
+        { label: 'Yard Space', tabNumber: 40, icon: faCog },
+        { label: 'Yard Report', tabNumber: 41, icon: faCog },
       ],
     },
     {
@@ -251,9 +262,22 @@ const Dashboard = () => {
         { label: 'Manage Agents', tabNumber: 33, icon: faCog }, */}
 
           {/* Yard Mgt */}
-          {/* {activeTab === 17 && <YardManagement/>} */}
+          {activeTab === 17 && <YardManagement/>}
           {/* {activeTab === 17 && <ViewContainerList/>} */}
-          {activeTab === 17 && <YardReport/>}
+          {/* {activeTab === 17 && <YardReport/>} */}
+
+        { activeTab === 18 && <ContainerMgt/>}
+        { activeTab === 19 && <ContainerTracking/>}
+        { activeTab === 20 && <ContainerMovement />}
+        {/* { label: 'Inbound Gate Entry', tabNumber: 34}
+        { label: 'Outbound Gate Entry', tabNumber: 35}
+        { label: 'Gate Access Control', tabNumber: 36}
+        { label: 'Gate Incident', tabNumber: 37}
+        { label: 'Equipement Mgt', tabNumber: 38}
+        { label: 'Yard Queue', tabNumber: 39}
+        { label: 'Yard Space', tabNumber: 40}
+        { label: 'Yard Report', tabNumber: 41} */}
+
 
         </div>
       </div>
