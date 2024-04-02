@@ -23,7 +23,7 @@ const ContainerMovement = () => {
     <div className='m-10 poppins'>
       <h2 className='font-bold text-2xl'>Container Movement</h2>
       <div className="mt-10">
-        <form onSubmit={handleSubmit}>
+        <form>
           <div className="flex justify-between items-center w-[60%] my-5">
             <label htmlFor="containerWidth" className="block font-semibold text-base">Container ID: </label>
             <Select
@@ -68,7 +68,7 @@ const ContainerMovement = () => {
             <input type='date' className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]' required id="loadedOnboardDate" name="loadedOnboardDate" />
           </div>
           <div className="buttons flex w-[60%] gap-3 mx-[200px] mt-10">
-            <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' type='submit'>Submit</button>
+            <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' type='submit' onClick={handleSubmit}>Submit</button>
             <button className='text-white bg-[#828282] rounded-md py-1 px-10'>View History</button>
           </div>
         </form>
