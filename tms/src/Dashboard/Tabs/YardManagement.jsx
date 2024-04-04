@@ -15,7 +15,7 @@ import damaged from '../../assets/damaged.svg'
 import Notification from './YardManagementComponent/Notification'
 
 
-const YardManagement = () => {
+const YardManagement = ({onTabSwitch}) => {
 
   return (
     <div className='p-10'>
@@ -29,12 +29,16 @@ const YardManagement = () => {
             <h3 className='font-semibold'>Container Management</h3>
             
             <div className="flex gap-5">
-              <div className="flex justify-center items-center text-center flex-col gap-3 w-[210px] h-[140px] cursor-pointer bg-[#4000FF] rounded-md p-5">
+              <div 
+              onClick={() => onTabSwitch(18)}
+              className="flex justify-center items-center text-center flex-col gap-3 w-[210px] h-[140px] cursor-pointer bg-[#4000FF] rounded-md p-5">
                 <img src={eye} className='w-[35px]' alt="" />
                 <h2 className='text-white '>View Container List</h2>
               </div>
 
-              <div className="flex justify-center items-center text-center flex-col gap-3 w-[210px] h-[140px] cursor-pointer bg-[#4000FF] rounded-md p-5">
+              <div 
+              // onClick={() => onTabSwitch(18)}
+              className="flex justify-center items-center text-center flex-col gap-3 w-[210px] h-[140px] cursor-pointer bg-[#4000FF] rounded-md p-5">
                 <img src={file} className='w-[30px]' alt="" />
                 <h2 className='text-white '>Assign Position</h2>
               </div>

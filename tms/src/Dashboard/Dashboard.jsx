@@ -55,6 +55,9 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
   const [selectedButton, setSelectedButton] = useState(null);
   const [activeSubButton, setActiveSubButton] = useState(null)
+  const handleTabSwitch = (tabNumber) => {
+    setActiveTab(tabNumber);
+  };
 
   const TabButton = ({ tabNumber, label, icon, subButtons }) => (
     <div className="relative">
@@ -266,7 +269,7 @@ const Dashboard = () => {
         { label: 'Manage Agents', tabNumber: 33, icon: faCog }, */}
 
           {/* Yard Mgt */}
-          {activeTab === 17 && <YardManagement/>}
+          {activeTab === 17 && <YardManagement onTabSwitch={handleTabSwitch}/>}
           {/* {activeTab === 17 && <ViewContainerList/>} */}
           {/* {activeTab === 17 && <YardReport/>} */}
 
