@@ -48,6 +48,8 @@ import ContainerTracking from './Tabs/YardManagementComponent/ContainerTracking'
 import ContainerMovement from './Tabs/YardManagementComponent/ContainerMovement';
 import InboundGate from './Tabs/YardManagementComponent/InboundGate';
 import OutboundGate from './Tabs/YardManagementComponent/OutboundGate';
+import GateAccessControl from './Tabs/YardManagementComponent/GateAccessControl';
+import GateInsident from './Tabs/YardManagementComponent/GateInsident';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -273,12 +275,12 @@ const Dashboard = () => {
         { activeTab === 20 && <ContainerMovement />}
         { activeTab === 34 && <InboundGate/> } 
         { activeTab === 35 && <OutboundGate/>}
-        {/* { label: 'Gate Access Control', tabNumber: 36}
-        { label: 'Gate Incident', tabNumber: 37}
-        { label: 'Equipement Mgt', tabNumber: 38}
-        { label: 'Yard Queue', tabNumber: 39}
-        { label: 'Yard Space', tabNumber: 40}
-        { label: 'Yard Report', tabNumber: 41} */}
+        { activeTab === 36 && <GateAccessControl/>}
+        { activeTab === 37 && <GateInsident/>}
+        {/* { label: 'Equipement Mgt', tabNumber: 38} */}
+        {/* { label: 'Yard Queue', tabNumber: 39} */}
+        {/* { label: 'Yard Space', tabNumber: 40} */}
+        {/* { label: 'Yard Report', tabNumber: 41}  */}
 
 
         </div>

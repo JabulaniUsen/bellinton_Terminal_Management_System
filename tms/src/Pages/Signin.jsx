@@ -19,9 +19,6 @@ function Signin() {
       username: Yup.string().required('Username is required'),
       password: Yup.string().required('Password is required'),
     }),
-    // onSubmit: (values) => {
-    //   console.log('Form data submitted:', values);
-    // },
   });
   
   const togglePasswordVisibility = () => {
@@ -29,7 +26,7 @@ function Signin() {
   };
 
   return (
-    <div className='signin roboto h-[100vh] flex py-[5rem] items-center flex-col gap-[100px]'>
+    <div className='signin roboto h-[100vh] flex items-center flex-col gap-[50px] mt-12'>
       <div className="head flex flex-col gap-8 justify-center items-center">
         <div className="logo">
           <img src={logo} alt="" />
@@ -39,7 +36,7 @@ function Signin() {
         </div>
       </div>
 
-      <div className="form">
+      <div className="form px-20 py-10 rounded-xl">
         <form onSubmit={formik.handleSubmit} className='flex flex-col gap-[20px]'>
           <div className="flex gap-5 items-center">
             <label htmlFor="username" className='text-[20px] font-semibold'>Username:</label>
