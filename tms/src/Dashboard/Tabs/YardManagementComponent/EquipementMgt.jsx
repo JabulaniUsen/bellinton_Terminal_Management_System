@@ -29,7 +29,7 @@ const EquipementMgt = () => {
       <h2 className='font-bold text-2xl'>Equipment Management</h2>
       <div className="mt-10">
         <form onSubmit={handleSubmit}>
-          <div className="flex justify-between items-center w-[60%] my-5">
+          <div className="flex justify-between items-center w-[65%] my-5">
             <label htmlFor="containerWidth" className="block font-semibold text-base">Equipment Type:  </label>
             <Select
               options={options}
@@ -39,7 +39,7 @@ const EquipementMgt = () => {
               required
             />
           </div>
-          <div className="flex justify-between items-center w-[60%] my-5">
+          <div className="flex justify-between items-center w-[65%] my-5">
             <label htmlFor="movementType" className="block font-semibold text-base">Equipment ID:  </label>
             <input 
                 type='text' 
@@ -47,7 +47,7 @@ const EquipementMgt = () => {
                 placeholder='Unique Identifier' 
                 required id="" name="" />
           </div>
-          <div className="flex justify-between items-center w-[60%] my-5">
+          <div className="flex justify-between items-center w-[65%] my-5">
             <label htmlFor="location" className="block font-semibold text-base">Status: </label>
             <Select
               options={options2}
@@ -57,19 +57,19 @@ const EquipementMgt = () => {
               required
             />
           </div>
-          <div className="flex justify-between items-center w-[60%] my-5">
+          <div className="flex justify-between items-center w-[65%] my-5">
             <label htmlFor="emptyGateOutDate" className="block font-semibold text-base">Last Maintenance Date: </label>
             <input type='date' className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]' required id="" name="" />
           </div>
-          <div className="flex justify-between items-center w-[60%] my-5">
+          <div className="flex justify-between items-center w-[65%] my-5">
             <label htmlFor="exportGateInDate" className="block font-semibold text-base">Next Maintenance Date: </label>
             <input type='date' className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]' required id="" name="" />
           </div>
-          <div className="flex justify-between items-center w-[60%] my-5">
+          <div className="flex justify-between items-center w-[65%] my-5">
             <label htmlFor="loadedOnboardDate" className="block font-semibold text-base">Assigned Task: </label>
             <input type='text' className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]' required id="" name="" />
           </div>
-          <div className="flex justify-between items-center w-[60%] my-5">
+          <div className="flex justify-between items-center w-[65%] my-5">
             <label htmlFor="loadedOnboardDate" className="block font-semibold text-base">Assigned To: </label>
             <input type='text' className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]' required id="" name="" />
           </div>

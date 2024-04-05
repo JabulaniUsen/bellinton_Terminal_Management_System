@@ -273,6 +273,7 @@ const Dashboard = () => {
         { activeTab === 36 && <GateAccessControl/>}
         { activeTab === 37 && <GateInsident/>}
         { activeTab === 38 && <EquipementMgt/> }
+        {/* { activeTab === 38 && <MaintainanceScheduleList/> } */}
         {/* { label: 'Yard Queue', tabNumber: 39} */}
         {/* { label: 'Yard Space', tabNumber: 40} */}
         {/* { label: 'Yard Report', tabNumber: 41}  */}
