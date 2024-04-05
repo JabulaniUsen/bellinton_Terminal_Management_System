@@ -51,6 +51,7 @@ import OutboundGate from './Tabs/YardManagementComponent/OutboundGate';
 import GateAccessControl from './Tabs/YardManagementComponent/GateAccessControl';
 import GateInsident from './Tabs/YardManagementComponent/GateInsident';
 import EquipementMgt from './Tabs/YardManagementComponent/EquipementMgt';
+import MaintainanceScheduleList from './Tabs/YardManagementComponent/MaintainanceScheduleList'
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -61,7 +62,7 @@ const Dashboard = () => {
   };
 
   const TabButton = ({ tabNumber, label, icon, subButtons }) => (
-    <div className="relative">
+    <div className="">
       <button
         className={`${
           selectedButton === label ? 'bg-[#3a0aca] text-white' : 'bg-[#4000FF] text-white'
@@ -273,8 +274,8 @@ const Dashboard = () => {
         { activeTab === 35 && <OutboundGate/>}
         { activeTab === 36 && <GateAccessControl/>}
         { activeTab === 37 && <GateInsident/>}
-        { activeTab === 38 && <EquipementMgt/> }
-        {/* { activeTab === 38 && <MaintainanceScheduleList/> } */}
+        {/* { activeTab === 38 && <EquipementMgt/> } */}
+        { activeTab === 38 && <MaintainanceScheduleList/> }
         {/* { label: 'Yard Queue', tabNumber: 39} */}
         {/* { label: 'Yard Space', tabNumber: 40} */}
         {/* { label: 'Yard Report', tabNumber: 41}  */}
