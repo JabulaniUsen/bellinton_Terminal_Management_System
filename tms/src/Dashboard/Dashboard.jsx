@@ -221,11 +221,12 @@ const Dashboard = () => {
                 label="Settings" 
                 icon={faCog} 
                 subButtons={[
-                    { label: 'Create Invoice', tabNumber: 30, icon: faCog },
-                    { label: 'View Invoice', tabNumber: 31, icon: faCog },
-                    { label: 'Payment', tabNumber: 32, icon: faCog },
-                    { label: 'Receivables', tabNumber: 33, icon: faCog }
-                 ]} />
+                    // { label: 'Create Invoice', tabNumber: 30, icon: faCog },
+                    // { label: 'View Invoice', tabNumber: 31, icon: faCog },
+                    // { label: 'Payment', tabNumber: 32, icon: faCog },
+                    // { label: 'Receivables', tabNumber: 33, icon: faCog }
+                 ]} 
+                 />
             <TabButton label="Logout" icon={faSignOutAlt}  />
           </div>
         </div>
