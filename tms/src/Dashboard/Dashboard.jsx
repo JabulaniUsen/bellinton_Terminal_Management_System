@@ -153,9 +153,9 @@ const Dashboard = () => {
         { label: 'Gate Access Control', tabNumber: 36, icon: faCog },
         { label: 'Gate Incident', tabNumber: 37, icon: faCog },
         { label: 'Equipement Mgt', tabNumber: 38, icon: faCog },
-        { label: 'Yard Queue', tabNumber: 39, icon: faCog },
-        { label: 'Yard Space', tabNumber: 40, icon: faCog },
-        { label: 'Yard Report', tabNumber: 41, icon: faCog },
+        // { label: 'Yard Queue', tabNumber: 39, icon: faCog },
+        // { label: 'Yard Space', tabNumber: 40, icon: faCog },
+        // { label: 'Yard Report', tabNumber: 41, icon: faCog },
       ],
     },
     {
