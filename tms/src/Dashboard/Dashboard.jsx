@@ -50,6 +50,7 @@ import InboundGate from './Tabs/YardManagementComponent/InboundGate';
 import OutboundGate from './Tabs/YardManagementComponent/OutboundGate';
 import GateAccessControl from './Tabs/YardManagementComponent/GateAccessControl';
 import GateInsident from './Tabs/YardManagementComponent/GateInsident';
+import EquipementMgt from './Tabs/YardManagementComponent/EquipementMgt';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -169,38 +170,38 @@ const Dashboard = () => {
         { label: 'Manage Agents', tabNumber: 33, icon: faCog },
       ]
     },
-    {
-      label: 'Billings',
-      icon: faDollarSign,
-      subButtons: [
-        { label: 'Create Invoice', tabNumber: 25, icon: faCog },
-        { label: 'View Invoice', tabNumber: 26, icon: faCog },
-        { label: 'Payment', tabNumber: 27, icon: faCog },
-        { label: 'Receivables', tabNumber: 28, icon: faCog }
-      ]
-    },
-    {
-      label: 'Documentation',
-      icon: faFile,
-      tabNumber: 30
-      // subButtons: [
-      //   { label: 'Create Invoice', tabNumber: 29, icon: faCog },
-      //   { label: 'View Invoice', tabNumber: 30, icon: faCog },
-      //   { label: 'Payment', tabNumber: 31, icon: faCog },
-      //   { label: 'Receivables', tabNumber: 28, icon: faCog }
-      // ]
-    },
-    {
-      label: 'Report',
-      icon: faFileContract,
-      tabNumber: 31
-      // subButtons: [
-      //   { label: 'Create Invoice', tabNumber: 29, icon: faCog },
-      //   { label: 'View Invoice', tabNumber: 30, icon: faCog },
-      //   { label: 'Payment', tabNumber: 31, icon: faCog },
-      //   { label: 'Receivables', tabNumber: 28, icon: faCog }
-      // ]
-    }
+    // {
+    //   label: 'Billings',
+    //   icon: faDollarSign,
+    //   subButtons: [
+    //     { label: 'Create Invoice', tabNumber: 25, icon: faCog },
+    //     { label: 'View Invoice', tabNumber: 26, icon: faCog },
+    //     { label: 'Payment', tabNumber: 27, icon: faCog },
+    //     { label: 'Receivables', tabNumber: 28, icon: faCog }
+    //   ]
+    // },
+    // {
+    //   label: 'Documentation',
+    //   icon: faFile,
+    //   tabNumber: 30,
+    //   subButtons: [
+    //     { label: 'Create Invoice', tabNumber: 29, icon: faCog },
+    //     { label: 'View Invoice', tabNumber: 30, icon: faCog },
+    //     { label: 'Payment', tabNumber: 31, icon: faCog },
+    //     { label: 'Receivables', tabNumber: 28, icon: faCog }
+    //   ]
+    // },
+    // {
+    //   label: 'Report',
+    //   icon: faFileContract,
+    //   tabNumber: 31,
+    //   subButtons: [
+    //     { label: 'Create Invoice', tabNumber: 29, icon: faCog },
+    //     { label: 'View Invoice', tabNumber: 30, icon: faCog },
+    //     { label: 'Payment', tabNumber: 31, icon: faCog },
+    //     { label: 'Receivables', tabNumber: 28, icon: faCog }
+    //   ]
+    // }
   ];
   
   
@@ -259,15 +260,6 @@ const Dashboard = () => {
           {activeTab === 24 && <ManageAgencies/>}
           {activeTab === 32 && <ViewAgent/>}
           {activeTab === 33 && <ManageAgent/>}
-
-
-          {/* { label: 'View/Add Customer', tabNumber: 21, icon: faCog },
-        { label: 'Manage Customer', tabNumber: 23, icon: faCog },
-        { label: 'View/Add Agencies', tabNumber: 22, icon: faCog },
-        { label: 'Manage Agencies', tabNumber: 24, icon: faCog },
-        { label: 'View/Add Agents', tabNumber: 32, icon: faCog },
-        { label: 'Manage Agents', tabNumber: 33, icon: faCog }, */}
-
           {/* Yard Mgt */}
           {activeTab === 17 && <YardManagement onTabSwitch={handleTabSwitch}/>}
           {/* {activeTab === 17 && <ViewContainerList/>} */}
@@ -280,7 +272,7 @@ const Dashboard = () => {
         { activeTab === 35 && <OutboundGate/>}
         { activeTab === 36 && <GateAccessControl/>}
         { activeTab === 37 && <GateInsident/>}
-        {/* { label: 'Equipement Mgt', tabNumber: 38} */}
+        { activeTab === 38 && <EquipementMgt/> }
         {/* { label: 'Yard Queue', tabNumber: 39} */}
         {/* { label: 'Yard Space', tabNumber: 40} */}
         {/* { label: 'Yard Report', tabNumber: 41}  */}

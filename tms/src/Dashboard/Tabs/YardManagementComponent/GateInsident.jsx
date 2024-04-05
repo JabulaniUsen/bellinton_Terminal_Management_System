@@ -159,7 +159,7 @@ const GateInsident = () => {
                     <div>
                         <input type="file" name="" id="attachment" className='hidden' onChange={handleFileChange} />
                         {!isFileUploaded ? (
-                            <p htmlFor="attachment" className='text-blue-500 cursor-pointer text-lg underline'>Attachments (e.g., scanned documents, photos)</p>
+                            <label htmlFor="attachment" className='text-blue-500 cursor-pointer text-lg underline'>Attachments (e.g., scanned documents, photos)</label>
                         ) : (
                             <p className='text-green-600'>File uploaded successfully!</p>
                         )}
