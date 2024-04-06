@@ -43,7 +43,9 @@ const YardManagement = ({onTabSwitch}) => {
                 <h2 className='text-white '>Assign Position</h2>
               </div>
 
-              <div className="flex justify-center items-center text-center flex-col gap-3 w-[210px] h-[140px] cursor-pointer bg-[#4000FF] rounded-md p-5">
+              <div 
+              onClick={() => onTabSwitch(19)}
+              className="flex justify-center items-center text-center flex-col gap-3 w-[210px] h-[140px] cursor-pointer bg-[#4000FF] rounded-md p-5">
                 <img src={tracker} className='w-[30px]' alt="" />
                 <h2 className='text-white '>Track Container Movement</h2>
               </div>
@@ -88,7 +90,9 @@ const YardManagement = ({onTabSwitch}) => {
                 <h2 className='text-white '>Assign Equipment</h2>
               </div>
 
-              <div className="flex justify-center items-center text-center flex-col gap-3 w-[210px] h-[140px] cursor-pointer bg-[#4000FF] rounded-md p-5">
+              <div 
+              onClick={() => onTabSwitch(38)}
+              className="flex justify-center items-center text-center flex-col gap-3 w-[210px] h-[140px] cursor-pointer bg-[#4000FF] rounded-md p-5">
                 <img src={clock} className='w-[35px]' alt="" />
                 <h2 className='text-white '>Schedule Maintenance</h2>
               </div>
