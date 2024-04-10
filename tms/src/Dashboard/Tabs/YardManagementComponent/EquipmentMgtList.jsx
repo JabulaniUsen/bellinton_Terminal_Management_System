@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
-const MaintainanceScheduleList = () => {
+const EquipmentMgtList = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [selectedRow, setSelectedRow] = useState(null);
     const [rowDataToEdit, setRowDataToEdit] = useState(null);
     const [data, setData] = useState([
-        { equipmentId: 'EQ001', maintenanceType: 'Routine Inspection', maintenanceDate: '2024-04-10', maintainenanceDesc: 'Quarterly inspection', technician: 'John Doe' },
-        { equipmentId: 'EQ002', maintenanceType: 'Repair', maintenanceDate: '2024-04-10', maintainenanceDesc: 'Replace broken part', technician: 'John Doe' },
-        { equipmentId: 'EQ003', maintenanceType: 'Servicing', maintenanceDate: '2024-04-10', maintainenanceDesc: 'Oil change', technician: 'John Doe' },
+        { equipmentId: 'EQ001', equipmentType: 'Forkit', status: 'Available', lastMaintenanceDate: '2024-04-10', nextMaintenanceDate: '2024-14-12', assignedTask: '-', assignedTo: '-' },
+        { equipmentId: 'EQ002', equipmentType: 'Crane', status: 'In use', lastMaintenanceDate: '2024-04-10', nextMaintenanceDate: '2024-14-12', assignedTask: 'Loading', assignedTo: 'operation A' },
+        { equipmentId: 'EQ003', equipmentType: 'Reach', status: 'Available', lastMaintenanceDate: '2024-04-10', nextMaintenanceDate: '2024-14-12', assignedTask: '-', assignedTo: '-' },
     ]);
     const [editedData, setEditedData] = useState(null);
     const [showConfirmation, setShowConfirmation] = useState(false); // State for showing the confirmation modal
@@ -85,19 +85,23 @@ const MaintainanceScheduleList = () => {
                                 <tr className="bg-gray-200">
                                     <th className="border border-gray-800 px-3 py-2">Equipment ID</th>
                                     <th className="border border-gray-800 px-3 py-2">Maintenance Type</th>
-                                    <th className="border border-gray-800 px-3 py-2">Maintenance Date</th>
-                                    <th className="border border-gray-800 px-3 py-2">Maintenance Description</th>
-                                    <th className="border border-gray-800 px-3 py-2">Technician</th>
+                                    <th className="border border-gray-800 px-3 py-2">Status</th>
+                                    <th className="border border-gray-800 px-3 py-2">Last Maintenance</th>
+                                    <th className="border border-gray-800 px-3 py-2">Next Maintenance</th>
+                                    <th className="border border-gray-800 px-3 py-2">Assigned Task</th>
+                                    <th className="border border-gray-800 px-3 py-2">Assigned To</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {data.map((rowData, index) => (
                                     <tr key={index} className={selectedRow === index ? 'bg-yellow-200' : ''} onClick={() => setSelectedRow(index)}>
                                         <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.equipmentId}</td>
-                                        <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.maintenanceType}</td>
-                                        <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.maintenanceDate}</td>
-                                        <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.maintainenanceDesc}</td>
-                                        <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.technician}</td>
+                                        <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.equipmentType}</td>
+                                        <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.status}</td>
+                                        <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.lastMaintenanceDate}</td>
+                                        <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.nextMaintenanceDate}</td>
+                                        <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.assignedTask}</td>                            
+                                        <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.assignedTo}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -132,52 +136,52 @@ const MaintainanceScheduleList = () => {
                                         />
                                     </div>
                                     <div className='flex items-center justify-between my-2'>
-                                        <label htmlFor="maintenanceType">Maintenance Type:</label>
+                                        <label htmlFor="equipmentType">Maintenance Type:</label>
                                         <input
                                             type="text"
-                                            id="maintenanceType"
-                                            name="maintenanceType"
-                                            value={editedData.maintenanceType}
+                                            id="equipmentType"
+                                            name="equipmentType"
+                                            value={editedData.equipmentType}
                                             onChange={handleInputChange}
                                             className='border-gray-400 border-[1px] rounded-lg p-2'
                                         />
                                     </div>
                                     <div className='flex items-center justify-between my-2'>
-                                        <label htmlFor="maintenanceDate">Maintenance Date:</label>
+                                        <label htmlFor="lastMaintenanceDate">Maintenance Date:</label>
                                         <input
                                             type="text"
-                                            id="maintenanceDate"
-                                            name="maintenanceDate"
-                                            value={editedData.maintenanceDate}
+                                            id="lastMaintenanceDate"
+                                            name="lastMaintenanceDate"
+                                            value={editedData.lastMaintenanceDate}
                                             onChange={handleInputChange}
                                             className='border-gray-400 border-[1px] rounded-lg p-2'
                                         />
                                     </div>
                                     <div className='flex items-center justify-between my-2'>
-                                        <label htmlFor="maintainenanceDesc">Maintenance Description:</label>
+                                        <label htmlFor="assignedTask">M Description:</label>
                                         <input
                                             type="text"
-                                            id="maintainenanceDesc"
-                                            name="maintainenanceDesc"
-                                            value={editedData.maintainenanceDesc}
-                                            onChange={handleInputChange}
+                                            id="assignedTask"
+                                  name="assignedTask"
+                                  value={editedData.assignedTask}
+                                  onChange={handleInputChange}
                                             className='border-gray-400 border-[1px] rounded-lg p-2'
                                         />
                                     </div>
                                     <div className='flex items-center justify-between my-2'>
-                                        <label htmlFor="technician">Technician:</label>
+                                        <label htmlFor="assignedTo">assignedTo:</label>
                                         <input
                                             type="text"
-                                            id="technician"
-                                            name="technician"
-                                            value={editedData.technician}
+                                            id="assignedTo"
+                                            name="assignedTo"
+                                            value={editedData.assignedTo}
                                             onChange={handleInputChange}
                                             className='border-gray-400 border-[1px] rounded-lg p-2'
                                         />
                                     </div>
                                     <div className="flex items-center justify-center gap-3 mt-10">
-                                        <button onClick={handleSave} className='text-white bg-[#4000FF] rounded-md py-1 px-7'>Save</button>
-                                        <button onClick={handleCancel} className='text-black bg-[#828282] rounded-md py-1 px-7'>Cancel</button>
+                                        <button className='text-white bg-[#4000FF] rounded-md py-1 px-7'>Schedule Maintenance</button>
+                                        <button className='bg-black text-[#fdfdfd] rounded-md py-1 px-7'>Export</button>
                                     </div>
                                 </div>
                             </motion.div>
@@ -189,4 +193,4 @@ const MaintainanceScheduleList = () => {
     );
 }
 
-export default MaintainanceScheduleList;
+export default EquipmentMgtList;
