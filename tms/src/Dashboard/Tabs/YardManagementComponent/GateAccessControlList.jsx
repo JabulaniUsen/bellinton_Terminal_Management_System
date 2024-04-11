@@ -63,7 +63,7 @@ const GateAccessControlList = ({ }) => {
   };
 
   return (
-    <div className='my-10 poppins overflow-hidden' >
+    <div className='my-10 poppins' >
       <div className=''>
         <div className="m-5 " ref={componentRef}>
         <h2 className="text-2xl font-bold mb-4" >Gate Access Control Report</h2>

@@ -52,6 +52,7 @@ import GateAccessControl from './Tabs/YardManagementComponent/GateAccessControl'
 import GateInsident from './Tabs/YardManagementComponent/GateInsident';
 import EquipementMgt from './Tabs/YardManagementComponent/EquipementMgt';
 import MaintainanceScheduleList from './Tabs/YardManagementComponent/MaintainanceScheduleList'
+import YardQueueManagement from './Tabs/YardManagementComponent/YardQueueManagement';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -154,7 +155,7 @@ const Dashboard = () => {
         { label: 'Gate Access Control', tabNumber: 36, icon: faCog },
         { label: 'Gate Incident', tabNumber: 37, icon: faCog },
         { label: 'Equipement Mgt', tabNumber: 38, icon: faCog },
-        // { label: 'Yard Queue', tabNumber: 39, icon: faCog },
+        { label: 'Yard Queue', tabNumber: 39, icon: faCog },
         // { label: 'Yard Space', tabNumber: 40, icon: faCog },
         // { label: 'Yard Report', tabNumber: 41, icon: faCog },
       ],
@@ -276,7 +277,7 @@ const Dashboard = () => {
         { activeTab === 37 && <GateInsident/>}
         { activeTab === 38 && <EquipementMgt/> }
         {/* { activeTab === 38 && <MaintainanceScheduleList/> } */}
-        {/* { label: 'Yard Queue', tabNumber: 39} */}
+        { activeTab === 39 && <YardQueueManagement/>}
         {/* { label: 'Yard Space', tabNumber: 40} */}
         {/* { label: 'Yard Report', tabNumber: 41}  */}
 

@@ -96,7 +96,7 @@ const GateInsidentList = () => {
         <div className=''>
           <div className="m-5" ref={componentRef}>
               <h2 className="text-2xl font-bold mb-4">Gate Incident List</h2>
-              <div className="overflow-hidden">
+              <div className="">
                 <table className="border-collapse border border-gray-800">
                   <thead>
                       <tr className="bg-gray-200">
