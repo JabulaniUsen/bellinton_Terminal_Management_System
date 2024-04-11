@@ -4,19 +4,27 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import YardQueueManagementStatus from './YardQueueManagementStatus';
 
 const YardQueueManagement = () => {
-  const [showReport, setShowReport] = useState(false)
-    const [containerCount, setContainerCount] = useState(3); 
+  const [containerCount, setContainerCount] = useState(3); 
+  const [showStatus, setShowStatus] = useState(false)
 
-  const handleSubmit = (e) => {
+  const handleShowStatus = () => {
+    setShowStatus(true)
+  }
+
+  const handleAssignContainer = (e) => {
     e.preventDefault();
-    toast.success('Form submitted successfully!');
+    toast.success('Container Assigned successfully!');
   };
 
-  const handleShowReport = () => {
-    setShowReport(true)
-  }
+  const handleContainerMerge = (e) => {
+    e.preventDefault();
+    toast.success('Container Merged successfully!');
+  };
+
+
 
   const options2 = [
     { value: 'Port of Lagos', label: 'Port of Lagos' },
@@ -55,11 +63,11 @@ const YardQueueManagement = () => {
 
   return (
     <div className="">
-      {!showReport ? (
+      {!showStatus ? (
         <div className='m-10 poppins'>
         <h2 className='font-bold text-2xl'>Yard Queue Management</h2>
         <div className="mt-10">
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="my-10">
               <h2 className='text-lg font-bold'>Container Assignment:</h2>
               <div className="flex justify-between items-center w-[70%] mt-5">
@@ -169,16 +177,17 @@ const YardQueueManagement = () => {
             </div>
   
             <div className="buttons flex w-[70%] gap-3 mx-[200px] mt-10">
-              <button className='text-white bg-[#4000FF] rounded-md py-1 px-10'>Assign Container</button>
-              <button className='text-white bg-[#4000FF] rounded-md py-1 px-10'>Merge Containers</button>
-              <button className='text-white bg-[#4000FF] rounded-md py-1 px-10'>View Queue</button>
+              <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handleAssignContainer}>Assign Container</button>
+              <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handleContainerMerge}>Merge Containers</button>
+              <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handleShowStatus} >View Queue</button>
             </div>
           </form>
         </div>
+        
         <ToastContainer />
       </div>
       ) : (
-        <InboundGateReport/>
+        <YardQueueManagementStatus/>
       )}
     </div>
   );
