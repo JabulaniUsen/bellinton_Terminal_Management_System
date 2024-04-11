@@ -6,16 +6,16 @@ import { faTimes, faX } from "@fortawesome/free-solid-svg-icons";
 import ReactToPrint from 'react-to-print';
 import { PDFDownloadLink, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
-const InboundGateReport = () => {
+const OutboundGateReport = () => {
     const [errorText, setErrorText] = useState(false);
     const [data, setData] = useState([
-      { entryDateAndTime: '2024-03-15 09:00', truckID: 'TRK123', containerNo: 'CN172873', companyName: 'ABC Shipping Co.', size: '40ft', cargoDesc: 'Electronics', arrivalTime: '2024-02-17 09:45 AM', gatePass: 'Approved', specialInstructions: 'Fragile cargo' },
-      { entryDateAndTime: '2024-03-15 09:00', truckID: 'TRK123', containerNo: 'CN127832', companyName: 'ABC Shipping Co.', size: '40ft', cargoDesc: 'Electronics', arrivalTime: '2024-02-17 09:45 AM', gatePass: 'Approved', specialInstructions: 'Fragile cargo' },
-      { entryDateAndTime: '2024-03-15 09:00', truckID: 'TRK123', containerNo: 'CN127832', companyName: 'ABC Shipping Co.', size: '40ft', cargoDesc: 'Electronics', arrivalTime: '2024-02-17 09:45 AM', gatePass: 'Approved', specialInstructions: 'Fragile cargo' },
+      { departureTime: '2024-03-15 09:00', truckID: 'TRK123', containerID: 'CN172873', companyName: 'ABC Shipping Co.', driverName: 'John Smith', cargoDesc: 'Electronics', licensePlate: 'ABC938', status: 'Approved', },
+      { departureTime: '2024-03-15 09:00', truckID: 'TRK123', containerID: 'CN127832', companyName: 'ABC Shipping Co.', driverName: 'John Smith', cargoDesc: 'Electronics', licensePlate: 'ABC938', status: 'Approved', },
+      { departureTime: '2024-03-15 09:00', truckID: 'TRK123', containerID: 'CN127832', companyName: 'ABC Shipping Co.', driverName: 'John Smith', cargoDesc: 'Electronics', licensePlate: 'ABC938', status: 'Approved', },
     ]);
   
     const [statusSearchTerm, setStatusSearchTerm] = useState('');
-    const [containerNoSearchTerm, setContainerNoSearchTerm] = useState('');
+    const [containerIDSearchTerm, setContainerIDSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([...data]); // Initialize searchResults with data
     const [selectedRow, setSelectedRow] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
@@ -25,7 +25,7 @@ const InboundGateReport = () => {
   
   const handleSearch = () => {
     const filteredData = data.filter(item =>
-      item.containerNo.toLowerCase().includes(containerNoSearchTerm.toLowerCase())
+      item.containerID.toLowerCase().includes(containerIDSearchTerm.toLowerCase())
     );
 
     setSearchResults(filteredData);
@@ -34,7 +34,7 @@ const InboundGateReport = () => {
 
   const handleClearSearch = () => {
     setStatusSearchTerm('');
-    setContainerNoSearchTerm('');
+    setContainerIDSearchTerm('');
     setSearchResults([]);
     setErrorText(false);
   };
@@ -142,19 +142,19 @@ const InboundGateReport = () => {
     <div className="">
       <div className='roboto poppins m-10'>
         <div className="head flex justify-between">
-          <h3 className='font-bold text-2xl'>Inbound Gate Entry</h3>
+          <h3 className='font-bold text-2xl'>Outbound Gate Exit</h3>
         </div>
 
         <div>
           <div className="flex justify-between items-center">
             <div className="">
               <div className="flex gap-4 mt-5 items-center">
-                <label htmlFor="" className='text-lg font-bold'>Container ID:</label>
-                <div className="">
+                    <label htmlFor="" className='text-lg font-bold'>Container ID:</label>
+                    <div className="">
                   <Select
-                    options={data.map((item) => ({ value: item.containerNo, label: item.containerNo }))}
-                    value={containerNoSearchTerm ? { value: containerNoSearchTerm, label: containerNoSearchTerm } : null}
-                    onChange={(selectedOption) => setContainerNoSearchTerm(selectedOption.value)}
+                    options={data.map((item) => ({ value: item.containerID, label: item.containerID }))}
+                    value={containerIDSearchTerm ? { value: containerIDSearchTerm, label: containerIDSearchTerm } : null}
+                    onChange={(selectedOption) => setContainerIDSearchTerm(selectedOption.value)}
                     isSearchable
                     placeholder="Search by Container No."
                     className='outline-none min-w-[300px] rounded'
@@ -176,29 +176,27 @@ const InboundGateReport = () => {
             <table className="border-collapse border border-gray-800">
               <thead>
                 <tr className="bg-gray-200">
-                  <th className="border border-gray-800 px-2 py-2">Entry Time and Date</th>
-                  <th className="border border-gray-800 px-2 py-2">Truck ID</th>
                   <th className="border border-gray-800 px-2 py-2">Container ID</th>
+                  <th className="border border-gray-800 px-2 py-2">Truck ID</th>
+                  <th className="border border-gray-800 px-2 py-2">Driver Name</th>
+                  <th className="border border-gray-800 px-2 py-2">License Plate</th>
                   <th className="border border-gray-800 px-2 py-2">Company Name</th>
-                  <th className="border border-gray-800 px-2 py-2">Size</th>
                   <th className="border border-gray-800 px-2 py-2">Cargo Description</th>
-                  <th className="border border-gray-800 px-2 py-2">Arrival Time</th>
-                  <th className="border border-gray-800 px-2 py-2">Gate Pass Status</th>
-                  <th className="border border-gray-800 px-2 py-2">Special Instructions</th>
+                  <th className="border border-gray-800 px-2 py-2">Departure Time</th>
+                  <th className="border border-gray-800 px-2 py-2">Exit Status</th>
                 </tr>
               </thead>
               <tbody>
                 {searchResults.map((rowData, index) => (
                   <tr key={index} className={selectedRow === index ? "bg-blue-200" : ""} onClick={() => handleRowClick(index)}>
-                    <td className="border border-gray-800 px-3 py-2">{rowData.entryDateAndTime}</td>
+                    <td className="border border-gray-800 px-3 py-2">{rowData.containerID}</td>
                     <td className="border border-gray-800 px-3 py-2">{rowData.truckID}</td>
-                    <td className="border border-gray-800 px-3 py-2">{rowData.containerNo}</td>
+                    <td className="border border-gray-800 px-3 py-2">{rowData.driverName}</td>
+                    <td className="border border-gray-800 px-3 py-2">{rowData.licensePlate}</td>
                     <td className="border border-gray-800 px-3 py-2">{rowData.companyName}</td>
-                    <td className="border border-gray-800 px-3 py-2">{rowData.size}</td>
                     <td className="border border-gray-800 px-3 py-2">{rowData.cargoDesc}</td>
-                    <td className="border border-gray-800 px-3 py-2">{rowData.arrivalTime}</td>
-                    <td className="border border-gray-800 px-3 py-2">{rowData.gatePass}</td>
-                    <td className="border border-gray-800 px-3 py-2">{rowData.specialInstructions}</td>
+                    <td className="border border-gray-800 px-3 py-2">{rowData.departureTime}</td>
+                    <td className="border border-gray-800 px-3 py-2">{rowData.status}</td>
                   </tr>
                 ))}
               </tbody>
@@ -206,51 +204,51 @@ const InboundGateReport = () => {
           </div>
         </div>
 
-        <div className="flex gap-3  mx-[200px] m-16">
-        <button 
-            className={`text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10 ${selectedRow === null ? "opacity-50 cursor-not-allowed" : ""}`}
-            onClick={handleViewDetails}
-            disabled={selectedRow === null}
-            >
-            View Details
-        </button>
-
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            disabled={selectedRow === null} // Disable button if no row is selected
-            className={`text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10 ${selectedRow === null ? "opacity-50 cursor-not-allowed" : ""}`}
-            onClick={handleEdit}
-          >
-            Edit
-          </motion.button>
-          <button 
-          className='text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10' 
-          onClick={() => generateCSV()}
-        >
-          Export CSV
-        </button>
-        <PDFDownloadLink 
-          document={<MyDocument />} 
-          fileName="table.pdf"
-        >
-          {({ blob, url, loading, error }) => 
+        <div className="flex gap-3 m-16">
             <button 
-              className='text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10' 
-              disabled={loading}
-            >
-              {loading ? 'Loading...' : 'Export PDF'}
+                className={`text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10 ${selectedRow === null ? "opacity-50 cursor-not-allowed" : ""}`}
+                onClick={handleViewDetails}
+                disabled={selectedRow === null}
+                >
+                View Details
             </button>
-          }
-        </PDFDownloadLink>
-        <ReactToPrint
-        trigger={() => 
-          <button className='text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10'>
-            Print
-          </button>
-        }
-        content={() => componentRef.current} // Use componentRef.current
-      />
+
+            <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                disabled={selectedRow === null} // Disable button if no row is selected
+                className={`text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10 ${selectedRow === null ? "opacity-50 cursor-not-allowed" : ""}`}
+                onClick={handleEdit}
+            >
+                Edit
+            </motion.button>
+            <button 
+            className='text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10' 
+            onClick={() => generateCSV()}
+            >
+            Export CSV
+            </button>
+            <PDFDownloadLink 
+            document={<MyDocument />} 
+            fileName="table.pdf"
+            >
+            {({ blob, url, loading, error }) => 
+                <button 
+                className='text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10' 
+                disabled={loading}
+                >
+                {loading ? 'Loading...' : 'Export PDF'}
+                </button>
+            }
+            </PDFDownloadLink>
+            <ReactToPrint
+            trigger={() => 
+            <button className='text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10'>
+                Print
+            </button>
+            }
+            content={() => componentRef.current} // Use componentRef.current
+        />
         </div>
       </div>
 
@@ -269,40 +267,36 @@ const InboundGateReport = () => {
               <form className="">
                 <div className="grid grid-cols-2 gap-x-3">
                     <div className="mb-4">
-                    <label htmlFor="entryDateAndTime" className="block text-sm font-medium text-gray-700">Entry Date and Time</label>
-                    <input type="text" name="entryDateAndTime" id="entryDateAndTime" value={formData.entryDateAndTime} onChange={handleInputChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+                        <label htmlFor="containerID" className="block text-sm font-medium text-gray-700">Truck ID</label>
+                        <input type="text" name="containerID" id="containerID" value={formData.containerID} onChange={handleInputChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
                     </div>
                     <div className="mb-4">
-                    <label htmlFor="truckID" className="block text-sm font-medium text-gray-700">Truck ID</label>
-                    <input type="text" name="truckID" id="truckID" value={formData.truckID} onChange={handleInputChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+                        <label htmlFor="truckID" className="block text-sm font-medium text-gray-700">Truck ID</label>
+                        <input type="text" name="truckID" id="truckID" value={formData.truckID} onChange={handleInputChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
                     </div>
                     <div className="mb-4">
-                    <label htmlFor="containerNo" className="block text-sm font-medium text-gray-700">Container No.</label>
-                    <input type="text" name="containerNo" id="containerNo" value={formData.containerNo} onChange={handleInputChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+                        <label htmlFor="driverName" className="block text-sm font-medium text-gray-700">Driver Name</label>
+                        <input type="text" name="driverName" id="driverName" value={formData.driverName} onChange={handleInputChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
                     </div>
                     <div className="mb-4">
-                    <label htmlFor="companyName" className="block text-sm font-medium text-gray-700">Company Name</label>
-                    <input type="text" name="companyName" id="companyName" value={formData.companyName} onChange={handleInputChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+                        <label htmlFor="licensePlate" className="block text-sm font-medium text-gray-700">License Plate</label>
+                        <input type="text" name="licensePlate" id="licensePlate" value={formData.licensePlate} onChange={handleInputChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
                     </div>
                     <div className="mb-4">
-                    <label htmlFor="size" className="block text-sm font-medium text-gray-700">Size</label>
-                    <input type="text" name="size" id="size" value={formData.size} onChange={handleInputChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+                        <label htmlFor="companyName" className="block text-sm font-medium text-gray-700">Company Name</label>
+                        <input type="text" name="companyName" id="companyName" value={formData.companyName} onChange={handleInputChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
                     </div>
                     <div className="mb-4">
-                    <label htmlFor="cargoDesc" className="block text-sm font-medium text-gray-700">Cargo Description</label>
-                    <input type="text" name="cargoDesc" id="cargoDesc" value={formData.cargoDesc} onChange={handleInputChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+                        <label htmlFor="cargoDesc" className="block text-sm font-medium text-gray-700">Cargo Description</label>
+                        <input type="text" name="cargoDesc" id="cargoDesc" value={formData.cargoDesc} onChange={handleInputChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
                     </div>
                     <div className="mb-4">
-                    <label htmlFor="arrivalTime" className="block text-sm font-medium text-gray-700">Arrival Time</label>
-                    <input type="text" name="arrivalTime" id="arrivalTime" value={formData.arrivalTime} onChange={handleInputChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+                        <label htmlFor="departureTime" className="block text-sm font-medium text-gray-700">Entry Date and Time</label>
+                        <input type="text" name="departureTime" id="departureTime" value={formData.departureTime} onChange={handleInputChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
                     </div>
                     <div className="mb-4">
-                    <label htmlFor="gatePass" className="block text-sm font-medium text-gray-700">Gate Pass Status</label>
-                    <input type="text" name="gatePass" id="gatePass" value={formData.gatePass} onChange={handleInputChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
-                    </div>
-                    <div className="mb-4">
-                    <label htmlFor="specialInstructions" className="block text-sm font-medium text-gray-700">Special Instructions</label>
-                    <input type="text" name="specialInstructions" id="specialInstructions" value={formData.specialInstructions} onChange={handleInputChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+                        <label htmlFor="status" className="block text-sm font-medium text-gray-700">Gate Pass Status</label>
+                        <input type="text" name="status" id="status" value={formData.status} onChange={handleInputChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
                     </div>
                 </div>
                 <div className="flex justify-end gap-2 mt-4">
@@ -341,14 +335,14 @@ const InboundGateReport = () => {
                 </button>
               </div>
               <div>
-                <p><span className="font-bold">Entry Date and Time:</span> {searchResults[selectedRow]?.entryDateAndTime}</p>
+                <p><span className="font-bold">Entry Date and Time:</span> {searchResults[selectedRow]?.departureTime}</p>
                 <p><span className="font-bold">Truck ID:</span> {searchResults[selectedRow]?.truckID}</p>
-                <p><span className="font-bold">Container No.:</span> {searchResults[selectedRow]?.containerNo}</p>
+                <p><span className="font-bold">Container No.:</span> {searchResults[selectedRow]?.containerID}</p>
                 <p><span className="font-bold">Company Name:</span> {searchResults[selectedRow]?.companyName}</p>
                 <p><span className="font-bold">Size:</span> {searchResults[selectedRow]?.size}</p>
                 <p><span className="font-bold">Cargo Description:</span> {searchResults[selectedRow]?.cargoDesc}</p>
                 <p><span className="font-bold">Arrival Time:</span> {searchResults[selectedRow]?.arrivalTime}</p>
-                <p><span className="font-bold">Gate Pass Status:</span> {searchResults[selectedRow]?.gatePass}</p>
+                <p><span className="font-bold">Gate Pass Status:</span> {searchResults[selectedRow]?.status}</p>
                 <p><span className="font-bold">Special Instructions:</span> {searchResults[selectedRow]?.specialInstructions}</p>
               </div>
             </motion.div>
@@ -359,4 +353,4 @@ const InboundGateReport = () => {
   );
 };
 
-export default InboundGateReport;
+export default OutboundGateReport;
