@@ -45,10 +45,11 @@ const ContainerTrackingList = ({ }) => {
   };
 
   return (
-    <div className='m-10 poppins'>
-      <h2 className="text-2xl font-bold mb-4">Container Tracking</h2>
+    <div className='m-10 poppins' >
       <div className=''>
-      <table className="border-collapse border border-gray-800">
+        <div className="m-5" ref={componentRef}>
+        <h2 className="text-2xl font-bold mb-4">Container Tracking</h2>
+          <table className="border-collapse border border-gray-800">
               <thead>
                 <tr className="bg-gray-200">
                   <th className="border border-gray-800 px-2 py-2">Container Number</th>
@@ -72,6 +73,7 @@ const ContainerTrackingList = ({ }) => {
                 ))}
               </tbody>
             </table>
+        </div>
         <div className="buttons flex justify-center items-center gap-10 my-20 text-white">
           <button onClick={handlePrint} className='bg-[#20007f] hover:bg-[#1b0b4e] transition-all px-10 py-2 rounded-lg'>Print</button>
           <CSVLink data={handleExportCSV().data} headers={handleExportCSV().headers} filename={"container_list.csv"}>

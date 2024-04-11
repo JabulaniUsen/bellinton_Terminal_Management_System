@@ -210,7 +210,7 @@ const Dashboard = () => {
   return (
     <div className="">
       <Header />
-      <div className="flex">
+      <div className="flex overflow-hidden">
         <div className="flex flex-col justify-between gap-[8rem] items-center w-1/5 p-4 py-10 bg-[#20007F]">
           <div className="flex flex-col gap-3">
             {buttonsData.map(({ label, icon, subButtons }) => (

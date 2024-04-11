@@ -2,10 +2,15 @@ import React, {useState} from 'react';
 import Select from 'react-select';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import GateInsidentList from './GateInsidentList';
 
 const GateInsident = () => {
     const [isFileUploaded, setIsFileUploaded] = useState(false);
+    const [showList, setShowList] = useState(false)
 
+    const handleShowList = () => {
+      setShowList(true)
+    }
     const handleFileChange = (event) => {
         if (event.target.files.length > 0) {
           setIsFileUploaded(true);
@@ -34,9 +39,12 @@ const GateInsident = () => {
   };
 
   return (
-    <div className='m-10 poppins'>
+   <div className="">
+    {!showList ? (
+      <div className='m-10 poppins'>
       <h2 className='font-bold text-2xl'>Gate Incident Reporting</h2>
-      <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-12">
+      <form onSubmit={handleSubmit} >
+      <div className="grid grid-cols-2 gap-12">
         <div className="mt-10">
           <div>
             <div className="my-10">
@@ -169,13 +177,19 @@ const GateInsident = () => {
             </div>
           </div>
         </div>
-            <div className="buttons flex items-center gap-3 mx-[300px] mt-10">
-              <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' type='submit'>Submit</button>
-              <button className='text-white bg-[#828282] rounded-md py-1 px-10' type='reset'>Reset</button>
-            </div>
+        </div>
+        <div className="buttons flex items-center justify-center gap-3 mt-10">
+          <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' type='submit'>Submit</button>
+          <button className='text-white bg-[#828282] rounded-md py-1 px-10' type='reset'>Reset</button>
+          <p className='text-white bg-[#4000FF] rounded-md py-1 px-10 cursor-pointer' onClick={handleShowList}>View Incident List</p>          
+        </div>
       </form>
       <ToastContainer />
     </div>
+    ) : (
+      <GateInsidentList/>
+    )}
+   </div> 
   );
 };
 
