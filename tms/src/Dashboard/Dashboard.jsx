@@ -41,8 +41,6 @@ import ViewAgencies from './Tabs/CustomerComponents/ViewAgencies';
 import ManageAgencies from './Tabs/CustomerComponents/ManageAgencies';
 import ViewAgent from './Tabs/CustomerComponents/ViewAgent';
 import ManageAgent from './Tabs/CustomerComponents/ManageAgent';
-import ViewContainerList from './Tabs/YardManagementComponent/ViewContainerList';
-import YardReport from './Tabs/YardManagementComponent/YardReport';
 import ContainerMgt from './Tabs/YardManagementComponent/ContainerMgt';
 import ContainerTracking from './Tabs/YardManagementComponent/ContainerTracking';
 import ContainerMovement from './Tabs/YardManagementComponent/ContainerMovement';
@@ -50,9 +48,9 @@ import InboundGate from './Tabs/YardManagementComponent/InboundGate';
 import OutboundGate from './Tabs/YardManagementComponent/OutboundGate';
 import GateAccessControl from './Tabs/YardManagementComponent/GateAccessControl';
 import GateInsident from './Tabs/YardManagementComponent/GateInsident';
-import EquipementMgt from './Tabs/YardManagementComponent/EquipementMgt';
-import MaintainanceScheduleList from './Tabs/YardManagementComponent/MaintainanceScheduleList'
 import YardQueueManagement from './Tabs/YardManagementComponent/YardQueueManagement';
+import AssignContainer from './Tabs/YardManagementComponent/YardSpace/AssignContainer';
+import BillingOverview from './Tabs/Billing/BillingOverview';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -156,7 +154,7 @@ const Dashboard = () => {
         { label: 'Gate Incident', tabNumber: 37, icon: faCog },
         { label: 'Equipement Mgt', tabNumber: 38, icon: faCog },
         { label: 'Yard Queue', tabNumber: 39, icon: faCog },
-        // { label: 'Yard Space', tabNumber: 40, icon: faCog },
+        { label: 'Yard Space', tabNumber: 40, icon: faCog },
         // { label: 'Yard Report', tabNumber: 41, icon: faCog },
       ],
     },
@@ -172,16 +170,18 @@ const Dashboard = () => {
         { label: 'Manage Agents', tabNumber: 33, icon: faCog },
       ]
     },
-    // {
-    //   label: 'Billings',
-    //   icon: faDollarSign,
-    //   subButtons: [
-    //     { label: 'Create Invoice', tabNumber: 25, icon: faCog },
-    //     { label: 'View Invoice', tabNumber: 26, icon: faCog },
-    //     { label: 'Payment', tabNumber: 27, icon: faCog },
-    //     { label: 'Receivables', tabNumber: 28, icon: faCog }
-    //   ]
-    // },
+    {
+      label: 'Billings',
+      icon: faDollarSign,
+      subButtons: [
+        { label: 'Overview', tabNumber: 25, icon: faCog },
+        { label: 'VInvoice', tabNumber: 26, icon: faCog },
+        { label: 'Additional Invoice', tabNumber: 27, icon: faCog },
+        { label: 'Discount', tabNumber: 28, icon: faCog },
+        { label: 'Payment Confirmation', tabNumber: 29, icon: faCog },
+        { label: 'Billing History', tabNumber: 30, icon: faCog },
+      ]
+    },
     // {
     //   label: 'Documentation',
     //   icon: faFile,
@@ -263,11 +263,9 @@ const Dashboard = () => {
           {activeTab === 24 && <ManageAgencies/>}
           {activeTab === 32 && <ViewAgent/>}
           {activeTab === 33 && <ManageAgent/>}
-          {/* Yard Mgt */}
-          {activeTab === 17 && <YardManagement onTabSwitch={handleTabSwitch}/>}
-          {/* {activeTab === 17 && <ViewContainerList/>} */}
-          {/* {activeTab === 17 && <YardReport/>} */}
 
+        {/* Yard Mgt   */}
+        {activeTab === 17 && <YardManagement onTabSwitch={handleTabSwitch}/>}
         { activeTab === 18 && <ContainerMgt/>}
         { activeTab === 19 && <ContainerTracking/>}
         { activeTab === 20 && <ContainerMovement />}
@@ -276,11 +274,11 @@ const Dashboard = () => {
         { activeTab === 36 && <GateAccessControl/>}
         { activeTab === 37 && <GateInsident/>}
         { activeTab === 38 && <EquipementMgt/> }
-        {/* { activeTab === 38 && <MaintainanceScheduleList/> } */}
         { activeTab === 39 && <YardQueueManagement/>}
-        {/* { label: 'Yard Space', tabNumber: 40} */}
-        {/* { label: 'Yard Report', tabNumber: 41}  */}
+        { activeTab === 40 && <AssignContainer/> }
 
+        {/* Billing */}
+        {activeTab === 25 && <BillingOverview/>}
 
         </div>
       </div>

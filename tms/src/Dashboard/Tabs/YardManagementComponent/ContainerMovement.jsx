@@ -3,7 +3,6 @@ import Select from 'react-select';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ContainerMovementHistory from './ContainerMovementHistory';
-// import ContainerMovementHistory from './ContainerMovementHistory';
 
 const ContainerMovement = () => {
   const options2 = [
