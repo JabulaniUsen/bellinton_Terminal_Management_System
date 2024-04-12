@@ -51,6 +51,7 @@ import GateInsident from './Tabs/YardManagementComponent/GateInsident';
 import YardQueueManagement from './Tabs/YardManagementComponent/YardQueueManagement';
 import AssignContainer from './Tabs/YardManagementComponent/YardSpace/AssignContainer';
 import BillingOverview from './Tabs/Billing/BillingOverview';
+import PrepaidTerminalInvoice from './Tabs/Billing/PrepaidTerminalInvoice';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -175,7 +176,7 @@ const Dashboard = () => {
       icon: faDollarSign,
       subButtons: [
         { label: 'Overview', tabNumber: 25, icon: faCog },
-        { label: 'VInvoice', tabNumber: 26, icon: faCog },
+        { label: 'Invoice', tabNumber: 26, icon: faCog },
         { label: 'Additional Invoice', tabNumber: 27, icon: faCog },
         { label: 'Discount', tabNumber: 28, icon: faCog },
         { label: 'Payment Confirmation', tabNumber: 29, icon: faCog },
@@ -279,6 +280,7 @@ const Dashboard = () => {
 
         {/* Billing */}
         {activeTab === 25 && <BillingOverview/>}
+        {activeTab === 26 && <PrepaidTerminalInvoice/>}
 
         </div>
       </div>
