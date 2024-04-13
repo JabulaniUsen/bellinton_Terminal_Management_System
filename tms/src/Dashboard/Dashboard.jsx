@@ -52,6 +52,7 @@ import YardQueueManagement from './Tabs/YardManagementComponent/YardQueueManagem
 import AssignContainer from './Tabs/YardManagementComponent/YardSpace/AssignContainer';
 import BillingOverview from './Tabs/Billing/BillingOverview';
 import PrepaidTerminalInvoice from './Tabs/Billing/PrepaidTerminalInvoice';
+import EquipementMgt from './Tabs/YardManagementComponent/EquipementMgt';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);

@@ -6,6 +6,11 @@ import InboundGateReport from './InboundGateReport';
 
 const InboundGate = () => {
   const [showReport, setShowReport] = useState(false)
+  const containerId = [
+    { value: '', label: 'Select Container ID', isDisabled: true },
+    { value: 'CON2173', label: 'CON2173' },
+    { value: 'CON2742', label: 'CON2742' },
+];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,7 +32,12 @@ const InboundGate = () => {
               <h2 className='text-lg font-bold'>Container Information:</h2>
               <div className="flex justify-between items-center w-[70%] mt-5">
                   <label htmlFor="containerWidth" className="block font-semibold text-base">Container ID: </label>
-                  <input type='text' className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]' required/>
+                  <Select
+                    options={containerId}
+                    isSearchable
+                    className='w-[400px]'
+                    required
+                  />
               </div>
               <div className="flex justify-between items-center w-[70%] my-2">
                   <label htmlFor="movementType" className="block font-semibold text-base">Movement Type: </label>
