@@ -155,14 +155,6 @@ const GateInsident = () => {
                     <textarea className='border-gray-400 border-[1px] rounded-lg p-4 w-[60%]'  name="description" id="description" rows="3"></textarea>
                 </div>
 
-                <div className="flex justify-between items-center my-1">
-                  <label htmlFor="containerWidth" className="block font-bold text-lg">Incident Date and Time: </label>
-                  <div className="flex gap-1 w-[260px]">
-                    <input type='time' className='border-gray-400 border-[1px] rounded-lg p-1' />
-                    <input type='date' className='border-gray-400 border-[1px] rounded-lg p-1' />
-                  </div>
-                </div>
-
                 <div className="flex justify-between my-7">
                     <div>
                         <input type="file" name="" id="attachment" className='hidden' onChange={handleFileChange} />

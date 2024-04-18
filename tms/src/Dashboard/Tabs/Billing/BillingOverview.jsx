@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import avatar1 from '../../../assets/avatar1.png'
 import avatar2 from '../../../assets/avatar2.png'
 import avatar3 from '../../../assets/avatar3.png'
 import send from '../../../assets/send.svg'
+import BillingHistory from './BillingHistory'
 
 const BillingOverview = () => {
+
     const customerData = [
         {
             avatar: avatar1,
@@ -33,6 +35,7 @@ const BillingOverview = () => {
         },
       ]
   return (
+    <>
     <div className='m-10'>
         <div className="header">
             <h2 className='text-2xl font-bold'>Billing Dashboard</h2>
@@ -112,6 +115,7 @@ const BillingOverview = () => {
             </div>
         </div>
     </div>
+    </>
   )
 } 
 

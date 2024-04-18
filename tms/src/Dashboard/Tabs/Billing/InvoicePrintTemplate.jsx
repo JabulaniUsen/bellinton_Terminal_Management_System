@@ -3,7 +3,7 @@ import logo from '../../../assets/logo.svg'
 import { useReactToPrint } from 'react-to-print';
 import TerminalInvoiceReport from './TerminalInvoiceReport';
 
-const PrintTemplate = () => {
+const InvoicePrintTemplate = () => {
     const [seeReport, setSeeReport] = useState(false)
     const tableData = [
         {sNo: '1', item: 'CFC Terminal Handling Charges (40ft)', qty: 1, rate: 160000.00, amount: 160000.00},
@@ -170,4 +170,4 @@ const PrintTemplate = () => {
   )
 }
 
-export default PrintTemplate
+export default InvoicePrintTemplate
