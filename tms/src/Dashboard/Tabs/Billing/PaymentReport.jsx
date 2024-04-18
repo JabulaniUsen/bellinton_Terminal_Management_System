@@ -2,9 +2,8 @@ import React, {useState} from 'react'
 import { useReactToPrint } from 'react-to-print';
 import InvoiceManagement from './InvoiceManagement'
 
-const TerminalInvoiceReport = () => {
+const PaymentReport = () => {
     const componentRef = React.useRef();
-    const [showInvoiceManagement, setShowInvoiceManagement] = useState(false)
 
     const handlePrint = useReactToPrint({
       content: () => componentRef.current,
@@ -21,10 +20,10 @@ const TerminalInvoiceReport = () => {
     ]
   return (
     <div className="">
-        {!showInvoiceManagement ? (<div className='m-10'>
+       <div className='m-10'>
         <div className="table mt-8 m-10" ref={componentRef}>
             <div className="head mb-10">
-                <h2 className='font-bold text-2xl'>Terminal Invoice Report</h2>
+                <h2 className='font-bold text-2xl'>Terminal Payment Report</h2>
             </div>
             <table className="border-collapse ">
                 <thead>
@@ -54,13 +53,10 @@ const TerminalInvoiceReport = () => {
         </div>
         <div className="flex gap-3 justify-center">
             <button className='text-white px-7 py-2 rounded-md bg-blue-700 my-20' onClick={handlePrint}>Print</button>
-            <button className='text-white px-7 py-2 rounded-md bg-blue-700 my-20' onClick={() => {setShowInvoiceManagement(true)}}>Invoice Managment</button>
         </div>
-    </div>) : (
-        <InvoiceManagement/>
-    )}
+    </div>
     </div>
   )
 }
 
-export default TerminalInvoiceReport
+export default PaymentReport

@@ -55,6 +55,8 @@ import PrepaidTerminalInvoice from './Tabs/Billing/PrepaidTerminalInvoice';
 import EquipementMgt from './Tabs/YardManagementComponent/EquipementMgt';
 import BillingHistory from './Tabs/Billing/BillingHistory';
 import AdditionalTerminalInvoice from './Tabs/Billing/AdditionalTerminalInvoice';
+import DiscountTerminalInvoice from './Tabs/Billing/DiscountTerminalInvoice';
+import PaymentConfirmation from './Tabs/Billing/PaymentConfirmation';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -285,6 +287,8 @@ const Dashboard = () => {
         {activeTab === 25 && <BillingOverview/>}
         {activeTab === 26 && <PrepaidTerminalInvoice/>}
         {activeTab === 27 && <AdditionalTerminalInvoice/>}
+        {activeTab === 28 && <DiscountTerminalInvoice/>}
+        {activeTab === 29 && <PaymentConfirmation/>}
         {activeTab === 30 && <BillingHistory/>}
         </div>
       </div>
