@@ -39,7 +39,7 @@ const LockManifest = () => {
 
 
   return (
-    <div className='m-10 oxygen'>
+    <div className='m-10 oxygen poppins'>
         <div className="head flex justify-between">
             <h3 className='text-2xl font-bold'>Lock Vessel</h3>
         </div>

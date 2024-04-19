@@ -138,7 +138,7 @@ function AddVessel() {
   };
 
   return (
-    <div className='p-10 roboto'>
+    <div className='p-10 poppins'>
       <div className="header">
         <h2 className='text-3xl font-bold'>Add Vessels</h2>
       </div>

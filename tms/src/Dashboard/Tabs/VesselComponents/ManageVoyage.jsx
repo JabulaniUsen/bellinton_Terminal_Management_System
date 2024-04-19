@@ -119,7 +119,7 @@ function ManageVoyage() {
   const data = ["VSL237", "VSL126", "VSL132", "VSL342", "VSL372"];
 
   return (
-    <div className='p-10 roboto mb-20'>
+    <div className='p-10 poppins mb-20'>
       <div className="header">
         <h2 className='text-3xl font-bold'>Manage Voyage</h2>
       </div>

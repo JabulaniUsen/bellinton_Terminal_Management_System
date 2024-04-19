@@ -95,7 +95,7 @@ const Vessel = () => {
 
 
   return (
-    <div className='py-10 roboto '>
+    <div className='py-10 poppins'>
       <div className="head flex justify-between mx-5">
         <h3 className='text-2xl font-bold'>View Vessel</h3>
       </div>

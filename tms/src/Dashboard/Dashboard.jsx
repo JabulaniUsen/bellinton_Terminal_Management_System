@@ -57,6 +57,7 @@ import BillingHistory from './Tabs/Billing/BillingHistory';
 import AdditionalTerminalInvoice from './Tabs/Billing/AdditionalTerminalInvoice';
 import DiscountTerminalInvoice from './Tabs/Billing/DiscountTerminalInvoice';
 import PaymentConfirmation from './Tabs/Billing/PaymentConfirmation';
+import ContainerR from './Tabs/Documentation/ContainerR';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -188,17 +189,21 @@ const Dashboard = () => {
         { label: 'Billing History', tabNumber: 30, icon: faCog },
       ]
     },
-    // {
-    //   label: 'Documentation',
-    //   icon: faFile,
-    //   tabNumber: 30,
-    //   subButtons: [
-    //     { label: 'Create Invoice', tabNumber: 29, icon: faCog },
-    //     { label: 'View Invoice', tabNumber: 30, icon: faCog },
-    //     { label: 'Payment', tabNumber: 31, icon: faCog },
-    //     { label: 'Receivables', tabNumber: 28, icon: faCog }
-    //   ]
-    // },
+    {
+      label: 'Documentation',
+      icon: faFile,
+      tabNumber: 30,
+      subButtons: [
+        { label: 'Container Cycle R.', tabNumber: 41, icon: faCog },
+        { label: 'Container Cycle D.', tabNumber: 42, icon: faCog },
+        { label: 'Equipment Mgt', tabNumber: 43, icon: faCog },
+        { label: 'Terminal Delivery Order', tabNumber: 44, icon: faCog },
+        { label: 'Split Bill of Loading', tabNumber: 45, icon: faCog },
+        { label: 'Cargo Blocking', tabNumber: 46, icon: faCog },
+        { label: 'Cargo Unblocking', tabNumber: 47, icon: faCog },
+        { label: 'Storage Free Days', tabNumber: 48, icon: faCog },
+      ]
+    },
     // {
     //   label: 'Report',
     //   icon: faFileContract,
@@ -290,6 +295,9 @@ const Dashboard = () => {
         {activeTab === 28 && <DiscountTerminalInvoice/>}
         {activeTab === 29 && <PaymentConfirmation/>}
         {activeTab === 30 && <BillingHistory/>}
+
+        {/* Reports */}
+        {activeTab === 41 && <ContainerR/>}
         </div>
       </div>
     </div>
