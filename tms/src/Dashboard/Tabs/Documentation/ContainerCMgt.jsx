@@ -1,10 +1,12 @@
 import { motion, AnimatePresence, spring } from 'framer-motion';
 import React, { useState, useEffect,useRef } from 'react'
 import Select from 'react-select';
+import ProcessEquipmentInterchange from './ProcessEquipmentInterchange';
 
 const ContainerCMgt = () => {
     const [confirmMessage, setConfirmMessage] = useState(false) 
     const [showPrintTemplate, setShowPrintTemplate] = useState(false)
+    const [viewProcessEqu, setProcessEqu]  = useState(false)
     const formRef = useRef(null);
     
     const terminal = [
@@ -20,7 +22,7 @@ const ContainerCMgt = () => {
 
   return (
     <>
-            <div>
+        {!viewProcessEqu? (<div>
             <form ref={formRef}>
                 <div className="m-10">
                     <h3 className='font-bold text-2xl'>
@@ -76,8 +78,8 @@ const ContainerCMgt = () => {
 
                         <div className="flex justify-between items-center w-[60%] my-1">
                             <p className="block font-semibold text-base">Container List: </p>
-                            <div className="flex gap-3">
-                                <input type='checkbox' className='border-gray-400 border-[1px] rounded p-1 px-2 w-[300px]' />
+                            <div className="flex gap-2 items-center">
+                                <input type='checkbox' className='border-gray-400 border-[1px] rounded p-1 w-5 h-5' />
                                 <label htmlFor="">BMOU5038886</label>
                             </div>
                         </div>
@@ -102,12 +104,14 @@ const ContainerCMgt = () => {
                 </div>
     
                 <div className="flex items-center justify-center gap-2 mb-20">
-                    <button className='px-7 py-2 rounded-md bg-blue-800 text-white mt-3'type='submit' onClick={() => {setConfirmMessage(true)}}>Proceed to Procees Doc</button>
+                    <button className='px-7 py-2 rounded-md bg-blue-800 text-white mt-3'type='submit' onClick={() => setProcessEqu(true)}>Proceed to Procees Doc</button>
                     <button className='px-7 py-2 rounded-md bg-gray-500 text-white mt-3' type='reset'>Reset</button>
                 </div>
     
             </form>
-        </div>
+        </div>) : (
+            <ProcessEquipmentInterchange/>
+        )}
     </>
   )
 }
