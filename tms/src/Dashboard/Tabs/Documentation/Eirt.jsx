@@ -219,7 +219,6 @@ const Eirt = () => {
 
             <div className="flex items-center gap-3">
                 <button className='text-white px-7 py-3 rounded-md bg-blue-700 my-20' onClick={handlePrint}>Print</button>
-                <button className='text-white px-7 py-3 rounded-md bg-blue-700 my-20' onClick={() => {setSeeReport(true)}}>Terminal Payment Report</button>
             </div>
         </div>
     </div>
