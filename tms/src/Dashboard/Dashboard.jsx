@@ -58,6 +58,8 @@ import AdditionalTerminalInvoice from './Tabs/Billing/AdditionalTerminalInvoice'
 import DiscountTerminalInvoice from './Tabs/Billing/DiscountTerminalInvoice';
 import PaymentConfirmation from './Tabs/Billing/PaymentConfirmation';
 import ContainerR from './Tabs/Documentation/ContainerR';
+import ProcessEquipmentInterchange from './Tabs/Documentation/ProcessEquipmentInterchange';
+import ProcessTerminalDeliveryOrder from './Tabs/Documentation/ProcessTerminalDeliveryOrder';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -194,9 +196,8 @@ const Dashboard = () => {
       icon: faFile,
       tabNumber: 30,
       subButtons: [
-        { label: 'Container Cycle R.', tabNumber: 41, icon: faCog },
-        { label: 'Container Cycle D.', tabNumber: 42, icon: faCog },
-        { label: 'Equipment Mgt', tabNumber: 43, icon: faCog },
+        { label: 'Container Cycle', tabNumber: 41, icon: faCog },
+        { label: 'Equipment Interchange', tabNumber: 43, icon: faCog },
         { label: 'Terminal Delivery Order', tabNumber: 44, icon: faCog },
         { label: 'Split Bill of Loading', tabNumber: 45, icon: faCog },
         { label: 'Cargo Blocking', tabNumber: 46, icon: faCog },
@@ -298,6 +299,8 @@ const Dashboard = () => {
 
         {/* Reports */}
         {activeTab === 41 && <ContainerR/>}
+        {activeTab === 43 && <ProcessEquipmentInterchange/>}
+        {activeTab === 44 && <ProcessTerminalDeliveryOrder/>}
         </div>
       </div>
     </div>
