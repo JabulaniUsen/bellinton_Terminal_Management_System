@@ -99,7 +99,7 @@ const DiscountTerminalInvoice2 = () => {
                         </div>
     
                         <div className="flex justify-between items-center my-5 ">
-                            <label htmlFor="containerWidth" className="block font-semibold text-base">Select Cargo/BL or Invoice Number: </label>
+                            <label htmlFor="containerWidth" className="block font-semibold text-base">Select Discount Type:</label>
                             <Select
                             options={type}
                             isSearchable
@@ -108,7 +108,7 @@ const DiscountTerminalInvoice2 = () => {
                             />
                         </div>
                         <div className="flex justify-between items-center my-5 ">
-                            <label htmlFor="containerWidth" className="block font-semibold text-base">Select Cargo/BL or Invoice Number: </label>
+                            <label htmlFor="containerWidth" className="block font-semibold text-base">Input Discount Value/Percent:</label>
                             <Select
                             options={percentage}
                             isSearchable

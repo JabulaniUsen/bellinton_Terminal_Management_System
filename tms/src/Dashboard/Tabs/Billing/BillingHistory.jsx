@@ -23,7 +23,21 @@ const BillingHistory = () => {
             { value: 'In Transit', label: 'In Transit' },
             { value: 'In Yard', label: 'In Yard' },
             { value: 'Loaded', label: 'Loaded' },
-          ];
+        ];
+        const inNo = [
+            { value: '', label: 'Select invoice number', isDisabled: true },
+            { value: '2203', label: '2203' },
+            { value: '8373', label: '8373' },
+            { value: '7287', label: '7287' },
+        ];
+        const customerName = [
+            { value: '', label: 'Select Customer Name', isDisabled: true },
+            { value: 'Richard Harry', label: 'Richard Harry' },
+            { value: 'Mike Adenuga', label: 'Mike Adenuga' },
+            { value: 'Olakule Ole', label: 'Olakule Ole' },
+        ];
+
+
   return (
     <div className='m-10'>
         <h2 className='font-bold text-2xl'>Billing History</h2>
@@ -32,15 +46,27 @@ const BillingHistory = () => {
             <h3 className='text-lg font-semibold my-8'>Invoice List</h3>
             <div className="flex justify-between items-center w-[80%] my-5">
                 <label htmlFor="InvoiceNumber" className="block font-semibold text-base">• Invoice Number:</label>
-                <input type='text' className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]' required id="InvoiceNumber" name="InvoiceNumber" />
+                <Select
+                    options={inNo}
+                    isSearchable
+                    className='w-[400px]'
+                    required
+                    placeholder="Select invoice"
+                />
             </div>
             <div className="flex justify-between items-center w-[80%] my-5">
                 <label htmlFor="customerName" className="block font-semibold text-base">• Customer Name:</label>
-                <input type='text' className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]' required id="customerName" name="customerName" />
+                <Select
+                    options={customerName}
+                    isSearchable
+                    className='w-[400px]'
+                    required
+                    placeholder="Select Customer Name"
+                />
             </div>
             <div className="flex justify-between items-center w-[80%] my-5">
                 <label htmlFor="InvoiceDate" className="block font-semibold text-base">• Invoice Date:</label>
-                <input type='text' className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]' required id="InvoiceDate" name="InvoiceDate" />
+                <input type='date' className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]' required id="invioceDate" name="invioceDate" />
             </div>
             <div className="flex justify-between items-center w-[80%] my-5">
                 <label htmlFor="DueDate" className="block font-semibold text-base">• Due Date:</label>

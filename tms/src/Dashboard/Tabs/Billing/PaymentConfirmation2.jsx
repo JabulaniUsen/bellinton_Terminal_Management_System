@@ -69,7 +69,7 @@ const PaymentConfirmation2 = () => {
             <form ref={formRef}>
                 <div className="m-10">
                     <h3 className='font-bold text-2xl'>
-                        Discount Terminal Invoice
+                    Payment Confirmation
                     </h3>
     
                     <div className="grid grid-cols-2 my-20 gap-12">

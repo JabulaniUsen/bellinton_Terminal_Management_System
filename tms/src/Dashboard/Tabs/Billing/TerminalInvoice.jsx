@@ -138,32 +138,32 @@ const TerminalInvoice = () => {
                             </div>    
                         </div> 
 
-                        <div className="flex flex-col gap-2">
-                            <div className="flex justify-center items-center gap-20">
+                        <div className="flex flex-col gap-2 text-sm">
+                            <div className="flex justify-between items-center gap-16">
                                 <p className='font-semibold'>Terminal Handling Charge (40ft):</p>
                                 <span>NGN 160,000.00</span>
                             </div>
-                            <div className="flex justify-center items-center gap-20">
+                            <div className="flex justify-between items-center gap-16">
                                 <p className='font-semibold'>Custom Examination Charge (20ft):</p>
                                 <span>NGN 160,000.00</span>
                             </div>
-                            <div className="flex justify-center items-center gap-20">
+                            <div className="flex justify-between items-center gap-16">
                                 <p className='font-semibold'>Documentation Charge (20ft):</p>
                                 <span>NGN 160,000.00</span>
                             </div>
-                            <div className="flex justify-center items-center gap-20">
+                            <div className="flex justify-between items-center gap-16">
                                 <p className='font-semibold'>Storage (0-5days) Charge (20ft):</p>
                                 <span>NGN 160,000.00</span>
                             </div>
-                            <div className="flex justify-center items-center gap-20">
+                            <div className="flex justify-between items-center gap-16">
                                 <p className='font-semibold'>Storage (6-10days) Charge (20ft):</p>
                                 <span>NGN 160,000.00</span>
                             </div>
-                            <div className="flex justify-center items-center gap-20">
+                            <div className="flex justify-between items-center gap-16">
                                 <p className='font-semibold'>Storage (11-15days) Charge (20ft):</p>
                                 <span>NGN 160,000.00</span>
                             </div>
-                            <div className="flex justify-center items-center gap-20">
+                            <div className="flex justify-between items-center gap-16">
                                 <p className='font-semibold'>Storage (16days above) Charge (20ft):</p>
                                 <span>NGN 160,000.00</span>
                             </div>
@@ -173,7 +173,7 @@ const TerminalInvoice = () => {
 
                     <div className="invoiceRemark">
                         <div className="flex justify-between items-center gap-16 my-5">
-                            <label htmlFor="invoiceNumber" className="block font-semibold w-[190px] ">Invoice Number:</label>
+                            <label htmlFor="invoiceNumber" className="block font-semibold w-[190px] ">Add Invoice Remarks:</label>
                             <div>
                                 <textarea className='border-gray-400 border-[1px] rounded-lg p-2 w-full' name="" id="" cols="40" rows="1"></textarea>
                                 <small>Enter remarks which would appear on the invoice including free days granted.</small>
