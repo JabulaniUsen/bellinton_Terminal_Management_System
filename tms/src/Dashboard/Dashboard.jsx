@@ -62,6 +62,7 @@ import ProcessEquipmentInterchange from './Tabs/Documentation/ProcessEquipmentIn
 import ProcessTerminalDeliveryOrder from './Tabs/Documentation/ProcessTerminalDeliveryOrder';
 import Splitbill from './Tabs/Documentation/Splitbill';
 import StorageFreeDays from './Tabs/Documentation/StorageFreeDays';
+import CargoBlocking from './Tabs/Documentation/CargoBlocking';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -203,7 +204,6 @@ const Dashboard = () => {
         { label: 'Terminal Delivery Order', tabNumber: 44, icon: faCog },
         { label: 'Split Bill of Loading', tabNumber: 45, icon: faCog },
         { label: 'Cargo Blocking', tabNumber: 46, icon: faCog },
-        { label: 'Cargo Unblocking', tabNumber: 47, icon: faCog },
         { label: 'Storage Free Days', tabNumber: 48, icon: faCog },
       ]
     },
@@ -304,6 +304,7 @@ const Dashboard = () => {
         {activeTab === 43 && <ProcessEquipmentInterchange/>}
         {activeTab === 44 && <ProcessTerminalDeliveryOrder/>}
         {activeTab === 45 && <Splitbill/>}
+        {activeTab === 46 && <CargoBlocking/>}
         {activeTab === 48 && <StorageFreeDays/>}
         </div>
       </div>
