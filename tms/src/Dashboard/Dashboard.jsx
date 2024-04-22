@@ -60,6 +60,8 @@ import PaymentConfirmation from './Tabs/Billing/PaymentConfirmation';
 import ContainerR from './Tabs/Documentation/ContainerR';
 import ProcessEquipmentInterchange from './Tabs/Documentation/ProcessEquipmentInterchange';
 import ProcessTerminalDeliveryOrder from './Tabs/Documentation/ProcessTerminalDeliveryOrder';
+import Splitbill from './Tabs/Documentation/Splitbill';
+import StorageFreeDays from './Tabs/Documentation/StorageFreeDays';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -301,6 +303,8 @@ const Dashboard = () => {
         {activeTab === 41 && <ContainerR/>}
         {activeTab === 43 && <ProcessEquipmentInterchange/>}
         {activeTab === 44 && <ProcessTerminalDeliveryOrder/>}
+        {activeTab === 45 && <Splitbill/>}
+        {activeTab === 48 && <StorageFreeDays/>}
         </div>
       </div>
     </div>

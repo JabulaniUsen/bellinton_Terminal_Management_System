@@ -23,7 +23,7 @@ const ContainerCMgt = () => {
     ];
 
     const handleCycleTypeChange = (e) => {
-        setCycleType(e.target.value); // Update cycleType state when radio input changes
+        setCycleType(e.target.value); 
     };
 
     const viewReture = () => {
