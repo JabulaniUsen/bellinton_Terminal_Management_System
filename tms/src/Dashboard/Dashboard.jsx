@@ -63,6 +63,8 @@ import ProcessTerminalDeliveryOrder from './Tabs/Documentation/ProcessTerminalDe
 import Splitbill from './Tabs/Documentation/Splitbill';
 import StorageFreeDays from './Tabs/Documentation/StorageFreeDays';
 import CargoBlocking from './Tabs/Documentation/CargoBlocking';
+import VesselReport from './Tabs/Report/VesselReport';
+import EquipmentMgtList from './Tabs/YardManagementComponent/EquipmentMgtList';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -207,17 +209,27 @@ const Dashboard = () => {
         { label: 'Storage Free Days', tabNumber: 48, icon: faCog },
       ]
     },
-    // {
-    //   label: 'Report',
-    //   icon: faFileContract,
-    //   tabNumber: 31,
-    //   subButtons: [
-    //     { label: 'Create Invoice', tabNumber: 29, icon: faCog },
-    //     { label: 'View Invoice', tabNumber: 30, icon: faCog },
-    //     { label: 'Payment', tabNumber: 31, icon: faCog },
-    //     { label: 'Receivables', tabNumber: 28, icon: faCog }
-    //   ]
-    // }
+    {
+      label: 'Report',
+      icon: faFileContract,
+      tabNumber: 31,
+      subButtons: [
+        { label: 'Vessel ', tabNumber: 53, icon: faCog },
+        { label: 'Manifest ', tabNumber: 54, icon: faCog },
+        { label: 'Container ', tabNumber: 31, icon: faCog },
+        { label: 'Customer ', tabNumber: 49, icon: faCog },
+        { label: 'Agency ', tabNumber: 50, icon: faCog },
+        { label: 'Agent ', tabNumber: 51, icon: faCog },
+        { label: 'Search ', tabNumber: 52, icon: faCog },
+        { label: 'Equ. Mgt. ', tabNumber: 55, icon: faCog },
+        { label: 'Term. Inv. ', tabNumber: 56, icon: faCog },
+        { label: 'Yard Cont. Mgt ', tabNumber: 57, icon: faCog },
+        { label: 'Yard Cont. Tracker ', tabNumber: 58, icon: faCog },
+        { label: 'Payment Confirmation', tabNumber: 59, icon: faCog },
+        { label: 'Cargo Blocking', tabNumber: 60, icon: faCog },
+        { label: 'Cargo Blocking', tabNumber: 61, icon: faCog },
+      ]
+    }
   ];
   
   
@@ -299,13 +311,17 @@ const Dashboard = () => {
         {activeTab === 29 && <PaymentConfirmation/>}
         {activeTab === 30 && <BillingHistory/>}
 
-        {/* Reports */}
+        {/* Documentation */}
         {activeTab === 41 && <ContainerR/>}
         {activeTab === 43 && <ProcessEquipmentInterchange/>}
         {activeTab === 44 && <ProcessTerminalDeliveryOrder/>}
         {activeTab === 45 && <Splitbill/>}
         {activeTab === 46 && <CargoBlocking/>}
         {activeTab === 48 && <StorageFreeDays/>}
+
+        {/* Report */}
+        {activeTab === 53 && <VesselReport/>}
+        {activeTab === 55 && <EquipmentMgtList/>}
         </div>
       </div>
     </div>

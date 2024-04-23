@@ -134,9 +134,9 @@ const Vessel = () => {
             <thead>
               <tr className="grid grid-cols-7 border border-black">
                 <th className=" border bg-black text-white py-2">Vessel ID</th>
-                <th className=" border bg-black text-white py-2">Shipper Name</th>
-                <th className=" border bg-black text-white py-2">Shipper Address</th>
-                <th className=" border bg-black text-white py-2">etd</th>
+                <th className=" border bg-black text-white py-2">Vessel Name</th>
+                <th className=" border bg-black text-white py-2">ETA</th>
+                <th className=" border bg-black text-white py-2">ETD</th>
                 <th className=" border bg-black text-white py-2">Status</th>
                 <th className=" border bg-black text-white py-2">Total Containers</th>
                 <th className=" border bg-black text-white py-2">Action</th>
