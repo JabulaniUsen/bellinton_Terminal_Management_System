@@ -3,6 +3,7 @@ import Select from 'react-select';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MaintainanceScheduleList from './MaintainanceScheduleList';
+import EquipmentMgtList from './EquipmentMgtList';
 
 const EquipementMgt = () => {
   const [showMainList, setShowMainList] = useState(false);
@@ -91,7 +92,8 @@ const EquipementMgt = () => {
         <ToastContainer />
       </div>
       ) : (
-        <MaintainanceScheduleList/>
+        // <MaintainanceScheduleList/>
+        <EquipmentMgtList/>
       ) }
     </div>
   );

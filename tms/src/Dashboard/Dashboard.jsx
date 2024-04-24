@@ -65,6 +65,15 @@ import StorageFreeDays from './Tabs/Documentation/StorageFreeDays';
 import CargoBlocking from './Tabs/Documentation/CargoBlocking';
 import VesselReport from './Tabs/Report/VesselReport';
 import EquipmentMgtList from './Tabs/YardManagementComponent/EquipmentMgtList';
+import ManifestReport from './Tabs/Report/ManifestReport';
+import ContainerReport from './Tabs/Report/ContainerReport';
+import CustomerReport from './Tabs/Report/CustomerReport';
+import TerminalInvoiceReport from './Tabs/Billing/TerminalInvoiceReport';
+import ViewContainerList from './Tabs/YardManagementComponent/ViewContainerList';
+import ContainerTrackingList from './Tabs/YardManagementComponent/ContainerTrackingList';
+import PaymentReport from './Tabs/Billing/PaymentReport';
+import BlockReport from './Tabs/Documentation/BlockReport';
+import UnblockReport from './Tabs/Documentation/UnblockReport';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -220,7 +229,6 @@ const Dashboard = () => {
         { label: 'Customer ', tabNumber: 49, icon: faCog },
         { label: 'Agency ', tabNumber: 50, icon: faCog },
         { label: 'Agent ', tabNumber: 51, icon: faCog },
-        { label: 'Search ', tabNumber: 52, icon: faCog },
         { label: 'Equ. Mgt. ', tabNumber: 55, icon: faCog },
         { label: 'Term. Inv. ', tabNumber: 56, icon: faCog },
         { label: 'Yard Cont. Mgt ', tabNumber: 57, icon: faCog },
@@ -320,8 +328,19 @@ const Dashboard = () => {
         {activeTab === 48 && <StorageFreeDays/>}
 
         {/* Report */}
+        {activeTab === 31 && <ContainerReport/>}
+        {activeTab === 49 && <ManageCustomer/>}
         {activeTab === 53 && <VesselReport/>}
+        {activeTab === 54 && <ManifestReport/>}
         {activeTab === 55 && <EquipmentMgtList/>}
+        {activeTab === 50 && <ManageAgencies/>}
+        {activeTab === 51 && <ManageAgent/>}
+        {activeTab === 56 && <TerminalInvoiceReport/>}
+        {activeTab === 57 && <ViewContainerList/>}
+        {activeTab === 58 && <ContainerTrackingList/>}
+        {activeTab === 59 && <PaymentReport/>}
+        {activeTab === 60 && <BlockReport/>}
+        {activeTab === 61 && <UnblockReport/>}
         </div>
       </div>
     </div>

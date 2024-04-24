@@ -3,7 +3,7 @@ import jsPDF from 'jspdf';
 import { useReactToPrint } from 'react-to-print';
 import 'jspdf-autotable';
 
-const VesselReport = () => {
+const ViewReport = () => {
     const data = [
         { vesselId: 'VS72873', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Ocean Voyage', eta: '9/5/2024 8:00', etd: '9/5/2024 8:00', totalContainers: 100, status: 'At Port', action: 'View Details'},
         { vesselId: 'VS27832', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Nautical Spirit', eta: '3/6/2024 14:30', etd: '9/5/2024 8:00', totalContainers: 140, status: 'In transit', action: 'View Details'},
@@ -36,7 +36,7 @@ const VesselReport = () => {
     <>
     <div className={`moreInfo my-10 mx-5`} ref={componentRef}>
         <div className="head flex justify-between mx-5">
-            <h3 className='text-2xl font-bold'>Vessel Reports</h3>
+            <h3 className='text-2xl font-bold'>View Reports</h3>
         </div>
           <div className="table overflow-x-auto my-10">
           <table className="w-[100%] border border-collapse">
@@ -63,9 +63,6 @@ const VesselReport = () => {
               ))}
             </tbody>
           </table>
-
-          
-
         </div>
       </div>
     <div className="flex flex-col justify-center items-center my-10">
@@ -75,4 +72,4 @@ const VesselReport = () => {
   )
 }
 
-export default VesselReport
+export default ViewReport

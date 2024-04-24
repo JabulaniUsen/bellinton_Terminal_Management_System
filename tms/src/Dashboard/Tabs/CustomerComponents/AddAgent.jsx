@@ -116,7 +116,7 @@ const AddAgent = () => {
 
       <form action="" onSubmit={handleSubmit} >
             <div className="flex justify-between">
-                <div className='my-10 grid gap-5 grid-cols-2'>
+                <div className='my-10 grid gap-10 grid-cols-2'>
                 <div className="sideOne">
                     <div className="flex flex-col gap-2 my-5">
                     <label htmlFor="name" className='text-base font-semibold'>Agent ID:</label>
@@ -151,21 +151,12 @@ const AddAgent = () => {
                     <input required type="number" className='rounded-lg p-2 border border-gray-500 outline-none w-[350px]' id="phoneNumber" name="phoneNumber" placeholder='Enter phone number:' />
                     </div>
                     <div className="flex flex-col gap-2 my-5">
-                    <label htmlFor="name" className='text-base font-semibold'>Contact Person:</label>
-                    <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[350px]' id="contactPerson" name="contactPerson" placeholder='Enter contact person' />
-                    </div>
-                    <div className="flex flex-col gap-2 my-5">
-                    <label htmlFor="name" className='text-base font-semibold'>Note:</label>
-                    {/* <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[350px]' id="contactPerson" name="contactPerson" placeholder='Enter contact person' /> */}
-                    <textarea className='rounded-lg p-2 border border-gray-500 outline-none w-[350px]' placeholder='Enter Any additional notes or comments regarding the customer' name="" id="" cols="30" rows="3"></textarea>
+                    <label htmlFor="name" className='text-base font-semibold'>Address:</label>
+                    <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[350px]' id="address" name="address" placeholder='Enter address:' />
                     </div>
                 </div>
 
                 <div className="sideTwo">
-                    <div className="flex flex-col gap-2 my-5">
-                    <label htmlFor="name" className='text-base font-semibold'>Address:</label>
-                    <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[350px]' id="address" name="address" placeholder='Enter address:' />
-                    </div>
                     <div className="flex flex-col gap-2 my-5">
                     <label htmlFor="name" className='text-base font-semibold'>City:</label>
                     <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[350px]' id="city" name="city" placeholder='Enter city:' />
@@ -181,10 +172,6 @@ const AddAgent = () => {
                     <div className="flex flex-col gap-2 my-5">
                     <label htmlFor="name" className='text-base font-semibold'>Postal Code:</label>
                     <input required type="number" className='rounded-lg p-2 border border-gray-500 outline-none w-[350px]' id="postalCode" name="postalCode" placeholder='Enter Postal Code:' />
-                    </div>
-                    <div className="flex flex-col gap-2 my-5">
-                    <label htmlFor="name" className='text-base font-semibold'>Billing Address:</label>
-                    <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[350px]' id="billingAddress" name="billingAddress" placeholder='Enter Billing Address:' />
                     </div>
 
                     <div className="upload">

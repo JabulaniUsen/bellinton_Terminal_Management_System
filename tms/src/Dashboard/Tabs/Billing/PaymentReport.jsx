@@ -23,7 +23,7 @@ const PaymentReport = () => {
        <div className='m-10'>
         <div className="table mt-8 m-10" ref={componentRef}>
             <div className="head mb-10">
-                <h2 className='font-bold text-2xl'>Terminal Payment Report</h2>
+                <h2 className='font-bold text-2xl'>Payment Confirmation Report</h2>
             </div>
             <table className="border-collapse ">
                 <thead>

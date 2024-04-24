@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import MaintainanceScheduleList from './MaintainanceScheduleList';
 
 const EquipmentMgtList = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [selectedRow, setSelectedRow] = useState(null);
     const [rowDataToEdit, setRowDataToEdit] = useState(null);
+    const [showSchedule, setShowSchedule] = useState(false)
     const [data, setData] = useState([
         { equipmentId: 'EQ001', equipmentType: 'Forkit', status: 'Available', lastMaintenanceDate: '2024-04-10', nextMaintenanceDate: '2024-14-12', assignedTask: '-', assignedTo: '-' },
         { equipmentId: 'EQ002', equipmentType: 'Crane', status: 'In use', lastMaintenanceDate: '2024-04-10', nextMaintenanceDate: '2024-14-12', assignedTask: 'Loading', assignedTo: 'operation A' },
@@ -57,8 +59,9 @@ const EquipmentMgtList = () => {
     };
 
     return (
-        <div>
-            {/* Confirmation Modal */}
+        <>
+        {!showSchedule ? (
+            <div>
             {showConfirmation && (
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -79,7 +82,7 @@ const EquipmentMgtList = () => {
             <div>
                 <div className="">
                     <div className="table overflow-x-auto m-10 ">
-                        <h2 className='font-bold text-2xl'>Maintenance Schedule List</h2>
+                        <h2 className='font-bold text-2xl'>Equipment Management</h2>
                         <table className="border-collapse border border-gray-800 mt-10">
                             <thead>
                                 <tr className="bg-gray-200">
@@ -110,7 +113,8 @@ const EquipmentMgtList = () => {
                         <div className="flex items-center justify-center gap-5 mt-16">
                             <button onClick={() => handleEdit(data[selectedRow])} disabled={selectedRow === null} className={`text-white bg-[#4000FF] rounded-md py-1 px-10 ${selectedRow === null ? 'opacity-50 cursor-not-allowed' : ''}`}>Edit</button>
                             <button onClick={handleDelete} disabled={selectedRow === null} className={`text-white bg-[#4000FF] rounded-md py-1 px-10 ${selectedRow === null ? 'opacity-50 cursor-not-allowed' : ''}`}>Delete</button>
-                            <button className='text-white bg-[#000] rounded-md py-1 px-10'>Export</button>
+                            <button className='text-white bg-[#000] rounded-md py-1 px-10' onClick={() => setShowSchedule(true)}>Schedule Maintenance</button>
+                            <button className='text-white bg-[#000] rounded-md py-1 px-10'>Print</button>
                         </div>
 
                         {/* Edit Form */}
@@ -162,9 +166,9 @@ const EquipmentMgtList = () => {
                                         <input
                                             type="text"
                                             id="assignedTask"
-                                  name="assignedTask"
-                                  value={editedData.assignedTask}
-                                  onChange={handleInputChange}
+                                            name="assignedTask"
+                                            value={editedData.assignedTask}
+                                            onChange={handleInputChange}
                                             className='border-gray-400 border-[1px] rounded-lg p-2'
                                         />
                                     </div>
@@ -180,8 +184,8 @@ const EquipmentMgtList = () => {
                                         />
                                     </div>
                                     <div className="flex items-center justify-center gap-3 mt-10">
-                                        <button className='text-white bg-[#4000FF] rounded-md py-1 px-7'>Schedule Maintenance</button>
-                                        <button className='bg-black text-[#fdfdfd] rounded-md py-1 px-7'>Export</button>
+                                        <button className='text-white bg-[#4000FF] rounded-md py-1 px-7' onClick={handleSave}>Save</button>
+                                        <button className='bg-black text-[#fdfdfd] rounded-md py-1 px-7' onClick={handleCancel}>Cancel</button>
                                     </div>
                                 </div>
                             </motion.div>
@@ -190,6 +194,10 @@ const EquipmentMgtList = () => {
                 </div>
             </div>
         </div>
+        ) : (
+            <MaintainanceScheduleList/>
+        )}
+        </>
     );
 }
 
