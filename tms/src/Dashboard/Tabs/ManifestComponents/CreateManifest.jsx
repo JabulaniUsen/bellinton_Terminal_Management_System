@@ -338,8 +338,8 @@ const CreateManifest = () => {
 
         </div>
         <div className="buttons flex gap-5 justify-center items-center my-20">
-            <button className='text-white bg-[#000] px-10 py-1 rounded-lg'>Add another item</button>
-            <button className='text-white bg-[#637381] px-10 py-1 rounded-lg'>Remove just added</button>
+            {/* <button className='text-white bg-[#000] px-10 py-1 rounded-lg'>Add another item</button>
+            <button className='text-white bg-[#637381] px-10 py-1 rounded-lg'>Remove just added</button> */}
             <button className='text-white bg-[#4000FF] px-10 py-1 rounded-lg' onClick={handleSubmit}>Submit</button>
         </div>
 

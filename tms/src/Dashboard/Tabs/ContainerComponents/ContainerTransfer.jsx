@@ -1,48 +1,34 @@
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, {useState} from 'react'
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
-const ContainerTransfer= () => {
+const ContainerTransfer = () => {
   const [cargoId, setCargoId] = useState('');
-  const [vesselId, setVesselId] = useState('');
-  const [origin, setOrigin] = useState('');
-  const [destination, setDestination] = useState('');
-  const [status, setStatus] = useState('');
-  const [shipperName, setShipperName] = useState('');
-  const [consigneeName, setConsigneeName] = useState('');
-  const [notifyName, setNotifyName] = useState('');
-  const [sealNumber, setSealNumber] = useState('');
-  const [packageQty, setPackageQty] = useState('');
-  const [cargoWeight, setCargoWeight] = useState('');
-  const [socStatus, setSocStatus] = useState('');
-  const [containerClassification, setContainerClassification] = useState('');
-  const [showUpload, setShowUpload] = useState(false)
-  const [uploadSuccess, setUploadSuccess] = useState(false)
-
+  const [transferFrom, setTransferFrom] = useState('');
+  const [transferTo, setTransferTo] = useState('');
+  const [transferDate, setTransferDate] = useState('');
+  const [confirmationCode, setConfirmationCode] = useState('');
 
   const handleSubmit = () => {
-    // Access the state variables and perform any necessary actions
     console.log({
       cargoId,
-      vesselId,
-      origin,
-      destination,
-      status,
-      shipperName,
-      consigneeName,
-      notifyName,
-      sealNumber,
-      packageQty,
-      cargoWeight,
-      socStatus,
-      containerClassification,
     });
+  
+    toast.success('Transfer initiated successfully!', {
+        autoClose: 2000, 
+    });
+  
+    setCargoId('');
   };
+  
 
-  const handleModalOK = () => {
-    setUploadSuccess(false);
+  const clearForm = () => {
+    setCargoId('');
+    setTransferFrom('');
+    setTransferTo('');
+    setTransferDate('');
+    setConfirmationCode('');
   };
 
   return (
@@ -120,11 +106,7 @@ const ContainerTransfer= () => {
         </div>
 
         
-
-
-        { uploadSuccess && 
-            <SuccessBox handleModalOK={handleModalOK} />
-        }
+        <ToastContainer/>
     </div>
   )
 }

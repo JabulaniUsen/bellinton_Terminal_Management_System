@@ -146,83 +146,98 @@ const AddContainer = () => {
                         </div>
                     </div>
                 </div>
+                <div className="flex justify-between">
                     <div className="containerSize flex flex-col gap-3 my-3">
-                        <div className='font-semibold text-base'>Container Size:</div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="10FT" id="10FT" />
-                            <label htmlFor="name" className='text-base'>10FT</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="20FT" id="20FT" />
-                            <label htmlFor="name" className='text-base'>20FT</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="40FT" id="40FT" />
-                            <label htmlFor="name" className='text-base'>40FT</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="45FT" id="45FT" />
-                            <label htmlFor="name" className='text-base'>45FT</label>
-                        </div>
+                            <div className='font-semibold text-base'>Container Size:</div>
+                            <div className="flex items-center gap-2">
+                                <input type="checkbox" name="10FT" id="10FT" />
+                                <label htmlFor="name" className='text-base'>10FT</label>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <input type="checkbox" name="20FT" id="20FT" />
+                                <label htmlFor="name" className='text-base'>20FT</label>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <input type="checkbox" name="40FT" id="40FT" />
+                                <label htmlFor="name" className='text-base'>40FT</label>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <input type="checkbox" name="45FT" id="45FT" />
+                                <label htmlFor="name" className='text-base'>45FT</label>
+                            </div>
                     </div>
                     <div className="containerSize flex flex-col gap-3 my-3 ">
-                        <div className='font-semibold text-base'>Container Type:</div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="10FT" id="10FT" />
-                            <label htmlFor="name" className='text-base'>Regular</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="20FT" id="20FT" />
-                            <label htmlFor="name" className='text-base'>OOG</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="40FT" id="40FT" />
-                            <label htmlFor="name" className='text-base'>OTFR</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="45FT" id="45FT" />
-                            <label htmlFor="name" className='text-base'>Reefer</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="45FT" id="45FT" />
-                            <label htmlFor="name" className='text-base'>Hazardous</label>
-                        </div>
+                            <div className='font-semibold text-base'>Container Type:</div>
+                            <div className="flex items-center gap-2">
+                                <input type="checkbox" name="10FT" id="10FT" />
+                                <label htmlFor="name" className='text-base'>Regular</label>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <input type="checkbox" name="20FT" id="20FT" />
+                                <label htmlFor="name" className='text-base'>OOG</label>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <input type="checkbox" name="40FT" id="40FT" />
+                                <label htmlFor="name" className='text-base'>OTFR</label>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <input type="checkbox" name="45FT" id="45FT" />
+                                <label htmlFor="name" className='text-base'>Reefer</label>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <input type="checkbox" name="45FT" id="45FT" />
+                                <label htmlFor="name" className='text-base'>Hazardous</label>
+                            </div>
                     </div>
-                    <div className="containerSize flex flex-col gap-3 my-3 ">
-                        <div className='font-semibold text-base'>Status:</div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="10FT" id="10FT" />
-                            <label htmlFor="name" className='text-base'>In Transit</label>
+                </div>
+                    <div className="flex justify-between">
+                        <div className="containerSize flex flex-col gap-3 my-3 ">
+                            <div className='font-semibold text-base'>Status:</div>
+                            <div className="flex items-center gap-2">
+                                <input type="checkbox" name="10FT" id="10FT" />
+                                <label htmlFor="name" className='text-base'>In Transit</label>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <input type="checkbox" name="20FT" id="20FT" />
+                                <label htmlFor="name" className='text-base'>Awaiting Delivery</label>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <input type="checkbox" name="40FT" id="40FT" />
+                                <label htmlFor="name" className='text-base'>Discharge</label>
+                            </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="20FT" id="20FT" />
-                            <label htmlFor="name" className='text-base'>Awaiting Delivery</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="40FT" id="40FT" />
-                            <label htmlFor="name" className='text-base'>Discharge</label>
-                        </div>
+                            <div className="containerSize flex flex-col gap-3 my-3 ">
+                                <div className='font-semibold text-base'>Import/Export:</div>
+                                    <div className="flex items-center gap-2">
+                                        <input type="checkbox" name="10FT" id="10FT" />
+                                        <label htmlFor="name" className='text-base'>Import Full</label>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <input type="checkbox" name="20FT" id="20FT" />
+                                        <label htmlFor="name" className='text-base'>Import Empty</label>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <input type="checkbox" name="40FT" id="40FT" />
+                                        <label htmlFor="name" className='text-base'>Export Full</label>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <input type="checkbox" name="45FT" id="45FT" />
+                                        <label htmlFor="name" className='text-base'>Export Empty</label>
+                                    </div>
+                                </div>
                     </div>
-                    <div className="containerSize flex flex-col gap-3 my-3 ">
-                        <div className='font-semibold text-base'>Import/Export:</div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="10FT" id="10FT" />
-                            <label htmlFor="name" className='text-base'>Import Full</label>
+                            <div className="containerSize flex flex-col gap-3 my-3 ">
+                        <div className='font-semibold text-base'>Gate:</div>
+                            <div className="flex items-center gap-2">
+                                <input type="checkbox" name="gate-in" id="gate-in" />
+                                <label htmlFor="name" className='text-base'>Gate-in</label>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <input type="checkbox" name="gate-out" id="gate-out" />
+                                <label htmlFor="name" className='text-base'>Gate-out</label>
+                            </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="20FT" id="20FT" />
-                            <label htmlFor="name" className='text-base'>Import Empty</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="40FT" id="40FT" />
-                            <label htmlFor="name" className='text-base'>Export Full</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="45FT" id="45FT" />
-                            <label htmlFor="name" className='text-base'>Export Empty</label>
-                        </div>
-                    </div>
-                </div> 
+                    </div> 
                 <div className="col2 flex flex-col gap-10">
                     <div className="flex flex-col ">
                         <label htmlFor="name" className='font-semibold text-base'>Cargo/BL ID:</label>
@@ -244,6 +259,19 @@ const AddContainer = () => {
                                 placeholder="Select name of the customer associated with the container"
                                 className='w-full'
                             />
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col ">
+                        <label htmlFor="name" className='font-semibold text-base'>Arrival Date:</label>
+                        <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
+                            <input type="date" className='outline-none w-full' />
+                        </div>
+                    </div>
+                    <div className="flex flex-col ">
+                        <label htmlFor="name" className='font-semibold text-base'>Departure Date:</label>
+                        <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
+                            <input type="date" className='outline-none w-full' />
                         </div>
                     </div>
                     

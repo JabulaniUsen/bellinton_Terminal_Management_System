@@ -7,10 +7,11 @@ const UploadBox = ({ closeUploadBox }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const isValidFileType = (file) => {
-    const allowedTypes = ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
-
+    const allowedTypes = ['text/csv', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+  
     return allowedTypes.includes(file.type);
   };
+  
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -24,6 +25,7 @@ const UploadBox = ({ closeUploadBox }) => {
       setErrorMessage('Invalid file type. Please select a CSV or XLSX file.');
     }
   };
+  
 
   const handleDragOver = (event) => {
     event.preventDefault();
