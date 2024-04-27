@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import jsPDF from 'jspdf';
+import { useReactToPrint } from 'react-to-print';
+import 'jspdf-autotable';
 
 const ManageAgencies = () => {
     const itemsPerPage = 17;
@@ -70,30 +73,53 @@ const ManageAgencies = () => {
         setSelectedAgency(null);
         setEditBoxVisible(false);
     };
-
-    const totalPages = Math.ceil(agencyData.length / itemsPerPage);
-    const startIdx = (currentPage - 1) * itemsPerPage;
-    const endIdx = startIdx + itemsPerPage;
-
     
+    const componentRef = useRef();
+
+      const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+      });
+
+      const exportAsPDF = () => {
+        const doc = new jsPDF();
+        doc.autoTable({
+          head: [Object.keys(agencyData[0])],
+          body: agencyData.map((row) => Object.values(row)),
+        });
+        doc.save('agency_report.pdf');
+      };
     
+      const exportAsCSV = () => {
+        const csvContent =
+          'data:text/csv;charset=utf-8,' +
+          agencyData.map((row) => Object.values(row).join(',')).join('\n');
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', 'agency_report.csv');
+        document.body.appendChild(link);
+        link.click();
+      };
+      
+  
       return (
-        <div className="m-5">
+        <div className="">
+          <div className="m-5" ref={componentRef}>
           <h3 className="text-2xl font-bold">Manage Agency</h3>
     
-          <table className="border border-collapse my-10 w-[100%]">
+            <table className="border border-collapse my-10 text-sm">
             <thead>
-              <tr className="border border-black ">
-                <th className="border bg-black text-white">Agency ID</th>
-                <th className="border bg-black text-white">Agency Name</th>
-                <th className="border bg-black text-white">Contact Person</th>
-                <th className="border bg-black text-white">Email</th>
-                <th className="border bg-black text-white">Phone</th>
-                <th className="border bg-black text-white">Address</th>
-              </tr>
+                <tr className="border border-black ">
+                <th className="border bg-black text-white p-2">Agency ID</th>
+                <th className="border bg-black text-white p-2">Agency Name</th>
+                <th className="border bg-black text-white p-2">Contact Person</th>
+                <th className="border bg-black text-white p-2">Email</th>
+                <th className="border bg-black text-white p-2">Phone</th>
+                <th className="border bg-black text-white p-2">Address</th>
+                </tr>
             </thead>
             <tbody>
-            {agencyData.slice(startIdx, endIdx).map((rowData, index) => (
+            {agencyData.map((rowData, index) => (
                 <tr
                     key={index}
                     className="hover:bg-[#d7c9ff] cursor-pointer"
@@ -109,7 +135,8 @@ const ManageAgencies = () => {
             ))}
 
             </tbody>
-          </table>
+            </table>
+          </div>
 
         <AnimatePresence>
                 {isEditBoxVisible && (
@@ -133,7 +160,7 @@ const ManageAgencies = () => {
                         }}>
                         <div className="modal-content bg-white p-10 rounded-xl">
                             <h3 className="text-2xl font-bold mb-7 text-center">Edit Agency Data</h3>
-                            <div className="form flex flex-col gap-2  justify-center">
+                            <div className=" flex flex-col gap-2  justify-center">
                                 <div className="flex gap-10 items-center justify-between ">
                                     <label htmlFor="editedAgencyName" className='font-semibold text-base'>Agency Name:</label>
                                     <input
@@ -272,21 +299,10 @@ const ManageAgencies = () => {
                 )}
                 </AnimatePresence>
     
-                <div className="flex justify-end gap-1 items-center">
-                    <button
-                    className="text-[#4000FF] font-semibold text-lg"
-                    disabled={currentPage === 1}
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                    >
-                    [Previous Page]
-                    </button>
-                    <button
-                    className="text-[#4000FF] font-semibold text-lg"
-                    disabled={currentPage === totalPages}
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                    >
-                    [Next Page]
-                    </button>
+                <div className="flex gap-5 justify-center items-center my-10">
+                    <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handlePrint}>Print</button>
+                    <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={exportAsCSV}>Export as CSV</button>
+                    <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={exportAsPDF}>Export as PDF</button>
                 </div>
 
         </div>

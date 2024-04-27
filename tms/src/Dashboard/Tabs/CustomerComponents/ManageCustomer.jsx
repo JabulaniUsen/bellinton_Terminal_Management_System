@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import jsPDF from 'jspdf';
+import { useReactToPrint } from 'react-to-print';
+import 'jspdf-autotable';
 
 const ManageCustomer = () => {
     const itemsPerPage = 17;
@@ -39,24 +42,49 @@ const ManageCustomer = () => {
         { customerId: '1030', customerName: 'Pinnacle Freight', contactPerson: 'Brandon Davis', email: 'brandon@pinnaclefreight.com', phone: '+1 (555) 890-1234', address: '123 Cedar Lane', postalCode:'679828', city: 'Chicago', stateProvice: 'Chicago', country: 'USA' },
     ])
 
+    const componentRef = useRef();
+
+      const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+      });
+
+      const exportAsPDF = () => {
+        const doc = new jsPDF();
+        doc.autoTable({
+          head: [Object.keys(customerData[0])],
+          body: customerData.map((row) => Object.values(row)),
+        });
+        doc.save('customer_report.pdf');
+      };
+      
+    
+      const exportAsCSV = () => {
+        const csvContent =
+          'data:text/csv;charset=utf-8,' +
+          customerData.map((row) => Object.values(row).join(',')).join('\n');
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', 'customer_report.csv');
+        document.body.appendChild(link);
+        link.click();
+      };
+      
+    
+
     const handleRowClick = (rowData) => {
         setSelectedCustomer(rowData);
         setEditBoxVisible(true);
     };
 
     const handleUpdate = () => {
-        // Find the index of the selected customer in the customerData array
         const index = customerData.findIndex((customer) => customer.customerId === selectedCustomer.customerId);
     
         if (index !== -1) {
-            // Create a new array with the updated customerData
             const updatedCustomerData = [...customerData];
             updatedCustomerData[index] = selectedCustomer;
-    
-            // Update the state with the modified data
             setCustomerData(updatedCustomerData);
     
-            // Reset the state and hide the edit box
             setSelectedCustomer(null);
             setEditBoxVisible(false);
         } else {
@@ -71,7 +99,6 @@ const ManageCustomer = () => {
     };
 
     const handleCancel = () => {
-        // Reset the state and hide the edit box
         setSelectedCustomer(null);
         setEditBoxVisible(false);
     };
@@ -83,22 +110,23 @@ const ManageCustomer = () => {
     
     
       return (
-        <div className="m-5">
+        <div className="">
+          <div className="m-5" ref={componentRef}>
           <h3 className="text-2xl font-bold">Manage Customer</h3>
     
-          <table className="border border-collapse my-10 w-[100%]">
+            <table className="border border-collapse my-10 text-sm">
             <thead>
-              <tr className="border border-black">
-                <th className="border bg-black text-white">Customer ID</th>
-                <th className="border bg-black text-white">Customer Name</th>
-                <th className="border bg-black text-white">Contact Person</th>
-                <th className="border bg-black text-white">Email</th>
-                <th className="border bg-black text-white">Phone</th>
-                <th className="border bg-black text-white">Address</th>
-              </tr>
+                <tr className="border border-black">
+                <th className="border bg-black text-white px-1">Customer ID</th>
+                <th className="border bg-black text-white px-1">Customer Name</th>
+                <th className="border bg-black text-white px-1">Contact Person</th>
+                <th className="border bg-black text-white px-1">Email</th>
+                <th className="border bg-black text-white px-1">Phone</th>
+                <th className="border bg-black text-white px-1">Address</th>
+                </tr>
             </thead>
             <tbody>
-            {customerData.slice(startIdx, endIdx).map((rowData, index) => (
+            {customerData.map((rowData, index) => (
                 <tr
                     key={index}
                     className="hover:bg-[#d7c9ff] cursor-pointer"
@@ -114,7 +142,8 @@ const ManageCustomer = () => {
             ))}
 
             </tbody>
-          </table>
+            </table>
+          </div>
 
         <AnimatePresence>
                 {isEditBoxVisible && (
@@ -134,11 +163,11 @@ const ManageCustomer = () => {
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        backgroundColor: 'rgba(0, 0, 0, 0.5)', // semi-transparent black overlay
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
                         }}>
                         <div className="modal-content bg-white p-10 rounded-xl">
                             <h3 className="text-2xl font-bold mb-7 text-center">Edit Customer Data</h3>
-                            <div className="form flex flex-col gap-2  justify-center">
+                            <div className=" flex flex-col gap-2 justify-center">
                                 <div className="flex gap-10 items-center justify-between ">
                                     <label htmlFor="editedCustomerName" className='font-semibold text-base'>Customer Name:</label>
                                     <input
@@ -277,21 +306,10 @@ const ManageCustomer = () => {
                 )}
                 </AnimatePresence>
     
-                <div className="flex justify-end gap-1 items-center">
-                    <button
-                    className="text-[#4000FF] font-semibold text-lg"
-                    disabled={currentPage === 1}
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                    >
-                    [Previous Page]
-                    </button>
-                    <button
-                    className="text-[#4000FF] font-semibold text-lg"
-                    disabled={currentPage === totalPages}
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                    >
-                    [Next Page]
-                    </button>
+                <div className="flex gap-5 justify-center items-center my-10">
+                    <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handlePrint}>Print</button>
+                    <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={exportAsCSV}>Export as CSV</button>
+                    <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={exportAsPDF}>Export as PDF</button>
                 </div>
 
         </div>

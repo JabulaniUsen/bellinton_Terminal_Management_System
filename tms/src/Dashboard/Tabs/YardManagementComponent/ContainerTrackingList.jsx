@@ -41,7 +41,7 @@ const ContainerTrackingList = ({ }) => {
       head: [Object.keys(data[0])],
       body: data.map((row) => Object.values(row)),
     });
-    doc.save('container_list.pdf');
+    doc.save('containerlist_report.pdf');
   };
 
   return (
@@ -49,7 +49,7 @@ const ContainerTrackingList = ({ }) => {
       <div className=''>
         <div className="m-5" ref={componentRef}>
         <h2 className="text-2xl font-bold mb-4">Container Tracking</h2>
-          <table className="border-collapse border border-gray-800">
+          <table className="border-collapse border border-gray-800 text-sm">
               <thead>
                 <tr className="bg-gray-200">
                   <th className="border border-gray-800 px-2 py-2">Container Number</th>
@@ -74,12 +74,12 @@ const ContainerTrackingList = ({ }) => {
               </tbody>
             </table>
         </div>
-        <div className="buttons flex justify-center items-center gap-10 my-20 text-white">
-          <button onClick={handlePrint} className='bg-[#20007f] hover:bg-[#1b0b4e] transition-all px-10 py-2 rounded-lg'>Print</button>
-          <CSVLink data={handleExportCSV().data} headers={handleExportCSV().headers} filename={"container_list.csv"}>
-            <p className=' py-1 cursor-pointer rounded-full text-blue-700 underline font-semibold'>Export as CSV</p>
+        <div className="buttons flex justify-center items-center gap-3 my-10 text-white">
+          <button onClick={handlePrint} className='text-white py-1 px-10 rounded-md bg-[#4000FF]'>Print</button>
+          <CSVLink data={handleExportCSV().data} headers={handleExportCSV().headers} filename={"containerlist_report.csv"}>
+            <p className='text-white py-1 px-10 rounded-md bg-[#4000FF]'>Export as CSV</p>
           </CSVLink>
-          <button onClick={handleExportPDF} className=' py-1 cursor-pointer rounded-full text-blue-700 underline font-semibold'>Export as PDF</button>
+          <button onClick={handleExportPDF} className='text-white py-1 px-10 rounded-md bg-[#4000FF]'>Export as PDF</button>
         </div>
         <ToastContainer />
       </div>

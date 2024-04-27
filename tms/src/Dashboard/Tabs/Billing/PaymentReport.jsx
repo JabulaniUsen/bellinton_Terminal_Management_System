@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import { useReactToPrint } from 'react-to-print';
-import InvoiceManagement from './InvoiceManagement'
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const PaymentReport = () => {
     const componentRef = React.useRef();
@@ -18,6 +19,29 @@ const PaymentReport = () => {
         {containerId: 'CON789012', status: 'In Transit', location: 'Dock 3', lastUpdated: '2024-02-17 09:45 AM', nextDestination: 'Port of Los Andeles', assignedVessel: 'Vessel 243'},
         {containerId: 'CON8901234', status: 'In Transit', location: 'Dock 3', lastUpdated: '2024-02-17 09:45 AM', nextDestination: 'Port of Los Andeles', assignedVessel: 'Vessel 243'},
     ]
+
+    const exportAsPDF = () => {
+        const doc = new jsPDF();
+        doc.autoTable({
+          head: [Object.keys(tirData[0])],
+          body: tirData.map((row) => Object.values(row)),
+        });
+        doc.save('payment_confirmation_report.pdf');
+      };
+    
+      const exportAsCSV = () => {
+        const csvContent =
+          'data:text/csv;charset=utf-8,' +
+          tirData.map((row) => Object.values(row).join(',')).join('\n');
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', 'payment_confirmation_report.csv');
+        document.body.appendChild(link);
+        link.click();
+      };
+
+
   return (
     <div className="">
        <div className='m-10'>
@@ -25,7 +49,7 @@ const PaymentReport = () => {
             <div className="head mb-10">
                 <h2 className='font-bold text-2xl'>Payment Confirmation Report</h2>
             </div>
-            <table className="border-collapse ">
+            <table className="border-collapse text-sm">
                 <thead>
                     <tr className='border border-gray-400 font-semibold'>
                         <th className="border border-gray-400 p-2 px-3 text-center">Container ID</th>
@@ -51,8 +75,10 @@ const PaymentReport = () => {
             </table>
 
         </div>
-        <div className="flex gap-3 justify-center">
-            <button className='text-white px-7 py-2 rounded-md bg-blue-700 my-20' onClick={handlePrint}>Print</button>
+        <div className="flex gap-3 ml-10">
+            <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handlePrint}>Print</button>
+            <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={exportAsCSV}>Export as CSV</button>
+            <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={exportAsPDF}>Export as PDF</button>
         </div>
     </div>
     </div>

@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import jsPDF from 'jspdf';
+import { useReactToPrint } from 'react-to-print';
+import 'jspdf-autotable';
 
 const ManageAgent = () => {
     const itemsPerPage = 17;
@@ -71,29 +74,51 @@ const ManageAgent = () => {
         setEditBoxVisible(false);
     };
 
-    const totalPages = Math.ceil(agentData.length / itemsPerPage);
-    const startIdx = (currentPage - 1) * itemsPerPage;
-    const endIdx = startIdx + itemsPerPage;
+    const componentRef = useRef();
 
+      const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+      });
+
+      const exportAsPDF = () => {
+        const doc = new jsPDF();
+        doc.autoTable({
+          head: [Object.keys(agentData[0])],
+          body: agentData.map((row) => Object.values(row)),
+        });
+        doc.save('agent_report.pdf');
+      };
     
+      const exportAsCSV = () => {
+        const csvContent =
+          'data:text/csv;charset=utf-8,' +
+          agentData.map((row) => Object.values(row).join(',')).join('\n');
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', 'agent_report.csv');
+        document.body.appendChild(link);
+        link.click();
+      };
     
       return (
-        <div className="m-5">
+        <div className="">
+          <div className="m-5" ref={componentRef}>
           <h3 className="text-2xl font-bold">Manage Agent</h3>
     
-          <table className="border border-collapse my-10 w-[100%]">
+            <table className="border border-collapse my-10 w-[100%]">
             <thead>
-              <tr className="border border-black ">
+                <tr className="border border-black ">
                 <th className="border bg-black text-white">Agent ID</th>
                 <th className="border bg-black text-white">Agent Name</th>
                 <th className="border bg-black text-white">Contact Person</th>
                 <th className="border bg-black text-white">Email</th>
                 <th className="border bg-black text-white">Phone</th>
                 <th className="border bg-black text-white">Address</th>
-              </tr>
+                </tr>
             </thead>
             <tbody>
-            {agentData.slice(startIdx, endIdx).map((rowData, index) => (
+            {agentData.map((rowData, index) => (
                 <tr
                     key={index}
                     className="hover:bg-[#d7c9ff] cursor-pointer"
@@ -109,7 +134,8 @@ const ManageAgent = () => {
             ))}
 
             </tbody>
-          </table>
+            </table>
+          </div>
 
         <AnimatePresence>
                 {isEditBoxVisible && (
@@ -272,21 +298,10 @@ const ManageAgent = () => {
                 )}
                 </AnimatePresence>
     
-                <div className="flex justify-end gap-1 items-center">
-                    <button
-                    className="text-[#4000FF] font-semibold text-lg"
-                    disabled={currentPage === 1}
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                    >
-                    [Previous Page]
-                    </button>
-                    <button
-                    className="text-[#4000FF] font-semibold text-lg"
-                    disabled={currentPage === totalPages}
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                    >
-                    [Next Page]
-                    </button>
+                <div className="flex gap-5 justify-center items-center my-10">
+                    <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handlePrint}>Print</button>
+                    <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={exportAsCSV}>Export as CSV</button>
+                    <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={exportAsPDF}>Export as PDF</button>
                 </div>
 
         </div>

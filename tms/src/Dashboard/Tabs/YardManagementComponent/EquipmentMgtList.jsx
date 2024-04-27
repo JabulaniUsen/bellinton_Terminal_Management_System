@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import MaintainanceScheduleList from './MaintainanceScheduleList';
+import jsPDF from 'jspdf';
+import { useReactToPrint } from 'react-to-print';
+import 'jspdf-autotable';
+
 
 const EquipmentMgtList = () => {
     const [isEditing, setIsEditing] = useState(false);
@@ -58,6 +62,33 @@ const EquipmentMgtList = () => {
         setSelectedRow(null);
     };
 
+    const componentRef = useRef();
+
+      const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+      });
+
+      const exportAsPDF = () => {
+        const doc = new jsPDF();
+        doc.autoTable({
+          head: [Object.keys(data[0])],
+          body: data.map((row) => Object.values(row)),
+        });
+        doc.save('equipment_mgt_report.pdf');
+      };
+    
+      const exportAsCSV = () => {
+        const csvContent =
+          'data:text/csv;charset=utf-8,' +
+          data.map((row) => Object.values(row).join(',')).join('\n');
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', 'equipment_mgt_report.csv');
+        document.body.appendChild(link);
+        link.click();
+      };
+
     return (
         <>
         {!showSchedule ? (
@@ -81,40 +112,44 @@ const EquipmentMgtList = () => {
             {/* Main Content */}
             <div>
                 <div className="">
-                    <div className="table overflow-x-auto m-10 ">
-                        <h2 className='font-bold text-2xl'>Equipment Management</h2>
-                        <table className="border-collapse border border-gray-800 mt-10">
-                            <thead>
-                                <tr className="bg-gray-200">
-                                    <th className="border border-gray-800 px-3 py-2">Equipment ID</th>
-                                    <th className="border border-gray-800 px-3 py-2">Maintenance Type</th>
-                                    <th className="border border-gray-800 px-3 py-2">Status</th>
-                                    <th className="border border-gray-800 px-3 py-2">Last Maintenance</th>
-                                    <th className="border border-gray-800 px-3 py-2">Next Maintenance</th>
-                                    <th className="border border-gray-800 px-3 py-2">Assigned Task</th>
-                                    <th className="border border-gray-800 px-3 py-2">Assigned To</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {data.map((rowData, index) => (
-                                    <tr key={index} className={selectedRow === index ? 'bg-yellow-200' : ''} onClick={() => setSelectedRow(index)}>
-                                        <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.equipmentId}</td>
-                                        <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.equipmentType}</td>
-                                        <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.status}</td>
-                                        <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.lastMaintenanceDate}</td>
-                                        <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.nextMaintenanceDate}</td>
-                                        <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.assignedTask}</td>                            
-                                        <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.assignedTo}</td>
+                    <div className="table overflow-x-auto">
+                        <div className="m-10" ref={componentRef}>
+                            <h2 className='font-bold text-2xl'>Equipment Management</h2>
+                            <table className="border-collapse border border-gray-800 mt-10 text-sm">
+                                <thead>
+                                    <tr className="bg-gray-200">
+                                        <th className="border border-gray-800 px-3 py-2">Equipment ID</th>
+                                        <th className="border border-gray-800 px-3 py-2">Maintenance Type</th>
+                                        <th className="border border-gray-800 px-3 py-2">Status</th>
+                                        <th className="border border-gray-800 px-3 py-2">Last Maintenance</th>
+                                        <th className="border border-gray-800 px-3 py-2">Next Maintenance</th>
+                                        <th className="border border-gray-800 px-3 py-2">Assigned Task</th>
+                                        <th className="border border-gray-800 px-3 py-2">Assigned To</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {data.map((rowData, index) => (
+                                        <tr key={index} className={selectedRow === index ? 'bg-yellow-200' : ''} onClick={() => setSelectedRow(index)}>
+                                            <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.equipmentId}</td>
+                                            <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.equipmentType}</td>
+                                            <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.status}</td>
+                                            <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.lastMaintenanceDate}</td>
+                                            <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.nextMaintenanceDate}</td>
+                                            <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.assignedTask}</td>                            
+                                            <td className="border border-gray-800 px-3 py-2 cursor-pointer">{rowData.assignedTo}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
 
-                        <div className="flex items-center justify-center gap-5 mt-16">
+                        <div className="flex items-center justify-center gap-3 mt-16 ml-10 text-sm">
                             <button onClick={() => handleEdit(data[selectedRow])} disabled={selectedRow === null} className={`text-white bg-[#4000FF] rounded-md py-1 px-10 ${selectedRow === null ? 'opacity-50 cursor-not-allowed' : ''}`}>Edit</button>
                             <button onClick={handleDelete} disabled={selectedRow === null} className={`text-white bg-[#4000FF] rounded-md py-1 px-10 ${selectedRow === null ? 'opacity-50 cursor-not-allowed' : ''}`}>Delete</button>
                             <button className='text-white bg-[#000] rounded-md py-1 px-10' onClick={() => setShowSchedule(true)}>Schedule Maintenance</button>
-                            <button className='text-white bg-[#000] rounded-md py-1 px-10'>Print</button>
+                            <button className='text-white bg-[#000] rounded-md py-1 px-10' onClick={handlePrint}>Print</button>
+                            <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={exportAsCSV}>Export as CSV</button>
+                            <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={exportAsPDF}>Export as PDF</button>
                         </div>
 
                         {/* Edit Form */}

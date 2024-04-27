@@ -1,6 +1,6 @@
-import React, { useRef } from 'react'
-import jsPDF from 'jspdf';
+import React, { useRef } from 'react';
 import { useReactToPrint } from 'react-to-print';
+import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
 const ViewReport = () => {
@@ -30,11 +30,32 @@ const ViewReport = () => {
       const handlePrint = useReactToPrint({
         content: () => componentRef.current,
       });
+
+      const exportAsPDF = () => {
+        const doc = new jsPDF();
+        doc.autoTable({
+          head: [Object.keys(data[0])],
+          body: data.map((row) => Object.values(row)),
+        });
+        doc.save('vessel_report.pdf');
+      };
+    
+      const exportAsCSV = () => {
+        const csvContent =
+          'data:text/csv;charset=utf-8,' +
+          data.map((row) => Object.values(row).join(',')).join('\n');
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', 'report.csv');
+        document.body.appendChild(link);
+        link.click();
+      };
     
 
   return (
     <>
-    <div className={`moreInfo my-10 mx-5`} ref={componentRef}>
+    <div className={`moreInfo my-10 mx-5 text-sm`} ref={componentRef}>
         <div className="head flex justify-between mx-5">
             <h3 className='text-2xl font-bold'>View Reports</h3>
         </div>
@@ -65,9 +86,11 @@ const ViewReport = () => {
           </table>
         </div>
       </div>
-    <div className="flex flex-col justify-center items-center my-10">
-        <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handlePrint}>Print</button>
-    </div>
+      <div className="flex gap-5 justify-center items-center my-10">
+        <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handlePrint}>Print</button>
+        <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={exportAsCSV}>Export as CSV</button>
+        <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={exportAsPDF}>Export as PDF</button>
+      </div>
     </>
   )
 }

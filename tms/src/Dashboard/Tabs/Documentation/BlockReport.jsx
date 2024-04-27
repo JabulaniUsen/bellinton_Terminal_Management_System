@@ -1,4 +1,7 @@
-import React from 'react'
+import React, {useState, useRef} from 'react'
+import { useReactToPrint } from 'react-to-print';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const BlockReport = ({handleBack}) => {
     const data = [
@@ -9,11 +12,40 @@ const BlockReport = ({handleBack}) => {
         {date: '2020-12-15', cargoId: 'MRK898978', staff: 'Adekunle', reason: 'Custom Duty not fully paid'},
         {date: '2020-12-15', cargoId: 'MRK898978', staff: 'Adekunle', reason: 'Custom Duty not fully paid'},
     ]
-  return (
-    <div className='m-10'>
-        <h2 className="text-2xl font-bold mb-8">Cargo Blocking Report</h2>
 
-        <div className="table">
+    const componentRef = useRef();
+
+      const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+      });
+
+      const exportAsPDF = () => {
+        const doc = new jsPDF();
+        doc.autoTable({
+          head: [Object.keys(data[0])],
+          body: data.map((row) => Object.values(row)),
+        });
+        doc.save('cargoblocking_report.pdf');
+      };
+    
+      const exportAsCSV = () => {
+        const csvContent =
+          'data:text/csv;charset=utf-8,' +
+          data.map((row) => Object.values(row).join(',')).join('\n');
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', 'cargoblocking_report.csv');
+        document.body.appendChild(link);
+        link.click();
+      };
+
+
+  return (
+    <div className='m-5'>
+        <div className="table text-sm m-5" ref={componentRef}>
+            <h2 className="text-2xl font-bold mb-8 ">Cargo Blocking Report</h2>
+
             <table className='border-collapse border border-gray-800'>
                 <thead>
                     <tr>
@@ -35,7 +67,13 @@ const BlockReport = ({handleBack}) => {
                 </tbody>
             </table>
         </div>
-        <button className=' py-2 my-8 ml-48 cursor-pointer rounded-lg bg-blue-800 text-white font-semibold w-[200px]' onClick={handleBack}>Back</button>
+        <div className="flex gap-3 items-center my-10 m-5 text-sm">
+            <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handlePrint}>Print</button>
+            <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={exportAsCSV}>Export as CSV</button>
+            <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={exportAsPDF}>Export as PDF</button>
+            <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handleBack}>Back</button>
+        </div>
+       
     </div>
   )
 }
