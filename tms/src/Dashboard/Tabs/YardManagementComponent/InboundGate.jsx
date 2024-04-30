@@ -41,7 +41,12 @@ const InboundGate = () => {
               </div>
               <div className="flex justify-between items-center w-[70%] my-2">
                   <label htmlFor="movementType" className="block font-semibold text-base">Movement Type: </label>
-                  <input type='text' className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]' required/>
+                  {/* <input type='text' className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]' required/> */}
+                  <select name="" id="" className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]'>
+                    <option value="">Choose a Type...</option>
+                    <option value="Type A">Import full</option>
+                    <option value="Type B">Import empty</option>
+                  </select>
               </div>
             </div>
   
@@ -57,12 +62,12 @@ const InboundGate = () => {
                   <input type='text' className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]' required/>
               </div>
               <div className="flex justify-between items-center w-[70%] my-2">
-                  <label htmlFor="emptyGateOutDate" className="block font-semibold text-base">Driver's License Number:</label>
-                  <input type='text' className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]' required />
-              </div>
-              <div className="flex justify-between items-center w-[70%] my-2">
                   <label htmlFor="exportGateInDate" className="block font-semibold text-base">Driver's Name: </label>
                   <input type='text' className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]' required/>
+              </div>
+              <div className="flex justify-between items-center w-[70%] my-2">
+                  <label htmlFor="emptyGateOutDate" className="block font-semibold text-base">Driver's Contact Number:</label>
+                  <input type='text' className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]' required />
               </div>
               <div className="flex justify-between items-center w-[70%] my-2">
                   <label htmlFor="loadedOnboardDate" className="block font-semibold text-base">Company/Organization:</label>

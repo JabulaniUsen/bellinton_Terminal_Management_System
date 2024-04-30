@@ -73,8 +73,8 @@ const ContainerMovementHistory = () => {
             {searchResults.map((item, index) => (
                 <div className="moreInfo flex flex-col gap-2" key={index}>
                     <h3 className="font-bold">Container ID: {item.containerID}</h3>
-                    <h3 className="font-bold">Container ID: {item.location}</h3>
-                    <h3 className="font-bold">Container ID: {item.lastUpdated}</h3>
+                    <h3 className="font-bold">Current Location: {item.location}</h3>
+                    <h3 className="font-bold">Last Updated: {item.lastUpdated}</h3>
                 </div>
             ))}
           <div className="table overflow-x-auto my-10">
