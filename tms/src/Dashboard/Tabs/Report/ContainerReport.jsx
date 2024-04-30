@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
-import jsPDF from 'jspdf';
 import { useReactToPrint } from 'react-to-print';
+import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
 const ContainerReport = () => {

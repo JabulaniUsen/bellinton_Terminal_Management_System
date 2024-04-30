@@ -206,28 +206,28 @@ const AddContainer = () => {
                                 <label htmlFor="name" className='text-base'>Discharge</label>
                             </div>
                         </div>
-                            <div className="containerSize flex flex-col gap-3 my-3 ">
-                                <div className='font-semibold text-base'>Import/Export:</div>
-                                    <div className="flex items-center gap-2">
-                                        <input type="checkbox" name="10FT" id="10FT" />
-                                        <label htmlFor="name" className='text-base'>Import Full</label>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <input type="checkbox" name="20FT" id="20FT" />
-                                        <label htmlFor="name" className='text-base'>Import Empty</label>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <input type="checkbox" name="40FT" id="40FT" />
-                                        <label htmlFor="name" className='text-base'>Export Full</label>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <input type="checkbox" name="45FT" id="45FT" />
-                                        <label htmlFor="name" className='text-base'>Export Empty</label>
-                                    </div>
+                        <div className="containerSize flex flex-col gap-3 my-3 ">
+                            <div className='font-semibold text-base'>Import/Export:</div>
+                                <div className="flex items-center gap-2">
+                                    <input type="checkbox" name="10FT" id="10FT" />
+                                    <label htmlFor="name" className='text-base'>Import Full</label>
                                 </div>
+                                <div className="flex items-center gap-2">
+                                    <input type="checkbox" name="20FT" id="20FT" />
+                                    <label htmlFor="name" className='text-base'>Import Empty</label>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <input type="checkbox" name="40FT" id="40FT" />
+                                    <label htmlFor="name" className='text-base'>Export Full</label>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <input type="checkbox" name="45FT" id="45FT" />
+                                    <label htmlFor="name" className='text-base'>Export Empty</label>
+                                </div>
+                            </div>
                     </div>
-                            <div className="containerSize flex flex-col gap-3 my-3 ">
-                        <div className='font-semibold text-base'>Gate:</div>
+                    {/* <div className="containerSize flex flex-col gap-3 my-3 ">
+                            <div className='font-semibold text-base'>Gate:</div>
                             <div className="flex items-center gap-2">
                                 <input type="checkbox" name="gate-in" id="gate-in" />
                                 <label htmlFor="name" className='text-base'>Gate-in</label>
@@ -236,7 +236,7 @@ const AddContainer = () => {
                                 <input type="checkbox" name="gate-out" id="gate-out" />
                                 <label htmlFor="name" className='text-base'>Gate-out</label>
                             </div>
-                        </div>
+                    </div> */}
                     </div> 
                 <div className="col2 flex flex-col gap-10">
                     <div className="flex flex-col ">
@@ -262,7 +262,7 @@ const AddContainer = () => {
                         </div>
                     </div>
 
-                    <div className="flex flex-col ">
+                    {/* <div className="flex flex-col ">
                         <label htmlFor="name" className='font-semibold text-base'>Arrival Date:</label>
                         <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                             <input type="date" className='outline-none w-full' />
@@ -273,7 +273,7 @@ const AddContainer = () => {
                         <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                             <input type="date" className='outline-none w-full' />
                         </div>
-                    </div>
+                    </div> */}
                     
                     <div className="flex flex-col ">
                         <label htmlFor="name" className='font-semibold text-base'>Temperature (for Reefer):</label>

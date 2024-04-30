@@ -328,13 +328,13 @@ const Dashboard = () => {
         {activeTab === 48 && <StorageFreeDays/>}
 
         {/* Report */}
-        {activeTab === 31 && <ContainerReport/>}
-        {activeTab === 49 && <ManageCustomer/>}
         {activeTab === 53 && <VesselReport/>}
         {activeTab === 54 && <ManifestReport/>}
-        {activeTab === 55 && <EquipmentMgtList/>}
+        {activeTab === 31 && <ContainerReport/>}
+        {activeTab === 49 && <ManageCustomer/>}
         {activeTab === 50 && <ManageAgencies/>}
         {activeTab === 51 && <ManageAgent/>}
+        {activeTab === 55 && <EquipmentMgtList/>}
         {activeTab === 56 && <TerminalInvoiceReport/>}
         {activeTab === 57 && <ViewContainerList/>}
         {activeTab === 58 && <ContainerTrackingList/>}
