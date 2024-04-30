@@ -103,7 +103,7 @@ const OutboundGate = () => {
                   </div>
                   <div className="flex justify-between items-center mt-2">
                     <label htmlFor="containerWidth" className="block font-semibold text-base">TDO Validity Date: </label>
-                    <input type='text' className='border-gray-400 border-[1px] rounded-lg p-1 w-[300px]' required/>
+                    <input type='date' className='border-gray-400 border-[1px] rounded-lg p-1 w-[300px]' required/>
                   </div>
                 </div>
 
