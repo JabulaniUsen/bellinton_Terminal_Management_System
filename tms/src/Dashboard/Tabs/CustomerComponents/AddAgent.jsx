@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UploadBox from '../ManifestComponents/UploadBox';
+import Select from 'react-select';
 
 
 const AddAgent = () => {
@@ -108,6 +109,13 @@ const AddAgent = () => {
     setShowUpload(!showUpload);
   }
 
+  const options2 = [
+    { value: '', label: 'Select Agency', isDisabled: true },
+    { value: 'Agency 1', label: 'CAgency 1' },
+    { value: 'Agency 2', label: 'CAgency 2' },
+    { value: 'Agency 3', label: 'Agency 3' },
+  ];
+
   return (
     <div className='m-10'>
       <div className="head">
@@ -117,7 +125,16 @@ const AddAgent = () => {
       <form action="" onSubmit={handleSubmit} >
             <div className="flex justify-between">
                 <div className='my-10 grid gap-10 grid-cols-2'>
-                <div className="sideOne">
+                  <div className="sideOne">
+                  <div className="flex flex-col gap-2 my-5">
+                      <label htmlFor="name" className='text-base font-semibold'>Select Agency:</label>
+                      <Select
+                        options={options2}
+                        isSearchable
+                        className='w-[350px]'
+                        required
+                      />
+                    </div>
                     <div className="flex flex-col gap-2 my-5">
                     <label htmlFor="name" className='text-base font-semibold'>Agent ID:</label>
                     <div ref={inputRef}>
@@ -139,8 +156,8 @@ const AddAgent = () => {
                     </div>
                     </div>
                     <div className="flex flex-col gap-2 my-5">
-                    <label htmlFor="name" className='text-base font-semibold'>Agent Name:</label>
-                    <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[350px]' id="AgentName" name="AgentName" placeholder='Enter Agent name:' />
+                      <label htmlFor="name" className='text-base font-semibold'>Agent Name:</label>
+                      <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[350px]' id="AgentName" name="AgentName" placeholder='Enter Agent name:' />
                     </div>
                     <div className="flex flex-col gap-2 my-5">
                     <label htmlFor="name" className='text-base font-semibold'>Email:</label>
@@ -150,13 +167,13 @@ const AddAgent = () => {
                     <label htmlFor="name" className='text-base font-semibold'>Phone Number:</label>
                     <input required type="number" className='rounded-lg p-2 border border-gray-500 outline-none w-[350px]' id="phoneNumber" name="phoneNumber" placeholder='Enter phone number:' />
                     </div>
+                </div>
+
+                <div className="sideTwo">
                     <div className="flex flex-col gap-2 my-5">
                     <label htmlFor="name" className='text-base font-semibold'>Address:</label>
                     <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[350px]' id="address" name="address" placeholder='Enter address:' />
                     </div>
-                </div>
-
-                <div className="sideTwo">
                     <div className="flex flex-col gap-2 my-5">
                     <label htmlFor="name" className='text-base font-semibold'>City:</label>
                     <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[350px]' id="city" name="city" placeholder='Enter city:' />

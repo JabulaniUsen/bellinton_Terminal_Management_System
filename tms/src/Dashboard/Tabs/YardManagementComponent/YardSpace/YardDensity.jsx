@@ -46,12 +46,11 @@ const YardDensity = () => {
                         </div>
                         <div className="flex justify-between items-center w-[60%] my-3">
                             <label htmlFor="containerWidth" className="block font-semibold text-base">Date Range: </label>
-                            <Select
-                                options={dateRange}
-                                isSearchable
-                                className='w-[400px]'
-                                required
-                            />
+                            <div className="flex items-center gap-5">
+                            <input type="date" className='border-gray-400 border-[1px] rounded-lg p-2 w-[170px]' />
+                            <p>To</p>
+                            <input type="date" className='border-gray-400 border-[1px] rounded-lg p-2 w-[170px]' />
+                        </div>
                         </div>
                         <div className="flex justify-between items-center w-[60%] my-3">
                             <label htmlFor="containerWidth" className="block font-semibold text-base">Stack Level: </label>

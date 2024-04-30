@@ -23,7 +23,7 @@ const GateInsident = () => {
         { value: '', label: '(e.g., Accident, security breach, safety hazard)', isDisabled: true },
         { value: 'Accident', label: 'Accident' },
         { value: 'Security breach', label: 'Security breach' },
-        { value: 'Safty hazard', label: 'Safty hazard' },
+        { value: 'Safety hazard', label: 'Safty hazard' },
       ];
       const secRes = [
         {value: '', label: "(e.g., Security personnel deployed)", isDisabled: true},

@@ -119,7 +119,11 @@ const OutboundGate = () => {
                   </div>
                   <div className="flex justify-between items-center mt-2">
                     <label htmlFor="containerWidth" className="block font-semibold text-base">Seal Condition: </label>
-                    <input type='text' className='border-gray-400 border-[1px] rounded-lg p-1 w-[300px]' required/>
+                    <select name="" id="" className='border-gray-400 border-[1px] rounded-lg p-1 w-[300px]'>
+                      <option value="">Select Seal Condition</option>
+                      <option value="ok">Okay</option>
+                      <option value="damaged">Damaged</option>
+                    </select>
                   </div>
                   <div className="flex justify-between items-center mt-2">
                       <label className="block font-semibold text-base">Security Check:</label>

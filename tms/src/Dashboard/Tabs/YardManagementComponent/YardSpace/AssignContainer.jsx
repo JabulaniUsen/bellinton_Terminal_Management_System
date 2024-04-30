@@ -44,7 +44,7 @@ const AssignContainer = () => {
             </div>
 
             <div className="flex justify-between items-center w-[60%] my-5">
-                <label htmlFor="YardMgtUser" className="block font-semibold text-base">Yard Mgt. User:</label>
+                <label htmlFor="YardMgtUser" className="block font-semibold text-base">Container size:</label>
                 <div className="flex gap-5 items-center">
                     <div className="flex items-center gap-1">
                         <input type='checkbox' className='border-gray-400 border-[1px] rounded-lg p-2 w-5 h-5' required />
@@ -93,7 +93,7 @@ const AssignContainer = () => {
                             <div className="a-1 flex flex-col gap-2">
                                 <p className='bg-[#d9d9d9] font-semibold p-2 w-[30px] text-center rounded'>D</p>
                                 <span className='bg-[#FF2B2B] w-[30px] h-[35px] rounded'></span>
-                                <p className='bg-[#d9d9d9] font-semibold p-2 w-[30px] text-center rounded'>3</p>
+                                <p className='bg-[#d9d9d9] font-semibold p-2 w-[30px] text-center rounded'>4</p>
                             </div>
                         </div>
                         <div className="flex items-center">

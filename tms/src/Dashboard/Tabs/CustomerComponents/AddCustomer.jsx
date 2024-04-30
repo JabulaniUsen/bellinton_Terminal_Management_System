@@ -130,7 +130,7 @@ const AddCustomer = () => {
             </div>
             <div className="flex flex-col gap-2 my-5">
               <label htmlFor="name" className='text-base font-semibold'>Customer Name:</label>
-              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="customerName" name="customerName" placeholder='Enter customer name:' />
+              <input readOnly type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="customerName" name="customerName" placeholder='Enter customer name:' />
             </div>
             <div className="flex flex-col gap-2 my-5">
               <label htmlFor="name" className='text-base font-semibold'>Email:</label>
