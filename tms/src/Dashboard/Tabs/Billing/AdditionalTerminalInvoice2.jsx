@@ -127,7 +127,7 @@ const AdditionalTerminalInvoice2 = () => {
     
                             <div className="flex justify-between items-center">
                                 <label htmlFor="containerWidth" className="block font-semibold text-base">Select Additional Charge: </label>
-                                <input type='text' className='border-gray-400 border-[1px] rounded-lg p-2 w-[250px]' required id="ratedUpToDate" name="invoiceDate" />
+                                <input type='text' value='Storage' className='border-gray-400 border-[1px] rounded-lg p-2 w-[250px]' required id="ratedUpToDate" name="invoiceDate" />
                             </div>
                             <div className="flex justify-between items-center">
                                 <label htmlFor="containerWidth" className="block font-semibold text-base">New Rated Up to Date: </label>
@@ -142,11 +142,11 @@ const AdditionalTerminalInvoice2 = () => {
                                 <p className='font-semibold'> Proceed Invoice Now</p>
                                 <div className="flex items-center gap-10">
                                     <div className="flex items-center gap-2">
-                                        <input type="radio" name="choice" id="Yes" />
+                                        <input type="radio" name="choice2" id="Yes" />
                                         <label htmlFor="Yes">Yes</label>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <input type="radio" name="choice" id="No" />
+                                        <input type="radio" name="choice2" id="No" />
                                         <label htmlFor="No">No</label>
                                     </div>
                                 </div>

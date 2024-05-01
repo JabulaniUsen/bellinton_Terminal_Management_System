@@ -86,9 +86,7 @@ const AddAgent = () => {
   const handleInputChange = (e) => {
     const value = e.target.value;
     setInputValue(value);
-
-    // Filter suggestions based on the input value
-    const filteredSuggestions = data.filter((item) =>
+      const filteredSuggestions = data.filter((item) =>
       item.toLowerCase().includes(value.toLowerCase())
     );
     setSuggestions(filteredSuggestions);

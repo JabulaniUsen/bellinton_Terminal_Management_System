@@ -202,7 +202,7 @@ const Dashboard = () => {
         { label: 'Additional Invoice', tabNumber: 27, icon: faCog },
         { label: 'Discount', tabNumber: 28, icon: faCog },
         { label: 'Payment Confirmation', tabNumber: 29, icon: faCog },
-        { label: 'Billing History', tabNumber: 30, icon: faCog },
+        // { label: 'Billing History', tabNumber: 30, icon: faCog },
       ]
     },
     {
@@ -317,7 +317,7 @@ const Dashboard = () => {
         {activeTab === 27 && <AdditionalTerminalInvoice/>}
         {activeTab === 28 && <DiscountTerminalInvoice/>}
         {activeTab === 29 && <PaymentConfirmation/>}
-        {activeTab === 30 && <BillingHistory/>}
+        {/* {activeTab === 30 && <BillingHistory/>} */}
 
         {/* Documentation */}
         {activeTab === 41 && <ContainerR/>}

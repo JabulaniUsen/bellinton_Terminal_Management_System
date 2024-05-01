@@ -79,7 +79,7 @@ const StorageFreeDays = () => {
 
                 {selectedOption === 'vessel' && (
                     <div className="vessel">
-                         <div className="flex justify-between items-center w-[60%] my-2 gap-2">
+                         {/* <div className="flex justify-between items-center w-[60%] my-2 gap-2">
                             <label htmlFor="" className="block font-semibold text-base">Select Vessel:</label>
                             <Select
                                 options={vesselId}
@@ -87,7 +87,7 @@ const StorageFreeDays = () => {
                                 className='w-[400px]'
                                 required
                             />
-                        </div>
+                        </div> */}
                         <div className="flex justify-between items-center my-8 w-[60%]">
                             <label htmlFor="containerWidth" className="block font-semibold text-base">No of Free Days:</label>
                             <input type='text' className='border-gray-400 border-[1px] rounded-lg p-1 w-[400px]' />
