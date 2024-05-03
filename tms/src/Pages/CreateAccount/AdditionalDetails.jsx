@@ -131,33 +131,33 @@ function AdditionalDetails() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   return (
-    <div className='lg:mx-[300px] mx-10 my-20'>
+    <div className=' my-20'>
       <form action="" className='flex flex-col gap-10'>
         {/* Preferred Terminal Teams */}
-        <div className="flex gap-10">
-          <p className='text-[18px] font-semibold'>Preferred Terminal Teams:</p>
+        <div className="flex gap-10 w-[600px] justify-between">
+          <p className='text-[18px] font-semibold'>Location Storage:</p>
           <select
             name="terminalTeam"
             id="terminalTeam"
-            className='bg-[#F2F2F2] py-3 w-[162px] px-3 mr-8 rounded-lg shadow-lg border'
+            className='border border-black py-3 rounded w-[232px] px-3 '
             value={terminalTeam}
             onChange={(e) => setTerminalTeam(e.target.value)}
           >
-            <option value="Manifest Team">Manifest Team</option>
-            <option value="Customer Service">Customer Service</option>
-            <option value="Documentation">Documentation</option>
-            <option value="Billing Team">Billing Team</option>
-            <option value="Finance">Finance</option>
+            <option value="Manifest Team">Sussex</option>
+            {/* <option value="Customer Service">Customer Service</option> */}
+            {/* <option value="Documentation">Documentation</option> */}
+            {/* <option value="Billing Team">Billing Team</option> */}
+            {/* <option value="Finance">Finance</option> */}
           </select>
         </div>
 
         {/* Language Preference */}
-        <div className="flex gap-10">
+        <div className="flex gap-10 w-[600px] justify-between">
           <p className='text-[18px] font-semibold'>Language Preference:</p>
           <select
             name="languagePreference"
             id="languagePreference"
-            className='bg-[#F2F2F2] py-3 w-[132px] px-3 mr-8 rounded-lg shadow-lg border'
+            className='border border-black py-3 rounded w-[232px] px-3 '
             value={languagePreference}
             onChange={(e) => setLanguagePreference(e.target.value)}
           >
@@ -169,15 +169,13 @@ function AdditionalDetails() {
           </select>
         </div>
 
-        {/* Accessibility Preference */}
-        <div className="flex gap-10 items-center">
+        <div className="flex gap-10 w-[600px] justify-between items-center">
           <p className='text-[18px] font-semibold'>Accessibility Preference:</p>
-          <div className="flex items-center">
-            {/* Font Size Dropdown */}
+          <div className="flex items-center gap-5">
             <select
               name="fontSize"
               id="fontSize"
-              className='bg-[#F2F2F2] py-3 w-[132px] px-3 mr-8 rounded-lg shadow-lg border'
+              className='border border-black py-3 rounded w-[232px] px-3 '
               value={fontSize}
               onChange={(e) => setFontSize(e.target.value)}
             >
@@ -188,23 +186,7 @@ function AdditionalDetails() {
               ))}
             </select>
 
-            {/* Font Style Dropdown */}
-            <select
-              name="fontStyle"
-              id="fontStyle"
-              className='bg-[#F2F2F2] py-3 w-[132px] px-3 mr-8 rounded-lg shadow-lg border'
-              value={fontStyle}
-              onChange={(e) => setFontStyle(e.target.value)}
-            >
-              {fontStyles.map((style) => (
-                <option key={style} value={style}>
-                  {style}
-                </option>
-              ))}
-            </select>
-
-            {/* Dark/Light Mode Switch */}
-            <div className="switch flex items-center gap-3">
+            {/* <div className="switch flex items-center gap-3">
               <span className="dark-text">Dark</span>
               <Switch
                 height={20}
@@ -213,7 +195,7 @@ function AdditionalDetails() {
                 onChange={(checked) => setIsDarkMode(checked)}
               />
               <span className="light-text">Light</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </form>

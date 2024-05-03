@@ -15,17 +15,17 @@ const Report = () => {
                     <ContainersByStatus/>
                 </div>
                 <div className="customerSatisfactionData">
-                    <CustomerSatisfaction/>
+                    <VolumeVsService/>
                 </div>
             </div>
-            <div className="flex">
+            {/* <div className="flex">
                 <div className="dailyContainer">
                     <DailyContainer/>
                 </div>
                 <div className="volumeService">
-                    <VolumeVsService/>
+                    <CustomerSatisfaction/>
                 </div>
-            </div>
+            </div> */}
         </div>
     </div>
   )

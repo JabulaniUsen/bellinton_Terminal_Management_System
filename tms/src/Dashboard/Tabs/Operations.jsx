@@ -9,7 +9,7 @@ function Operations() {
       <Intro/>
       <QuickOverview/>
       <Statistics/>
-      <ChartSection/>
+      {/* <ChartSection/> */}
     </div>
   )
 }

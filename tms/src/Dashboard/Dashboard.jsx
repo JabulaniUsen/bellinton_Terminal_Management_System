@@ -76,37 +76,38 @@ import BlockReport from './Tabs/Documentation/BlockReport';
 import UnblockReport from './Tabs/Documentation/UnblockReport';
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState(1);
-  const [selectedButton, setSelectedButton] = useState(null);
-  const [activeSubButton, setActiveSubButton] = useState(null)
+  const [activeTab, setActiveTab] = useState(2);
+  const [selectedButton, setSelectedButton] = useState('Dashboard');
+
   const handleTabSwitch = (tabNumber) => {
     setActiveTab(tabNumber);
   };
-
+  const [activeSubButton, setActiveSubButton] = useState(null)
+  
   const TabButton = ({ tabNumber, label, icon, subButtons }) => (
     <div className="">
-      <button
-        className={`${
-          selectedButton === label ? 'bg-[#3a0aca] text-white' : 'bg-[#4000FF] text-white'
-        } py-2 text-white font-semibold px-4 rounded-lg w-[200px] flex items-center justify-between gap-2 focus:outline-none focus:shadow-outline`}
-        onClick={() => {
-          setSelectedButton(selectedButton === label ? null : label);
-        }}
-      >
-        <div className="flex items-center gap-2">
-          <FontAwesomeIcon icon={icon} />
-          <span>{label}</span>
-        </div>
-        <FontAwesomeIcon icon={faChevronRight} />
-      </button>
+       <button
+      className={`${
+        selectedButton === label ? ' text-white bg-[#013A57] border-l-8 border-[#4E9352]' : ' text-[#013A57]'
+      } py-3 hover:bg-[#013A57] hover:text-white text-black px-5 font-semibold w-[200px] flex items-center justify-between gap-2 focus:outline-none focus:shadow-outline`}
+      onClick={() => {
+        setSelectedButton(label);
+        setActiveTab(2); // Reset subtab to 1 when switching main tabs
+      }}
+    >
+      <div className="flex items-center gap-2">
+        <FontAwesomeIcon icon={icon} />
+        <span>{label}</span>
+      </div>
+    </button>
 
       {selectedButton === label && (
-        <div className="top-full left-0 mt-2 p-2 bg-[#4000FF] text-white shadow-lg rounded-md">
+        <div className="top-full left-0  text-black ">
         {subButtons.map((subButton) => (
           <button
             key={subButton.label}
-            className={`block w-full text-left py-2 px-4 rounded-md ${
-              activeTab === subButton.tabNumber ? 'bg-[#3a0aca]' : 'hover:bg-[#360bb8]'
+            className={`w-[190px] text-left flex ml-2 py-2 px-4 bg-white ${
+              activeTab === subButton.tabNumber ? 'bg-[#4E9352] text-white' : 'hover:bg-[#6ac26e3b]'
             }`}
             onClick={() => {
               setActiveTab(subButton.tabNumber);
@@ -125,34 +126,34 @@ const Dashboard = () => {
     {
       label: 'Dashboard',
       icon: faChartBar,
+      tabNumber: 100,
       subButtons: [
-        { label: 'Home', tabNumber: 1 },
+        // { label: 'Home', tabNumber: 1 },
         { label: 'Operations', tabNumber: 2, icon: faCog },
-        { label: 'Finance', tabNumber: 3, icon: faCog },
-        { label: 'Reports', tabNumber: 4, icon: faCog },
+        // { label: 'Finance', tabNumber: 3, icon: faCog },
+        { label: 'Analytics', tabNumber: 4, icon: faCog },
       ]
     },
-    {
-      label: 'Vessel',
-      icon: faCube,
-      subButtons: [
-        { label: 'View Vessels', tabNumber: 5, icon: faCog },
-        { label: 'Add Vessels', tabNumber: 6, icon: faCog },
-        { label: 'Manage Voyages', tabNumber: 7, icon: faCog },
-        { label: 'Lock Vessels', tabNumber: 8, icon: faCog },
-        // { label: 'View Container2', tabNumber: 16, icon: faCog }
-      ]
-    },
-    {
-      label: 'Manifest',
-      icon: faList,
-      subButtons: [
-        { label: 'View Manifests', tabNumber: 9, icon: faCog },
-        { label: 'Create Manifests', tabNumber: 10, icon: faCog },
-        { label: 'Update Manifests', tabNumber: 11, icon: faCog },
-        { label: 'Lock Manifests', tabNumber: 12, icon: faCog }
-      ]
-    },
+    // {
+    //   label: 'Vessel',
+    //   icon: faCube,
+    //   subButtons: [
+    //     { label: 'View Vessels', tabNumber: 5, icon: faCog },
+    //     { label: 'Add Vessels', tabNumber: 6, icon: faCog },
+    //     { label: 'Manage Voyages', tabNumber: 7, icon: faCog },
+    //     { label: 'Lock Vessels', tabNumber: 8, icon: faCog },
+    //   ]
+    // },
+    // {
+    //   label: 'Manifest',
+    //   icon: faList,
+    //   subButtons: [
+    //     { label: 'View Manifests', tabNumber: 9, icon: faCog },
+    //     { label: 'Create Manifests', tabNumber: 10, icon: faCog },
+    //     { label: 'Update Manifests', tabNumber: 11, icon: faCog },
+    //     { label: 'Lock Manifests', tabNumber: 12, icon: faCog }
+    //   ]
+    // },
     {
       label: 'Container',
       icon: faShip,
@@ -193,18 +194,18 @@ const Dashboard = () => {
         { label: 'Manage Agents', tabNumber: 33, icon: faCog },
       ]
     },
-    {
-      label: 'Billings',
-      icon: faDollarSign,
-      subButtons: [
-        { label: 'Overview', tabNumber: 25, icon: faCog },
-        { label: 'Invoice', tabNumber: 26, icon: faCog },
-        { label: 'Additional Invoice', tabNumber: 27, icon: faCog },
-        { label: 'Discount', tabNumber: 28, icon: faCog },
-        { label: 'Payment Confirmation', tabNumber: 29, icon: faCog },
-        // { label: 'Billing History', tabNumber: 30, icon: faCog },
-      ]
-    },
+    // {
+    //   label: 'Billings',
+    //   icon: faDollarSign,
+    //   subButtons: [
+    //     { label: 'Overview', tabNumber: 25, icon: faCog },
+    //     { label: 'Invoice', tabNumber: 26, icon: faCog },
+    //     { label: 'Additional Invoice', tabNumber: 27, icon: faCog },
+    //     { label: 'Discount', tabNumber: 28, icon: faCog },
+    //     { label: 'Payment Confirmation', tabNumber: 29, icon: faCog },
+    //     // { label: 'Billing History', tabNumber: 30, icon: faCog },
+    //   ]
+    // },
     {
       label: 'Documentation',
       icon: faFile,
@@ -246,7 +247,7 @@ const Dashboard = () => {
     <div className="">
       <Header />
       <div className="flex overflow-hidden">
-        <div className="flex flex-col justify-between gap-[8rem] items-center w-1/5 p-4 py-10 bg-[#20007F]">
+        <div className="flex flex-col justify-between gap-[8rem] items-center w-1/5 p-4 py-10 bg-[#ebf8ff]">
           <div className="flex flex-col gap-3">
             {buttonsData.map(({ label, icon, subButtons }) => (
               <TabButton key={label} label={label} icon={icon} subButtons={subButtons} />
@@ -268,22 +269,22 @@ const Dashboard = () => {
         </div>
 
         <div className="flex-grow">
-          {activeTab === 1 && <Home />}
+          {/* {activeTab === 1 && <Home />} */}
           {activeTab === 2 && <Operations />}
           {activeTab === 3 && <Finance/>}
           {activeTab === 4 && <Report/>}
 
           {/* Vessel */}
-          {activeTab === 5 && <Vessel />}
+          {/* {activeTab === 5 && <Vessel />}
           {activeTab === 6 && <AddVessel />}
           {activeTab === 7 && <ManageVoyage/>}
-          {activeTab === 8 && <LockVessel/>}
+          {activeTab === 8 && <LockVessel/>} */}
 
           {/* Manifest  */}
-          {activeTab === 9 && <ViewManifest/>}
+          {/* {activeTab === 9 && <ViewManifest/>}
           {activeTab === 10 && <CreateManifest/>}
           {activeTab === 11 && <UpdateManifest/>}
-          {activeTab === 12 && <LockManifest/>}
+          {activeTab === 12 && <LockManifest/>} */}
 
           {/* Container */}
           {activeTab === 13 && <ViewContainer/>}
@@ -291,15 +292,15 @@ const Dashboard = () => {
           {activeTab === 15 && <ContainerTransfer/>}
 
           {/* Customer */}
-          {activeTab === 21 && <ViewCustomer/>}
+          {/* {activeTab === 21 && <ViewCustomer/>}
           {activeTab === 23 && <ManageCustomer/>}
           {activeTab === 22 && <ViewAgencies/>}
           {activeTab === 24 && <ManageAgencies/>}
           {activeTab === 32 && <ViewAgent/>}
-          {activeTab === 33 && <ManageAgent/>}
+          {activeTab === 33 && <ManageAgent/>} */}
 
         {/* Yard Mgt   */}
-        {activeTab === 17 && <YardManagement onTabSwitch={handleTabSwitch}/>}
+        {/* {activeTab === 17 && <YardManagement onTabSwitch={handleTabSwitch}/>}
         { activeTab === 18 && <ContainerMgt/>}
         { activeTab === 19 && <ContainerTracking/>}
         { activeTab === 20 && <ContainerMovement />}
@@ -309,26 +310,26 @@ const Dashboard = () => {
         { activeTab === 37 && <GateInsident/>}
         { activeTab === 38 && <EquipementMgt/> }
         { activeTab === 39 && <YardQueueManagement/>}
-        { activeTab === 40 && <AssignContainer/> }
+        { activeTab === 40 && <AssignContainer/> } */}
 
         {/* Billing */}
-        {activeTab === 25 && <BillingOverview/>}
+        {/* {activeTab === 25 && <BillingOverview/>}
         {activeTab === 26 && <PrepaidTerminalInvoice/>}
         {activeTab === 27 && <AdditionalTerminalInvoice/>}
         {activeTab === 28 && <DiscountTerminalInvoice/>}
-        {activeTab === 29 && <PaymentConfirmation/>}
+        {activeTab === 29 && <PaymentConfirmation/>} */}
         {/* {activeTab === 30 && <BillingHistory/>} */}
 
         {/* Documentation */}
-        {activeTab === 41 && <ContainerR/>}
+        {/* {activeTab === 41 && <ContainerR/>}
         {activeTab === 43 && <ProcessEquipmentInterchange/>}
         {activeTab === 44 && <ProcessTerminalDeliveryOrder/>}
         {activeTab === 45 && <Splitbill/>}
         {activeTab === 46 && <CargoBlocking/>}
-        {activeTab === 48 && <StorageFreeDays/>}
+        {activeTab === 48 && <StorageFreeDays/>} */}
 
         {/* Report */}
-        {activeTab === 53 && <VesselReport/>}
+        {/* {activeTab === 53 && <VesselReport/>}
         {activeTab === 54 && <ManifestReport/>}
         {activeTab === 31 && <ContainerReport/>}
         {activeTab === 49 && <ManageCustomer/>}
@@ -340,7 +341,7 @@ const Dashboard = () => {
         {activeTab === 58 && <ContainerTrackingList/>}
         {activeTab === 59 && <PaymentReport/>}
         {activeTab === 60 && <BlockReport/>}
-        {activeTab === 61 && <UnblockReport/>}
+        {activeTab === 61 && <UnblockReport/>} */}
         </div>
       </div>
     </div>

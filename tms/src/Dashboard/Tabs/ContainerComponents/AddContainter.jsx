@@ -117,8 +117,8 @@ const AddContainer = () => {
 
         <div className="my-10 mx-5">
             <div className="flex justify-between items-center py-1 border-b-[1px] border-[#999999]">
-                <h4 className='text-lg font-semibold'>Add Container to Manifest</h4>
-                <button className='text-[#0095FF] text-lg' onClick={handleUpload}>Upload</button>
+                <h4 className='text-xl font-semibold text-[#045985]'>Add Booking Container </h4>
+                {/* <button className='text-[#4E9352] text-lg' onClick={handleUpload}>Upload</button> */}
             </div>
 
             <div className="body my-5 grid grid-cols-2 gap-20">
@@ -240,12 +240,12 @@ const AddContainer = () => {
                     </div> 
                 <div className="col2 flex flex-col gap-10">
                     <div className="flex flex-col ">
-                        <label htmlFor="name" className='font-semibold text-base'>Cargo/BL ID:</label>
+                        <label htmlFor="name" className='font-semibold text-base'>Blooking Number:</label>
                         <div className="rounded flex items-center py-2">
                             <Select
                                 options={options2}
                                 isSearchable
-                                placeholder="Select Cargo/BL ID"
+                                placeholder="Select Blooking Number"
                                 className='w-full'
                             />
                         </div>
@@ -256,24 +256,24 @@ const AddContainer = () => {
                             <Select
                                 options={options3}
                                 isSearchable
-                                placeholder="Select name of the customer associated with the container"
+                                placeholder="Customer name associated with container"
                                 className='w-full'
                             />
                         </div>
                     </div>
 
-                    {/* <div className="flex flex-col ">
-                        <label htmlFor="name" className='font-semibold text-base'>Arrival Date:</label>
+                    <div className="flex flex-col ">
+                        <label htmlFor="name" className='font-semibold text-base'>Shipping Line:</label>
                         <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <input type="date" className='outline-none w-full' />
+                            <input type="text" className='outline-none w-full' />
                         </div>
                     </div>
                     <div className="flex flex-col ">
-                        <label htmlFor="name" className='font-semibold text-base'>Departure Date:</label>
+                        <label htmlFor="name" className='font-semibold text-base'>Origin:</label>
                         <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                            <input type="date" className='outline-none w-full' />
+                            <input type="text" className='outline-none w-full' />
                         </div>
-                    </div> */}
+                    </div>
                     
                     <div className="flex flex-col ">
                         <label htmlFor="name" className='font-semibold text-base'>Temperature (for Reefer):</label>
@@ -288,7 +288,7 @@ const AddContainer = () => {
                         </div>
                     </div>
                     <div className="buttons flex gap-5 justify-end items-end my-20">
-                        <button className='text-white bg-[#4000FF] px-10 py-1 rounded-lg' onClick={handleSubmit}>Submit</button>
+                        <button className='text-white bg-[#4E9352] px-10 py-1 rounded-lg' onClick={handleSubmit}>Submit</button>
                     </div>
                 </div>
             </div>

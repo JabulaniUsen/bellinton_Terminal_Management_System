@@ -66,7 +66,7 @@ const ViewContainer = () => {
   return (
     <div className='py-10 roboto '>
       <div className="head flex justify-between mx-5">
-        <h3 className='text-2xl font-bold'>View Container</h3>
+        <h3 className='text-2xl font-bold text-[#045985]'>View Container</h3>
       </div>
 
       <div >
@@ -87,7 +87,7 @@ const ViewContainer = () => {
                 </div>
 
         <div className="flex flex-col justify-center items-center my-10">
-          <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handleSearch} >View</button>
+          <button className=' text-white bg-[#4E9352] rounded py-2 px-12' onClick={handleSearch} >View</button>
         </div>
             </div>
           </div>
@@ -113,34 +113,34 @@ const ViewContainer = () => {
           <div className="table overflow-x-auto my-10">
           <table className="border border-collapse">
             <thead>
-              <tr className="grid grid-cols-8 border border-black">
-                <th className=" border bg-black text-white py-2">Container ID</th>
-                <th className=" border bg-black text-white py-2">Status</th>
-                <th className=" border bg-black text-white py-2">eta</th>
-                <th className=" border bg-black text-white py-2">etd</th>
-                <th className=" border bg-black text-white py-2">Type</th>
-                <th className=" border bg-black text-white py-2">Vessel Name</th>
-                <th className=" border bg-black text-white py-2">Customer Name</th>
-                <th className=" border bg-black text-white py-2">Action</th>
+              <tr className="">
+                <th className=" border border-black px-3 py-2">Container ID</th>
+                <th className=" border border-black px-3 py-2">Status</th>
+                <th className=" border border-black px-3 py-2">eta</th>
+                <th className=" border border-black px-3 py-2">etd</th>
+                <th className=" border border-black px-3 py-2">Type</th>
+                <th className=" border border-black px-3 py-2">Vessel Name</th>
+                <th className=" border border-black px-3 py-2">Customer Name</th>
+                <th className=" border border-black px-3 py-2">Action</th>
               </tr>
             </thead>
             <tbody>
               {data.map((rowData, index) => (
-                <tr key={index} className="grid grid-cols-8">
-                  <td className="border border-black px-2 py-2">{rowData.containerId}</td>
-                  <td className="border border-black px-2 py-2">{rowData.status}</td>
-                  <td className="border border-black px-2 py-2">{rowData.eta}</td>       
-                  <td className="border border-black px-2 py-2">{rowData.etd}</td>
-                  <td className="border border-black px-2 py-2">{rowData.type}</td>
-                  <td className="border border-black px-2 py-2">{rowData.vesselName}</td>
-                  <td className="border border-black px-2 py-2">{rowData.customerName}</td>
-                  <td className="border border-black px-2 py-2" ><button onClick={() => showVesselDetails(rowData.containerId)} className="underline">[ {rowData.action} ]</button></td>
+                <tr key={index} className="">
+                  <td className="border border-[#013a57] px-2 py-2">{rowData.containerId}</td>
+                  <td className="border border-[#013a57] px-2 py-2">{rowData.status}</td>
+                  <td className="border border-[#013a57] px-2 py-2">{rowData.eta}</td>       
+                  <td className="border border-[#013a57] px-2 py-2">{rowData.etd}</td>
+                  <td className="border border-[#013a57] px-2 py-2">{rowData.type}</td>
+                  <td className="border border-[#013a57] px-2 py-2">{rowData.vesselName}</td>
+                  <td className="border border-[#013a57] px-2 py-2">{rowData.customerName}</td>
+                  <td className="border border-[#013a57] px-2 py-2" ><button onClick={() => showVesselDetails(rowData.containerId)} className="underline">[ {rowData.action} ]</button></td>
                 </tr>
               ))}
             </tbody>
           </table>
           <div className="flex flex-col justify-end items-end my-10">
-            <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={resetSearch} >Back</button>
+            <button className=' text-white bg-[#4E9352] rounded py-2 px-12' onClick={resetSearch} >Back</button>
           </div>
         </div>
         }
@@ -160,7 +160,7 @@ const ViewContainer = () => {
             <div className="bg-[#ffff] px-8 py-6 rounded-3xl text-center">
               <p className="text-2xl font-bold mb-4">Manifest Uploaded successfully!</p>
               <div className="flex justify-center space-x-4">
-                <button onClick={handleModalOK} className="bg-[#4000FF] text-white px-6 py-1 rounded-full">OK</button>
+                <button onClick={handleModalOK} className="bg-[#4E9352] text-white px-6 py-1 rounded-full">OK</button>
               </div>
             </div>
           </motion.div>
@@ -192,7 +192,7 @@ const ViewContainer = () => {
              
             </div>
             <div className="flex justify-center space-x-4 mt-4">
-              <button onClick={closeDetailsBox} className="bg-[#4000FF] text-white px-6 py-1 rounded-full">Close</button>
+              <button onClick={closeDetailsBox} className="bg-[#4E9352] text-white px-6 py-1 rounded-full">Close</button>
             </div>
           </div>
         </motion.div>

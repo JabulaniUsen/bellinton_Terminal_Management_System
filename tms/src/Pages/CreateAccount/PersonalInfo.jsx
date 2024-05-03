@@ -27,8 +27,8 @@ function PersonalInfo() {
 
   return (
     <div>
-      <form onSubmit={formik.handleSubmit} className='lg:mx-[320px] mx-10'>
-        <div className="grid grid-cols-2 place-items-center roboto gap-y-7 ">
+      <form onSubmit={formik.handleSubmit} className=''>
+        <div className="flex flex-wrap gap-10 roboto gap-y-3 ">
           <div className="flex flex-col gap-2">
             <label htmlFor="firstName" className='font-semibold'>First Name</label>
             <input
@@ -109,6 +109,7 @@ function PersonalInfo() {
               onBlur={formik.handleBlur}
               value={formik.values.jobTitle}
             />
+            <small>Designation within the company</small>
             {formik.touched.jobTitle && formik.errors.jobTitle && (
               <div className="text-red-500">{formik.errors.jobTitle}</div>
             )}

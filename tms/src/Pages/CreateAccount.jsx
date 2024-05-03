@@ -7,7 +7,7 @@ import Security from './CreateAccount/Security';
 import TermsAndConditions from './CreateAccount/TermsAndConditions';
 import Credentials from './CreateAccount/Credentials';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faComment, faFile, faLockOpen, faPenToSquare, faShieldHalved, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 function CreateAccount() {
@@ -77,8 +77,6 @@ function CreateAccount() {
   };
 
   const handleSubmitAllForms = () => {
-    // Submit all forms using the collected form data
-    // (you can send formData to your backend or handle it as needed)
     console.log('Form data to submit:', formData);
   };
 
@@ -86,53 +84,57 @@ function CreateAccount() {
     <div >
       <Header />
 
-      <div className="mb-10">
-        <div className="head flex flex-col justify-center items-center text-center gap-2 roboto">
-          <h2 className='text-3xl font-bold'>
+      <div className="my-8 mx-[10rem]">
+        <div className=" roboto">
+          <h2 className='text-3xl font-bold text-[#045985]'>
             {activeTab === 'permissions'
               ? 'Tick in agreement to this permission'
               : 'Create a user account to use'}
           </h2>
-          <p className='font-semibold text-xl my-2 w-[700px]'>
-            {activeTab === 'permissions'
-              ? 'Before you proceed, we need your consent to collect and process certain information for the optimal functioning of our services.'
-              : 'Make sure you enter the right information to avoid errors'}
+          <p className=' text-xl my-2 w-[700px]'>
+          Make sure you enter the right information to avoid errors
           </p>
         </div>
 
-        <div className="tabSwitch flex items-center justify-center my-10">
-          <p className={`tabs py-2 px-5 border-[1px] font-semibold cursor-pointer border-black ${activeTab === 'personalInfo' ? 'activeTab bg-[#20007F] border-0 text-white' : ''}`} onClick={() => handleTabClick('personalInfo')}>
+        <div className="tabSwitch flex gap-2 my-10 w-[1100px]">
+          <p className={`tabs py-3 px-5 flex gap-2 items-center cursor-pointer rounded-full  ${activeTab === 'personalInfo' ? 'activeTab bg-[#045985] border-0 text-white' : 'text-[#045985]'}`} onClick={() => handleTabClick('personalInfo')}>
+            <FontAwesomeIcon icon={faUser} />
             Personal info
           </p>
-          <p className={`tabs py-2 px-5 border-[1px] font-semibold cursor-pointer border-black ${activeTab === 'credentials' ? 'activeTab bg-[#20007F] border-0 text-white' : ''}`} onClick={() => handleTabClick('credentials')}>
+          <p className={`tabs py-3 px-5 flex gap-2 items-center cursor-pointer rounded-full  ${activeTab === 'credentials' ? 'activeTab bg-[#045985] border-0 text-white' : 'text-[#045985]'}`} onClick={() => handleTabClick('credentials')}>
+            <FontAwesomeIcon icon={faComment} />
             Credentials
           </p>
-          <p className={`tabs py-2 px-5 border-[1px] font-semibold cursor-pointer border-black ${activeTab === 'permissions' ? 'activeTab bg-[#20007F] border-0 text-white' : ''}`} onClick={() => handleTabClick('permissions')}>
+          <p className={`tabs py-3 px-5 flex gap-2 items-center cursor-pointer rounded-full  ${activeTab === 'permissions' ? 'activeTab bg-[#045985] border-0 text-white' : 'text-[#045985]'}`} onClick={() => handleTabClick('permissions')}>
+            <FontAwesomeIcon icon={faLockOpen} />
             Permissions
           </p>
-          <p className={`tabs py-2 px-5 border-[1px] font-semibold cursor-pointer border-black ${activeTab === 'additionalDetails' ? 'activeTab bg-[#20007F] border-0 text-white' : ''}`} onClick={() => handleTabClick('additionalDetails')}>
+          <p className={`tabs py-3 px-5 flex gap-2 items-center cursor-pointer rounded-full  ${activeTab === 'additionalDetails' ? 'activeTab bg-[#045985] border-0 text-white' : 'text-[#045985]'}`} onClick={() => handleTabClick('additionalDetails')}>
+          <FontAwesomeIcon icon={faPenToSquare} />
             Additional Details
           </p>
-          <p className={`tabs py-2 px-5 border-[1px] font-semibold cursor-pointer border-black ${activeTab === 'security' ? 'activeTab bg-[#20007F] border-0 text-white' : ''}`} onClick={() => handleTabClick('security')}>
+          <p className={`tabs py-3 px-5 flex gap-2 items-center cursor-pointer rounded-full  ${activeTab === 'security' ? 'activeTab bg-[#045985] border-0 text-white' : 'text-[#045985]'}`} onClick={() => handleTabClick('security')}>
+          <FontAwesomeIcon icon={faShieldHalved} />
             Security
           </p>
-          <p className={`tabs py-2 px-5 border-[1px] font-semibold cursor-pointer border-black ${activeTab === 'termsAndConditions' ? 'activeTab bg-[#20007F] border-0 text-white' : ''}`} onClick={() => handleTabClick('termsAndConditions')}>
+          <p className={`tabs py-3 px-5 flex gap-2 items-center cursor-pointer rounded-full  ${activeTab === 'termsAndConditions' ? 'activeTab bg-[#045985] border-0 text-white' : 'text-[#045985]'}`} onClick={() => handleTabClick('termsAndConditions')}>
+          <FontAwesomeIcon icon={faFile} />
             Terms and Conditions
           </p>
         </div>
 
-        <div className=" mt-28">
+        <div className=" mt-16">
           {renderTabContent()}
         </div>
 
-        <div className="footer flex justify-end mx-[150px]">
+        <div className="footer flex my-10">
           {activeTab !== 'termsAndConditions' ? (
-            <button className='bg-[#20007F] py-3 px-5 rounded-xl text-white roboto font-semibold flex items-center gap-10' onClick={handleNextButtonClick}>
+            <button className='bg-[#4e9352] py-3 px-5 w-[400px] justify-between rounded-xl text-white roboto' onClick={handleNextButtonClick}>
               Next <FontAwesomeIcon icon={faAngleRight} className='px-2 py-[0.3rem] rounded-full border-[4px] font-bold' />
             </button>
           ) : (
             <Link to='/'>
-              <button className='bg-[#20007F] py-3 px-5 rounded-xl text-white roboto font-semibold flex items-center gap-10' onClick={handleNextButtonClick}>
+              <button className='bg-[#4e9352] py-3 px-5 w-[400px] justify-between rounded-xl text-white roboto' onClick={handleSubmitAllForms}>
                 Agree, Next <FontAwesomeIcon icon={faAngleRight} className='px-2 py-[0.3rem] rounded-full border-[4px] font-bold' />
               </button>
             </Link>

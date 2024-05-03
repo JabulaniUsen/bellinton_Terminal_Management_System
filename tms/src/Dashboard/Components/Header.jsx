@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '../../assets/logo.svg'
+import logo from '../../assets/leftPics.svg'
 import bell from '../../assets/bell.png'
 import users from '../../assets/users.png'
 import settings from '../../assets/settings.png'

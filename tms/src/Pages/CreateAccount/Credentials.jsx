@@ -36,15 +36,15 @@ function Credentials() {
 
   return (
     <div>
-      <form onSubmit={formik.handleSubmit} className='lg:mx-[320px] mx-10'>
-        <div className="grid grid-rows-3  roboto gap-y-5 ">
+      <form onSubmit={formik.handleSubmit} className=''>
+        <div className="flex flex-col roboto gap-y-5 ">
           <div className="flex flex-col gap-2">
             <label htmlFor="username" className='font-semibold'>Username</label>
             <input
               type="text"
               id="username"
               name="username"
-              className={`border-[1px] outline-none rounded p-1 px-3 border-[#828282] w-[347px] h-[44px] ${formik.errors.username && 'border-red-500'}`}
+              className={`border-[1px] outline-none rounded p-1 px-3 border-[#828282] w-[357px] h-[44px] ${formik.errors.username && 'border-red-500'}`}
               placeholder='Enter your Username'
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -62,7 +62,7 @@ function Credentials() {
                 type={passwordVisibility ? 'text' : 'password'}
                 id="password"
                 name="password"
-                className={`border-[1px] outline-none rounded p-1 px-3 border-[#828282] w-[347px] h-[44px] ${formik.errors.password && 'border-red-500'}`}
+                className={`border-[1px] outline-none rounded p-1 px-3 border-[#828282] w-[357px] h-[44px] ${formik.errors.password && 'border-red-500'}`}
                 placeholder='Enter your Password'
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -87,7 +87,7 @@ function Credentials() {
                 type={confirmPasswordVisibility ? 'text' : 'password'}
                 id="confirmPassword"
                 name="confirmPassword"
-                className={`border-[1px] outline-none rounded p-1 px-3 border-[#828282] w-[347px] h-[44px] ${formik.errors.confirmPassword && 'border-red-500'}`}
+                className={`border-[1px] outline-none rounded p-1 px-3 border-[#828282] w-[357px] h-[44px] ${formik.errors.confirmPassword && 'border-red-500'}`}
                 placeholder='Confirm your Password'
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}

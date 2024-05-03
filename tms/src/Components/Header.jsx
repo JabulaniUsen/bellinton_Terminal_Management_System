@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '../assets/logo.svg'
+import logo from '../assets/leftPics.svg'
 import menu from '../assets/Menu.png'
 
 const Header = () => {
@@ -9,7 +9,7 @@ const Header = () => {
             <img src={logo} alt="" />
         </div>
         <div className="">
-            <img src={menu} alt="" />
+            {/* <img src={menu} alt="" /> */}
         </div>
     </div>
   )

@@ -99,7 +99,7 @@ const ContainerTransfer = () => {
                         </div>
                     </div>
                     <div className="buttons flex gap-5 justify-end items-end my-10">
-                        <button className='text-white bg-[#4000FF] px-10 py-2 rounded-full roboto' onClick={handleSubmit}>Initiate Transfer</button>
+                        <button className='text-white bg-[#4E9352] px-10 py-2 rounded-full roboto' onClick={handleSubmit}>Initiate Transfer</button>
                     </div>
                 </div>
             </div>

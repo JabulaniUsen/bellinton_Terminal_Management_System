@@ -22,9 +22,10 @@ function Permissions() {
   };
 
   return (
-    <div className='lg:mx-[320px] mx-10 roboto'>
+    <div className=' roboto'>
       <form onSubmit={handleSubmit} className="permissions-form">
-        <div className="checkbox">
+        <div className="checkbox w-[250px] flex items-center justify-between">
+          <label htmlFor="locationInformation">Location information</label>
           <input
             type="checkbox"
             id="locationInformation"
@@ -32,10 +33,10 @@ function Permissions() {
             checked={formData.locationInformation}
             onChange={handleChange}
           />
-          <label htmlFor="locationInformation">Location information</label>
         </div>
 
-        <div className="checkbox">
+        <div className="checkbox w-[250px] flex items-center justify-between">
+          <label htmlFor="dataRetention">Data Retention</label>
           <input
             type="checkbox"
             id="dataRetention"
@@ -43,10 +44,10 @@ function Permissions() {
             checked={formData.dataRetention}
             onChange={handleChange}
           />
-          <label htmlFor="dataRetention">Data Retention</label>
         </div>
 
-        <div className="checkbox">
+        <div className="checkbox w-[250px] flex items-center justify-between">
+          <label htmlFor="dataSharing">Data Sharing</label>
           <input
             type="checkbox"
             id="dataSharing"
@@ -54,10 +55,10 @@ function Permissions() {
             checked={formData.dataSharing}
             onChange={handleChange}
           />
-          <label htmlFor="dataSharing">Data Sharing</label>
         </div>
 
-        <div className="checkbox">
+        <div className="checkbox w-[250px] flex items-center justify-between">
+          <label htmlFor="storage">Storage</label>
           <input
             type="checkbox"
             id="storage"
@@ -65,10 +66,10 @@ function Permissions() {
             checked={formData.storage}
             onChange={handleChange}
           />
-          <label htmlFor="storage">Storage</label>
         </div>
 
-        <div className="checkbox">
+        <div className="checkbox w-[250px] flex items-center justify-between">
+          <label htmlFor="usageAnalytics">Usage Analytics</label>
           <input
             type="checkbox"
             id="usageAnalytics"
@@ -76,10 +77,10 @@ function Permissions() {
             checked={formData.usageAnalytics}
             onChange={handleChange}
           />
-          <label htmlFor="usageAnalytics">Usage Analytics</label>
         </div>
 
-        <div className="checkbox">
+        <div className="checkbox w-[250px] flex items-center justify-between">
+          <label htmlFor="paymentInformation">Payment Information</label>
           <input
             type="checkbox"
             id="paymentInformation"
@@ -87,7 +88,6 @@ function Permissions() {
             checked={formData.paymentInformation}
             onChange={handleChange}
           />
-          <label htmlFor="paymentInformation">Payment Information</label>
         </div>
 
         {/* <button type="submit">Submit</button> */}

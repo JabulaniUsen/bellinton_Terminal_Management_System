@@ -3,7 +3,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 
 function Security() {
   return (
-    <div className='lg:mx-[250px]'>
+    <div className=''>
       <Formik
         initialValues={{
           securityQuestion: '',
@@ -28,13 +28,13 @@ function Security() {
         }}
       >
         <Form className='flex flex-col gap-10'>
-          <div className="grid grid-cols-3 items-center justify-between">
+          <div className="flex items-center justify-between">
             <p className='text-[18px] font-semibold'>Security Questions:</p>
             <div className="">
               <Field
                 as="select"
                 name="securityQuestion"
-                className='p-3 rounded-lg border-[1px] border-black w-[246px] outline-none'
+                className='py-3 px-2 rounded border-[1px] border-black w-[346px] outline-none'
               >
                 <option value="">Choose security question</option>
                 <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
@@ -49,7 +49,7 @@ function Security() {
               <Field
                 type="text"
                 name="answer"
-                className='answer p-3 rounded-lg border-[1px] border-black w-[347px] outline-none'
+                className='answer py-3 px-2 rounded border-[1px] border-black w-[347px] outline-none'
                 placeholder='Enter answer to the question'
               />
               <ErrorMessage name="answer" component="div" className="text-red-500" />
@@ -62,7 +62,7 @@ function Security() {
               <Field
                 type="email"
                 name="recoveryEmail"
-                className='p-3 rounded-lg border-[1px] border-black w-[347px] outline-none'
+                className='py-3 px-2 rounded border-[1px] border-black w-[347px] outline-none'
                 placeholder='Enter recovery email'
               />
               <ErrorMessage name="recoveryEmail" component="div" className="text-red-500" />
@@ -73,9 +73,9 @@ function Security() {
             <p className='text-[18px] font-semibold'>Account Recovery Phone Number:</p>
               <div className="">
               <Field
-                type='tel'
+                type='number'
                 name="recoveryPhoneNumber"
-                className='p-3 rounded-lg border-[1px] border-black w-[347px] outline-none'
+                className='py-3 px-2 rounded border-[1px] border-black w-[347px] outline-none'
                 placeholder='Enter recovery phone number'
               />
               <ErrorMessage name="recoveryPhoneNumber" component="div" className="text-red-500" />
