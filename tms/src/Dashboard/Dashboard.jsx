@@ -3,80 +3,26 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChartBar,
-  faCube,
-  faList,
   faShip,
   faWarehouse,
-  faDollarSign,
   faCog,
   faSignOutAlt,
   faUserAlt,
-  faChevronDown,
-  faChevronRight,
   faFile,
   faFileContract
 } from '@fortawesome/free-solid-svg-icons';
 import Header from './Components/Header';
-import Home from './Tabs/Home';
 import Operations from './Tabs/Operations';
-import TabContent4 from './Tabs/Finance';
-import Vessel from './Tabs/Vessel';
-import AddVessel from './Tabs/VesselComponents/AddVessel';
-import ManageVoyage from './Tabs/VesselComponents/ManageVoyage';
-import LockVessel from './Tabs/VesselComponents/LockVessel';
-import ViewManifest from './Tabs/ManifestComponents/ViewManifest';
-import CreateManifest from './Tabs/ManifestComponents/CreateManifest';
-import LockManifest from './Tabs/ManifestComponents/LockManifest';
-import UpdateManifest from './Tabs/ManifestComponents/UpdateManifest';
 import Finance from './Tabs/Finance';
 import ViewContainer from './Tabs/ContainerComponents/ViewContainer';
 import AddContainer from './Tabs/ContainerComponents/AddContainter';
 import ContainerTransfer from './Tabs/ContainerComponents/ContainerTransfer';
 import Report from './Tabs/Report';
-import ViewCustomer from './Tabs/CustomerComponents/ViewCustomer';
-import AddCustomer from './Tabs/CustomerComponents/AddCustomer';
-import ManageCustomer from './Tabs/CustomerComponents/ManageCustomer';
-import YardManagement from './Tabs/YardManagement';
-import ViewAgencies from './Tabs/CustomerComponents/ViewAgencies';
-import ManageAgencies from './Tabs/CustomerComponents/ManageAgencies';
-import ViewAgent from './Tabs/CustomerComponents/ViewAgent';
-import ManageAgent from './Tabs/CustomerComponents/ManageAgent';
-import ContainerMgt from './Tabs/YardManagementComponent/ContainerMgt';
-import ContainerTracking from './Tabs/YardManagementComponent/ContainerTracking';
-import ContainerMovement from './Tabs/YardManagementComponent/ContainerMovement';
-import InboundGate from './Tabs/YardManagementComponent/InboundGate';
-import OutboundGate from './Tabs/YardManagementComponent/OutboundGate';
-import GateAccessControl from './Tabs/YardManagementComponent/GateAccessControl';
-import GateInsident from './Tabs/YardManagementComponent/GateInsident';
-import YardQueueManagement from './Tabs/YardManagementComponent/YardQueueManagement';
-import AssignContainer from './Tabs/YardManagementComponent/YardSpace/AssignContainer';
-import BillingOverview from './Tabs/Billing/BillingOverview';
-import PrepaidTerminalInvoice from './Tabs/Billing/PrepaidTerminalInvoice';
-import EquipementMgt from './Tabs/YardManagementComponent/EquipementMgt';
-import BillingHistory from './Tabs/Billing/BillingHistory';
-import AdditionalTerminalInvoice from './Tabs/Billing/AdditionalTerminalInvoice';
-import DiscountTerminalInvoice from './Tabs/Billing/DiscountTerminalInvoice';
-import PaymentConfirmation from './Tabs/Billing/PaymentConfirmation';
-import ContainerR from './Tabs/Documentation/ContainerR';
-import ProcessEquipmentInterchange from './Tabs/Documentation/ProcessEquipmentInterchange';
-import ProcessTerminalDeliveryOrder from './Tabs/Documentation/ProcessTerminalDeliveryOrder';
-import Splitbill from './Tabs/Documentation/Splitbill';
-import StorageFreeDays from './Tabs/Documentation/StorageFreeDays';
-import CargoBlocking from './Tabs/Documentation/CargoBlocking';
-import VesselReport from './Tabs/Report/VesselReport';
-import EquipmentMgtList from './Tabs/YardManagementComponent/EquipmentMgtList';
-import ManifestReport from './Tabs/Report/ManifestReport';
-import ContainerReport from './Tabs/Report/ContainerReport';
-import CustomerReport from './Tabs/Report/CustomerReport';
-import TerminalInvoiceReport from './Tabs/Billing/TerminalInvoiceReport';
-import ViewContainerList from './Tabs/YardManagementComponent/ViewContainerList';
-import ContainerTrackingList from './Tabs/YardManagementComponent/ContainerTrackingList';
-import PaymentReport from './Tabs/Billing/PaymentReport';
-import BlockReport from './Tabs/Documentation/BlockReport';
-import UnblockReport from './Tabs/Documentation/UnblockReport';
+import ManageBooking from './Tabs/ContainerComponents/ManageContainer';
+
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState(2);
+  const [activeTab, setActiveTab] = useState(1);
   const [selectedButton, setSelectedButton] = useState('Dashboard');
 
   const handleTabSwitch = (tabNumber) => {
@@ -92,7 +38,7 @@ const Dashboard = () => {
       } py-3 hover:bg-[#013A57] hover:text-white text-black px-5 font-semibold w-[200px] flex items-center justify-between gap-2 focus:outline-none focus:shadow-outline`}
       onClick={() => {
         setSelectedButton(label);
-        setActiveTab(2); // Reset subtab to 1 when switching main tabs
+        setActiveTab(1);
       }}
     >
       <div className="flex items-center gap-2">
@@ -106,8 +52,8 @@ const Dashboard = () => {
         {subButtons.map((subButton) => (
           <button
             key={subButton.label}
-            className={`w-[190px] text-left flex ml-2 py-2 px-4 bg-white ${
-              activeTab === subButton.tabNumber ? 'bg-[#4E9352] ' : 'hover:bg-[#6ac26e3b]'
+            className={`w-[190px] text-left flex ml-2 py-2 px-4  ${
+              activeTab === subButton.tabNumber ? 'bg-[#6ac26e3b]' : 'hover:bg-[#6ac26e3b]'
             }`}
             onClick={() => {
               setActiveTab(subButton.tabNumber);
@@ -128,39 +74,18 @@ const Dashboard = () => {
       icon: faChartBar,
       tabNumber: 100,
       subButtons: [
-        // { label: 'Home', tabNumber: 1 },
-        { label: 'Operations', tabNumber: 2, icon: faCog },
-        // { label: 'Finance', tabNumber: 3, icon: faCog },
-        { label: 'Analytics', tabNumber: 4, icon: faCog },
+        { label: 'Operations', tabNumber: 1, },
+        { label: 'Analytics', tabNumber: 2, },
       ]
     },
-    // {
-    //   label: 'Vessel',
-    //   icon: faCube,
-    //   subButtons: [
-    //     { label: 'View Vessels', tabNumber: 5, icon: faCog },
-    //     { label: 'Add Vessels', tabNumber: 6, icon: faCog },
-    //     { label: 'Manage Voyages', tabNumber: 7, icon: faCog },
-    //     { label: 'Lock Vessels', tabNumber: 8, icon: faCog },
-    //   ]
-    // },
-    // {
-    //   label: 'Manifest',
-    //   icon: faList,
-    //   subButtons: [
-    //     { label: 'View Manifests', tabNumber: 9, icon: faCog },
-    //     { label: 'Create Manifests', tabNumber: 10, icon: faCog },
-    //     { label: 'Update Manifests', tabNumber: 11, icon: faCog },
-    //     { label: 'Lock Manifests', tabNumber: 12, icon: faCog }
-    //   ]
-    // },
     {
       label: 'Container',
       icon: faShip,
       subButtons: [
-        { label: 'View Container', tabNumber: 13, icon: faCog },
-        { label: 'Add Container', tabNumber: 14, icon: faCog },
-        { label: 'Container Transfer', tabNumber: 15, icon: faCog },
+        { label: 'View Container', tabNumber: 3, },
+        { label: 'Add Container', tabNumber: 4, },
+        { label: 'Manage Booking', tabNumber: 5, },
+        { label: 'Container Transfer', tabNumber: 15, },
       ]
     },
     {
@@ -168,42 +93,42 @@ const Dashboard = () => {
       icon: faWarehouse,
       // tabNumber: 16,
       subButtons: [
-        { label: 'Yard Overview', tabNumber: 17, icon: faCog },
-        { label: 'Container Mgt.', tabNumber: 18, icon: faCog },
-        { label: 'Container Tracking', tabNumber: 19, icon: faCog },
-        { label: 'Container Movement', tabNumber: 20, icon: faCog },
-        { label: 'Inbound Gate Entry', tabNumber: 34, icon: faCog },
-        { label: 'Outbound Gate Exit', tabNumber: 35, icon: faCog },
-        { label: 'Gate Access Control', tabNumber: 36, icon: faCog },
-        { label: 'Gate Incident', tabNumber: 37, icon: faCog },
-        { label: 'Equipement Mgt', tabNumber: 38, icon: faCog },
-        { label: 'Yard Queue', tabNumber: 39, icon: faCog },
-        { label: 'Yard Space', tabNumber: 40, icon: faCog },
-        // { label: 'Yard Report', tabNumber: 41, icon: faCog },
+        { label: 'Yard Overview', tabNumber: 17, },
+        { label: 'Container Mgt.', tabNumber: 18, },
+        { label: 'Container Tracking', tabNumber: 19, },
+        { label: 'Container Movement', tabNumber: 20, },
+        { label: 'Inbound Gate Entry', tabNumber: 34, },
+        { label: 'Outbound Gate Exit', tabNumber: 35, },
+        { label: 'Gate Access Control', tabNumber: 36, },
+        { label: 'Gate Incident', tabNumber: 37, },
+        { label: 'Equipement Mgt', tabNumber: 38, },
+        { label: 'Yard Queue', tabNumber: 39, },
+        { label: 'Yard Space', tabNumber: 40, },
+        // { label: 'Yard Report', tabNumber: 41, },
       ],
     },
     {
       label: 'Customers',
       icon: faUserAlt,
       subButtons: [
-        { label: 'View/Add Customer', tabNumber: 21, icon: faCog },
-        { label: 'Manage Customer', tabNumber: 23, icon: faCog },
-        { label: 'View/Add Agencies', tabNumber: 22, icon: faCog },
-        { label: 'Manage Agencies', tabNumber: 24, icon: faCog },
-        { label: 'View/Add Agents', tabNumber: 32, icon: faCog },
-        { label: 'Manage Agents', tabNumber: 33, icon: faCog },
+        { label: 'View/Add Customer', tabNumber: 21, },
+        { label: 'Manage Customer', tabNumber: 23, },
+        { label: 'View/Add Agencies', tabNumber: 22, },
+        { label: 'Manage Agencies', tabNumber: 24, },
+        { label: 'View/Add Agents', tabNumber: 32, },
+        { label: 'Manage Agents', tabNumber: 33, },
       ]
     },
     // {
     //   label: 'Billings',
     //   icon: faDollarSign,
     //   subButtons: [
-    //     { label: 'Overview', tabNumber: 25, icon: faCog },
-    //     { label: 'Invoice', tabNumber: 26, icon: faCog },
-    //     { label: 'Additional Invoice', tabNumber: 27, icon: faCog },
-    //     { label: 'Discount', tabNumber: 28, icon: faCog },
-    //     { label: 'Payment Confirmation', tabNumber: 29, icon: faCog },
-    //     // { label: 'Billing History', tabNumber: 30, icon: faCog },
+    //     { label: 'Overview', tabNumber: 25, },
+    //     { label: 'Invoice', tabNumber: 26, },
+    //     { label: 'Additional Invoice', tabNumber: 27, },
+    //     { label: 'Discount', tabNumber: 28, },
+    //     { label: 'Payment Confirmation', tabNumber: 29, },
+    //     // { label: 'Billing History', tabNumber: 30, },
     //   ]
     // },
     {
@@ -211,12 +136,12 @@ const Dashboard = () => {
       icon: faFile,
       tabNumber: 30,
       subButtons: [
-        { label: 'Container Cycle', tabNumber: 41, icon: faCog },
-        { label: 'Equipment Interchange', tabNumber: 43, icon: faCog },
-        { label: 'Terminal Delivery Order', tabNumber: 44, icon: faCog },
-        { label: 'Split Bill of Loading', tabNumber: 45, icon: faCog },
-        { label: 'Cargo Blocking', tabNumber: 46, icon: faCog },
-        { label: 'Storage Free Days', tabNumber: 48, icon: faCog },
+        { label: 'Container Cycle', tabNumber: 41, },
+        { label: 'Equipment Interchange', tabNumber: 43, },
+        { label: 'Terminal Delivery Order', tabNumber: 44, },
+        { label: 'Split Bill of Loading', tabNumber: 45, },
+        { label: 'Cargo Blocking', tabNumber: 46, },
+        { label: 'Storage Free Days', tabNumber: 48, },
       ]
     },
     {
@@ -224,19 +149,19 @@ const Dashboard = () => {
       icon: faFileContract,
       tabNumber: 31,
       subButtons: [
-        { label: 'Vessel ', tabNumber: 53, icon: faCog },
-        { label: 'Manifest ', tabNumber: 54, icon: faCog },
-        { label: 'Container ', tabNumber: 31, icon: faCog },
-        { label: 'Customer ', tabNumber: 49, icon: faCog },
-        { label: 'Agency ', tabNumber: 50, icon: faCog },
-        { label: 'Agent ', tabNumber: 51, icon: faCog },
-        { label: 'Equ. Mgt. ', tabNumber: 55, icon: faCog },
-        { label: 'Term. Inv. ', tabNumber: 56, icon: faCog },
-        { label: 'Yard Cont. Mgt ', tabNumber: 57, icon: faCog },
-        { label: 'Yard Cont. Tracker ', tabNumber: 58, icon: faCog },
-        { label: 'Payment Confirmation', tabNumber: 59, icon: faCog },
-        { label: 'Cargo Blocking', tabNumber: 60, icon: faCog },
-        { label: 'Cargo Blocking', tabNumber: 61, icon: faCog },
+        { label: 'Vessel ', tabNumber: 53, },
+        { label: 'Manifest ', tabNumber: 54, },
+        { label: 'Container ', tabNumber: 31, },
+        { label: 'Customer ', tabNumber: 49, },
+        { label: 'Agency ', tabNumber: 50, },
+        { label: 'Agent ', tabNumber: 51, },
+        { label: 'Equ. Mgt. ', tabNumber: 55, },
+        { label: 'Term. Inv. ', tabNumber: 56, },
+        { label: 'Yard Cont. Mgt ', tabNumber: 57, },
+        { label: 'Yard Cont. Tracker ', tabNumber: 58, },
+        { label: 'Payment Confirmation', tabNumber: 59, },
+        { label: 'Cargo Blocking', tabNumber: 60, },
+        { label: 'Cargo Blocking', tabNumber: 61, },
       ]
     }
   ];
@@ -258,10 +183,10 @@ const Dashboard = () => {
                 label="Settings" 
                 icon={faCog} 
                 subButtons={[
-                    // { label: 'Create Invoice', tabNumber: 30, icon: faCog },
-                    // { label: 'View Invoice', tabNumber: 31, icon: faCog },
-                    // { label: 'Payment', tabNumber: 32, icon: faCog },
-                    // { label: 'Receivables', tabNumber: 33, icon: faCog }
+                    // { label: 'Create Invoice', tabNumber: 30, },
+                    // { label: 'View Invoice', tabNumber: 31, },
+                    // { label: 'Payment', tabNumber: 32, },
+                    // { label: 'Receivables', tabNumber: 33, }
                  ]} 
                  />
             <TabButton label="Logout" icon={faSignOutAlt}  />
@@ -269,26 +194,13 @@ const Dashboard = () => {
         </div>
 
         <div className="flex-grow">
-          {/* {activeTab === 1 && <Home />} */}
-          {activeTab === 2 && <Operations />}
-          {activeTab === 3 && <Finance/>}
-          {activeTab === 4 && <Report/>}
-
-          {/* Vessel */}
-          {/* {activeTab === 5 && <Vessel />}
-          {activeTab === 6 && <AddVessel />}
-          {activeTab === 7 && <ManageVoyage/>}
-          {activeTab === 8 && <LockVessel/>} */}
-
-          {/* Manifest  */}
-          {/* {activeTab === 9 && <ViewManifest/>}
-          {activeTab === 10 && <CreateManifest/>}
-          {activeTab === 11 && <UpdateManifest/>}
-          {activeTab === 12 && <LockManifest/>} */}
+          {activeTab === 1 && <Operations />}
+          {activeTab === 2 && <Report/>}
 
           {/* Container */}
-          {activeTab === 13 && <ViewContainer/>}
-          {activeTab === 14  && <AddContainer/>}
+          {activeTab === 3 && <ViewContainer/>}
+          {activeTab === 4  && <AddContainer/>}
+          {activeTab === 5 && <ManageBooking />}
           {activeTab === 15 && <ContainerTransfer/>}
 
           {/* Customer */}
