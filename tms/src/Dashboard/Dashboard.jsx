@@ -107,7 +107,7 @@ const Dashboard = () => {
           <button
             key={subButton.label}
             className={`w-[190px] text-left flex ml-2 py-2 px-4 bg-white ${
-              activeTab === subButton.tabNumber ? 'bg-[#4E9352] text-white' : 'hover:bg-[#6ac26e3b]'
+              activeTab === subButton.tabNumber ? 'bg-[#4E9352] ' : 'hover:bg-[#6ac26e3b]'
             }`}
             onClick={() => {
               setActiveTab(subButton.tabNumber);
