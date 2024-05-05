@@ -14,8 +14,8 @@ const ManageBooking = () => {
 
 
   const data = [
-    { containerId: 'VS72873', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Ocean Voyage', eta: '9/5/2024 8:00', etd: '9/5/2024 8:00', totalContainers: 100, status: 'At Port', action: 'View Details', type: 'Dry', customerName: 'ABC Shipping'},
-    { containerId: 'VS27832', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Nautical Spirit', eta: '3/6/2024 14:30', etd: '9/5/2024 8:00', totalContainers: 140, status: 'In transit', action: 'View Details', type: 'Refregirated', customerName: 'ABC Shipping'},
+    { containerId: 'VS72873', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Ocean Voyage', eta: '9/5/2024 8:00', etd: '9/5/2024 8:00', totalContainers: 100, status: 'At Port', action: 'View Details', type: 'Dry', customerName: 'ABC Shipping', assignment: 'Not Assigned', lastUpdate: '2024-03-15 09:35 AM (UTC)'},
+    { containerId: 'VS27832', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Nautical Spirit', eta: '3/6/2024 14:30', etd: '9/5/2024 8:00', totalContainers: 140, status: 'In transit', action: 'View Details', type: 'Refregirated', customerName: 'ABC Shipping', assignment: 'Not Assigned', lastUpdate: '2024-03-15 09:35 AM (UTC)'},
   ];
   
 
@@ -111,21 +111,25 @@ const ManageBooking = () => {
           transition={{ duration: 0.3 }}
           className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-[#F2F2F2] bg-opacity-50"
         >
-          <div className="bg-[#ffff] px-20 py-10 rounded-xl text-center shadow-2xl">
-            <p className="text-2xl font-bold mb-8">More Details</p>
-            <div className="text-left flex flex-col gap-4">
-              <p className="font-semibold">• Vessel Name: <span className="font-normal">{selectedVesselDetails.vesselName}</span></p>
-              <p className="font-semibold">• Arrival Time: <span className="font-normal">{selectedVesselDetails.eta}</span></p>
-              <p className="font-semibold">• Departure Time: <span className="font-normal">{selectedVesselDetails.etd}</span></p>
-              <p className="font-semibold">• Original Port: <span className="font-normal">{selectedVesselDetails.lastPort}</span></p>
-              <p className="font-semibold">• Destination: <span className="font-normal">{selectedVesselDetails.nextPort}</span></p>
-              <p className="font-semibold">• Status: <span className="font-normal">{selectedVesselDetails.status}</span></p>
-              <div className="flex gap-4">
-                <p className="font-semibold">• Cargo Information: <span className="font-normal">{selectedVesselDetails.cargoInfo}</span></p>
-                <p className="font-semibold">Destination: <span className="font-normal">{selectedVesselDetails.Destination}</span></p>
-              </div>
-              <p className="font-semibold">• Agent/Operator: <span className="font-normal">{selectedVesselDetails.Agent}</span></p>
-             
+          <div className="bg-[#ffff] px-10 py-10 rounded-xl shadow-2xl">
+            <p className="text-xl font-bold mb-8">Container Details</p>
+            <div className="text-left flex flex-col gap-1">
+              <p className="font-semibold">Vessel Name: <span className="font-normal ">{selectedVesselDetails.vesselName}</span></p>
+              <p className="font-semibold">Arrival Time: <span className="font-normal ">{selectedVesselDetails.eta}</span></p>
+              <p className="font-semibold">Departure Time: <span className="font-normal ">{selectedVesselDetails.etd}</span></p>
+              <p className="font-semibold">Original Port: <span className="font-normal ">{selectedVesselDetails.lastPort}</span></p>
+              <p className="font-semibold">Destination: <span className="font-normal ">{selectedVesselDetails.Destination}</span></p>
+              <p className="font-semibold">Status: <span className="font-normal ">{selectedVesselDetails.status}</span></p>
+            </div>
+            <div className="addInfo">
+                <p className="text-xl font-bold my-4">Additional Information</p>
+
+                <div className="text-left flex flex-col gap-1">
+                    <p className="font-semibold">• Vessel Assignment: <span className="font-normal ">{selectedVesselDetails.assignment}</span></p>
+                    <p className="font-semibold">• Cargo Type: <span className="font-normal ">{selectedVesselDetails.type}</span></p>
+                    <p className="font-semibold">• Last Update: <span className="font-normal ">{selectedVesselDetails.lastUpdate}</span></p>
+                    <p className="font-semibold">• Estimated Time of Arrival (ETA): <span className="font-normal ">{selectedVesselDetails.eta}</span></p>
+                </div>
             </div>
             <div className="flex justify-center space-x-4 mt-4">
               <button onClick={closeDetailsBox} className="bg-[#4E9352] text-white px-6 py-1 rounded-full">Close</button>
