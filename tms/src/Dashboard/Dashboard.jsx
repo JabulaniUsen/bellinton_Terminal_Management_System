@@ -20,6 +20,7 @@ import Report from './Tabs/Report';
 import ManageBooking from './Tabs/ContainerComponents/ManageContainer';
 import ViewCustomer from './Tabs/CustomerComponents/ViewCustomer';
 import ManageCustomer from './Tabs/CustomerComponents/ManageCustomer';
+import AddCustomer from './Tabs/CustomerComponents/AddCustomer';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -113,8 +114,8 @@ const Dashboard = () => {
       icon: faUserAlt,
       subButtons: [
         { label: 'View Customer', tabNumber: 6, },
-        { label: 'Manage Customer', tabNumber: 7, },
-        { label: 'Add Customer', tabNumber: 8, }
+        { label: 'Add Customer', tabNumber: 7, },
+        { label: 'Manage Customer', tabNumber: 8, },
       ]
     },
     {
@@ -191,7 +192,8 @@ const Dashboard = () => {
 
           {/* Customer */}
           {activeTab === 6 && <ViewCustomer/>}
-          {activeTab === 7 && <ManageCustomer/>}
+          {activeTab === 7 && <AddCustomer/>}
+          {activeTab === 8 && <ManageCustomer/>}
           {/* {activeTab === 22 && <ViewAgencies/>}
           {activeTab === 24 && <ManageAgencies/>}
           {activeTab === 32 && <ViewAgent/>}
