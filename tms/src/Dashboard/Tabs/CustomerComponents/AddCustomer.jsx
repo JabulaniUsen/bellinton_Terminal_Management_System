@@ -91,7 +91,6 @@ const AddCustomer = () => {
 
   const closeUploadBox = () => {
     setShowUpload(false);
-    setUploadSuccess(true);
   };
 
   const handleUpload = () => {
@@ -171,8 +170,8 @@ const AddCustomer = () => {
           </div>
         </div>
         <div className="flex justify-center items-center gap-5 text-lg">
-          <p onClick={handleUpload} className='underline text-[#4000FF] font-semibold cursor-pointer'>Upload CSV/XLS</p>
-          <button type="submit" className='bg-[#4000FF] hover:bg-[#3a0ec0] rounded-lg text-white px-10 py-2'>Add Customer</button>
+          <p onClick={handleUpload} className='underline text-[#4e9352] font-semibold cursor-pointer'>Upload CSV/XLS</p>
+          <button type="submit" className='bg-[#4e9352] hover:bg-[#4e93518c] rounded-lg text-white px-10 py-2'>Add Customer</button>
           <button type="reset" className='bg-[#828282] rounded-lg text-white px-12 py-2'>Reset</button>
         </div>
       </form>

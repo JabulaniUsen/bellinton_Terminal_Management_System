@@ -132,6 +132,7 @@ const ManageBooking = () => {
                 </div>
             </div>
             <div className="flex justify-center space-x-4 mt-4">
+              <button onClick={closeDetailsBox} className="bg-[#4E9352] text-white px-6 py-1 rounded-full">Update</button>
               <button onClick={closeDetailsBox} className="bg-[#4E9352] text-white px-6 py-1 rounded-full">Close</button>
             </div>
           </div>

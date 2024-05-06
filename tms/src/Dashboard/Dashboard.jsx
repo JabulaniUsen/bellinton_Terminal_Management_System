@@ -13,13 +13,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Header from './Components/Header';
 import Operations from './Tabs/Operations';
-import Finance from './Tabs/Finance';
 import ViewContainer from './Tabs/ContainerComponents/ViewContainer';
 import AddContainer from './Tabs/ContainerComponents/AddContainter';
 import ContainerTransfer from './Tabs/ContainerComponents/ContainerTransfer';
 import Report from './Tabs/Report';
 import ManageBooking from './Tabs/ContainerComponents/ManageContainer';
-
+import ViewCustomer from './Tabs/CustomerComponents/ViewCustomer';
+import ManageCustomer from './Tabs/CustomerComponents/ManageCustomer';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -81,6 +81,7 @@ const Dashboard = () => {
     {
       label: 'Container',
       icon: faShip,
+      tabNumber: 3,
       subButtons: [
         { label: 'View Container', tabNumber: 3, },
         { label: 'Add Container', tabNumber: 4, },
@@ -111,26 +112,11 @@ const Dashboard = () => {
       label: 'Customers',
       icon: faUserAlt,
       subButtons: [
-        { label: 'View/Add Customer', tabNumber: 21, },
-        { label: 'Manage Customer', tabNumber: 23, },
-        { label: 'View/Add Agencies', tabNumber: 22, },
-        { label: 'Manage Agencies', tabNumber: 24, },
-        { label: 'View/Add Agents', tabNumber: 32, },
-        { label: 'Manage Agents', tabNumber: 33, },
+        { label: 'View Customer', tabNumber: 6, },
+        { label: 'Manage Customer', tabNumber: 7, },
+        { label: 'Add Customer', tabNumber: 8, }
       ]
     },
-    // {
-    //   label: 'Billings',
-    //   icon: faDollarSign,
-    //   subButtons: [
-    //     { label: 'Overview', tabNumber: 25, },
-    //     { label: 'Invoice', tabNumber: 26, },
-    //     { label: 'Additional Invoice', tabNumber: 27, },
-    //     { label: 'Discount', tabNumber: 28, },
-    //     { label: 'Payment Confirmation', tabNumber: 29, },
-    //     // { label: 'Billing History', tabNumber: 30, },
-    //   ]
-    // },
     {
       label: 'Documentation',
       icon: faFile,
@@ -204,9 +190,9 @@ const Dashboard = () => {
           {activeTab === 15 && <ContainerTransfer/>}
 
           {/* Customer */}
-          {/* {activeTab === 21 && <ViewCustomer/>}
-          {activeTab === 23 && <ManageCustomer/>}
-          {activeTab === 22 && <ViewAgencies/>}
+          {activeTab === 6 && <ViewCustomer/>}
+          {activeTab === 7 && <ManageCustomer/>}
+          {/* {activeTab === 22 && <ViewAgencies/>}
           {activeTab === 24 && <ManageAgencies/>}
           {activeTab === 32 && <ViewAgent/>}
           {activeTab === 33 && <ManageAgent/>} */}
