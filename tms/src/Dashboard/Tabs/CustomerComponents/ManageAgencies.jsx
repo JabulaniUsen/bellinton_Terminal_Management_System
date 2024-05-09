@@ -110,12 +110,12 @@ const ManageAgencies = () => {
             <table className="border border-collapse my-10 text-sm">
             <thead>
                 <tr className="border border-black ">
-                <th className="border bg-black text-white p-2">Agency ID</th>
-                <th className="border bg-black text-white p-2">Agency Name</th>
-                <th className="border bg-black text-white p-2">Contact Person</th>
-                <th className="border bg-black text-white p-2">Email</th>
-                <th className="border bg-black text-white p-2">Phone</th>
-                <th className="border bg-black text-white p-2">Address</th>
+                <th className="border bg-yellow-100 border-black px-3 py-2">Agency ID</th>
+                <th className="border bg-yellow-100 border-black px-3 py-2">Agency Name</th>
+                <th className="border bg-yellow-100 border-black px-3 py-2">Contact Person</th>
+                <th className="border bg-yellow-100 border-black px-3 py-2">Email</th>
+                <th className="border bg-yellow-100 border-black px-3 py-2">Phone</th>
+                <th className="border bg-yellow-100 border-black px-3 py-2">Address</th>
                 </tr>
             </thead>
             <tbody>
@@ -123,7 +123,7 @@ const ManageAgencies = () => {
                 <tr
                     key={index}
                     className="hover:bg-[#d7c9ff] cursor-pointer"
-                    onClick={() => handleRowClick(rowData)} // Attach the click event here
+                    onClick={() => handleRowClick(rowData)}
                 >
                     <td className="border border-black px-3 py-2">{rowData.agencyId}</td>
                     <td className="border border-black px-3 py-2">{rowData.agencyName}</td>
@@ -156,7 +156,7 @@ const ManageAgencies = () => {
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        backgroundColor: 'rgba(0, 0, 0, 0.5)', // semi-transparent black overlay
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
                         }}>
                         <div className="modal-content bg-white p-10 rounded-xl">
                             <h3 className="text-2xl font-bold mb-7 text-center">Edit Agency Data</h3>
@@ -281,7 +281,7 @@ const ManageAgencies = () => {
                             </div>
                             <div className="flex mt-10 gap-10 justify-center items-center">
                                 <button
-                                    className="bg-[#20007F] text-white  py-1 px-10 rounded-xl"
+                                    className="bg-[#427a45] text-white  py-1 px-10 rounded-xl"
                                     onClick={handleUpdate}
                                 >
                                     Update
@@ -300,9 +300,9 @@ const ManageAgencies = () => {
                 </AnimatePresence>
     
                 <div className="flex gap-5 justify-center items-center my-10">
-                    <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handlePrint}>Print</button>
-                    <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={exportAsCSV}>Export as CSV</button>
-                    <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={exportAsPDF}>Export as PDF</button>
+                    <button className='text-white bg-[#4e9352] rounded-md py-1 px-10' onClick={handlePrint}>Print</button>
+                    <button className='text-white bg-[#4e9352] rounded-md py-1 px-10' onClick={exportAsCSV}>Export as CSV</button>
+                    <button className='text-white bg-[#4e9352] rounded-md py-1 px-10' onClick={exportAsPDF}>Export as PDF</button>
                 </div>
 
         </div>

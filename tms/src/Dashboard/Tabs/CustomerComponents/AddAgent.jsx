@@ -18,7 +18,6 @@ const AddAgent = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Create a local URL for the selected image file
       const imageUrl = URL.createObjectURL(file);
       setProfileImage(imageUrl);
     }
@@ -224,8 +223,8 @@ const AddAgent = () => {
             </div>
         </div>
         <div className="flex justify-center items-center gap-5 text-lg">
-          <p onClick={handleUpload} className='underline text-[#4000FF] font-semibold cursor-pointer'>Upload CSV/XLS</p>
-          <button type="submit" className='bg-[#4000FF] hover:bg-[#3a0ec0] rounded-lg text-white px-10 py-2'>Add Agent</button>
+          <p onClick={handleUpload} className='underline text-[#4e9352] font-semibold cursor-pointer'>Upload CSV/XLS</p>
+          <button type="submit" className='bg-[#4e9352] hover:bg-[#317035] rounded-lg text-white px-10 py-2'>Add Agent</button>
           <button type="reset" className='bg-[#828282] rounded-lg text-white px-12 py-2'>Reset</button>
         </div>
       </form>

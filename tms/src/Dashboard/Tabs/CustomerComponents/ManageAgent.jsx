@@ -108,13 +108,13 @@ const ManageAgent = () => {
     
             <table className="border border-collapse my-10 w-[100%]">
             <thead>
-                <tr className="border border-black ">
-                <th className="border bg-black text-white">Agent ID</th>
-                <th className="border bg-black text-white">Agent Name</th>
-                <th className="border bg-black text-white">Contact Person</th>
-                <th className="border bg-black text-white">Email</th>
-                <th className="border bg-black text-white">Phone</th>
-                <th className="border bg-black text-white">Address</th>
+                <tr className="">
+                <th className="border border-black px-3 py-2 bg-yellow-100 ">Agent ID</th>
+                <th className="border border-black px-3 py-2 bg-yellow-100 ">Agent Name</th>
+                <th className="border border-black px-3 py-2 bg-yellow-100 ">Contact Person</th>
+                <th className="border border-black px-3 py-2 bg-yellow-100 ">Email</th>
+                <th className="border border-black px-3 py-2 bg-yellow-100 ">Phone</th>
+                <th className="border border-black px-3 py-2 bg-yellow-100 ">Address</th>
                 </tr>
             </thead>
             <tbody>
@@ -155,11 +155,11 @@ const ManageAgent = () => {
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        backgroundColor: 'rgba(0, 0, 0, 0.5)', // semi-transparent black overlay
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
                         }}>
                         <div className="modal-content bg-white p-10 rounded-xl">
                             <h3 className="text-2xl font-bold mb-7 text-center">Edit Agent Data</h3>
-                            <div className="form flex flex-col gap-2  justify-center">
+                            <div className="flex flex-col gap-2  justify-center">
                                 <div className="flex gap-10 items-center justify-between ">
                                     <label htmlFor="editedAgentName" className='font-semibold text-base'>Agent Name:</label>
                                     <input
@@ -280,7 +280,7 @@ const ManageAgent = () => {
                             </div>
                             <div className="flex mt-10 gap-10 justify-center items-center">
                                 <button
-                                    className="bg-[#20007F] text-white  py-1 px-10 rounded-xl"
+                                    className="bg-[#357c39] text-white  py-1 px-10 rounded-xl"
                                     onClick={handleUpdate}
                                 >
                                     Update
@@ -299,9 +299,9 @@ const ManageAgent = () => {
                 </AnimatePresence>
     
                 <div className="flex gap-5 justify-center items-center my-10">
-                    <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handlePrint}>Print</button>
-                    <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={exportAsCSV}>Export as CSV</button>
-                    <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={exportAsPDF}>Export as PDF</button>
+                    <button className='text-white bg-[#4e9352] rounded-md py-1 px-10' onClick={handlePrint}>Print</button>
+                    <button className='text-white bg-[#4e9352] rounded-md py-1 px-10' onClick={exportAsCSV}>Export as CSV</button>
+                    <button className='text-white bg-[#4e9352] rounded-md py-1 px-10' onClick={exportAsPDF}>Export as PDF</button>
                 </div>
 
         </div>

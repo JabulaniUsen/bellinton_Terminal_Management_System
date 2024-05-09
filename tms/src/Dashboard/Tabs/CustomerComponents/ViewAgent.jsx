@@ -93,8 +93,8 @@ const ViewAgent = () => {
                 </div>
 
               <div className="flex gap-3 justify-center items-center my-10">
-                <button className=' text-white bg-[#4000FF] rounded-xl py-2 px-10' onClick={handleSearch} >View</button>
-                <button className=' text-white bg-[#4000FF] rounded-xl py-2 px-10' onClick={handleAddAgent} >Add Agent</button>
+                <button className=' text-white bg-[#4e9352] rounded-xl py-2 px-10' onClick={handleSearch} >View</button>
+                <button className=' text-white bg-[#4e9352] rounded-xl py-2 px-10' onClick={handleAddAgent} >Add Agent</button>
               </div>
             </div>
           </div>
@@ -107,13 +107,13 @@ const ViewAgent = () => {
           <div className="table overflow-x-auto my-10">
           <table className="border border-collapse">
             <thead>
-              <tr className="grid grid-cols-6 border border-black">
-                <th className=" border bg-black text-white py-2">Agent ID</th>
-                <th className=" border bg-black text-white py-2">Agent Name</th>
-                <th className=" border bg-black text-white py-2">Contact Person</th>
-                <th className=" border bg-black text-white py-2">Email</th>
-                <th className=" border bg-black text-white py-2">Phone</th>
-                <th className=" border bg-black text-white py-2">Address</th>
+              <tr className="grid grid-cols-6 border">
+                <th className=" border border-black bg-yellow-100 py-2 px-4">Agent ID</th>
+                <th className=" border border-black bg-yellow-100 py-2 px-4">Agent Name</th>
+                <th className=" border border-black bg-yellow-100 py-2 px-4">Contact Person</th>
+                <th className=" border border-black bg-yellow-100 py-2 px-4">Email</th>
+                <th className=" border border-black bg-yellow-100 py-2 px-4">Phone</th>
+                <th className=" border border-black bg-yellow-100 py-2 px-4">Address</th>
               </tr>
             </thead>
             <tbody>
@@ -130,7 +130,7 @@ const ViewAgent = () => {
             </tbody>
           </table>
           <div className="flex flex-col justify-end items-end my-10">
-            <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={resetSearch} >Back</button>
+            <button className=' text-white bg-[#4e9352] rounded-md py-1 px-10' onClick={resetSearch} >Back</button>
           </div>
         </div>
         }
@@ -150,7 +150,7 @@ const ViewAgent = () => {
             <div className="bg-[#ffff] px-8 py-6 rounded-3xl text-center">
               <p className="text-2xl font-bold mb-4">Manifest Uploaded successfully!</p>
               <div className="flex justify-center space-x-4">
-                <button onClick={handleModalOK} className="bg-[#4000FF] text-white px-6 py-1 rounded-full">OK</button>
+                <button onClick={handleModalOK} className="bg-[#4e9352] text-white px-6 py-1 rounded-full">OK</button>
               </div>
             </div>
           </motion.div>
@@ -182,7 +182,7 @@ const ViewAgent = () => {
              
             </div>
             <div className="flex justify-center space-x-4 mt-4">
-              <button onClick={closeDetailsBox} className="bg-[#4000FF] text-white px-6 py-1 rounded-full">Close</button>
+              <button onClick={closeDetailsBox} className="bg-[#4e9352] text-white px-6 py-1 rounded-full">Close</button>
             </div>
           </div>
         </motion.div>

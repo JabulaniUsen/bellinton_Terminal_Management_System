@@ -21,6 +21,12 @@ import ManageBooking from './Tabs/ContainerComponents/ManageContainer';
 import ViewCustomer from './Tabs/CustomerComponents/ViewCustomer';
 import ManageCustomer from './Tabs/CustomerComponents/ManageCustomer';
 import AddCustomer from './Tabs/CustomerComponents/AddCustomer';
+import ViewAgencies from './Tabs/CustomerComponents/ViewAgencies';
+import ManageAgencies from './Tabs/CustomerComponents/ManageAgencies';
+import AddAgencies from './Tabs/CustomerComponents/AddAgencies';
+import AddAgent from './Tabs/CustomerComponents/AddAgent';
+import ViewAgent from './Tabs/CustomerComponents/ViewAgent';
+import ManageAgent from './Tabs/CustomerComponents/ManageAgent';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -116,41 +122,47 @@ const Dashboard = () => {
         { label: 'View Customer', tabNumber: 6, },
         { label: 'Add Customer', tabNumber: 7, },
         { label: 'Manage Customer', tabNumber: 8, },
+        { label: 'View Agency', tabNumber: 9, },
+        { label: 'Manage Agency', tabNumber: 10, },
+        { label: 'Add Agency', tabNumber: 11, },
+        { label: 'View Agent', tabNumber: 12, },
+        { label: 'Manage Agent', tabNumber: 13, },
+        { label: 'Add Agent', tabNumber: 14, }
       ]
     },
-    {
-      label: 'Documentation',
-      icon: faFile,
-      tabNumber: 30,
-      subButtons: [
-        { label: 'Container Cycle', tabNumber: 41, },
-        { label: 'Equipment Interchange', tabNumber: 43, },
-        { label: 'Terminal Delivery Order', tabNumber: 44, },
-        { label: 'Split Bill of Loading', tabNumber: 45, },
-        { label: 'Cargo Blocking', tabNumber: 46, },
-        { label: 'Storage Free Days', tabNumber: 48, },
-      ]
-    },
-    {
-      label: 'Report',
-      icon: faFileContract,
-      tabNumber: 31,
-      subButtons: [
-        { label: 'Vessel ', tabNumber: 53, },
-        { label: 'Manifest ', tabNumber: 54, },
-        { label: 'Container ', tabNumber: 31, },
-        { label: 'Customer ', tabNumber: 49, },
-        { label: 'Agency ', tabNumber: 50, },
-        { label: 'Agent ', tabNumber: 51, },
-        { label: 'Equ. Mgt. ', tabNumber: 55, },
-        { label: 'Term. Inv. ', tabNumber: 56, },
-        { label: 'Yard Cont. Mgt ', tabNumber: 57, },
-        { label: 'Yard Cont. Tracker ', tabNumber: 58, },
-        { label: 'Payment Confirmation', tabNumber: 59, },
-        { label: 'Cargo Blocking', tabNumber: 60, },
-        { label: 'Cargo Blocking', tabNumber: 61, },
-      ]
-    }
+    // {
+    //   label: 'Documentation',
+    //   icon: faFile,
+    //   tabNumber: 30,
+    //   subButtons: [
+    //     { label: 'Container Cycle', tabNumber: 41, },
+    //     { label: 'Equipment Interchange', tabNumber: 43, },
+    //     { label: 'Terminal Delivery Order', tabNumber: 44, },
+    //     { label: 'Split Bill of Loading', tabNumber: 45, },
+    //     { label: 'Cargo Blocking', tabNumber: 46, },
+    //     { label: 'Storage Free Days', tabNumber: 48, },
+    //   ]
+    // },
+    // {
+    //   label: 'Report',
+    //   icon: faFileContract,
+    //   tabNumber: 31,
+    //   subButtons: [
+    //     { label: 'Vessel ', tabNumber: 53, },
+    //     { label: 'Manifest ', tabNumber: 54, },
+    //     { label: 'Container ', tabNumber: 31, },
+    //     { label: 'Customer ', tabNumber: 49, },
+    //     { label: 'Agency ', tabNumber: 50, },
+    //     { label: 'Agent ', tabNumber: 51, },
+    //     { label: 'Equ. Mgt. ', tabNumber: 55, },
+    //     { label: 'Term. Inv. ', tabNumber: 56, },
+    //     { label: 'Yard Cont. Mgt ', tabNumber: 57, },
+    //     { label: 'Yard Cont. Tracker ', tabNumber: 58, },
+    //     { label: 'Payment Confirmation', tabNumber: 59, },
+    //     { label: 'Cargo Blocking', tabNumber: 60, },
+    //     { label: 'Cargo Blocking', tabNumber: 61, },
+    //   ]
+    // }
   ];
   
   
@@ -170,10 +182,10 @@ const Dashboard = () => {
                 label="Settings" 
                 icon={faCog} 
                 subButtons={[
-                    // { label: 'Create Invoice', tabNumber: 30, },
-                    // { label: 'View Invoice', tabNumber: 31, },
-                    // { label: 'Payment', tabNumber: 32, },
-                    // { label: 'Receivables', tabNumber: 33, }
+                  // { label: 'Create Invoice', tabNumber: 30, },
+                  // { label: 'View Invoice', tabNumber: 31, },
+                  // { label: 'Payment', tabNumber: 32, },
+                  // { label: 'Receivables', tabNumber: 33, }
                  ]} 
                  />
             <TabButton label="Logout" icon={faSignOutAlt}  />
@@ -194,10 +206,12 @@ const Dashboard = () => {
           {activeTab === 6 && <ViewCustomer/>}
           {activeTab === 7 && <AddCustomer/>}
           {activeTab === 8 && <ManageCustomer/>}
-          {/* {activeTab === 22 && <ViewAgencies/>}
-          {activeTab === 24 && <ManageAgencies/>}
-          {activeTab === 32 && <ViewAgent/>}
-          {activeTab === 33 && <ManageAgent/>} */}
+          {activeTab === 9 && <ViewAgencies/>}
+          {activeTab === 10 && <ManageAgencies/>}
+          {activeTab === 11 && <AddAgencies/>}
+          {activeTab === 12 && <ViewAgent/>}
+          {activeTab === 13 && <ManageAgent/>}
+          {activeTab === 14 && <AddAgent/>}
 
         {/* Yard Mgt   */}
         {/* {activeTab === 17 && <YardManagement onTabSwitch={handleTabSwitch}/>}
