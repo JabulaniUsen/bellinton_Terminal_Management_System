@@ -27,6 +27,7 @@ import AddAgencies from './Tabs/CustomerComponents/AddAgencies';
 import AddAgent from './Tabs/CustomerComponents/AddAgent';
 import ViewAgent from './Tabs/CustomerComponents/ViewAgent';
 import ManageAgent from './Tabs/CustomerComponents/ManageAgent';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -178,17 +179,17 @@ const Dashboard = () => {
             ))}
           </div>
           <div className="flex flex-col gap-3">
-            <TabButton 
+            {/* <TabButton 
                 label="Settings" 
                 icon={faCog} 
                 subButtons={[
-                  // { label: 'Create Invoice', tabNumber: 30, },
-                  // { label: 'View Invoice', tabNumber: 31, },
-                  // { label: 'Payment', tabNumber: 32, },
-                  // { label: 'Receivables', tabNumber: 33, }
+                  { label: 'Create Invoice', tabNumber: 30, },
+                  { label: 'View Invoice', tabNumber: 31, },
+                  { label: 'Payment', tabNumber: 32, },
+                  { label: 'Receivables', tabNumber: 33, }
                  ]} 
-                 />
-            <TabButton label="Logout" icon={faSignOutAlt}  />
+                 /> */}
+            <Link to='/'><TabButton label="Logout" icon={faSignOutAlt}  /></Link>
           </div>
         </div>
 
