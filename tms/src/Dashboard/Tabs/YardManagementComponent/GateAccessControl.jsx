@@ -5,7 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import GateAccessControlList from './GateAccessControlList';
 
-const GateAccessControl = () => {
+const GateAccessControl = () => { 
     const [isFileUploaded, setIsFileUploaded] = useState(false);
     const [showList, setShowList] = useState(false)
 
@@ -214,10 +214,10 @@ const GateAccessControl = () => {
               </div>
             </div>
           </div>
-          <div className="buttons flex items-center gap-3 mx-[300px] mt-10">
-            <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' type='submit'>Submit</button>
+          <div className="buttons flex items-center gap-3 mx-[200px] mt-10">
+            <button className='text-white bg-[#4e9352] rounded-md py-1 px-10' type='submit'>Submit</button>
             <button className='text-white bg-[#828282] rounded-md py-1 px-10' type='reset'>Reset</button>
-            <p className='text-white bg-[#4000FF] rounded-md py-1 px-10 cursor-pointer' onClick={handleShowList}>View Access List</p>
+            <p className='text-white bg-[#4e9352] rounded-md py-1 px-10 cursor-pointer' onClick={handleShowList}>View Access Report</p>
           </div>
         </form>
         <ToastContainer />

@@ -27,7 +27,11 @@ import AddAgencies from './Tabs/CustomerComponents/AddAgencies';
 import AddAgent from './Tabs/CustomerComponents/AddAgent';
 import ViewAgent from './Tabs/CustomerComponents/ViewAgent';
 import ManageAgent from './Tabs/CustomerComponents/ManageAgent';
+import ContainerMgt from './Tabs/YardManagementComponent/ContainerMgt';
 import { Link } from 'react-router-dom';
+import InboundGate from './Tabs/YardManagementComponent/InboundGate';
+import OutboundGate from './Tabs/YardManagementComponent/OutboundGate';
+import GateAccessControl from './Tabs/YardManagementComponent/GateAccessControl';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -102,17 +106,13 @@ const Dashboard = () => {
       icon: faWarehouse,
       // tabNumber: 16,
       subButtons: [
-        { label: 'Yard Overview', tabNumber: 17, },
-        { label: 'Container Mgt.', tabNumber: 18, },
-        { label: 'Container Tracking', tabNumber: 19, },
-        { label: 'Container Movement', tabNumber: 20, },
-        { label: 'Inbound Gate Entry', tabNumber: 34, },
-        { label: 'Outbound Gate Exit', tabNumber: 35, },
-        { label: 'Gate Access Control', tabNumber: 36, },
-        { label: 'Gate Incident', tabNumber: 37, },
-        { label: 'Equipement Mgt', tabNumber: 38, },
-        { label: 'Yard Queue', tabNumber: 39, },
-        { label: 'Yard Space', tabNumber: 40, },
+        { label: 'Inbound Gate Entry', tabNumber: 15, },
+        { label: 'Outbound Gate Exit', tabNumber: 16, },
+        { label: 'Gate Access Control', tabNumber: 17, },
+        { label: 'Gate Incident', tabNumber: 18, },
+        // { label: 'Equipement Mgt', tabNumber: 38, },
+        // { label: 'Yard Queue', tabNumber: 39, },
+        // { label: 'Yard Space', tabNumber: 40, },
         // { label: 'Yard Report', tabNumber: 41, },
       ],
     },
@@ -215,17 +215,13 @@ const Dashboard = () => {
           {activeTab === 14 && <AddAgent/>}
 
         {/* Yard Mgt   */}
-        {/* {activeTab === 17 && <YardManagement onTabSwitch={handleTabSwitch}/>}
-        { activeTab === 18 && <ContainerMgt/>}
-        { activeTab === 19 && <ContainerTracking/>}
-        { activeTab === 20 && <ContainerMovement />}
-        { activeTab === 34 && <InboundGate/> } 
-        { activeTab === 35 && <OutboundGate/>}
-        { activeTab === 36 && <GateAccessControl/>}
-        { activeTab === 37 && <GateInsident/>}
+        { activeTab === 15 && <InboundGate/> } 
+        { activeTab === 16 && <OutboundGate/>}
+        { activeTab === 17 && <GateAccessControl/>}
+        { activeTab === 18 && <GateInsident/>}
         { activeTab === 38 && <EquipementMgt/> }
         { activeTab === 39 && <YardQueueManagement/>}
-        { activeTab === 40 && <AssignContainer/> } */}
+        { activeTab === 40 && <AssignContainer/> }
 
         {/* Billing */}
         {/* {activeTab === 25 && <BillingOverview/>}

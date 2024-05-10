@@ -8,11 +8,11 @@ import { PDFDownloadLink, Page, Text, View, Document, StyleSheet } from '@react-
 
 const OutboundGateReport = () => {
     const [errorText, setErrorText] = useState(false);
-    const [data, setData] = useState([
+    const data = [
       { departureTime: '2024-03-15 09:00', truckID: 'TRK123', containerID: 'CN172873', companyName: 'ABC Shipping Co.', driverName: 'John Smith', cargoDesc: 'Electronics', licensePlate: 'ABC938', status: 'Approved', },
       { departureTime: '2024-03-15 09:00', truckID: 'TRK123', containerID: 'CN127832', companyName: 'ABC Shipping Co.', driverName: 'John Smith', cargoDesc: 'Electronics', licensePlate: 'ABC938', status: 'Approved', },
       { departureTime: '2024-03-15 09:00', truckID: 'TRK123', containerID: 'CN127832', companyName: 'ABC Shipping Co.', driverName: 'John Smith', cargoDesc: 'Electronics', licensePlate: 'ABC938', status: 'Approved', },
-    ]);
+    ];
   
     const [statusSearchTerm, setStatusSearchTerm] = useState('');
     const [containerIDSearchTerm, setContainerIDSearchTerm] = useState('');
@@ -122,53 +122,12 @@ const OutboundGateReport = () => {
         </Document>
       );
     
-      // Styles for PDF
-      const styles = StyleSheet.create({
-        page: {
-          flexDirection: 'column',
-        },
-        row: {
-          flexDirection: 'row',
-          borderBottomColor: '#000',
-          borderBottomWidth: 1,
-        },
-        cell: {
-          flexGrow: 1,
-          padding: 4,
-        },
-      });
 
   return (
     <div className="">
       <div className='roboto poppins m-10'>
         <div className="head flex justify-between">
           <h3 className='font-bold text-2xl'>Outbound Gate Exit</h3>
-        </div>
-
-        <div>
-          <div className="flex justify-between items-center">
-            <div className="">
-              <div className="flex gap-4 mt-5 items-center">
-                    <label htmlFor="" className='text-lg font-bold'>Container ID:</label>
-                    <div className="">
-                  <Select
-                    options={data.map((item) => ({ value: item.containerID, label: item.containerID }))}
-                    value={containerIDSearchTerm ? { value: containerIDSearchTerm, label: containerIDSearchTerm } : null}
-                    onChange={(selectedOption) => setContainerIDSearchTerm(selectedOption.value)}
-                    isSearchable
-                    placeholder="Search by Container No."
-                    className='outline-none min-w-[300px] rounded'
-                  />
-                  {errorText && <p className="text-red-600">No results found</p>}
-                </div>
-
-                <div className="flex gap-2 justify-center items-center my-10">
-                  <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handleSearch}>View</button>
-                  <button className='text-black font-semibold bg-[#a0a0a0] rounded-md py-1 px-9' onClick={handleClearSearch}>Reset</button>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div className="moreInfo my-10" ref={componentRef}>
@@ -187,8 +146,8 @@ const OutboundGateReport = () => {
                 </tr>
               </thead>
               <tbody>
-                {searchResults.map((rowData, index) => (
-                  <tr key={index} className={selectedRow === index ? "bg-blue-200" : ""} onClick={() => handleRowClick(index)}>
+                {data.map((rowData, index) => (
+                  <tr key={index} onClick={() => handleRowClick(index)}>
                     <td className="border border-gray-800 px-3 py-2">{rowData.containerID}</td>
                     <td className="border border-gray-800 px-3 py-2">{rowData.truckID}</td>
                     <td className="border border-gray-800 px-3 py-2">{rowData.driverName}</td>
@@ -206,7 +165,7 @@ const OutboundGateReport = () => {
 
         <div className="flex gap-3 m-16">
             <button 
-                className={`text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10 ${selectedRow === null ? "opacity-50 cursor-not-allowed" : ""}`}
+                className={`text-white bg-[#4e9352] flex items-center justify-center rounded-md py-1 px-10 ${selectedRow === null ? "opacity-50 cursor-not-allowed" : ""}`}
                 onClick={handleViewDetails}
                 disabled={selectedRow === null}
                 >
@@ -217,13 +176,13 @@ const OutboundGateReport = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 disabled={selectedRow === null} // Disable button if no row is selected
-                className={`text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10 ${selectedRow === null ? "opacity-50 cursor-not-allowed" : ""}`}
+                className={`text-white bg-[#4e9352] flex items-center justify-center rounded-md py-1 px-10 ${selectedRow === null ? "opacity-50 cursor-not-allowed" : ""}`}
                 onClick={handleEdit}
             >
                 Edit
             </motion.button>
             <button 
-            className='text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10' 
+            className='text-white bg-[#4e9352] flex items-center justify-center rounded-md py-1 px-10' 
             onClick={() => generateCSV()}
             >
             Export CSV
@@ -234,7 +193,7 @@ const OutboundGateReport = () => {
             >
             {({ blob, url, loading, error }) => 
                 <button 
-                className='text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10' 
+                className='text-white bg-[#4e9352] flex items-center justify-center rounded-md py-1 px-10' 
                 disabled={loading}
                 >
                 {loading ? 'Loading...' : 'Export PDF'}
@@ -243,7 +202,7 @@ const OutboundGateReport = () => {
             </PDFDownloadLink>
             <ReactToPrint
             trigger={() => 
-            <button className='text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10'>
+            <button className='text-white bg-[#4e9352] flex items-center justify-center rounded-md py-1 px-10'>
                 Print
             </button>
             }
@@ -303,7 +262,7 @@ const OutboundGateReport = () => {
                   <button type="button" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm rounded-md text-black font-semibold bg-[#797979] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#3200cc]" onClick={handleClose}>
                     Cancel
                   </button>
-                  <button type="button" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-[#4000FF] hover:bg-[#3200cc] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#3200cc]" onClick={handleSave}>
+                  <button type="button" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-[#4e9352] hover:bg-[#3200cc] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#3200cc]" onClick={handleSave}>
                     Save
                   </button>
                 </div>

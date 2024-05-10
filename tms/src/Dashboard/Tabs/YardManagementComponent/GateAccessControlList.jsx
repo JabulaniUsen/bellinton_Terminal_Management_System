@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable'
 
-const GateAccessControlList = ({ }) => {
+const GateAccessControlList = ({ }) => { 
   const data = [
     {
       dateAndTime: '2024-03-15', gateEntryPoint: 'Gate A', securityOfficerName: 'John Doe', securityOfficerId: '12345', trailerNumber: 'TR123', vehicleType: 'Truck', 
@@ -63,11 +63,11 @@ const GateAccessControlList = ({ }) => {
   };
 
   return (
-    <div className='my-10 poppins' >
+    <div className='my-10 poppins overflow-x-scroll' >
       <div className=''>
         <div className="m-5 " ref={componentRef}>
         <h2 className="text-2xl font-bold mb-4" >Gate Access Control Report</h2>
-          <div className="table-container overflow-scroll w-[50%]">
+          <div className="table-container overflow-x-scroll w-[220%]">
             <table className="border-collapse border border-gray-800 ">
               <thead className=''>
                 <tr className="bg-gray-200">
@@ -125,11 +125,11 @@ const GateAccessControlList = ({ }) => {
           </div>
         </div>
         <div className="buttons flex justify-start items-center gap-10 mx-5 my-20 text-white">
-          <button onClick={handlePrint} className='bg-[#20007f] hover:bg-[#1b0b4e] transition-all px-10 py-2 rounded-lg'>Print</button>
+          <button onClick={handlePrint} className='bg-[#4e9352] hover:bg-[#307234] transition-all px-10 py-2 rounded-lg'>Print</button>
           <CSVLink data={handleExportCSV().data} headers={handleExportCSV().headers} filename={"container_list.csv"}>
-            <p className=' py-1 cursor-pointer rounded-full text-blue-700 underline font-semibold'>Export as CSV</p>
+            <p className=' py-1 cursor-pointer rounded-full text-green-700 underline font-semibold'>Export as CSV</p>
           </CSVLink>
-          <button onClick={handleExportPDF} className=' py-1 cursor-pointer rounded-full text-blue-700 underline font-semibold'>Export as PDF</button>
+          <button onClick={handleExportPDF} className=' py-1 cursor-pointer rounded-full text-green-700 underline font-semibold'>Export as PDF</button>
         </div>
         <ToastContainer />
       </div>

@@ -8,7 +8,7 @@ const ContainerMgt = () => {
   const [showContainerMgtData, setShowContainerMgtData] = useState(true);
   const [showContainerList, setShowContainerList] = useState(false)
 
-  const [data, setData] = useState([
+  const [data, setData] = useState([ 
     { containerNo: 'CN172873', status: 'In Yard', location: 'Stacking Area 1', associatedTasks: 'Inspection, Unloading' },
     { containerNo: 'CN127832', status: 'In Yard', location: 'Stacking Area 1', associatedTasks: 'Loading, Inspection' },
     { containerNo: 'CN127832', status: 'Not in Yard', location: 'Stacking Area 1', associatedTasks: 'Loading, Inspection' },
@@ -61,7 +61,7 @@ const ContainerMgt = () => {
             className='outline-none min-w-[300px] rounded'
           />
           <div className="flex  justify-center  my-10">
-            <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handleSearch}>Search</button>
+            <button className='text-white bg-[#4e9352] rounded-md py-1 px-10' onClick={handleSearch}>Search</button>
             <button className='text-white bg-[#FF0000] rounded-md  px-3 ml-2' onClick={handleClearSearch}><FontAwesomeIcon icon={faX} /></button>
           </div>
         </div>
@@ -90,7 +90,7 @@ const ContainerMgt = () => {
                 </tbody>
               </table>
   
-              <button className='text-white bg-[#4000FF] rounded-md py-1 px-10 m-16 mx-[200px]' onClick={handleView}>View Details</button>
+              <button className='text-white bg-[#4e9352] rounded-md py-1 px-10 m-16 mx-[200px]' onClick={handleView}>View Details</button>
             </div>
           }
         </div>
