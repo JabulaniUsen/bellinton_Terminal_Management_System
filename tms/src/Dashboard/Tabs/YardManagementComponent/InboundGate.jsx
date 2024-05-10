@@ -95,7 +95,7 @@ const InboundGate = () => {
             <div className="buttons flex w-[70%] gap-3 mx-[200px] mt-10">
               <button className='text-white bg-[#4e9352] rounded-md py-1 px-10' type='submit'>Submit</button>
               <button className='text-white bg-[#828282] rounded-md py-1 px-10' type='reset'>Reset</button>
-              {/* <p className='text-white bg-[#4e9352] rounded-md py-1 px-10 cursor-pointer' onClick={handleShowReport}>View Entry Details</p> */}
+              <p className='text-white bg-[#4e9352] rounded-md py-1 px-10 cursor-pointer' onClick={handleShowReport}>View Entry Details</p>
             </div>
           </form>
         </div>

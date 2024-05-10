@@ -8,13 +8,12 @@ import { PDFDownloadLink, Page, Text, View, Document, StyleSheet } from '@react-
 
 const InboundGateReport = () => {
     const [errorText, setErrorText] = useState(false);
-    const [data, setData] = useState([
+    const data = [
       { entryDateAndTime: '2024-03-15 09:00', truckID: 'TRK123', containerNo: 'CN172873', companyName: 'ABC Shipping Co.', size: '40ft', cargoDesc: 'Electronics', arrivalTime: '2024-02-17 09:45 AM', gatePass: 'Approved', specialInstructions: 'Fragile cargo' },
       { entryDateAndTime: '2024-03-15 09:00', truckID: 'TRK123', containerNo: 'CN127832', companyName: 'ABC Shipping Co.', size: '40ft', cargoDesc: 'Electronics', arrivalTime: '2024-02-17 09:45 AM', gatePass: 'Approved', specialInstructions: 'Fragile cargo' },
       { entryDateAndTime: '2024-03-15 09:00', truckID: 'TRK123', containerNo: 'CN127832', companyName: 'ABC Shipping Co.', size: '40ft', cargoDesc: 'Electronics', arrivalTime: '2024-02-17 09:45 AM', gatePass: 'Approved', specialInstructions: 'Fragile cargo' },
-    ]);
+    ];
   
-    const [statusSearchTerm, setStatusSearchTerm] = useState('');
     const [containerNoSearchTerm, setContainerNoSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([...data]); // Initialize searchResults with data
     const [selectedRow, setSelectedRow] = useState(null);
@@ -22,31 +21,15 @@ const InboundGateReport = () => {
     const [showFullDetails, setShowFullDetails] = useState(false);
     const [formData, setFormData] = useState({});
     const componentRef = useRef(null);
-  
-  const handleSearch = () => {
-    const filteredData = data.filter(item =>
-      item.containerNo.toLowerCase().includes(containerNoSearchTerm.toLowerCase())
-    );
-
-    setSearchResults(filteredData);
-    setErrorText(filteredData.length === 0);
-  };
-
-  const handleClearSearch = () => {
-    setStatusSearchTerm('');
-    setContainerNoSearchTerm('');
-    setSearchResults([]);
-    setErrorText(false);
-  };
 
   const handleRowClick = (index) => {
-    setSelectedRow(index); // Set selected row index
+    setSelectedRow(index);
   };
 
   const handleEdit = () => {
     if (selectedRow !== null) {
-      setFormData(searchResults[selectedRow]); // Set form data to selected row data
-      setModalOpen(true); // Open modal
+      setFormData(searchResults[selectedRow]); 
+      setModalOpen(true);
     }
   };
 
@@ -145,46 +128,20 @@ const InboundGateReport = () => {
           <h3 className='font-bold text-2xl'>Inbound Gate Entry</h3>
         </div>
 
-        <div>
-          <div className="flex justify-between items-center">
-            <div className="">
-              <div className="flex gap-4 mt-5 items-center">
-                <label htmlFor="" className='text-lg font-bold'>Container ID:</label>
-                <div className="">
-                  <Select
-                    options={data.map((item) => ({ value: item.containerNo, label: item.containerNo }))}
-                    value={containerNoSearchTerm ? { value: containerNoSearchTerm, label: containerNoSearchTerm } : null}
-                    onChange={(selectedOption) => setContainerNoSearchTerm(selectedOption.value)}
-                    isSearchable
-                    placeholder="Search by Container No."
-                    className='outline-none min-w-[300px] rounded'
-                  />
-                  {errorText && <p className="text-red-600">No results found</p>}
-                </div>
-
-                <div className="flex gap-2 justify-center items-center my-10">
-                  <button className='text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={handleSearch}>View</button>
-                  <button className='text-black font-semibold bg-[#a0a0a0] rounded-md py-1 px-9' onClick={handleClearSearch}>Reset</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div className="moreInfo my-10" ref={componentRef}>
           <div className="table overflow-x-auto my-10">
             <table className="border-collapse border border-gray-800">
               <thead>
-                <tr className="bg-gray-200">
-                  <th className="border border-gray-800 px-2 py-2">Entry Time and Date</th>
-                  <th className="border border-gray-800 px-2 py-2">Truck ID</th>
-                  <th className="border border-gray-800 px-2 py-2">Container ID</th>
-                  <th className="border border-gray-800 px-2 py-2">Company Name</th>
-                  <th className="border border-gray-800 px-2 py-2">Size</th>
-                  <th className="border border-gray-800 px-2 py-2">Cargo Description</th>
-                  <th className="border border-gray-800 px-2 py-2">Arrival Time</th>
-                  <th className="border border-gray-800 px-2 py-2">Gate Pass Status</th>
-                  <th className="border border-gray-800 px-2 py-2">Special Instructions</th>
+                <tr className="bg-yellow-100">
+                  <th className="border border-gray-800 px-3 py-2">Entry Time and Date</th>
+                  <th className="border border-gray-800 px-3 py-2">Truck ID</th>
+                  <th className="border border-gray-800 px-3 py-2">Container ID</th>
+                  <th className="border border-gray-800 px-3 py-2">Company Name</th>
+                  <th className="border border-gray-800 px-3 py-2">Size</th>
+                  <th className="border border-gray-800 px-3 py-2">Cargo Description</th>
+                  <th className="border border-gray-800 px-3 py-2">Arrival Time</th>
+                  <th className="border border-gray-800 px-3 py-2">Gate Pass Status</th>
+                  <th className="border border-gray-800 px-3 py-2">Special Instructions</th>
                 </tr>
               </thead>
               <tbody>
@@ -206,9 +163,9 @@ const InboundGateReport = () => {
           </div>
         </div>
 
-        <div className="flex gap-3  mx-[200px] m-16">
+        <div className="flex gap-3 mx-[100px] m-16">
         <button 
-            className={`text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10 ${selectedRow === null ? "opacity-50 cursor-not-allowed" : ""}`}
+            className={`text-white bg-[#4e9352] flex items-center justify-center rounded-md py-1 px-10 ${selectedRow === null ? "opacity-50 cursor-not-allowed" : ""}`}
             onClick={handleViewDetails}
             disabled={selectedRow === null}
             >
@@ -218,14 +175,14 @@ const InboundGateReport = () => {
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            disabled={selectedRow === null} // Disable button if no row is selected
-            className={`text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10 ${selectedRow === null ? "opacity-50 cursor-not-allowed" : ""}`}
+            disabled={selectedRow === null}
+            className={`text-white bg-[#4e9352] flex items-center justify-center rounded-md py-1 px-10 ${selectedRow === null ? "opacity-50 cursor-not-allowed" : ""}`}
             onClick={handleEdit}
           >
             Edit
           </motion.button>
           <button 
-          className='text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10' 
+          className='text-white bg-[#4e9352] flex items-center justify-center rounded-md py-1 px-10' 
           onClick={() => generateCSV()}
         >
           Export CSV
@@ -236,7 +193,7 @@ const InboundGateReport = () => {
         >
           {({ blob, url, loading, error }) => 
             <button 
-              className='text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10' 
+              className='text-white bg-[#4e9352] flex items-center justify-center rounded-md py-1 px-10' 
               disabled={loading}
             >
               {loading ? 'Loading...' : 'Export PDF'}
@@ -245,7 +202,7 @@ const InboundGateReport = () => {
         </PDFDownloadLink>
         <ReactToPrint
         trigger={() => 
-          <button className='text-white bg-[#4000FF] flex items-center justify-center rounded-md py-1 px-10'>
+          <button className='text-white bg-[#4e9352] flex items-center justify-center rounded-md py-1 px-10'>
             Print
           </button>
         }
@@ -309,7 +266,7 @@ const InboundGateReport = () => {
                   <button type="button" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm rounded-md text-black font-semibold bg-[#797979] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#3200cc]" onClick={handleClose}>
                     Cancel
                   </button>
-                  <button type="button" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-[#4000FF] hover:bg-[#3200cc] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#3200cc]" onClick={handleSave}>
+                  <button type="button" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-[#4e9352] hover:bg-[#2e6e32] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#3200cc]" onClick={handleSave}>
                     Save
                   </button>
                 </div>

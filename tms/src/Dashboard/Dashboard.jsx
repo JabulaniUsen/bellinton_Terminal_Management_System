@@ -106,10 +106,10 @@ const Dashboard = () => {
       icon: faWarehouse,
       // tabNumber: 16,
       subButtons: [
-        { label: 'Inbound Gate Entry', tabNumber: 15, },
+        { label: 'Inbound Gate Entry', tabNumber: 15.1, },
         { label: 'Outbound Gate Exit', tabNumber: 16, },
         { label: 'Gate Access Control', tabNumber: 17, },
-        { label: 'Gate Incident', tabNumber: 18, },
+        // { label: 'Gate Incident', tabNumber: 18, },
         // { label: 'Equipement Mgt', tabNumber: 38, },
         // { label: 'Yard Queue', tabNumber: 39, },
         // { label: 'Yard Space', tabNumber: 40, },
@@ -215,7 +215,7 @@ const Dashboard = () => {
           {activeTab === 14 && <AddAgent/>}
 
         {/* Yard Mgt   */}
-        { activeTab === 15 && <InboundGate/> } 
+        { activeTab === 15.1 && <InboundGate/> } 
         { activeTab === 16 && <OutboundGate/>}
         { activeTab === 17 && <GateAccessControl/>}
         { activeTab === 18 && <GateInsident/>}

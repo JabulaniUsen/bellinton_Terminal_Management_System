@@ -110,11 +110,11 @@ const OutboundGateReport = () => {
       // Component to render for PDF
       const MyDocument = () => (
         <Document>
-          <Page size="A4" style={styles.page}>
+          <Page size="A4" >
             {data.map((row, index) => (
-              <View key={index} style={styles.row}>
+              <View key={index} >
                 {Object.values(row).map((cell, index) => (
-                  <Text key={index} style={styles.cell}>{cell}</Text>
+                  <Text key={index} >{cell}</Text>
                 ))}
               </View>
             ))}
