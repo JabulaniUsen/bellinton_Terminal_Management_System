@@ -34,6 +34,7 @@ import OutboundGate from './Tabs/YardManagementComponent/OutboundGate';
 import GateAccessControl from './Tabs/YardManagementComponent/GateAccessControl';
 import ViewInvoice from './Tabs/InvoicePostingComponents/ViewInvoice';
 import AddInvoice from './Tabs/InvoicePostingComponents/AddInvoice';
+import PostPayment from './Tabs/InvoicePostingComponents/PostPayment';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -140,6 +141,7 @@ const Dashboard = () => {
         { label: 'View Invoice', tabNumber: 41, },
         { label: 'Add Invoice', tabNumber: 42, },
         { label: 'Manage Invoice', tabNumber: 43, },
+        { label: 'Post Payment', tabNumber: 44 }
       ]
     },
     // {
@@ -237,6 +239,7 @@ const Dashboard = () => {
           {/* Invoice Posting */}
           { activeTab === 41 && <ViewInvoice/> }
           { activeTab === 42 && <AddInvoice/> }
+          { activeTab === 44 && <PostPayment/> }
 
           {/* Documentation */}
           {/* {activeTab === 41 && <ContainerR/>}
