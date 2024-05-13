@@ -44,7 +44,7 @@ const ManageBooking = () => {
   return (
     <div className='py-10 roboto '>
       <div className="head flex justify-between mx-5">
-        <h3 className='text-2xl font-bold text-[#045985]'>View Container</h3>
+        <h3 className='text-2xl font-bold text-[#045985]'>Manage Booking</h3>
       </div>
 
       <div className={`moreInfo my-10 mx-5 `}>
