@@ -32,6 +32,8 @@ import { Link } from 'react-router-dom';
 import InboundGate from './Tabs/YardManagementComponent/InboundGate';
 import OutboundGate from './Tabs/YardManagementComponent/OutboundGate';
 import GateAccessControl from './Tabs/YardManagementComponent/GateAccessControl';
+import ViewInvoice from './Tabs/InvoicePostingComponents/ViewInvoice';
+import AddInvoice from './Tabs/InvoicePostingComponents/AddInvoice';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -98,7 +100,7 @@ const Dashboard = () => {
         { label: 'View Container', tabNumber: 3, },
         { label: 'Add Container', tabNumber: 4, },
         { label: 'Manage Booking', tabNumber: 5, },
-        { label: 'Container Transfer', tabNumber: 15, },
+        { label: 'Container Transfer', tabNumber: 15, }, 
       ]
     },
     {
@@ -129,6 +131,15 @@ const Dashboard = () => {
         { label: 'View Agent', tabNumber: 12, },
         { label: 'Manage Agent', tabNumber: 13, },
         { label: 'Add Agent', tabNumber: 14, }
+      ]
+    },
+    {
+      label: 'Invoice Posting',
+      icon: faFileContract,
+      subButtons: [
+        { label: 'View Invoice', tabNumber: 41, },
+        { label: 'Add Invoice', tabNumber: 42, },
+        { label: 'Manage Invoice', tabNumber: 43, },
       ]
     },
     // {
@@ -214,45 +225,41 @@ const Dashboard = () => {
           {activeTab === 13 && <ManageAgent/>}
           {activeTab === 14 && <AddAgent/>}
 
-        {/* Yard Mgt   */}
-        { activeTab === 15.1 && <InboundGate/> } 
-        { activeTab === 16 && <OutboundGate/>}
-        { activeTab === 17 && <GateAccessControl/>}
-        { activeTab === 18 && <GateInsident/>}
-        { activeTab === 38 && <EquipementMgt/> }
-        { activeTab === 39 && <YardQueueManagement/>}
-        { activeTab === 40 && <AssignContainer/> }
+          {/* Yard Mgt   */}
+          { activeTab === 15.1 && <InboundGate/> } 
+          { activeTab === 16 && <OutboundGate/>}
+          { activeTab === 17 && <GateAccessControl/>}
+          { activeTab === 18 && <GateInsident/>}
+          { activeTab === 38 && <EquipementMgt/> }
+          { activeTab === 39 && <YardQueueManagement/>}
+          { activeTab === 40 && <AssignContainer/> }
 
-        {/* Billing */}
-        {/* {activeTab === 25 && <BillingOverview/>}
-        {activeTab === 26 && <PrepaidTerminalInvoice/>}
-        {activeTab === 27 && <AdditionalTerminalInvoice/>}
-        {activeTab === 28 && <DiscountTerminalInvoice/>}
-        {activeTab === 29 && <PaymentConfirmation/>} */}
-        {/* {activeTab === 30 && <BillingHistory/>} */}
+          {/* Invoice Posting */}
+          { activeTab === 41 && <ViewInvoice/> }
+          { activeTab === 42 && <AddInvoice/> }
 
-        {/* Documentation */}
-        {/* {activeTab === 41 && <ContainerR/>}
-        {activeTab === 43 && <ProcessEquipmentInterchange/>}
-        {activeTab === 44 && <ProcessTerminalDeliveryOrder/>}
-        {activeTab === 45 && <Splitbill/>}
-        {activeTab === 46 && <CargoBlocking/>}
-        {activeTab === 48 && <StorageFreeDays/>} */}
+          {/* Documentation */}
+          {/* {activeTab === 41 && <ContainerR/>}
+          {activeTab === 43 && <ProcessEquipmentInterchange/>}
+          {activeTab === 44 && <ProcessTerminalDeliveryOrder/>}
+          {activeTab === 45 && <Splitbill/>}
+          {activeTab === 46 && <CargoBlocking/>}
+          {activeTab === 48 && <StorageFreeDays/>} */}
 
-        {/* Report */}
-        {/* {activeTab === 53 && <VesselReport/>}
-        {activeTab === 54 && <ManifestReport/>}
-        {activeTab === 31 && <ContainerReport/>}
-        {activeTab === 49 && <ManageCustomer/>}
-        {activeTab === 50 && <ManageAgencies/>}
-        {activeTab === 51 && <ManageAgent/>}
-        {activeTab === 55 && <EquipmentMgtList/>}
-        {activeTab === 56 && <TerminalInvoiceReport/>}
-        {activeTab === 57 && <ViewContainerList/>}
-        {activeTab === 58 && <ContainerTrackingList/>}
-        {activeTab === 59 && <PaymentReport/>}
-        {activeTab === 60 && <BlockReport/>}
-        {activeTab === 61 && <UnblockReport/>} */}
+          {/* Report */}
+          {/* {activeTab === 53 && <VesselReport/>}
+          {activeTab === 54 && <ManifestReport/>}
+          {activeTab === 31 && <ContainerReport/>}
+          {activeTab === 49 && <ManageCustomer/>}
+          {activeTab === 50 && <ManageAgencies/>}
+          {activeTab === 51 && <ManageAgent/>}
+          {activeTab === 55 && <EquipmentMgtList/>}
+          {activeTab === 56 && <TerminalInvoiceReport/>}
+          {activeTab === 57 && <ViewContainerList/>}
+          {activeTab === 58 && <ContainerTrackingList/>}
+          {activeTab === 59 && <PaymentReport/>}
+          {activeTab === 60 && <BlockReport/>}
+          {activeTab === 61 && <UnblockReport/>} */}
         </div>
       </div>
     </div>
