@@ -6,6 +6,8 @@ import PasswordResetInstructions from './Pages/AccountRecovery/PasswordResetInst
 import ForgottenPassword from './Pages/AccountRecovery/ForgottenPassword';
 import ChangePassword from './Pages/AccountRecovery/ChangePassword';
 import Dashboard from './Dashboard/Dashboard';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
         <Route path='/change-password' element={<ChangePassword />} />
         <Route path='/dashboard' element={<Dashboard />} />
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   );
 }

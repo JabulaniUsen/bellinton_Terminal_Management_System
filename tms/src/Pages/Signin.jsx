@@ -1,15 +1,24 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash, faLock, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import leftImg from '../assets/logo.svg'
-import logo from '../assets/leftPics.svg'
+import axios from 'axios'; // Import axios for making API requests
+import leftImg from '../assets/logo.svg';
+import logo from '../assets/leftPics.svg';
+import { toast } from 'react-toastify';
 
 function Signin() {
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const navigate = useNavigate();
 
-    const [passwordVisible, setPasswordVisible] = useState(false);
+  useEffect(() => {
+    if (localStorage.getItem('user-info')) {
+      navigate('/add');
+    }
+  }, [navigate]);
 
   const formik = useFormik({
     initialValues: {
@@ -20,8 +29,28 @@ function Signin() {
       username: Yup.string().required('Username is required'),
       password: Yup.string().required('Password is required'),
     }),
+    onSubmit: async (values) => {
+      try {
+        const response = await axios.post('https://exprosys-backend.onrender.com/api/v1/login/', {
+          username: values.username,
+          password: values.password,
+        });
+
+        if (response.status === 200) {
+          localStorage.setItem('user-info', JSON.stringify(response.data));
+          navigate('/dashboard');
+          toast.success('Login Successful')
+        } else {
+          // Handle error response
+          toast.error('Login failed. Please check your username and password.');
+        }
+      } catch (error) {
+        // Handle server errors
+        toast.error('An error occurred. Please try again.');
+      }
+    },
   });
-  
+
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevVisible) => !prevVisible);
   };
@@ -99,15 +128,13 @@ function Signin() {
                 </div>
               </Link>
             </div>
-            <Link to='/dashboard'>
-              <button type="submit" className='rounded bg-[#4E9352] px-[34px] py-[15px] text-white font-semibold w-full'>Sign in</button>
-            </Link>
+            <button type="submit" className='rounded bg-[#4E9352] px-[34px] py-[15px] text-white font-semibold w-full'>Sign in</button>
             <Link to='/create-account'> 
               <button className='rounded border border-[#4E9352] text-[#4E9352] px-[34px] py-[15px] font-semibold w-full'>Create Account</button>
             </Link>
             <p className='text-[#4E9352] text-center'>OR</p>
-            <button type="submit" className='rounded border border-[#4E9352] relative px-[34px] py-[15px] font-semibold w-full'>Facebook</button>
-            <button type="submit" className='rounded border border-[#4E9352] relative px-[34px] py-[15px] font-semibold w-full'>Google</button>
+            <button type="button" className='rounded border border-[#4E9352] relative px-[34px] py-[15px] font-semibold w-full'>Facebook</button>
+            <button type="button" className='rounded border border-[#4E9352] relative px-[34px] py-[15px] font-semibold w-full'>Google</button>
           </form>
         </div>
       </div>

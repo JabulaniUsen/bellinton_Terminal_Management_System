@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../Components/Header';
 import PersonalInfo from './CreateAccount/PersonalInfo';
 import Permissions from './CreateAccount/Permissions';
@@ -9,6 +9,10 @@ import Credentials from './CreateAccount/Credentials';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faComment, faFile, faLockOpen, faPenToSquare, faShieldHalved, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function CreateAccount() {
   const [activeTab, setActiveTab] = useState('personalInfo'); // Initial active tab
@@ -21,13 +25,28 @@ function CreateAccount() {
     termsAndConditions: {},
   });
 
+  useEffect(() => {
+    // Load form data from local storage when the component mounts
+    const storedFormData = JSON.parse(localStorage.getItem('formData'));
+    if (storedFormData) {
+      setFormData(storedFormData);
+    }
+  }, []);
+
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
   };
 
   const handleFormUpdate = (tabName, data) => {
+    // Update form data state
     setFormData((prevFormData) => ({
       ...prevFormData,
+      [tabName]: data,
+    }));
+
+    // Save form data to local storage
+    localStorage.setItem('formData', JSON.stringify({
+      ...formData,
       [tabName]: data,
     }));
   };
@@ -51,24 +70,25 @@ function CreateAccount() {
         break;
       case 'termsAndConditions':
         console.log('User agreed to terms and conditions');
+        handleSubmitAllForms(); 
         break;
       default:
         break;
     }
   };
-
+  
   const renderTabContent = () => {
     switch (activeTab) {
       case 'personalInfo':
-        return <PersonalInfo />;
+        return <PersonalInfo onUpdate={(data) => handleFormUpdate('personalInfo', data)} next={handleNextButtonClick}/>;
       case 'credentials':
-        return <Credentials />;
+        return <Credentials onUpdate={(data) => handleFormUpdate('credentials', data)} next={handleNextButtonClick}/>;
       case 'permissions':
-        return <Permissions />;
+        return <Permissions onUpdate={(data) => handleFormUpdate('permissions', data)} next={handleNextButtonClick}/>;
       case 'additionalDetails':
-        return <AdditionalDetails />;
+        return <AdditionalDetails onUpdate={(data) => handleFormUpdate('additionalDetails', data)} next={handleNextButtonClick}/>;
       case 'security':
-        return <Security />;
+        return <Security onUpdate={(data) => handleFormUpdate('security', data)} next={handleNextButtonClick}/>;
       case 'termsAndConditions':
         return <TermsAndConditions />;
       default:
@@ -76,9 +96,40 @@ function CreateAccount() {
     }
   };
 
-  const handleSubmitAllForms = () => {
-    console.log('Form data to submit:', formData);
-  };
+  // const handleSubmitAllForms = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       'https://exprosys-backend.onrender.com/api/v1/register/',
+  //       formData,
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //       }
+  //     );
+  
+  //     console.log('User registered successfully:', response.data);
+  //     toast.success('User registered successfully');
+  //     localStorage.removeItem('formData');
+  //   } catch (error) {
+  //     console.error('Error registering user:', error.message);
+  //     toast.error('Error registering user');
+  //   }
+  // };
+
+  const handleSubmitAllForms = (e) => {
+    fetch("https://exprosys-backend.onrender.com/api/v1/register/", {
+      method: "POST",
+      headers: {'content-type':'application/json'},
+      body:JSON.stringify(formData)
+    }).then((res) => {
+      toast.success('Registered successfully')
+    }).catch((err) => {
+      toast.error('Failed:' +err.message)
+    })
+  }
+  
+  
 
   return (
     <div >
@@ -129,18 +180,17 @@ function CreateAccount() {
 
         <div className="footer flex my-10">
           {activeTab !== 'termsAndConditions' ? (
-            <button className='bg-[#4e9352] py-3 px-5 w-[400px] justify-between rounded-xl text-white roboto' onClick={handleNextButtonClick}>
+            <button className='bg-[#4e9352] hidden py-3 px-5 w-[400px] justify-between rounded-xl text-white roboto' onClick={handleNextButtonClick}>
               Next <FontAwesomeIcon icon={faAngleRight} className='px-2 py-[0.3rem] rounded-full border-[4px] font-bold' />
             </button>
           ) : (
-            <Link to='/'>
               <button className='bg-[#4e9352] py-3 px-5 w-[400px] justify-between rounded-xl text-white roboto' onClick={handleSubmitAllForms}>
                 Agree, Next <FontAwesomeIcon icon={faAngleRight} className='px-2 py-[0.3rem] rounded-full border-[4px] font-bold' />
               </button>
-            </Link>
           )}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

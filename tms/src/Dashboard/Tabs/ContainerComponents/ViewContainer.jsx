@@ -11,7 +11,17 @@ const ViewContainer = () => {
   const [showUpload, setShowUpload] = useState(false)
   const [uploadSuccess, setUploadSuccess] = useState(false)
   const [moreInfo, setMoreInfo] = useState(false);
+  const [containerStatusData, setContainerStatusData] = useState(null);
 
+  const fetchContainerStatus = async (containerId) => {
+    try {
+      const response = await axios.get(`https://exprosys-backend.onrender.com/api/v1/container-status/${containerId}/`);
+      setContainerStatusData(response.data); // Assuming the API response is in JSON format
+    } catch (error) {
+      console.error('Error fetching container status:', error);
+      // Handle error, e.g., set an error state
+    }
+  };
 
   const initialData = [
     { containerId: 'VS72873', imoNumber: '123456789', nextPort: 'Port of Los Angeles', lastPort: 'Port of Singapore', cargoInfo: 'Containers, 500 TEU', Destination: 'Tokyo', Agent: 'Maersk Line', vesselName: 'Ocean Voyage', eta: '9/5/2024 8:00', etd: '9/5/2024 8:00', totalContainers: 100, status: 'At Port', action: 'View Details', type: 'Dry', customerName: 'ABC Shipping'},
@@ -24,7 +34,6 @@ const ViewContainer = () => {
     );
     
 
-    // Update the state with the filtered data
     setData(filteredData);
     setMoreInfo(true)
   };
@@ -87,7 +96,7 @@ const ViewContainer = () => {
                 </div>
 
         <div className="flex flex-col justify-center items-center my-10">
-          <button className=' text-white bg-[#4E9352] rounded py-2 px-12' onClick={handleSearch} >View</button>
+          <button className=' text-white bg-[#4E9352] rounded py-2 px-12' onClick={() => fetchContainerStatus(containerId)} >View</button>
         </div>
             </div>
           </div>
@@ -109,7 +118,7 @@ const ViewContainer = () => {
         } */}
 
 
-          {showManifestData && 
+          {containerStatusData && 
           <div className="table overflow-x-auto my-10">
           <table className="border border-collapse">
             <thead>

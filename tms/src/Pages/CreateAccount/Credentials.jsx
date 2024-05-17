@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
-function Credentials() {
+function Credentials({ onUpdate, next }) {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const [confirmPasswordVisibility, setConfirmPasswordVisibility] = useState(false);
 
@@ -23,8 +23,26 @@ function Credentials() {
     onSubmit: (values) => {
       // Handle form submission here
       console.log('Form values:', values);
+      onUpdate(values); // Call onUpdate with updated form data
+      next(); // Navigate to the next page
     },
   });
+
+  useEffect(() => {
+    // Load form data from local storage when the component mounts
+    const storedFormData = JSON.parse(localStorage.getItem('credentialsFormData'));
+    if (storedFormData) {
+      formik.setValues(storedFormData);
+    }
+  }, []);
+
+  // Function to call onUpdate with updated form data
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    formik.handleChange(event);
+    onUpdate(formik.values); 
+    localStorage.setItem('credentialsFormData', JSON.stringify(formik.values));
+  };
 
   const togglePasswordVisibility = () => {
     setPasswordVisibility(!passwordVisibility);
@@ -38,6 +56,7 @@ function Credentials() {
     <div>
       <form onSubmit={formik.handleSubmit} className=''>
         <div className="flex flex-col roboto gap-y-5 ">
+          {/* Username Field */}
           <div className="flex flex-col gap-2">
             <label htmlFor="username" className='font-semibold'>Username</label>
             <input
@@ -46,7 +65,7 @@ function Credentials() {
               name="username"
               className={`border-[1px] outline-none rounded p-1 px-3 border-[#828282] w-[357px] h-[44px] ${formik.errors.username && 'border-red-500'}`}
               placeholder='Enter your Username'
-              onChange={formik.handleChange}
+              onChange={handleInputChange}
               onBlur={formik.handleBlur}
               value={formik.values.username}
             />
@@ -55,6 +74,7 @@ function Credentials() {
             )}
           </div>
 
+          {/* Password Field */}
           <div className="flex flex-col gap-2">
             <label htmlFor="password" className='font-semibold'>Password</label>
             <div className="relative">
@@ -64,7 +84,7 @@ function Credentials() {
                 name="password"
                 className={`border-[1px] outline-none rounded p-1 px-3 border-[#828282] w-[357px] h-[44px] ${formik.errors.password && 'border-red-500'}`}
                 placeholder='Enter your Password'
-                onChange={formik.handleChange}
+                onChange={handleInputChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.password}
               />
@@ -80,6 +100,7 @@ function Credentials() {
             )}
           </div>
 
+          {/* Confirm Password Field */}
           <div className="flex flex-col gap-2">
             <label htmlFor="confirmPassword" className='font-semibold'>Confirm Password</label>
             <div className="relative">
@@ -89,7 +110,7 @@ function Credentials() {
                 name="confirmPassword"
                 className={`border-[1px] outline-none rounded p-1 px-3 border-[#828282] w-[357px] h-[44px] ${formik.errors.confirmPassword && 'border-red-500'}`}
                 placeholder='Confirm your Password'
-                onChange={formik.handleChange}
+                onChange={handleInputChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.confirmPassword}
               />
@@ -104,11 +125,11 @@ function Credentials() {
               <div className="text-red-500">{formik.errors.confirmPassword}</div>
             )}
           </div>
-        </div>
 
-        {/* <button type="submit" className='bg-[#20007F] py-3 px-5 rounded-lg text-white roboto font-semibold'>
-          Submit
-        </button> */}
+        </div>
+        <button type="submit" className="bg-[#4e9352] hover:bg-[#305a32] text-white font-bold py-2 px-4 rounded mt-4">
+          Next
+        </button>
       </form>
     </div>
   );

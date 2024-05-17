@@ -1,7 +1,5 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import Switch from "react-switch";
-
-
 const languages = [
   'Language', 
   'English',
@@ -110,26 +108,46 @@ const languages = [
   'Pitcairnese',
   'Yapese',
 ];
+
 const fontSizes = [ 'Font Size', 'Small', 'Medium', 'Large'];
 const fontStyles = ['Font Type', 'Arial', 'Helvetica', 'Times New Roman', 'Courier New'];
 
+function AdditionalDetails({ onUpdate, next }) {
+  const [preferred_terminal_team, setpreferred_terminal_team] = useState('Manifest Team');
+  const [language_Preference, setLanguage_Preference] = useState('Language');
+  // const [fontSize, setFontSize] = useState('Font Size');
+  // const [fontStyle, setFontStyle] = useState('Font Type');
+  // const [isDarkMode, setIsDarkMode] = useState(false);
 
-function AdditionalDetails() {
-  // State for terminal team
-  const [terminalTeam, setTerminalTeam] = useState('Manifest Team');
+  // Update parent component whenever there's a change in form data
+  useEffect(() => {
+    onUpdate({
+      preferred_terminal_team,
+      language_Preference,
+      // fontSize,
+      // fontStyle,
+      // isDarkMode
+    });
+  }, [preferred_terminal_team, language_Preference, onUpdate]);
 
-  // State for language preference
-  const [languagePreference, setLanguagePreference] = useState('Language');
+  // Clear local storage when leaving the page or when it disappears
+  useEffect(() => {
+    const cleanup = () => {
+      localStorage.removeItem('additionalDetailsFormData');
+    };
 
-  // State for font size
-  const [fontSize, setFontSize] = useState('Font Size');
+    window.addEventListener('beforeunload', cleanup);
 
-  // State for font style
-  const [fontStyle, setFontStyle] = useState('Font Type');
+    return () => {
+      cleanup();
+      window.removeEventListener('beforeunload', cleanup);
+    };
+  }, []);
 
-  // State for dark/light mode
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
+  // Clear form data in local storage
+  const clearLocalStorage = () => {
+    localStorage.removeItem('additionalDetailsFormData');
+  };
   return (
     <div className=' my-20'>
       <form action="" className='flex flex-col gap-10'>
@@ -137,11 +155,11 @@ function AdditionalDetails() {
         <div className="flex gap-10 w-[600px] justify-between">
           <p className='text-[18px] font-semibold'>Location Storage:</p>
           <select
-            name="terminalTeam"
-            id="terminalTeam"
+            name="preferred_terminal_team"
+            id="preferred_terminal_team"
             className='border border-black py-3 rounded w-[232px] px-3 '
-            value={terminalTeam}
-            onChange={(e) => setTerminalTeam(e.target.value)}
+            value={preferred_terminal_team}
+            onChange={(e) => setpreferred_terminal_team(e.target.value)}
           >
             <option value="Manifest Team">Sussex</option>
             {/* <option value="Customer Service">Customer Service</option> */}
@@ -155,11 +173,11 @@ function AdditionalDetails() {
         <div className="flex gap-10 w-[600px] justify-between">
           <p className='text-[18px] font-semibold'>Language Preference:</p>
           <select
-            name="languagePreference"
-            id="languagePreference"
+            name="language_Preference"
+            id="language_Preference"
             className='border border-black py-3 rounded w-[232px] px-3 '
-            value={languagePreference}
-            onChange={(e) => setLanguagePreference(e.target.value)}
+            value={language_Preference}
+            onChange={(e) => setLanguage_Preference(e.target.value)}
           >
             {languages.map((language) => (
               <option key={language} value={language}>
@@ -170,9 +188,9 @@ function AdditionalDetails() {
         </div>
 
         <div className="flex gap-10 w-[600px] justify-between items-center">
-          <p className='text-[18px] font-semibold'>Accessibility Preference:</p>
+          {/* <p className='text-[18px] font-semibold'>Accessibility Preference:</p> */}
           <div className="flex items-center gap-5">
-            <select
+            {/* <select
               name="fontSize"
               id="fontSize"
               className='border border-black py-3 rounded w-[232px] px-3 '
@@ -184,7 +202,7 @@ function AdditionalDetails() {
                   {size}
                 </option>
               ))}
-            </select>
+            </select> */}
 
             {/* <div className="switch flex items-center gap-3">
               <span className="dark-text">Dark</span>
@@ -197,6 +215,18 @@ function AdditionalDetails() {
               <span className="light-text">Light</span>
             </div> */}
           </div>
+        </div>
+        <div className="flex ">
+          <button
+            type="button"
+            onClick={() => {
+              clearLocalStorage();
+              next();
+            }}
+            className="bg-[#4e9352] hover:bg-[#305a32] text-white font-bold py-2 px-4 rounded mt-4"
+          >
+            Next
+          </button>
         </div>
       </form>
     </div>
