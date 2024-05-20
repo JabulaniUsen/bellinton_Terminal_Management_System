@@ -64,7 +64,7 @@ const AddContainer = () => {
         containerId: inputValue,
         // Add other fields here
       };
-      const response = await axios.post('exprosys-backend.onrender.com/api/v1/containers/', payload);
+      const response = await axios.post('https://exprosys-backend.onrender.com/api/v1/containers/', payload);
       console.log('Response:', response.data);
       // Handle success, e.g., show a success message
     } catch (error) {

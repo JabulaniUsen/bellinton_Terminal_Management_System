@@ -21,7 +21,6 @@ function CreateAccount() {
     permissions: {},
     additionalDetails: {},
     security: {},
-    termsAndConditions: {},
   });
 
   const navigate = useNavigate();
@@ -74,19 +73,19 @@ function CreateAccount() {
         break;
     }
   };
-  
+
   const renderTabContent = () => {
     switch (activeTab) {
       case 'personalInfo':
-        return <PersonalInfo onUpdate={(data) => handleFormUpdate('personalInfo', data)} next={handleNextButtonClick}/>;
+        return <PersonalInfo onUpdate={(data) => handleFormUpdate('personalInfo', data)} next={handleNextButtonClick} />;
       case 'credentials':
-        return <Credentials onUpdate={(data) => handleFormUpdate('credentials', data)} next={handleNextButtonClick}/>;
+        return <Credentials onUpdate={(data) => handleFormUpdate('credentials', data)} next={handleNextButtonClick} />;
       case 'permissions':
-        return <Permissions onUpdate={(data) => handleFormUpdate('permissions', data)} next={handleNextButtonClick}/>;
+        return <Permissions onUpdate={(data) => handleFormUpdate('permissions', data)} next={handleNextButtonClick} />;
       case 'additionalDetails':
-        return <AdditionalDetails onUpdate={(data) => handleFormUpdate('additionalDetails', data)} next={handleNextButtonClick}/>;
+        return <AdditionalDetails onUpdate={(data) => handleFormUpdate('additionalDetails', data)} next={handleNextButtonClick} />;
       case 'security':
-        return <Security onUpdate={(data) => handleFormUpdate('security', data)} next={handleNextButtonClick}/>;
+        return <Security onUpdate={(data) => handleFormUpdate('security', data)} next={handleNextButtonClick} />;
       case 'termsAndConditions':
         return <TermsAndConditions />;
       default:
@@ -94,28 +93,41 @@ function CreateAccount() {
     }
   };
 
+  const mergeObjects = (obj, res = {}) => {
+    for (let key in obj) {
+      if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+        mergeObjects(obj[key], res);
+      } else {
+        res[key] = obj[key];
+      }
+    }
+    return res;
+  };
+
   const handleSubmitAllForms = async (e) => {
     e.preventDefault();
+    const flattenedFormData = mergeObjects(formData);
     try {
       const response = await axios.post(
         'https://exprosys-backend.onrender.com/api/v1/register/',
-        formData,
+        flattenedFormData,
         {
           headers: {
             'Content-Type': 'application/json',
           },
         }
       );
-  
+
       console.log('User registered successfully:', response.data);
       toast.success('User registered successfully');
       localStorage.removeItem('formData');
-      navigate('/'); // Navigate to home page upon successful registration
+      navigate('/'); 
+      toast.success("Account created successfully")
     } catch (error) {
       console.error('Error registering user:', error.message);
       toast.error(error.message);
     }
-    console.log('form data', formData);
+    console.log('form data', flattenedFormData);
   };
 
   return (

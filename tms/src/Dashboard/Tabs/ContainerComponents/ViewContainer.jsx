@@ -1,33 +1,64 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
 import Select from 'react-select';
 import axios from 'axios';
 
 const ViewContainer = () => {
   const [showManifestData, setShowManifestData] = useState(true);
-  const [containerId, setContainerId] = useState("");
+  const [container_id, setContainer_id] = useState("");
   const [errorText, setErrorText] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [moreInfo, setMoreInfo] = useState(false);
-  const [containerStatusData, setContainerStatusData] = useState(null);
+  const [initialData, setinitialData] = useState([]); 
   const [searchTerm, setSearchTerm] = useState('');
+  const [data, setData] = useState([])
+  const [selectedVesselDetails, setSelectedVesselDetails] = useState(null);
 
-  const fetchContainerStatus = async (containerId) => {
-    try {
-      const response = await axios.get(`https://exprosys-backend.onrender.com/api/v1/container-status/${containerId}/`);
-      setContainerStatusData(response.data);
-      setMoreInfo(true);
-      console.log('API Response:', response.data); // Log the response
-      setContainerStatusData(response.data);
-    } catch (error) {
-      console.error('Error fetching container status:', error);
+  // const fetchContainerStatus = async (container_id) => {
+  //   try {
+  //     const response = await axios.get(`https://exprosys-backend.onrender.com/api/v1/containers/`);
+  //     setinitialData(response.data);
+  //     setMoreInfo(true);
+  //     console.log('API Response:', response.data); // Log the response
+  //   } catch (error) {
+  //     console.error('Error fetching container status:', error);
+  //   }
+  // };
+
+
+  useEffect(() => {
+    axios.get('https://exprosys-backend.onrender.com/api/v1/containers/')
+    .then(response => {
+      if (Array.isArray(response.data)) {
+        setinitialData(response.data);
+        setData(response.data);
+      } else {
+        console.error("Unexpected response data format:", response.data);
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    }); // <- Added closing parenthesis here
+  }, []);
+
+  const handleSearch = () => {
+    if (searchTerm.trim() === "") {
+      setErrorText(true);
+      return;
     }
+    setErrorText(false);
+    const filteredData = initialData.filter(item =>
+      item.customer_id.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setData(filteredData);
+    setMoreInfo(true);
   };
+
 
   const resetSearch = () => {
     setSearchTerm('');
-    setContainerStatusData(null);
+    setinitialData([]); // Reset initialData to an empty array
     setMoreInfo(false);
   };
 
@@ -43,10 +74,8 @@ const ViewContainer = () => {
     setUploadSuccess(false);
   };
 
-  const [selectedVesselDetails, setSelectedVesselDetails] = useState(null);
-
-  const showVesselDetails = (containerId) => {
-    const details = containerStatusData.find(item => item.containerId === containerId);
+  const showVesselDetails = (container_id) => {
+    const details = initialData.find(item => item.container_id === container_id);
     setSelectedVesselDetails(details);
   };
 
@@ -67,7 +96,7 @@ const ViewContainer = () => {
               <label htmlFor="" className='text-lg font-bold'>Select Container ID:</label>
               <div className="">
                 <Select
-                  options={containerStatusData ? containerStatusData.map((item) => ({ value: item.containerId, label: item.containerId })) : []}
+                  options={initialData.map((item) => ({ value: item.container_id, label: item.container_id }))}
                   value={{ value: searchTerm, label: searchTerm }}
                   onChange={(selectedOption) => setSearchTerm(selectedOption.value)}
                   isSearchable
@@ -85,7 +114,7 @@ const ViewContainer = () => {
       </div>
 
       <div className={`moreInfo my-10 mx-5 `}>
-        {moreInfo && containerStatusData &&
+        {initialData && 
           <div className="table overflow-x-auto my-10">
             <table className="border border-collapse">
               <thead>
@@ -101,16 +130,16 @@ const ViewContainer = () => {
                 </tr>
               </thead>
               <tbody>
-                {containerStatusData.map((rowData, index) => (
+                {data.map((rowData, index) => (
                   <tr key={index} className="">
-                    <td className="border border-[#013a57] px-2 py-2">{rowData.containerId}</td>
+                    <td className="border border-[#013a57] px-2 py-2">{rowData.container_id}</td>
                     <td className="border border-[#013a57] px-2 py-2">{rowData.status}</td>
                     <td className="border border-[#013a57] px-2 py-2">{rowData.eta}</td>
                     <td className="border border-[#013a57] px-2 py-2">{rowData.etd}</td>
                     <td className="border border-[#013a57] px-2 py-2">{rowData.type}</td>
-                    <td className="border border-[#013a57] px-2 py-2">{rowData.vesselName}</td>
+                    <td className="border border-[#013a57] px-2 py-2">{rowData.vessel_name}</td>
                     <td className="border border-[#013a57] px-2 py-2">{rowData.customerName}</td>
-                    <td className="border border-[#013a57] px-2 py-2"><button onClick={() => showVesselDetails(rowData.containerId)} className="underline">Details</button></td>
+                    <td className="border border-[#013a57] px-2 py-2"><button onClick={() => showVesselDetails(rowData.container_id)} className="underline">Details</button></td>
                   </tr>
                 ))}
               </tbody>
@@ -143,7 +172,8 @@ const ViewContainer = () => {
         </motion.div>
       }
 
-      {selectedVesselDetails &&
+     
+{selectedVesselDetails &&
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -154,15 +184,15 @@ const ViewContainer = () => {
           <div className="bg-[#ffff] px-20 py-10 rounded-xl text-center shadow-2xl">
             <p className="text-2xl font-bold mb-8">More Details</p>
             <div className="text-left flex flex-col gap-4">
-              <p className="font-semibold">• Vessel Name: <span className="font-normal">{selectedVesselDetails.vesselName}</span></p>
-              <p className="font-semibold">• IMO Number: <span className="font-normal">{selectedVesselDetails.imoNumber}</span></p>
+              <p className="font-semibold">• Vessel Name: <span className="font-normal">{selectedVesselDetails.vessel_name}</span></p>
+              <p className="font-semibold">• IMO Number: <span className="font-normal">{selectedVesselDetails.imo_number}</span></p>
               <p className="font-semibold">• Status: <span className="font-normal">{selectedVesselDetails.status}</span></p>
               <p className="font-semibold">• ETA (Estimated Time of Arrival): <span className="font-normal">{selectedVesselDetails.eta}</span></p>
               <p className="font-semibold">• ETD (Estimated Time of Departure): <span className="font-normal">{selectedVesselDetails.etd}</span></p>
-              <p className="font-semibold">• Next Port: <span className="font-normal">{selectedVesselDetails.nextPort}</span></p>
-              <p className="font-semibold">• Last Port: <span className="font-normal">{selectedVesselDetails.lastPort}</span></p>
+              <p className="font-semibold">• Next Port: <span className="font-normal">{selectedVesselDetails.next_port}</span></p>
+              <p className="font-semibold">• Last Port: <span className="font-normal">{selectedVesselDetails.last_port}</span></p>
               <div className="flex gap-4">
-                <p className="font-semibold">• Cargo Information: <span className="font-normal">{selectedVesselDetails.cargoInfo}</span></p>
+                <p className="font-semibold">• Cargo Information: <span className="font-normal">{selectedVesselDetails.cargo_info}</span></p>
                 <p className="font-semibold">Destination: <span className="font-normal">{selectedVesselDetails.destination}</span></p>
               </div>
               <p className="font-semibold">• Agent/Operator: <span className="font-normal">{selectedVesselDetails.agent}</span></p>
