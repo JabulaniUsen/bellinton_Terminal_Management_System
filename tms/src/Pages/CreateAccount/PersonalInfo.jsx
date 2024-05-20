@@ -7,14 +7,14 @@ function PersonalInfo({ onUpdate, next }) {
     initialValues: {
       first_name: '',
       last_name: '',
-      emailAddress: '',
+      email: '',
       phone_number: '',
       job_title: '',
     },
     validationSchema: Yup.object({
       first_name: Yup.string().required('First Name is required'),
       last_name: Yup.string().required('Last Name is required'),
-      emailAddress: Yup.string().email('Invalid email address').required('Email Address is required'),
+      email: Yup.string().email('Invalid email address').required('Email Address is required'),
       phone_number: Yup.number().required('Phone Number is required'),
       job_title: Yup.string().required('Job Title is required'),
     }),
@@ -84,19 +84,19 @@ function PersonalInfo({ onUpdate, next }) {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label htmlFor="emailAddress" className='font-semibold'>Email Address</label>
+            <label htmlFor="email" className='font-semibold'>Email Address</label>
             <input
               type="email"
-              id="emailAddress"
-              name="emailAddress"
-              className={`border-[1px] outline-none rounded p-1 px-3 border-[#828282] w-[347px] h-[44px] ${formik.errors.emailAddress && 'border-red-500'}`}
+              id="email"
+              name="email"
+              className={`border-[1px] outline-none rounded p-1 px-3 border-[#828282] w-[347px] h-[44px] ${formik.errors.email && 'border-red-500'}`}
               placeholder='Enter your Email Address'
               onChange={handleInputChange}
               onBlur={formik.handleBlur}
-              value={formik.values.emailAddress}
+              value={formik.values.email}
             />
-            {formik.touched.emailAddress && formik.errors.emailAddress && (
-              <div className="text-red-500">{formik.errors.emailAddress}</div>
+            {formik.touched.email && formik.errors.email && (
+              <div className="text-red-500">{formik.errors.email}</div>
             )}
           </div>
 

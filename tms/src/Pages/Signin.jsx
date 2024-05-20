@@ -5,10 +5,11 @@ import { faEye, faEyeSlash, faLock, faUserCircle } from '@fortawesome/free-solid
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios'; // Import axios for making API requests
+import axios from 'axios';
 import leftImg from '../assets/logo.svg';
 import logo from '../assets/leftPics.svg';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Signin() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -30,23 +31,47 @@ function Signin() {
       password: Yup.string().required('Password is required'),
     }),
     onSubmit: async (values) => {
+      console.log('Submitting form with values:', values); // Log the values being submitted
+
       try {
         const response = await axios.post('https://exprosys-backend.onrender.com/api/v1/login/', {
           username: values.username,
           password: values.password,
         });
 
+        console.log('API response:', response); // Log the API response
+
         if (response.status === 200) {
           localStorage.setItem('user-info', JSON.stringify(response.data));
           navigate('/dashboard');
-          toast.success('Login Successful')
         } else {
-          // Handle error response
+          // Handle unexpected response status
           toast.error('Login failed. Please check your username and password.');
         }
       } catch (error) {
         // Handle server errors
-        toast.error('An error occurred. Please try again.');
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.error('Error response data:', error.response.data);
+          console.error('Error response status:', error.response.status);
+          console.error('Error response headers:', error.response.headers);
+          if (error.response.status === 400) {
+            toast.error('Bad Request: Please check the data you entered.');
+          } else if (error.response.status === 401) {
+            toast.error('Unauthorized: Invalid username or password.');
+          } else {
+            toast.error('An error occurred. Please try again.');
+          }
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.error('Error request data:', error.request);
+          toast.error('No response from the server. Please try again later.');
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.error('Error message:', error.message);
+          toast.error('An error occurred. Please try again.');
+        }
       }
     },
   });
@@ -130,7 +155,7 @@ function Signin() {
             </div>
             <button type="submit" className='rounded bg-[#4E9352] px-[34px] py-[15px] text-white font-semibold w-full'>Sign in</button>
             <Link to='/create-account'> 
-              <button className='rounded border border-[#4E9352] text-[#4E9352] px-[34px] py-[15px] font-semibold w-full'>Create Account</button>
+              <button type="button" className='rounded border border-[#4E9352] text-[#4E9352] px-[34px] py-[15px] font-semibold w-full'>Create Account</button>
             </Link>
             <p className='text-[#4E9352] text-center'>OR</p>
             <button type="button" className='rounded border border-[#4E9352] relative px-[34px] py-[15px] font-semibold w-full'>Facebook</button>
@@ -138,6 +163,7 @@ function Signin() {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

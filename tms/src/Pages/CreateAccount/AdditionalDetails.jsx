@@ -114,7 +114,7 @@ const fontStyles = ['Font Type', 'Arial', 'Helvetica', 'Times New Roman', 'Couri
 
 function AdditionalDetails({ onUpdate, next }) {
   const [preferred_terminal_team, setpreferred_terminal_team] = useState('Manifest Team');
-  const [language_Preference, setLanguage_Preference] = useState('Language');
+  const [language_preference, setLanguage_preference] = useState('Language');
   // const [fontSize, setFontSize] = useState('Font Size');
   // const [fontStyle, setFontStyle] = useState('Font Type');
   // const [isDarkMode, setIsDarkMode] = useState(false);
@@ -123,12 +123,12 @@ function AdditionalDetails({ onUpdate, next }) {
   useEffect(() => {
     onUpdate({
       preferred_terminal_team,
-      language_Preference,
+      language_preference,
       // fontSize,
       // fontStyle,
       // isDarkMode
     });
-  }, [preferred_terminal_team, language_Preference, onUpdate]);
+  }, [preferred_terminal_team, language_preference, onUpdate]);
 
   // Clear local storage when leaving the page or when it disappears
   useEffect(() => {
@@ -169,15 +169,15 @@ function AdditionalDetails({ onUpdate, next }) {
           </select>
         </div>
 
-        {/* Language Preference */}
+        {/* Language preference */}
         <div className="flex gap-10 w-[600px] justify-between">
-          <p className='text-[18px] font-semibold'>Language Preference:</p>
+          <p className='text-[18px] font-semibold'>Language preference:</p>
           <select
-            name="language_Preference"
-            id="language_Preference"
+            name="language_preference"
+            id="language_preference"
             className='border border-black py-3 rounded w-[232px] px-3 '
-            value={language_Preference}
-            onChange={(e) => setLanguage_Preference(e.target.value)}
+            value={language_preference}
+            onChange={(e) => setLanguage_preference(e.target.value)}
           >
             {languages.map((language) => (
               <option key={language} value={language}>
@@ -188,7 +188,7 @@ function AdditionalDetails({ onUpdate, next }) {
         </div>
 
         <div className="flex gap-10 w-[600px] justify-between items-center">
-          {/* <p className='text-[18px] font-semibold'>Accessibility Preference:</p> */}
+          {/* <p className='text-[18px] font-semibold'>Accessibility preference:</p> */}
           <div className="flex items-center gap-5">
             {/* <select
               name="fontSize"

@@ -6,19 +6,19 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 function Credentials({ onUpdate, next }) {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
-  const [confirmPasswordVisibility, setConfirmPasswordVisibility] = useState(false);
+  const [confirm_passwordVisibility, setConfirm_passwordVisibility] = useState(false);
 
   // Formik configuration
   const formik = useFormik({
     initialValues: {
       username: '',
       password: '',
-      confirmPassword: '',
+      confirm_password: '',
     },
     validationSchema: Yup.object({
       username: Yup.string().required('Username is required'),
       password: Yup.string().required('Password is required'),
-      confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match'),
+      confirm_password: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match'),
     }),
     onSubmit: (values) => {
       // Handle form submission here
@@ -48,8 +48,8 @@ function Credentials({ onUpdate, next }) {
     setPasswordVisibility(!passwordVisibility);
   };
 
-  const toggleConfirmPasswordVisibility = () => {
-    setConfirmPasswordVisibility(!confirmPasswordVisibility);
+  const toggleConfirm_passwordVisibility = () => {
+    setConfirm_passwordVisibility(!confirm_passwordVisibility);
   };
 
   return (
@@ -102,27 +102,27 @@ function Credentials({ onUpdate, next }) {
 
           {/* Confirm Password Field */}
           <div className="flex flex-col gap-2">
-            <label htmlFor="confirmPassword" className='font-semibold'>Confirm Password</label>
+            <label htmlFor="confirm_password" className='font-semibold'>Confirm Password</label>
             <div className="relative">
               <input
-                type={confirmPasswordVisibility ? 'text' : 'password'}
-                id="confirmPassword"
-                name="confirmPassword"
-                className={`border-[1px] outline-none rounded p-1 px-3 border-[#828282] w-[357px] h-[44px] ${formik.errors.confirmPassword && 'border-red-500'}`}
+                type={confirm_passwordVisibility ? 'text' : 'password'}
+                id="confirm_password"
+                name="confirm_password"
+                className={`border-[1px] outline-none rounded p-1 px-3 border-[#828282] w-[357px] h-[44px] ${formik.errors.confirm_password && 'border-red-500'}`}
                 placeholder='Confirm your Password'
                 onChange={handleInputChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.confirmPassword}
+                value={formik.values.confirm_password}
               />
               <span
                 className="ml-[-30px] cursor-pointer"
-                onClick={toggleConfirmPasswordVisibility}
+                onClick={toggleConfirm_passwordVisibility}
               >
-                <FontAwesomeIcon icon={confirmPasswordVisibility ? faEyeSlash : faEye} />
+                <FontAwesomeIcon icon={confirm_passwordVisibility ? faEyeSlash : faEye} />
               </span>
             </div>
-            {formik.touched.confirmPassword && formik.errors.confirmPassword && (
-              <div className="text-red-500">{formik.errors.confirmPassword}</div>
+            {formik.touched.confirm_password && formik.errors.confirm_password && (
+              <div className="text-red-500">{formik.errors.confirm_password}</div>
             )}
           </div>
 
