@@ -56,7 +56,7 @@ const ContainerR = () => {
                 </div>
 
                 <div className="flex gap-3 justify-center items-center my-10">
-                  <button className=' text-white bg-[#4000FF] rounded-xl py-2 px-10' onClick={handleSearch} >View</button>
+                  <button className='text-white bg-[#4e9352] rounded py-2 px-10' onClick={handleSearch} >View</button>
                 </div>
               </div>
             </div>
@@ -88,8 +88,8 @@ const ContainerR = () => {
           </div>
 
           <div className="flex gap-3 justify-center items-center">
-            <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={resetSearch} >Back</button>
-            <button className=' text-white bg-[#4000FF] rounded-md py-1 px-10' onClick={() => steSeeConMgt(true)} >See Container Circle Mgt</button>
+            <button className='text-white bg-[#4e9352] rounded py-2 px-10' onClick={resetSearch} >Back</button>
+            <button className='text-white bg-[#4e9352] rounded py-2 px-10' onClick={() => steSeeConMgt(true)} >See Container Circle Mgt</button>
           </div>
         </div>
       </div>) : (

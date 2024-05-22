@@ -35,6 +35,14 @@ import GateAccessControl from './Tabs/YardManagementComponent/GateAccessControl'
 import ViewInvoice from './Tabs/InvoicePostingComponents/ViewInvoice';
 import AddInvoice from './Tabs/InvoicePostingComponents/AddInvoice';
 import PostPayment from './Tabs/InvoicePostingComponents/PostPayment';
+import ContainerR from './Tabs/Documentation/ContainerR';
+import ProcessEquipmentInterchange from './Tabs/Documentation/ProcessEquipmentInterchange';
+import ProcessTerminalDeliveryOrder from './Tabs/Documentation/ProcessTerminalDeliveryOrder';
+import Splitbill from './Tabs/Documentation/Splitbill';
+import CargoBlocking from './Tabs/Documentation/CargoBlocking';
+import StorageFreeDays from './Tabs/Documentation/StorageFreeDays';
+import ContainerCMgt from './Tabs/Documentation/ContainerCMgt';
+
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -112,11 +120,6 @@ const Dashboard = () => {
         { label: 'Inbound Gate Entry', tabNumber: 15.1, },
         { label: 'Outbound Gate Exit', tabNumber: 16, },
         { label: 'Gate Access Control', tabNumber: 17, },
-        // { label: 'Gate Incident', tabNumber: 18, },
-        // { label: 'Equipement Mgt', tabNumber: 38, },
-        // { label: 'Yard Queue', tabNumber: 39, },
-        // { label: 'Yard Space', tabNumber: 40, },
-        // { label: 'Yard Report', tabNumber: 41, },
       ],
     },
     {
@@ -144,39 +147,15 @@ const Dashboard = () => {
         { label: 'Post Payment', tabNumber: 44 }
       ]
     },
-    // {
-    //   label: 'Documentation',
-    //   icon: faFile,
-    //   tabNumber: 30,
-    //   subButtons: [
-    //     { label: 'Container Cycle', tabNumber: 41, },
-    //     { label: 'Equipment Interchange', tabNumber: 43, },
-    //     { label: 'Terminal Delivery Order', tabNumber: 44, },
-    //     { label: 'Split Bill of Loading', tabNumber: 45, },
-    //     { label: 'Cargo Blocking', tabNumber: 46, },
-    //     { label: 'Storage Free Days', tabNumber: 48, },
-    //   ]
-    // },
-    // {
-    //   label: 'Report',
-    //   icon: faFileContract,
-    //   tabNumber: 31,
-    //   subButtons: [
-    //     { label: 'Vessel ', tabNumber: 53, },
-    //     { label: 'Manifest ', tabNumber: 54, },
-    //     { label: 'Container ', tabNumber: 31, },
-    //     { label: 'Customer ', tabNumber: 49, },
-    //     { label: 'Agency ', tabNumber: 50, },
-    //     { label: 'Agent ', tabNumber: 51, },
-    //     { label: 'Equ. Mgt. ', tabNumber: 55, },
-    //     { label: 'Term. Inv. ', tabNumber: 56, },
-    //     { label: 'Yard Cont. Mgt ', tabNumber: 57, },
-    //     { label: 'Yard Cont. Tracker ', tabNumber: 58, },
-    //     { label: 'Payment Confirmation', tabNumber: 59, },
-    //     { label: 'Cargo Blocking', tabNumber: 60, },
-    //     { label: 'Cargo Blocking', tabNumber: 61, },
-    //   ]
-    // }
+    {
+      label: 'Documentation',
+      icon: faFile,
+      subButtons: [
+        { label: 'Container Cycle', tabNumber: 45, },
+        { label: 'Equipment Interchange', tabNumber: 46, },
+      ]
+    },
+    
   ];
   
   
@@ -192,16 +171,6 @@ const Dashboard = () => {
             ))}
           </div>
           <div className="flex flex-col gap-3">
-            {/* <TabButton 
-                label="Settings" 
-                icon={faCog} 
-                subButtons={[
-                  { label: 'Create Invoice', tabNumber: 30, },
-                  { label: 'View Invoice', tabNumber: 31, },
-                  { label: 'Payment', tabNumber: 32, },
-                  { label: 'Receivables', tabNumber: 33, }
-                 ]} 
-                 /> */}
             <Link to='/'><TabButton label="Logout" icon={faSignOutAlt}  /></Link>
           </div>
         </div>
@@ -242,27 +211,8 @@ const Dashboard = () => {
           { activeTab === 44 && <PostPayment/> }
 
           {/* Documentation */}
-          {/* {activeTab === 41 && <ContainerR/>}
-          {activeTab === 43 && <ProcessEquipmentInterchange/>}
-          {activeTab === 44 && <ProcessTerminalDeliveryOrder/>}
-          {activeTab === 45 && <Splitbill/>}
-          {activeTab === 46 && <CargoBlocking/>}
-          {activeTab === 48 && <StorageFreeDays/>} */}
-
-          {/* Report */}
-          {/* {activeTab === 53 && <VesselReport/>}
-          {activeTab === 54 && <ManifestReport/>}
-          {activeTab === 31 && <ContainerReport/>}
-          {activeTab === 49 && <ManageCustomer/>}
-          {activeTab === 50 && <ManageAgencies/>}
-          {activeTab === 51 && <ManageAgent/>}
-          {activeTab === 55 && <EquipmentMgtList/>}
-          {activeTab === 56 && <TerminalInvoiceReport/>}
-          {activeTab === 57 && <ViewContainerList/>}
-          {activeTab === 58 && <ContainerTrackingList/>}
-          {activeTab === 59 && <PaymentReport/>}
-          {activeTab === 60 && <BlockReport/>}
-          {activeTab === 61 && <UnblockReport/>} */}
+          {activeTab === 45 && <ContainerCMgt/>}
+          {activeTab === 46 && <ProcessEquipmentInterchange/>}
         </div>
       </div>
     </div>

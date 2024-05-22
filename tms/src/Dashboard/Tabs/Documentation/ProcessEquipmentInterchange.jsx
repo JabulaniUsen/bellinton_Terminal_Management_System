@@ -14,6 +14,13 @@ const ProcessEquipmentInterchange = () => {
         { value: 'options 2', label: 'options 2' },
     ];
 
+    const ExpoOptions = [
+        { value: '', label: '-Select- (Full or Empty)', isDisabled: true },
+        { value: 'Full', label: 'Full' },
+        { value: 'Empty', label: 'Empty' },
+    ];
+    
+
     const spring = {
         type: "spring",
         damping: 10,
@@ -77,9 +84,9 @@ const ProcessEquipmentInterchange = () => {
     
                                 <div className="flex flex-col gap-4">
                                     <div className="flex justify-between items-center  my-1">
-                                        <label htmlFor="" className="block font-semibold text-base">Customer ID: </label>
+                                        <label htmlFor="" className="block font-semibold text-base">Export Type: </label>
                                         <Select
-                                        options={options}
+                                        options={ExpoOptions}
                                         isSearchable
                                         className='w-[300px]'
                                         required
@@ -98,7 +105,7 @@ const ProcessEquipmentInterchange = () => {
     
     
                                     <div className="flex justify-between items-center ">
-                                        <label htmlFor='' className="block font-semibold text-base">Agent ID: </label>
+                                        <label htmlFor='' className="block font-semibold text-base">Customer Name: </label>
                                         <Select
                                         options={options}
                                         isSearchable
@@ -113,7 +120,7 @@ const ProcessEquipmentInterchange = () => {
                     </div>
         
                     <div className="flex items-center justify-center gap-2 mb-20">
-                        <button className='px-7 py-2 rounded-md bg-blue-800 text-white mt-3'type='submit' onClick={() => {setConfirmMessage(true)}}>Procees Doc</button>
+                        <button className='px-7 py-2 rounded-md bg-[#4e9352] text-white mt-3'type='submit' onClick={() => {setConfirmMessage(true)}}>Procees Doc</button>
                         <button className='px-7 py-2 rounded-md bg-gray-500 text-white mt-3' type='reset'>Reset</button>
                     </div>
         
@@ -128,7 +135,7 @@ const ProcessEquipmentInterchange = () => {
                     <div className="p-10 rounded-lg flex justify-center items-center gap-2 flex-col z-10 bg-white">
                         <p className='font-semibold text-lg'>Equipment Interchange Receipt Processed</p>
                         <div className="flex gap-2">
-                            <button className='px-5 py-1 rounded-lg bg-blue-800 text-white mt-3' onClick={() => setConfirmMessage(false)}>Ok</button>
+                            <button className='px-7 py-2 rounded-md bg-[#4e9352] text-white mt-3' onClick={() => setConfirmMessage(false)}>Ok</button>
                             <button className='px-5 py-1 rounded-lg bg-black text-white mt-3' onClick={() => setConfirmMessage(false) || setShowPrintTemplate(true)}>Print</button>
                         </div>
                     </div>

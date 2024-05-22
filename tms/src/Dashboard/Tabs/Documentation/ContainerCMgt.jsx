@@ -34,13 +34,14 @@ const ContainerCMgt = () => {
         }
     }
 
+
     return (
         <>
             {!viewProcessEqu  && !viewProcessOrder ? (
                 <div>
                     <form ref={formRef}>
                         <div className="m-10">
-                            <h3 className='font-bold text-2xl'>
+                            <h3 className='font-bold text-2xl text-[#045985]'>
                                 Container Cycle Management
                             </h3>
 
@@ -51,32 +52,20 @@ const ContainerCMgt = () => {
                                         <p className='font-semibold'> Cycle Type</p>
                                         <div className="flex items-center gap-10">
                                             <div className="flex items-center gap-2">
-                                                <input
-                                                    type="radio"
-                                                    name="choice"
-                                                    id="Delivery"
-                                                    value="delivery" // Set value to identify the type
-                                                    onChange={handleCycleTypeChange} // Handle change event
-                                                />
-                                                <label htmlFor="Delivery">Delivery</label>
-                                            </div>
-                                            <div className="flex items-center gap-2">
-                                                <input
+                                                {/* <input
                                                     type="radio"
                                                     name="choice"
                                                     id="Return"
-                                                    value="return" // Set value to identify the type
-                                                    onChange={handleCycleTypeChange} // Handle change event
-                                                />
-                                                <label htmlFor="Return">Return</label>
+                                                    value="Export Delivery"
+                                                    onChange={handleCycleTypeChange}
+                                                /> */}
+                                                <label htmlFor="Export Delivery">Export Delivery</label>
                                             </div>
                                         </div>
                                     </div>
-
-                                    {cycleType === 'return' && (
                                         <div className='return flex flex-col gap-3'>
                                             <div className="flex justify-between items-center w-[60%] my-2 gap-2">
-                                                <label htmlFor="" className="block font-semibold text-base">Terminal: </label>
+                                                <label htmlFor="" className="block font-semibold text-base">Destination Terminal: </label>
                                                 <Select
                                                 options={terminal}
                                                 isSearchable
@@ -86,7 +75,7 @@ const ContainerCMgt = () => {
                                             </div>
 
                                             <div className="flex justify-between items-center w-[60%] my-2 gap-2">
-                                                <label htmlFor="" className="block font-semibold text-base">Select BL: </label>
+                                                <label htmlFor="" className="block font-semibold text-base">Select Booking Number: </label>
                                                 <Select
                                                 options={bl}
                                                 isSearchable
@@ -96,7 +85,7 @@ const ContainerCMgt = () => {
                                             </div>
                         
                                             <div className="flex justify-between items-center w-[60%] my-2 gap-2">
-                                                <label htmlFor="" className="block font-semibold text-base">Return Date: </label>
+                                                <label htmlFor="" className="block font-semibold text-base">Delivery Date: </label>
                                                 <input type='date' className='border-gray-400 border-[1px] rounded p-1 px-2 w-[300px]'/>
                                             </div>
 
@@ -107,9 +96,15 @@ const ContainerCMgt = () => {
 
                                             <div className="flex justify-between items-center w-[60%] my-1">
                                                 <p className="block font-semibold text-base">Container List: </p>
-                                                <div className="flex gap-2 items-center">
-                                                    <input type='checkbox' className='border-gray-400 border-[1px] rounded p-1 w-5 h-5' />
-                                                    <label htmlFor="">BMOU5038886</label>
+                                                <div className="flex gap-3">
+                                                    <div className="flex gap-2 items-center">
+                                                        <input type='checkbox' className='border-gray-400 border-[1px] rounded p-1 w-5 h-5' />
+                                                        <label htmlFor="">OOLU5038886</label>
+                                                    </div>
+                                                    <div className="flex gap-2 items-center">
+                                                        <input type='checkbox' className='border-gray-400 border-[1px] rounded p-1 w-5 h-5' />
+                                                        <label htmlFor="">BMOU5038886</label>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -128,80 +123,19 @@ const ContainerCMgt = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    )}
-
-                                    {cycleType === 'delivery' && (
-                                        <div className='delivery flex flex-col gap-3'>
-                                            <div className="flex justify-between items-center w-[60%] my-2 gap-2">
-                                                <label htmlFor="" className="block font-semibold text-base">Terminal: </label>
-                                                <Select
-                                                options={terminal}
-                                                isSearchable
-                                                className='w-[300px]'
-                                                required
-                                                />
-                                            </div>
-
-                                        <div className="flex justify-between items-center w-[60%] my-2 gap-2">
-                                            <label htmlFor="" className="block font-semibold text-base">Select BL: </label>
-                                            <Select
-                                            options={bl}
-                                            isSearchable
-                                            className='w-[300px]'
-                                            required
-                                            />
-                                        </div>
-                    
-                                        <div className="flex justify-between items-center w-[60%] my-2 gap-2">
-                                            <label htmlFor="" className="block font-semibold text-base">Validity Date: </label>
-                                            <input type='date' className='border-gray-400 border-[1px] rounded p-1 px-2 w-[300px]'/>
-                                        </div>
-
-                                        <div className="flex justify-between items-center w-[60%] my-1">
-                                            <label htmlFor="" className="block font-semibold text-base">TDO NO.: </label>
-                                            <input type='text' className='border-gray-400 border-[1px] rounded p-1 px-2 w-[300px]' />
-                                        </div>
-
-                                        <div className="flex justify-between items-center w-[60%] my-1">
-                                            <p className="block font-semibold text-base">Container List: </p>
-                                            <div className="flex gap-2 items-center">
-                                                <input type='checkbox' className='border-gray-400 border-[1px] rounded p-1 w-5 h-5' />
-                                                <label htmlFor="">BMOU5038886</label>
-                                            </div>
-                                        </div>
-
-
-                                        <div className="flex justify-between items-center w-[60%]">
-                                            <p className='font-semibold'>Update Cont. Cycle:</p>
-                                            <div className="flex items-center gap-10">
-                                                <div className="flex items-center gap-2">
-                                                    <input type="radio" name="choice" id="Yes" />
-                                                    <label htmlFor="Yes">Yes</label>
-                                                </div>
-                                                <div className="flex items-center gap-2">
-                                                    <input type="radio" name="choice" id="No" />
-                                                    <label htmlFor="No">No</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    )}
-
                                 </div>
                             </div>
                         </div>
 
                         <div className="flex items-center justify-center gap-2 mb-20">
-                            <button className='px-7 py-2 rounded-md bg-blue-800 text-white mt-3' type='submit' onClick={viewReture}>Proceed to Process Doc</button>
+                            <button className='px-7 py-2 rounded-md bg-[#4e9352] text-white mt-3' type='submit' onClick={viewReture}>Proceed to Process Doc</button>
                             <button className='px-7 py-2 rounded-md bg-gray-500 text-white mt-3' type='reset'>Reset</button>
                         </div>
 
                     </form>
                 </div>
-            ) : viewProcessEqu ? (
-                <ProcessEquipmentInterchange />
             ) : (
-                <ProcessTerminalDeliveryOrder />
+                <ProcessEquipmentInterchange />
             )}
         </>
     )
