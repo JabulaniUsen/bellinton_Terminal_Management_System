@@ -16,7 +16,7 @@ const ManageBooking = () => {
   // Function to fetch container data from the backend API
   const fetchContainerData = async () => {
     try {
-      const response = await axios.get(`https://exprosys-backend.onrender.com/api/v1/containers`);
+      const response = await axios.get(`https://exprosys-backend.onrender.com/api/v1/booked-containers/`);
       setData(response.data);
       console.log("Container Data:", response.data); // Log data in console
     } catch (error) {
@@ -27,7 +27,7 @@ const ManageBooking = () => {
   // Function to update container data in the backend API
   const updateContainerData = async () => {
     try {
-      const response = await axios.put(`https://exprosys-backend.onrender.com/api/v1/containers/${selectedVesselDetails.containerId}`, selectedVesselDetails);
+      const response = await axios.put(`https://exprosys-backend.onrender.com/api/v1/booked-containers/${id}`, selectedVesselDetails);
       toast.success("Container data updated successfully!");
       console.log("Container data updated successfully!");
       fetchContainerData(); // Refresh the data
@@ -40,7 +40,7 @@ const ManageBooking = () => {
   // Function to delete container data in the backend API
   const deleteContainerData = async () => {
     try {
-      const response = await axios.delete(`https://exprosys-backend.onrender.com/api/v1/containers/${selectedVesselDetails.containerId}`);
+      const response = await axios.delete(`https://exprosys-backend.onrender.com/api/v1/booked-containers/${id}`);
       toast.success("Container data deleted successfully!");
       console.log("Container data deleted successfully!");
       fetchContainerData(); // Refresh the data

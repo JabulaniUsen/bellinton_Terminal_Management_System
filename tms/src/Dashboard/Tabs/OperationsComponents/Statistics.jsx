@@ -9,20 +9,20 @@ const Statistics = () => {
     const terminalData = [
         {
           title: 'Products Sold',
-          percentage: '+2.6%',
-          value: '765',
+          percentage: '+0.0%',
+          value: '0',
           stock: greenStock
         },
         {
           title: 'Total Balance',
-          percentage: '-0.1%',
-          value: '18,765',
+          percentage: '0.0%',
+          value: '0',
           stock: blueStock
         },
         {
           title: 'Sales Profit',
-          percentage: '+0.2%',
-          value: '4,876',
+          percentage: '0.0',
+          value: '0',
           stock: orangeStock
         }
       ]

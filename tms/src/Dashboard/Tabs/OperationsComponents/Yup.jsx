@@ -2,10 +2,10 @@ import React from 'react';
 import { PieChart, Pie, Cell, Legend, Label } from 'recharts';
 
 const data = [
-    { name: 'Green', value: 27.7, fill: '#00A76F' },
-    { name: 'Red', value: 28.7, fill: '#FF5630' },
-    { name: 'Blue', value: 9.2, fill: '#00B8D9' },
-    { name: 'Yellow', value: 34.7, fill: '#FFAB00' },
+    { name: 'Green', value: 0.0, fill: '#00A76F' },
+    { name: 'Red', value: 0.0, fill: '#FF5630' },
+    { name: 'Blue', value: 0.0, fill: '#00B8D9' },
+    { name: 'Yellow', value: 0.0, fill: '#FFAB00' },
 ];
 
 const Yup = () => {

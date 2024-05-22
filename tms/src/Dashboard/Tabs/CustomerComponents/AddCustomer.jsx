@@ -14,14 +14,14 @@ const AddCustomer = () => {
   const [formData, setFormData] = useState({
     customer_id: '',
     customer_name: '',
+    contact_person: '',
     email: '',
     phone: '',
-    contact_person: '',
     address: '',
     city: '',
-    country: '',
     state_province: '',
     postal_code: '',
+    country: '',
   });
 
   useEffect(() => {

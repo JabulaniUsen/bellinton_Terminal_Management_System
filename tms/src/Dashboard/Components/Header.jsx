@@ -13,7 +13,7 @@ const Header = () => {
         </div>
         <div className="icons grid grid-cols-4 items-center">
             <div className="relative">
-              <span className='absolute right-6 top-[-3px] bg-[#ff5630] rounded-full p-[0.1] px-[0.3rem] text-[10px] font-bold text-white'>4</span>
+              {/* <span className='absolute right-6 top-[-3px] bg-[#ff5630] rounded-full p-[0.1] px-[0.3rem] text-[10px] font-bold text-white'>4</span> */}
               <img src={bell} alt="" />
             </div>
             <img src={users} alt="" className='ml-3' />

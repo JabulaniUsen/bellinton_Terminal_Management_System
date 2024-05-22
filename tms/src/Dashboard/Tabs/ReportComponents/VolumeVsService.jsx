@@ -2,13 +2,13 @@ import React from 'react';
 import { BarChart, Bar, CartesianGrid, Legend, Tooltip } from 'recharts';
 
 const data = [
-  { name: 1, uv: 50, pv: 77 },
-  { name: 2, uv: 35, pv: 65 },
-  { name: 3, uv: 39, pv: 50 },
-  { name: 4, uv: 25, pv: 70 },
-  { name: 5, uv: 40, pv: 60 },
-  { name: 6, uv: 25, pv: 70 },
-  { name: 7, uv: 40, pv: 80 },
+  { name: 1, uv: 0, pv: 0 },
+  { name: 2, uv: 0, pv: 0 },
+  { name: 3, uv: 0, pv: 0 },
+  { name: 4, uv: 0, pv: 0 },
+  { name: 5, uv: 0, pv: 0 },
+  { name: 6, uv: 0, pv: 0 },
+  { name: 7, uv: 0, pv: 0 },
 ];
 
 const VolumeVsService = () => {

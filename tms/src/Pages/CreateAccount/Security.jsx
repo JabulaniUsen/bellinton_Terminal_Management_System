@@ -34,6 +34,7 @@ function Security({ onUpdate, next }) {
       [name]: value,
     });
   };
+  
 
   const validate = () => {
     const newErrors = {};

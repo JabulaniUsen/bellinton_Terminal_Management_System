@@ -8,6 +8,7 @@ import GateAccessControlList from './GateAccessControlList';
 const GateAccessControl = () => { 
     const [isFileUploaded, setIsFileUploaded] = useState(false);
     const [showList, setShowList] = useState(false);
+    const [conlist, setConlist] = useState([]);
     const [formData, setFormData] = useState({
         access_date: '',
         access_time: '',
@@ -29,13 +30,6 @@ const GateAccessControl = () => {
         attachment: null,
     });
 
-    const options2 = [
-        { value: '', label: 'Select Cargo/BL ID', isDisabled: true },
-        { value: '0012345', label: 'CON12345' },
-        { value: '0014534', label: 'CON14534' },
-        { value: '0024565', label: 'CON24565' },
-        { value: '0030923', label: 'CON30923' },
-    ];
     const access_type = [
         { value: '', label: "(driver's license, employee ID)", isDisabled: true },
         { value: "Driver's License", label: "Driver's License" },
@@ -60,17 +54,31 @@ const GateAccessControl = () => {
         { value: 'No', label: 'No' }
     ];
 
+    useEffect(() => {
+        const fetchConlist = async () => {
+            try {
+                const response = await axios.get('https://exprosys-backend.onrender.com/api/v1/trucks/');
+                const options = response.data.map(item => ({ value: item.id, label: item.name }));
+                setConlist(options);
+            } catch (error) {
+                toast.error('Failed to fetch container list. Please try again.');
+            }
+        };
+
+        fetchConlist();
+    }, []);
+
     const handleShowList = () => {
-      setShowList(true);
-    }
+        setShowList(true);
+    };
 
     const handleFileChange = (event) => {
         if (event.target.files.length > 0) {
-          setIsFileUploaded(true);
-          setFormData({ ...formData, attachment: event.target.files[0] });
+            setIsFileUploaded(true);
+            setFormData({ ...formData, attachment: event.target.files[0] });
         } else {
-          setIsFileUploaded(false);
-          setFormData({ ...formData, attachment: null });
+            setIsFileUploaded(false);
+            setFormData({ ...formData, attachment: null });
         }
     };
 
@@ -136,11 +144,11 @@ const GateAccessControl = () => {
                       <div className="flex justify-between items-center mt-7">
                           <label htmlFor="truck_number" className="block font-semibold text-base">Truck Number/ID: </label>
                           <Select
-                            options={options2}
+                            options={conlist}
                             isSearchable
                             className='w-[260px]'
                             name='truck_number'
-                            value={options2.find(option => option.value === formData.truck_number)}
+                            value={conlist.find(option => option.value === formData.truck_number)}
                             onChange={handleSelectChange}
                           />
                       </div>
