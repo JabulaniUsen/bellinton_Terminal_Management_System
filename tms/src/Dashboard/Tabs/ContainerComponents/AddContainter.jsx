@@ -20,7 +20,7 @@ const AddContainer = () => {
     // Fetch data for the dropdowns when the component mounts
     fetchBookingNumbers();
     fetchCustomerNames();
-    
+
     document.addEventListener('click', handleClickOutside);
     return () => {
       document.removeEventListener('click', handleClickOutside);
@@ -79,9 +79,13 @@ const AddContainer = () => {
 
   const fetchBookingNumbers = async () => {
     try {
-      const response = await axios.get('exprosys-backend.onrender.com/api/v1/booking-numbers/');
-      const bookingNumbers = response.data.map(item => ({ value: item.id, label: item.bookingNumber }));
-      setOptions2(bookingNumbers);
+      const response = await axios.get('https://exprosys-backend.onrender.com/api/v1/booking-numbers/');
+      if (Array.isArray(response.data)) {
+        const bookingNumbers = response.data.map(item => ({ value: item.id, label: item.bookingNumber }));
+        setOptions2(bookingNumbers);
+      } else {
+        console.error('Unexpected response format for booking numbers:', response.data);
+      }
     } catch (error) {
       console.error('Error fetching booking numbers:', error);
     }
@@ -89,9 +93,13 @@ const AddContainer = () => {
 
   const fetchCustomerNames = async () => {
     try {
-      const response = await axios.get('exprosys-backend.onrender.com/api/v1/customer-names/');
-      const customerNames = response.data.map(item => ({ value: item.id, label: item.customerName }));
-      setOptions3(customerNames);
+      const response = await axios.get('https://exprosys-backend.onrender.com/api/v1/customer-names/');
+      if (Array.isArray(response.data)) {
+        const customerNames = response.data.map(item => ({ value: item.id, label: item.customerName }));
+        setOptions3(customerNames);
+      } else {
+        console.error('Unexpected response format for customer names:', response.data);
+      }
     } catch (error) {
       console.error('Error fetching customer names:', error);
     }

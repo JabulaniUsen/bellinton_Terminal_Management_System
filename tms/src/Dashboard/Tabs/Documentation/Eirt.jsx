@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react'
-import logo from '../../../assets/logo.svg'
+import logo from '../../../assets/leftPics.svg'
 import qr from '../../../assets/qr.svg'
 import conLabel from '../../../assets/containerLabel.svg'
 import { useReactToPrint } from 'react-to-print';
@@ -125,14 +125,14 @@ const Eirt = () => {
                             </div>
                         </div>
                         <div className="equInfo pr-5">
-                            <h3 className='font-semibold px-4 py-3 border border-gray-900'>Equipment Condition</h3>
+                            <h3 className='font-semibold px-4 py-3 border border-gray-900'>Location and Date:</h3>
                             <div className="flex justify-between">
                                 <p className='px-4 py-3 w-[170px] text-xs border border-gray-900'>Terminal Name:</p>
-                                <p className='px-4 py-3 w-[170px] text-xs border border-gray-900'></p>
+                                <p className='px-4 py-3 w-[170px] text-xs border border-gray-900'>Bellington Terminal</p>
                             </div>
                             <div className="flex justify-between">
                                 <p className='px-4 py-3 w-[170px] text-xs border border-gray-900'>Terminal Location:</p>
-                                <p className='px-4 py-3 w-[170px] text-xs border border-gray-900'></p>
+                                <p className='px-4 py-3 w-[170px] text-xs border border-gray-900'>Lagos, Nigeria</p>
                             </div>
                             <div className="flex justify-between">
                                 <p className='px-4 py-3 w-[170px] text-xs border border-gray-900'>Date of Interchange:</p>
@@ -218,7 +218,7 @@ const Eirt = () => {
 
 
             <div className="flex items-center gap-3">
-                <button className='text-white px-7 py-3 rounded-md bg-blue-700 my-20' onClick={handlePrint}>Print</button>
+                <button className='px-7 py-2 rounded-md bg-[#4e9352] text-white my-20' onClick={handlePrint}>Print</button>
             </div>
         </div>
     </div>

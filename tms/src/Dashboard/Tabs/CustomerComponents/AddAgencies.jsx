@@ -1,18 +1,18 @@
-import { faMagnifyingGlass, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UploadBox from '../ManifestComponents/UploadBox';
-
+import axios from 'axios';
 
 const AddAgencies = () => {
   const [inputValue, setInputValue] = useState('');
-  const [agencyId, setAgencyId] = useState("CFC-AG-0001-0000")
+  const [agency_id, setAgency_id] = useState("CFC-AG-0001-0000")
   const [suggestions, setSuggestions] = useState([]);
   const inputRef = useRef(null);
-  const [showUpload, setShowUpload] = useState(false)
-  
+  const [showUpload, setShowUpload] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
@@ -28,39 +28,50 @@ const AddAgencies = () => {
   };
 
   const initialFormData = {
-    AgencyID: 'CFC-AG-0001-0000',
-    AgencyName: '',
+    agency_id: '',
+    agency_name: '',
     email: '',
-    phoneNumber: '',
-    contactPerson: '',
+    phone_number: '',
+    contact_person: '',
     notes: '',
     address: '',
     city: '',
     country: '',
-    stateProvince: '',
-    postalCode: '',
-    billingAddress: '',
+    state_province: '',
+    postal_code: '',
+    billing_address: '',
   };
 
   const [formData, setFormData] = useState(initialFormData);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Perform any form submission logic here
-
-    // Show notification with pop-up animation
-    toast.success('Agency added successfully', {
-      position: 'top-right',
-      autoClose: 3000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-
-    // Reset the form data to its initial state
-    setFormData(initialFormData);
+    try {
+      await axios.post('https://exprosys-backend.onrender.com/api/v1/agency/', formData);
+      // Show notification with pop-up animation
+      toast.success('Agency added successfully', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      // Reset the form data to its initial state
+      setFormData(initialFormData);
+    } catch (error) {
+      console.error('Error adding agency:', error);
+      toast.error('Error adding agency. Please try again later.', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
 
   const handleChange = (e) => {
@@ -114,7 +125,7 @@ const AddAgencies = () => {
                 <div className="flex items-center justify-between pr-3 pl-2 py-2 rounded-md border-gray-500 border w-[400px]">
                   <input
                     type="text"
-                    value={agencyId}
+                    value={agency_id}
                     onChange={handleInputChange}
                     className='outline-none w-full'
                 />
@@ -130,7 +141,7 @@ const AddAgencies = () => {
             </div>
             <div className="flex flex-col gap-2 my-5">
               <label htmlFor="name" className='text-base font-semibold'>Agency Name:</label>
-              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="AgencyName" name="AgencyName" placeholder='Enter Agency name:' />
+              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="agency_name" name="agency_name" placeholder='Enter Agency name:' />
             </div>
             <div className="flex flex-col gap-2 my-5">
               <label htmlFor="name" className='text-base font-semibold'>Email:</label>
@@ -138,15 +149,15 @@ const AddAgencies = () => {
             </div>
             <div className="flex flex-col gap-2 my-5">
               <label htmlFor="name" className='text-base font-semibold'>Phone Number:</label>
-              <input required type="number" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="phoneNumber" name="phoneNumber" placeholder='Enter phone number:' />
+              <input required type="number" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="phone_number" name="phone_number" placeholder='Enter phone number:' />
             </div>
             <div className="flex flex-col gap-2 my-5">
               <label htmlFor="name" className='text-base font-semibold'>Contact Person:</label>
-              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="contactPerson" name="contactPerson" placeholder='Enter contact person' />
+              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="contact_person" name="contact_person" placeholder='Enter contact person' />
             </div>
             <div className="flex flex-col gap-2 my-5">
               <label htmlFor="name" className='text-base font-semibold'>Note:</label>
-              {/* <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="contactPerson" name="contactPerson" placeholder='Enter contact person' /> */}
+              {/* <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="contact_person" name="contact_person" placeholder='Enter contact person' /> */}
               <textarea className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' placeholder='Enter Any additional notes or comments regarding the customer' name="" id="" cols="30" rows="3"></textarea>
             </div>
           </div>
@@ -156,7 +167,8 @@ const AddAgencies = () => {
               <label htmlFor="name" className='text-base font-semibold'>Address:</label>
               <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="address" name="address" placeholder='Enter address:' />
             </div>
-            <div className="flex flex-col gap-2 my-5">
+            <
+            div className="flex flex-col gap-2 my-5">
               <label htmlFor="name" className='text-base font-semibold'>City:</label>
               <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="city" name="city" placeholder='Enter city:' />
             </div>
@@ -170,11 +182,11 @@ const AddAgencies = () => {
             </div>
             <div className="flex flex-col gap-2 my-5">
               <label htmlFor="name" className='text-base font-semibold'>Postal Code:</label>
-              <input required type="number" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="postalCode" name="postalCode" placeholder='Enter Postal Code:' />
+              <input required type="number" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="postal_code" name="postal_code" placeholder='Enter Postal Code:' />
             </div>
             <div className="flex flex-col gap-2 my-5">
               <label htmlFor="name" className='text-base font-semibold'>Billing Address:</label>
-              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="billingAddress" name="billingAddress" placeholder='Enter Billing Address:' />
+              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="billing_address" name="billing_address" placeholder='Enter Billing Address:' />
             </div>
 
             <div className="upload">
@@ -199,4 +211,4 @@ const AddAgencies = () => {
   )
 }
 
-export default AddAgencies
+export default AddAgencies;
