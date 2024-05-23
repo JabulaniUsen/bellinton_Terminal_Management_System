@@ -123,18 +123,11 @@ const ContainerTransfer = () => {
             <div className="flex flex-col">
               <label htmlFor="transfer_to" className='font-semibold text-base'>Transfer To:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                <select
+                <input 
                   className='outline-none w-full'
                   value={transfer_to}
-                  onChange={(e) => setTransferTo(e.target.value)}
-                >
-                  <option value="" className='text-[#a1a1a1]'>Select the destined location of the container</option>
-                  {locations.map((location) => (
-                    <option key={location.id} value={location.name}>
-                      {location.name}
-                    </option>
-                  ))}
-                </select>
+                  onChange={(e) => setTransferTo(e.target.value)} type="text"
+                  />
               </div>
             </div>
             <div className="flex flex-col">
