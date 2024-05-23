@@ -8,11 +8,14 @@ import axios from 'axios';
 
 const AddAgencies = () => {
   const [inputValue, setInputValue] = useState('');
-  const [agency_id, setAgency_id] = useState("CFC-AG-0001-0000")
+  const [agency_id, setagency_id] = useState('')
   const [suggestions, setSuggestions] = useState([]);
   const inputRef = useRef(null);
   const [showUpload, setShowUpload] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [letterOfAuthority, setLetterOfAuthority] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState(''); // To manage upload status message
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
@@ -28,7 +31,7 @@ const AddAgencies = () => {
   };
 
   const initialFormData = {
-    agency_id: '',
+    agency_idd: '',
     agency_name: '',
     email: '',
     phone_number: '',
@@ -46,9 +49,36 @@ const AddAgencies = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if letter of authority is uploaded
+    if (!letterOfAuthority) {
+      toast.error('Please upload the Letter of Authority.', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+
+    setLoading(true);
+    const formPayload = new FormData();
+    Object.keys(formData).forEach((key) => {
+      formPayload.append(key, formData[key]);
+    });
+    if (letterOfAuthority) {
+      formPayload.append('letter_of_authority', letterOfAuthority);
+    }
+
     try {
-      await axios.post('https://exprosys-backend.onrender.com/api/v1/agency/', formData);
-      // Show notification with pop-up animation
+      await axios.post('https://exprosys-backend.onrender.com/api/v1/agency/', formPayload, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       toast.success('Agency added successfully', {
         position: 'top-right',
         autoClose: 3000,
@@ -58,8 +88,9 @@ const AddAgencies = () => {
         draggable: true,
         progress: undefined,
       });
-      // Reset the form data to its initial state
       setFormData(initialFormData);
+      setLetterOfAuthority(null);
+      setUploadStatus(''); // Reset upload status message
     } catch (error) {
       console.error('Error adding agency:', error);
       toast.error('Error adding agency. Please try again later.', {
@@ -71,6 +102,8 @@ const AddAgencies = () => {
         draggable: true,
         progress: undefined,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -82,24 +115,31 @@ const AddAgencies = () => {
     }));
   };
 
-  const data = ["1001", "1002", "1003", "1004", "1005"]
+  const handleFileChange = (e) => {
+    setLetterOfAuthority(e.target.files[0]);
+    setUploadStatus('File uploaded successfully'); // Set upload status message
+  };
+
+  const data = ["1001", "1002", "1003", "1004", "1005"];
 
   const handleInputChange = (e) => {
     const value = e.target.value;
     setInputValue(value);
 
-    // Filter suggestions based on the input value
     const filteredSuggestions = data.filter((item) =>
       item.toLowerCase().includes(value.toLowerCase())
     );
     setSuggestions(filteredSuggestions);
   };
+
   const handleSuggestionClick = (suggestion) => {
     setInputValue(suggestion);
+    setFormData((prevData) => ({
+      ...prevData,
+      agency_id: suggestion,
+    }));
     setSuggestions([]);
   };
-
-  // Upload 
 
   const closeUploadBox = () => {
     setShowUpload(false);
@@ -108,7 +148,7 @@ const AddAgencies = () => {
 
   const handleUpload = () => {
     setShowUpload(!showUpload);
-  }
+  };
 
   return (
     <div className='m-10'>
@@ -116,99 +156,82 @@ const AddAgencies = () => {
         <h3 className='text-2xl font-bold'>Create Agency</h3>
       </div>
 
-      <form action="" onSubmit={handleSubmit} >
+      <form action="" onSubmit={handleSubmit}>
         <div className='my-10 grid grid-cols-2'>
           <div className="sideOne">
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="name" className='text-base font-semibold'>Agency ID:</label>
-              <div ref={inputRef}>
-                <div className="flex items-center justify-between pr-3 pl-2 py-2 rounded-md border-gray-500 border w-[400px]">
-                  <input
-                    type="text"
-                    value={agency_id}
-                    onChange={handleInputChange}
-                    className='outline-none w-full'
-                />
-              </div>
-              <ul className=''>
-                {suggestions.map((suggestion, index) => (
-                <li key={index} className='cursor-pointer hover:bg-slate-100 p-2' onClick={() => handleSuggestionClick(suggestion)}>
-                  {suggestion}
-                </li>
-                ))}
-              </ul>
-            </div>
+              <label htmlFor="agency_id" className='text-base font-semibold'>Agency ID:</label>
+              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="agency_id" name="agency_id" value={formData.agency_id} onChange={handleChange} placeholder='Enter Agency ID:' />
             </div>
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="name" className='text-base font-semibold'>Agency Name:</label>
-              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="agency_name" name="agency_name" placeholder='Enter Agency name:' />
+              <label htmlFor="agency_name" className='text-base font-semibold'>Agency Name:</label>
+              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="agency_name" name="agency_name" value={formData.agency_name} onChange={handleChange} placeholder='Enter Agency name:' />
             </div>
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="name" className='text-base font-semibold'>Email:</label>
-              <input required type="Email" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="email" name="email" placeholder='Enter email address:' />
+              <label htmlFor="email" className='text-base font-semibold'>Email Address:</label>
+              <input required type="email" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="email" name="email" value={formData.email} onChange={handleChange} placeholder='Enter email address:' />
             </div>
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="name" className='text-base font-semibold'>Phone Number:</label>
-              <input required type="number" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="phone_number" name="phone_number" placeholder='Enter phone number:' />
+              <label htmlFor="phone_number" className='text-base font-semibold'>Phone Number:</label>
+              <input required type="number" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="phone_number" name="phone_number" value={formData.phone_number} onChange={handleChange} placeholder='Enter phone number:' />
             </div>
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="name" className='text-base font-semibold'>Contact Person:</label>
-              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="contact_person" name="contact_person" placeholder='Enter contact person' />
+              <label htmlFor="contact_person" className='text-base font-semibold'>Contact Person:</label>
+              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="contact_person" name="contact_person" value={formData.contact_person} onChange={handleChange} placeholder='Enter contact person' />
             </div>
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="name" className='text-base font-semibold'>Note:</label>
-              {/* <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="contact_person" name="contact_person" placeholder='Enter contact person' /> */}
-              <textarea className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' placeholder='Enter Any additional notes or comments regarding the customer' name="" id="" cols="30" rows="3"></textarea>
+              <label htmlFor="notes" className='text-base font-semibold'>Notes:</label>
+              <textarea className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="notes" name="notes" value={formData.notes} onChange={handleChange} placeholder='Enter any additional notes or comments regarding the customer' cols="30" rows="3"></textarea>
             </div>
           </div>
 
           <div className="sideTwo">
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="name" className='text-base font-semibold'>Address:</label>
-              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="address" name="address" placeholder='Enter address:' />
-            </div>
-            <
-            div className="flex flex-col gap-2 my-5">
-              <label htmlFor="name" className='text-base font-semibold'>City:</label>
-              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="city" name="city" placeholder='Enter city:' />
+              <label htmlFor="address" className='text-base font-semibold'>Address:</label>
+              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="address" name="address" value={formData.address} onChange={handleChange} placeholder='Enter address:' />
             </div>
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="name" className='text-base font-semibold'>Country:</label>
-              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="country" name="country" placeholder='Enter country:' />
+              <label htmlFor="city" className='text-base font-semibold'>City:</label>
+              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="city" name="city" value={formData.city} onChange={handleChange} placeholder='Enter city:' />
             </div>
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="name" className='text-base font-semibold'>State/Province:</label>
-              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="State/Province" name="State/Province" placeholder='Enter State/Province:' />
+              <label htmlFor="country" className='text-base font-semibold'>Country:</label>
+              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="country" name="country" value={formData.country} onChange={handleChange} placeholder='Enter country:' />
             </div>
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="name" className='text-base font-semibold'>Postal Code:</label>
-              <input required type="number" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="postal_code" name="postal_code" placeholder='Enter Postal Code:' />
+              <label htmlFor="state_province" className='text-base font-semibold'>State/Province:</label>
+              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="state_province" name="state_province" value={formData.state_province} onChange={handleChange} placeholder='Enter State/Province:' />
             </div>
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="name" className='text-base font-semibold'>Billing Address:</label>
-              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="billing_address" name="billing_address" placeholder='Enter Billing Address:' />
+              <label htmlFor="postal_code" className='text-base font-semibold'>Postal Code:</label>
+              <input required type="number" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="postal_code" name="postal_code" value={formData.postal_code} onChange={handleChange} placeholder='Enter Postal Code:' />
+            </div>
+            <div className="flex flex-col gap-2 my-5">
+              <label htmlFor="billing_address" className='text-base font-semibold'>Billing Address:</label>
+              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="billing_address" name="billing_address" value={formData.billing_address} onChange={handleChange} placeholder='Enter Billing Address:' />
             </div>
 
             <div className="upload">
-                <label htmlFor="uploadLetter" className='text-[#0095FF] font-semibold flex items-center gap-2'>
-                    Upload Letter of Authority 
-                    <FontAwesomeIcon icon={faUpload}/>
-                </label>
-                <input type="file" name="uploadLetter" id="uploadLetter" style={{display: 'none'}} />
+              <label htmlFor="uploadLetter" className='text-[#0095FF] font-semibold flex items-center gap-2'>
+                Upload Letter of Authority 
+                <FontAwesomeIcon icon={faUpload} />
+              </label>
+              <input type="file" name="uploadLetter" id="uploadLetter" style={{ display: 'none' }} onChange={handleFileChange} />
+              {uploadStatus && <p className='text-green-600'>{uploadStatus}</p>}
             </div>
           </div>
         </div>
         <div className="flex justify-center items-center gap-5 text-lg">
           <p onClick={handleUpload} className='underline text-[#4e9352] font-semibold cursor-pointer'>Upload CSV/XLS</p>
-          <button type="submit" className='bg-[#4e9352] hover:bg-[#357c39] rounded-lg text-white px-10 py-2'>Add Agency</button>
-          <button type="reset" className='bg-[#828282] rounded-lg text-white px-12 py-2'>Reset</button>
+          <button type="submit" className='bg-[#4e9352] hover:bg-[#357c39] rounded-lg text-white px-10 py-2' disabled={loading}>
+            {loading ? 'Adding... Please wait' : 'Add Agency'}
+          </button>
+          <button type="reset" className='bg-[#828282] rounded-lg text-white px-12 py-2' onClick={() => { setFormData(initialFormData); setLetterOfAuthority(null); setUploadStatus(''); }}>Reset</button>
         </div>
       </form>
-      { showUpload &&
-        <UploadBox closeUploadBox={closeUploadBox}/>
-        }
+      {showUpload && <UploadBox closeUploadBox={closeUploadBox} />}
     </div>
-  )
+  );
 }
 
 export default AddAgencies;

@@ -4,12 +4,12 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ContainerTransfer = () => {
-  const [cargo_id, setCargo_id] = useState('');
+  const [containerId, setContainerId] = useState('');
   const [transfer_from, setTransfer_from] = useState('');
   const [transfer_to, setTransferTo] = useState('');
-  const [transfer_ate, setTransfer_ate] = useState('');
+  const [transfer_date, settransfer_date] = useState('');
   const [confirmation_code, setConfirmation_code] = useState('');
-  const [reason_for_transfer, setReasonForTransfer] = useState('');
+  const [reasons_for_transfer, setReasonForTransfer] = useState('');
   const [containers, setContainers] = useState([]);
   const [locations, setLocations] = useState([]);
 
@@ -30,12 +30,12 @@ const ContainerTransfer = () => {
 
   const handleSubmit = async () => {
     const transferData = {
-      cargo_id,
+      containerId,
       transfer_from,
       transfer_to,
-      transfer_ate,
+      transfer_date,
       confirmation_code,
-      reason_for_transfer,
+      reasons_for_transfer,
     };
 
     try {
@@ -51,10 +51,10 @@ const ContainerTransfer = () => {
   };
 
   const clearForm = () => {
-    setCargo_id('');
+    setContainerId('');
     setTransfer_from('');
     setTransferTo('');
-    setTransfer_ate('');
+    settransfer_date('');
     setConfirmation_code('');
     setReasonForTransfer('');
   };
@@ -68,12 +68,12 @@ const ContainerTransfer = () => {
         <div className="body my-5 grid grid-cols-2 gap-20">
           <div className="col2 flex flex-col gap-10">
             <div className="flex flex-col">
-              <label htmlFor="cargo_id" className='font-semibold text-base'>Container ID:</label>
+              <label htmlFor="containerId" className='font-semibold text-base'>Container ID:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                <select
+                {/* <select
                   className='outline-none w-full'
-                  value={cargo_id}
-                  onChange={(e) => setCargo_id(e.target.value)}
+                  value={containerId}
+                  onChange={(e) => setContainerId(e.target.value)}
                 >
                   <option value="" className='text-[#a1a1a1]'>Enter the unique identifier for the container</option>
                   {containers.map((container) => (
@@ -81,7 +81,11 @@ const ContainerTransfer = () => {
                       {container.container_id}
                     </option>
                   ))}
-                </select>
+                </select> */}
+                <input 
+                  type="text"
+                  value={containerId}
+                  onChange={(e) => setContainerId(e.target.value)} />
               </div>
             </div>
             <div className="flex flex-col">
@@ -96,13 +100,13 @@ const ContainerTransfer = () => {
               </div>
             </div>
             <div className="flex flex-col">
-              <label htmlFor="transfer_ate" className='font-semibold text-base'>Transfer Date:</label>
+              <label htmlFor="transfer_date" className='font-semibold text-base'>Transfer Date:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                 <input
                   type="date"
                   className='outline-none w-full'
-                  value={transfer_ate}
-                  onChange={(e) => setTransfer_ate(e.target.value)}
+                  value={transfer_date}
+                  onChange={(e) => settransfer_date(e.target.value)}
                 />
               </div>
             </div>
@@ -131,15 +135,15 @@ const ContainerTransfer = () => {
               </div>
             </div>
             <div className="flex flex-col">
-              <label htmlFor="reason_for_transfer" className='font-semibold text-base'>Reasons For Transfer:</label>
+              <label htmlFor="reasons_for_transfer" className='font-semibold text-base'>Reasons For Transfer:</label>
               <div className="border-[#999999] rounded-lg border-[1px] flex items-center p-3">
                 <textarea
-                  name="reason_for_transfer"
-                  id="reason_for_transfer"
+                  name="reasons_for_transfer"
+                  id="reasons_for_transfer"
                   cols="20"
                   rows="10"
                   className='outline-none w-full h-[100px]'
-                  value={reason_for_transfer}
+                  value={reasons_for_transfer}
                   onChange={(e) => setReasonForTransfer(e.target.value)}
                 ></textarea>
               </div>

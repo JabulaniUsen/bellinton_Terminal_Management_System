@@ -14,14 +14,14 @@ const AddCustomer = () => {
   const [formData, setFormData] = useState({
     customer_id: '',
     customer_name: '',
+    email_address: '',
+    phone_number: '',
     contact_person: '',
-    email: '',
-    phone: '',
     address: '',
     city: '',
+    country: '',
     state_province: '',
     postal_code: '',
-    country: '',
   });
 
   useEffect(() => {
@@ -76,18 +76,7 @@ const AddCustomer = () => {
         draggable: true,
         progress: undefined,
       });
-      setFormData({
-        customer_id: '',
-        customer_name: '',
-        email: '',
-        phone: '',
-        contact_person: '',
-        address: '',
-        city: '',
-        country: '',
-        state_province: '',
-        postal_code: '',
-      });
+      
     } catch (error) {
       toast.error('Failed to add customer', {
         position: 'top-right',
@@ -98,6 +87,7 @@ const AddCustomer = () => {
         draggable: true,
         progress: undefined,
       });
+      
     }
     console.log(formData);
   };
@@ -155,27 +145,27 @@ const AddCustomer = () => {
               />
             </div>
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="email" className='text-base font-semibold'>Email:</label>
+              <label htmlFor="email_address" className='text-base font-semibold'>Email:</label>
               <input
                 required
-                type="email"
+                type="email_address"
                 className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]'
-                id="email"
-                name="email"
-                value={formData.email}
+                id="email_address"
+                name="email_address"
+                value={formData.email_address}
                 onChange={handleChange}
                 placeholder='Enter email address:'
               />
             </div>
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="phone" className='text-base font-semibold'>Phone Number:</label>
+              <label htmlFor="phone_number" className='text-base font-semibold'>Phone Number:</label>
               <input
                 required
                 type="number"
                 className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]'
-                id="phone"
-                name="phone"
-                value={formData.phone}
+                id="phone_number"
+                name="phone_number"
+                value={formData.phone_number}
                 onChange={handleChange}
                 placeholder='Enter phone number:'
               />
