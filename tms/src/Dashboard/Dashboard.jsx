@@ -130,7 +130,7 @@ const Dashboard = () => {
         { label: 'Add Customer', tabNumber: 7, },
         { label: 'Manage Customer', tabNumber: 8, },
         { label: 'View Agency', tabNumber: 9, },
-        { label: 'Manage Agency', tabNumber: 10, },
+        // { label: 'Manage Agency', tabNumber: 10, },
         { label: 'Add Agency', tabNumber: 11, },
         { label: 'View Agent', tabNumber: 12, },
         { label: 'Manage Agent', tabNumber: 13, },
@@ -190,7 +190,7 @@ const Dashboard = () => {
           {activeTab === 7 && <AddCustomer/>}
           {activeTab === 8 && <ManageCustomer/>}
           {activeTab === 9 && <ViewAgencies/>}
-          {activeTab === 10 && <ManageAgencies/>}
+          {/* {activeTab === 10 && <ManageAgencies/>} */}
           {activeTab === 11 && <AddAgencies/>}
           {activeTab === 12 && <ViewAgent/>}
           {activeTab === 13 && <ManageAgent/>}

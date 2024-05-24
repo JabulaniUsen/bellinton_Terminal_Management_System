@@ -1,11 +1,11 @@
 import { faCaretDown, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import Select from 'react-select';
 import axios from 'axios';
-import SuccessBox from '../ManifestComponents/SuccessBox';
 import UploadBox from '../ManifestComponents/UploadBox';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddContainer = () => {
   const [suggestions, setSuggestions] = useState([]);
@@ -14,12 +14,22 @@ const AddContainer = () => {
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [options2, setOptions2] = useState([]); // For Booking Number
   const [options3, setOptions3] = useState([]); // For Customer Name
+  const [container_id, setcontainer_id] = useState('')
+  const [booking_number, setBooking_number] = useState('');
+  const [customer_name, setCustomer_name] = useState('');
+  const [shipping_line, setShipping_line] = useState('');
+  const [origin, setOrigin] = useState('');
+  const [temperature, setTemperature] = useState('');
+
+  const [terminal_annex, setterminal_annex] = useState('');
+  const [container_size, setcontainer_size] = useState(false)
+  const [container_type, setcontainer_type] = useState(false)
+  const [container_status, setcontainer_status] = useState(false)
+  const [container_import, setcontainer_import] = useState(false)
+
   const inputRef = useRef(null);
 
   useEffect(() => {
-    // Fetch data for the dropdowns when the component mounts
-    fetchBookingNumbers();
-    fetchCustomerNames();
 
     document.addEventListener('click', handleClickOutside);
     return () => {
@@ -61,42 +71,35 @@ const AddContainer = () => {
   const handleSubmit = async () => {
     try {
       const payload = {
-        containerId: inputValue,
-        // Add other fields here
+        container_id,
+        booking_number,
+        customer_name,
+        shipping_line,
+        origin,
+        temperature,
+        terminal_annex,
+        container_size,
+        container_type,
+        container_status,
+        container_import,
       };
       const response = await axios.post('https://exprosys-backend.onrender.com/api/v1/containers/', payload);
       console.log('Response:', response.data);
-      // Handle success, e.g., show a success message
+      toast.success('Container Added')
     } catch (error) {
       console.error('Error submitting data:', error);
-      // Handle error, e.g., show an error message
     }
   };
 
-  const handleModalOK = () => {
-    setUploadSuccess(false);
-  };
 
-  const fetchBookingNumbers = async () => {
-    try {
-      const response = await axios.get('https://exprosys-backend.onrender.com/api/v1/booking-numbers/');
-      if (Array.isArray(response.data)) {
-        const bookingNumbers = response.data.map(item => ({ value: item.id, label: item.bookingNumber }));
-        setOptions2(bookingNumbers);
-      } else {
-        console.error('Unexpected response format for booking numbers:', response.data);
-      }
-    } catch (error) {
-      console.error('Error fetching booking numbers:', error);
-    }
-  };
 
-  const fetchCustomerNames = async () => {
+
+  const fetchCustomer_names = async () => {
     try {
       const response = await axios.get('https://exprosys-backend.onrender.com/api/v1/customer-names/');
       if (Array.isArray(response.data)) {
-        const customerNames = response.data.map(item => ({ value: item.id, label: item.customerName }));
-        setOptions3(customerNames);
+        const customer_names = response.data.map(item => ({ value: item.id, label: item.customerName_n}));
+        setOptions3(customer_names);
       } else {
         console.error('Unexpected response format for customer names:', response.data);
       }
@@ -121,9 +124,9 @@ const AddContainer = () => {
                   <div className="flex items-center justify-between pr-3 pl-2 py-1 rounded border-[#999999] border w-[400px]">
                     <input
                       type="text"
-                      value={inputValue}
-                      onChange={handleInputChange}
-                      className='outline-none'
+                      value={container_id}
+                      onChange={(e) => setcontainer_id(e.target.value)}
+                      className='outline-none w-full'
                     />
                     <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
                   </div>
@@ -226,49 +229,75 @@ const AddContainer = () => {
           </div> 
           <div className="col2 flex flex-col gap-10">
             <div className="flex flex-col">
-              <label htmlFor="bookingNumber" className='font-semibold text-base'>Booking Number:</label>
-              <div className="rounded flex items-center py-2">
-                <Select
-                  options={options2}
-                  isSearchable
-                  placeholder="Select Booking Number"
-                  className='w-full'
-                />
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <label htmlFor="customerName" className='font-semibold text-base'>Customer Name:</label>
-              <div className="rounded flex items-center py-2">
-                <Select
-                  options={options3}
-                  isSearchable
-                  placeholder="Customer name associated with container"
-                  className='w-full'
-                />
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <label htmlFor="shippingLine" className='font-semibold text-base'>Shipping Line:</label>
+              <label htmlFor="booking_number" className='font-semibold text-base'>Booking Number:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                <input type="text" className='outline-none w-full' />
+                <input
+                  // options={options2}
+                  // isSearchable
+                  placeholder="Select Booking Number"
+                  className='w-full outline-none'
+                  value={booking_number}
+                  onChange={(e) => setBooking_number(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="customer_name" className='font-semibold text-base'>Customer Name:</label>
+              <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
+                <input
+                  // options={options3}
+                  // isSearchable
+                  placeholder="Customer name associated with container"
+                  className='w-full outline-none'
+                  value={customer_name}
+                  onChange={(e) => setCustomer_name(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="shipping_line" className='font-semibold text-base'>Shipping Line:</label>
+              <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
+                <input 
+                  type="text" 
+                  className='outline-none w-full' 
+                  value={shipping_line}
+                  onChange={(e) => setShipping_line(e.target.value)}
+                />
               </div>
             </div>
             <div className="flex flex-col">
               <label htmlFor="origin" className='font-semibold text-base'>Origin:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                <input type="text" className='outline-none w-full' />
+                <input 
+                  type="text" 
+                  className='outline-none w-full'
+                  value={origin}
+                  onChange={(e) => setOrigin(e.target.value)}
+                />
               </div>
             </div>
             <div className="flex flex-col">
               <label htmlFor="temperature" className='font-semibold text-base'>Temperature (for Reefer):</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                <input type="text" className='outline-none w-full' placeholder='Enter the temperature for Reefer containers in Celsius.' />
+                <input 
+                  type="text" 
+                  className='outline-none w-full' 
+                  placeholder='Enter the temperature for Reefer containers in Celsius.'
+                  value={temperature}
+                  onChange={(e) => setTemperature(e.target.value)}
+                />
               </div>
             </div>
             <div className="flex flex-col">
-              <label htmlFor="location" className='font-semibold text-base'>Location:</label>
+              <label htmlFor="terminal_annex" className='font-semibold text-base'>Terminal annex:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                <input type="text" className='outline-none w-full' placeholder='Location within the terminal where the container will be stored.' />
+                <input 
+                  type="text" 
+                  className='outline-none w-full' 
+                  placeholder='Location within the terminal where the container will be stored.'
+                  value={terminal_annex}
+                  onChange={(e) => setterminal_annex(e.target.value)}
+                />
               </div>
             </div>
             <div className="buttons flex gap-5 justify-end items-end my-20">
@@ -278,6 +307,7 @@ const AddContainer = () => {
         </div>
       </div>
       {showUpload && <UploadBox closeUploadBox={closeUploadBox} />}
+      <ToastContainer/>
     </div>
   );
 };

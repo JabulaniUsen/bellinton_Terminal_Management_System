@@ -55,9 +55,6 @@ const AddAgent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform any form submission logic here
-
-    // Show notification with pop-up animation
     toast.success('Agent added successfully', {
       position: 'top-right',
       autoClose: 3000,
