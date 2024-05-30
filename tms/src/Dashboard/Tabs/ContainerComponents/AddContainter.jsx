@@ -12,8 +12,8 @@ const AddContainer = () => {
   const [inputValue, setInputValue] = useState('');
   const [showUpload, setShowUpload] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
-  const [options2, setOptions2] = useState([]); // For Booking Number
-  const [options3, setOptions3] = useState([]); // For Customer Name
+  const [options2, setOptions2] = useState([]);
+  const [options3, setOptions3] = useState([]);
   const [container_id, setcontainer_id] = useState('')
   const [booking_number, setBooking_number] = useState('');
   const [customer_name, setCustomer_name] = useState('');
@@ -207,15 +207,7 @@ const AddContainer = () => {
               </div>
               {/* Import/Export */}
               <div className="containerSize flex flex-col gap-3 my-3">
-                <div className='font-semibold text-base'>Import/Export:</div>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" name="ImportFull" id="ImportFull" />
-                  <label htmlFor="ImportFull" className='text-base'>Import Full</label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" name="ImportEmpty" id="ImportEmpty" />
-                  <label htmlFor="ImportEmpty" className='text-base'>Import Empty</label>
-                </div>
+                <div className='font-semibold text-base'>Export:</div>
                 <div className="flex items-center gap-2">
                   <input type="checkbox" name="ExportFull" id="ExportFull" />
                   <label htmlFor="ExportFull" className='text-base'>Export Full</label>

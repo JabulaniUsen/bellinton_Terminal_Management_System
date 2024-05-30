@@ -15,24 +15,14 @@ const ViewContainer = () => {
   const [data, setData] = useState([])
   const [selectedVesselDetails, setSelectedVesselDetails] = useState(null);
 
-  // const fetchContainerStatus = async (container_id) => {
-  //   try {
-  //     const response = await axios.get(`https://exprosys-backend.onrender.com/api/v1/containers/`);
-  //     setinitialData(response.data);
-  //     setMoreInfo(true);
-  //     console.log('API Response:', response.data); // Log the response
-  //   } catch (error) {
-  //     console.error('Error fetching container status:', error);
-  //   }
-  // };
-
 
   useEffect(() => {
-    axios.get('https://exprosys-backend.onrender.com/api/v1/containers/')
+    axios.get('https://exprosys-backend.onrender.com/api/v1/manage-containers/')
     .then(response => {
       if (Array.isArray(response.data)) {
         setinitialData(response.data);
         setData(response.data);
+        console.log(response.data);
       } else {
         console.error("Unexpected response data format:", response.data);
       }
@@ -113,37 +103,38 @@ const ViewContainer = () => {
         </div>
       </div>
 
-      <div className={`moreInfo my-10 mx-5 `}>
+      <div className={`moreInfo my-10 mx-10`}>
         {initialData && 
-          <div className="table overflow-x-auto my-10">
-            <table className="border border-collapse">
-              <thead>
-                <tr className="">
-                  <th className=" border border-black px-3 py-2">Container ID</th>
-                  <th className=" border border-black px-3 py-2">Status</th>
-                  <th className=" border border-black px-3 py-2">ETA</th>
-                  <th className=" border border-black px-3 py-2">ETD</th>
-                  <th className=" border border-black px-3 py-2">Type</th>
-                  <th className=" border border-black px-3 py-2">Vessel Name</th>
-                  <th className=" border border-black px-3 py-2">Customer Name</th>
-                  <th className=" border border-black px-3 py-2">Action</th>
-                </tr>
-              </thead>
+          <div className="my-10">
+            
               <tbody>
                 {data.map((rowData, index) => (
-                  <tr key={index} className="">
-                    <td className="border border-[#013a57] px-2 py-2">{rowData.container_id}</td>
-                    <td className="border border-[#013a57] px-2 py-2">{rowData.status}</td>
-                    <td className="border border-[#013a57] px-2 py-2">{rowData.eta}</td>
-                    <td className="border border-[#013a57] px-2 py-2">{rowData.etd}</td>
-                    <td className="border border-[#013a57] px-2 py-2">{rowData.type}</td>
-                    <td className="border border-[#013a57] px-2 py-2">{rowData.vessel_name}</td>
-                    <td className="border border-[#013a57] px-2 py-2">{rowData.customerName}</td>
-                    <td className="border border-[#013a57] px-2 py-2"><button onClick={() => showVesselDetails(rowData.container_id)} className="underline">Details</button></td>
-                  </tr>
+                  <div key={index} className="grid grid-cols-2 gap-20">
+                    <div className="">
+                      <p className="text-lg font-semibold">Container ID: <span className="text-base font-normal">{rowData.container_id}</span></p>
+                      <p className="text-lg font-semibold">Type: <span className="text-base font-normal">{rowData.type}</span></p>
+                      <p className="text-lg font-semibold">Current Location: <span className="text-base font-normal">{rowData.current_location}</span></p>
+                      <p className="text-lg font-semibold">Last Updated: <span className="text-base font-normal">{rowData.last_updated}</span></p>
+                    </div>
+
+                    <div className="">
+                      <p className="text-lg font-semibold">Current Status: <span className="text-base font-normal">{rowData.status}</span></p>
+                      <p className="text-lg font-semibold">Origin: <span className="text-base font-normal">{rowData.Classic_terminal}</span></p>
+                      <p className="text-lg font-semibold">Booking: <span className="text-base font-normal">{rowData.booking}</span></p>
+                      <p className="text-lg font-semibold">Estimated Arrival: <span className="text-base font-normal">{rowData.eta}</span></p>
+                      <p className="text-lg font-semibold">Shipping Line: <span className="text-base font-normal">{rowData.shipping_line}</span></p>
+                    </div>
+
+                    <div className="">
+                      <h4 className="text-xl font-semibold">Recent Event:</h4>
+                    </div>
+
+                    <div className="">
+                      <h4 className="text-xl font-semibold">Historical Movements:</h4>
+                    </div>
+                  </div>
                 ))}
               </tbody>
-            </table>
             <div className="flex flex-col justify-end items-end my-10">
               <button className=' text-white bg-[#4E9352] rounded py-2 px-12' onClick={resetSearch}>Back</button>
             </div>
@@ -173,7 +164,7 @@ const ViewContainer = () => {
       }
 
      
-{selectedVesselDetails &&
+      {selectedVesselDetails &&
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -192,7 +183,7 @@ const ViewContainer = () => {
               <p className="font-semibold">• Next Port: <span className="font-normal">{selectedVesselDetails.next_port}</span></p>
               <p className="font-semibold">• Last Port: <span className="font-normal">{selectedVesselDetails.last_port}</span></p>
               <div className="flex gap-4">
-                <p className="font-semibold">• Cargo Information: <span className="font-normal">{selectedVesselDetails.cargo_info}</span></p>
+                <p className="font-semibold">• Cargo Information: <span className="font-normal">{selectedVesselDetails.cargo_type}</span></p>
                 <p className="font-semibold">Destination: <span className="font-normal">{selectedVesselDetails.destination}</span></p>
               </div>
               <p className="font-semibold">• Agent/Operator: <span className="font-normal">{selectedVesselDetails.agent}</span></p>

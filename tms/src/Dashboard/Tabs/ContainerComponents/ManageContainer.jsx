@@ -8,7 +8,7 @@ const ManageBooking = () => {
   const [data, setData] = useState([]);
   const [showUpload, setShowUpload] = useState(false);
   const [showManifestData, setShowManifestData] = useState(true);
-  const [containerId, setContainerId] = useState("");
+  const [container_id, setContainer_id] = useState("");
   const [errorText, setErrorText] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [selectedVesselDetails, setSelectedVesselDetails] = useState(null);
@@ -16,9 +16,9 @@ const ManageBooking = () => {
   // Function to fetch container data from the backend API
   const fetchContainerData = async () => {
     try {
-      const response = await axios.get(`https://exprosys-backend.onrender.com/api/v1/booked-containers/`);
+      const response = await axios.get('https://exprosys-backend.onrender.com/api/v1/manage-containers/');
       setData(response.data);
-      console.log("Container Data:", response.data); // Log data in console
+      console.log("Container Data:", response.data); 
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -30,7 +30,7 @@ const ManageBooking = () => {
       const response = await axios.put(`https://exprosys-backend.onrender.com/api/v1/booked-containers/${id}`, selectedVesselDetails);
       toast.success("Container data updated successfully!");
       console.log("Container data updated successfully!");
-      fetchContainerData(); // Refresh the data
+      fetchContainerData(); 
     } catch (error) {
       toast.error("Error updating container data!");
       console.error("Error updating data:", error);
@@ -70,8 +70,8 @@ const ManageBooking = () => {
   };
 
   // Function to show vessel details
-  const showVesselDetails = (containerId) => {
-    const details = data.find(item => item.containerId === containerId);
+  const showVesselDetails = (container_id) => {
+    const details = data.find(item => item.container_id === container_id);
     setSelectedVesselDetails(details);
   };
 
@@ -104,15 +104,15 @@ const ManageBooking = () => {
             <tbody>
               {data.map((rowData, index) => (
                 <tr key={index} className="">
-                  <td className="border border-[#013a57] px-2 py-2">{rowData.containerId}</td>
+                  <td className="border border-[#013a57] px-2 py-2">{rowData.container_id}</td>
                   <td className="border border-[#013a57] px-2 py-2">{rowData.status}</td>
                   <td className="border border-[#013a57] px-2 py-2">{rowData.type}</td>
                   <td className="border border-[#013a57] px-2 py-2">{rowData.eta}</td>       
                   <td className="border border-[#013a57] px-2 py-2">{rowData.etd}</td>
-                  <td className="border border-[#013a57] px-2 py-2">{rowData.vesselName}</td>
-                  <td className="border border-[#013a57] px-2 py-2">{rowData.customerName}</td>
+                  <td className="border border-[#013a57] px-2 py-2">{rowData.vessel_name}</td>
+                  <td className="border border-[#013a57] px-2 py-2">{rowData.customer_name}</td>
                   <td className="border border-[#013a57] px-2 py-2">
-                    <button onClick={() => showVesselDetails(rowData.containerId)} className="underline">[ See details ]</button>
+                    <button onClick={() => showVesselDetails(rowData.container_id)} className="underline">[ See details ]</button>
                   </td>
                 </tr>
               ))}
@@ -156,8 +156,8 @@ const ManageBooking = () => {
               <p className="font-semibold">Vessel Name:
                 <input
                   type="text"
-                  value={selectedVesselDetails.vesselName}
-                  onChange={(e) => handleDetailChange("vesselName", e.target.value)}
+                  value={selectedVesselDetails.vessel_name}
+                  onChange={(e) => handleDetailChange("vessel_name", e.target.value)}
                   className="px-2 border rounded ml-3"
                 />
               </p>

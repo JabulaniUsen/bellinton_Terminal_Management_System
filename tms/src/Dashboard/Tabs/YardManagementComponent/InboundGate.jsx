@@ -21,22 +21,21 @@ const InboundGate = () => {
     temperature_sensitive_cargo: false,
   });
 
-  useEffect(() => {
-    fetchContainer_ids();
+   useEffect(() => {
+    axios.get('https://exprosys-backend.onrender.com/api/v1/manage-containers/')
+    .then(response => {
+      if (Array.isArray(response.data)) {
+        setinitialData(response.data);
+        setData(response.data);
+        console.log(response.data);
+      } else {
+        console.error("Unexpected response data format:", response.data);
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    }); // <- Added closing parenthesis here
   }, []);
-
-  const fetchContainer_ids = async () => {
-    try {
-      const response = await axios.get('https://exprosys-backend.onrender.com/api/v1/inbound-pre-gate-entries/');
-      const containers = response.data.map((container) => ({
-        value: container.container_id,
-        label: container.container_id,
-      }));
-      setContainerOptions([{ value: '', label: 'Select Container ID', isDisabled: true }, ...containers]);
-    } catch (error) {
-      console.error('Error fetching container IDs:', error);
-    }
-  };
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;

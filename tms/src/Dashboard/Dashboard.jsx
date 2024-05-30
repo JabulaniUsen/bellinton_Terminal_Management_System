@@ -9,7 +9,10 @@ import {
   faSignOutAlt,
   faUserAlt,
   faFile,
-  faFileContract
+  faFileContract,
+  faUserCheck,
+  faUserLarge,
+  faHouseChimneyUser
 } from '@fortawesome/free-solid-svg-icons';
 import Header from './Components/Header';
 import Operations from './Tabs/Operations';
@@ -106,10 +109,10 @@ const Dashboard = () => {
       icon: faShip,
       tabNumber: 3,
       subButtons: [
-        { label: 'View Container', tabNumber: 3, },
         { label: 'Add Container', tabNumber: 4, },
         { label: 'Manage Booking', tabNumber: 5, },
         { label: 'Container Transfer', tabNumber: 15, }, 
+        { label: 'Container Status', tabNumber: 3, },
       ]
     },
     {
@@ -129,12 +132,24 @@ const Dashboard = () => {
         { label: 'View Customer', tabNumber: 6, },
         { label: 'Add Customer', tabNumber: 7, },
         { label: 'Manage Customer', tabNumber: 8, },
-        { label: 'View Agency', tabNumber: 9, },
-        // { label: 'Manage Agency', tabNumber: 10, },
-        { label: 'Add Agency', tabNumber: 11, },
+      ]
+    },
+    {
+      label: 'Agents',
+      icon: faUserCheck,
+      subButtons: [
         { label: 'View Agent', tabNumber: 12, },
         { label: 'Manage Agent', tabNumber: 13, },
         { label: 'Add Agent', tabNumber: 14, }
+      ]
+    },
+    {
+      label: 'Agency',
+      icon: faHouseChimneyUser,
+      subButtons: [
+        { label: 'View Agency', tabNumber: 12, },
+        { label: 'Manage Agency', tabNumber: 13, },
+        { label: 'Add Agency', tabNumber: 14, }
       ]
     },
     {

@@ -4,7 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ContainerTransfer = () => {
-  const [containerId, setContainerId] = useState('');
+  const [container, setContainer] = useState('');
   const [transfer_from, setTransfer_from] = useState('');
   const [transfer_to, setTransferTo] = useState('');
   const [transfer_date, settransfer_date] = useState('');
@@ -30,7 +30,7 @@ const ContainerTransfer = () => {
 
   const handleSubmit = async () => {
     const transferData = {
-      containerId,
+      container,
       transfer_from,
       transfer_to,
       transfer_date,
@@ -51,7 +51,7 @@ const ContainerTransfer = () => {
   };
 
   const clearForm = () => {
-    setContainerId('');
+    setContainer('');
     setTransfer_from('');
     setTransferTo('');
     settransfer_date('');
@@ -68,12 +68,12 @@ const ContainerTransfer = () => {
         <div className="body my-5 grid grid-cols-2 gap-20">
           <div className="col2 flex flex-col gap-10">
             <div className="flex flex-col">
-              <label htmlFor="containerId" className='font-semibold text-base'>Container ID:</label>
+              <label htmlFor="container" className='font-semibold text-base'>Container ID:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                {/* <select
+                <select
                   className='outline-none w-full'
-                  value={containerId}
-                  onChange={(e) => setContainerId(e.target.value)}
+                  value={container}
+                  onChange={(e) => setContainer(e.target.value)}
                 >
                   <option value="" className='text-[#a1a1a1]'>Enter the unique identifier for the container</option>
                   {containers.map((container) => (
@@ -81,11 +81,12 @@ const ContainerTransfer = () => {
                       {container.container_id}
                     </option>
                   ))}
-                </select> */}
-                <input 
+                </select>
+                {/* <input 
                   type="text"
-                  value={containerId}
-                  onChange={(e) => setContainerId(e.target.value)} />
+                  value={container}
+                  onChange={(e) => setContainer(e.target.value)}
+                  className='w-full outline-none' /> */}
               </div>
             </div>
             <div className="flex flex-col">
