@@ -60,19 +60,23 @@ const OutboundGateReport = () => {
         }
     };
 
-    const handleSave = async () => {
-        // Update the data in the backend
-        try {
-            const updatedData = [...searchResults];
-            updatedData[selectedRow] = formData;
-            await axios.put(`https://exprosys-backend.onrender.com/api/v1/outbound-gate-exits/{id}/`, formData);
-            setSearchResults(updatedData); // Update state with edited data
-            setModalOpen(false); // Close modal
-        } catch (error) {
-            console.error("Error updating data: ", error);
-        }
-    };
-
+    const handleSave = () => {
+        const updatedData = [...searchResults];
+        updatedData[selectedRow] = formData;
+        setSearchResults(updatedData);
+    
+        axios.put(`https://exprosys-backend.onrender.com/api/v1/outbound-gate-exits/${id}`, formData) // Replace with your API endpoint
+          .then(response => {
+            console.log("Data updated successfully!", response.data);
+          })
+          .catch(error => {
+            console.error("There was an error updating the data!", error);
+          });
+    
+        // Close modal
+        setModalOpen(false);
+      };
+    //   
     const handleClose = () => {
         setModalOpen(false)
     }
@@ -233,7 +237,7 @@ const OutboundGateReport = () => {
                                 exit={{ scale: 0.8 }}
                             >
                                 <h3 className="text-xl font-semibold mb-4">Edit Outbound Gate Data</h3>
-                                <form>
+                                <form className="grid grid-cols-2 gap-x-4">
                                     <div className="mb-4">
                                         <label htmlFor="container_id" className="block text-sm font-medium text-gray-700">
                                             Container ID

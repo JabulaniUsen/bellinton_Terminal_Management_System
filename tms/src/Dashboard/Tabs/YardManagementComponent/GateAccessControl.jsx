@@ -57,7 +57,7 @@ const GateAccessControl = () => {
     useEffect(() => {
         const fetchConlist = async () => {
             try {
-                const response = await axios.get('https://exprosys-backend.onrender.com/api/v1/trucks/');
+                const response = await axios.get('https://exprosys-backend.onrender.com/api/v1/gate-access-controls/');
                 const options = response.data.map(item => ({ value: item.id, label: item.name }));
                 setConlist(options);
             } catch (error) {

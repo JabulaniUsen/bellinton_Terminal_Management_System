@@ -27,7 +27,7 @@ const ManageBooking = () => {
   // Function to update container data in the backend API
   const updateContainerData = async () => {
     try {
-      const response = await axios.put(`https://exprosys-backend.onrender.com/api/v1/booked-containers/${id}`, selectedVesselDetails);
+      const response = await axios.put(`https://exprosys-backend.onrender.com/api/v1/containers/${selectedVesselDetails.container_id}/`, selectedVesselDetails);
       toast.success("Container data updated successfully!");
       console.log("Container data updated successfully!");
       fetchContainerData(); 
@@ -40,7 +40,7 @@ const ManageBooking = () => {
   // Function to delete container data in the backend API
   const deleteContainerData = async () => {
     try {
-      const response = await axios.delete(`https://exprosys-backend.onrender.com/api/v1/booked-containers/${id}`);
+      const response = await axios.delete(`https://exprosys-backend.onrender.com/api/v1/containers/${selectedVesselDetails.container_id}/`);
       toast.success("Container data deleted successfully!");
       console.log("Container data deleted successfully!");
       fetchContainerData(); // Refresh the data
@@ -106,9 +106,9 @@ const ManageBooking = () => {
                 <tr key={index} className="">
                   <td className="border border-[#013a57] px-2 py-2">{rowData.container_id}</td>
                   <td className="border border-[#013a57] px-2 py-2">{rowData.status}</td>
-                  <td className="border border-[#013a57] px-2 py-2">{rowData.type}</td>
-                  <td className="border border-[#013a57] px-2 py-2">{rowData.eta}</td>       
-                  <td className="border border-[#013a57] px-2 py-2">{rowData.etd}</td>
+                  <td className="border border-[#013a57] px-2 py-2">{rowData.container_type}</td>
+                  <td className="border border-[#013a57] px-2 py-2">{rowData.arrival_date}</td>       
+                  <td className="border border-[#013a57] px-2 py-2">{rowData.departure_date}</td>
                   <td className="border border-[#013a57] px-2 py-2">{rowData.vessel_name}</td>
                   <td className="border border-[#013a57] px-2 py-2">{rowData.customer_name}</td>
                   <td className="border border-[#013a57] px-2 py-2">
@@ -164,24 +164,24 @@ const ManageBooking = () => {
               <p className="font-semibold">Arrival Time:
                 <input
                   type="text"
-                  value={selectedVesselDetails.eta}
-                  onChange={(e) => handleDetailChange("eta", e.target.value)}
+                  value={selectedVesselDetails.arrival_date}
+                  onChange={(e) => handleDetailChange("arrival_date", e.target.value)}
                   className="px-2 border rounded ml-3"
                 />
               </p>
               <p className="font-semibold">Departure Time:
                 <input
                   type="text"
-                  value={selectedVesselDetails.etd}
-                  onChange={(e) => handleDetailChange("etd", e.target.value)}
+                  value={selectedVesselDetails.departure_date}
+                  onChange={(e) => handleDetailChange("departure_date", e.target.value)}
                   className="px-2 border rounded ml-3"
                 />
               </p>
               <p className="font-semibold">Original Port:
                 <input
                   type="text"
-                  value={selectedVesselDetails.lastPort}
-                  onChange={(e) => handleDetailChange("lastPort", e.target.value)}
+                  value={selectedVesselDetails.origin}
+                  onChange={(e) => handleDetailChange("origin", e.target.value)}
                   className="px-2 border rounded ml-3"
                 />
               </p>
@@ -216,24 +216,16 @@ const ManageBooking = () => {
                 <p className="font-semibold">• Cargo Type:
                   <input
                     type="text"
-                    value={selectedVesselDetails.type}
-                    onChange={(e) => handleDetailChange("type", e.target.value)}
+                    value={selectedVesselDetails.container_type}
+                    onChange={(e) => handleDetailChange("container_type", e.target.value)}
                     className="px-2 border rounded ml-3"
                   />
                 </p>
                 <p className="font-semibold">• Last Update:
                   <input
                     type="text"
-                    value={selectedVesselDetails.lastUpdate}
-                    onChange={(e) => handleDetailChange("lastUpdate", e.target.value)}
-                    className="px-2 border rounded ml-3"
-                  />
-                </p>
-                <p className="font-semibold">• Estimated Time of Arrival (ETA):
-                  <input
-                    type="text"
-                    value={selectedVesselDetails.eta}
-                    onChange={(e) => handleDetailChange("eta", e.target.value)}
+                    value={selectedVesselDetails.last_update}
+                    onChange={(e) => handleDetailChange("last_update", e.target.value)}
                     className="px-2 border rounded ml-3"
                   />
                 </p>

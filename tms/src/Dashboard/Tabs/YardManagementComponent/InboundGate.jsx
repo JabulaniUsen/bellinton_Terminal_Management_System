@@ -7,7 +7,8 @@ import InboundGateReport from './InboundGateReport';
 
 const InboundGate = () => {
   const [showReport, setShowReport] = useState(false);
-  const [containerOptions, setContainerOptions] = useState([]);
+  const [initialData, setInitialData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [formData, setFormData] = useState({
     container_id: '',
     eto_gate_pass_no: '',
@@ -16,25 +17,21 @@ const InboundGate = () => {
     driver_name: '',
     driver_number: '',
     company_organization: '',
-    hazardous_materials_check: false,
-    security_clearance_check: false,
-    temperature_sensitive_cargo: false,
+    security_check: '',
   });
 
-   useEffect(() => {
+  useEffect(() => {
     axios.get('https://exprosys-backend.onrender.com/api/v1/manage-containers/')
-    .then(response => {
-      if (Array.isArray(response.data)) {
-        setinitialData(response.data);
-        setData(response.data);
-        console.log(response.data);
-      } else {
-        console.error("Unexpected response data format:", response.data);
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching data:', error);
-    }); // <- Added closing parenthesis here
+      .then(response => {
+        if (Array.isArray(response.data)) {
+          setInitialData(response.data);
+        } else {
+          console.error("Unexpected response data format:", response.data);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
   }, []);
 
   const handleInputChange = (e) => {
@@ -52,11 +49,19 @@ const InboundGate = () => {
     });
   };
 
+  const handleSearchTermChange = (selectedOption) => {
+    setSearchTerm(selectedOption.value);
+    setFormData({
+      ...formData,
+      container_id: selectedOption.value,
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.post('https://exprosys-backend.onrender.com/api/v1/inbound-pre-gate-entries/', formData);
-      toast.success('Form submitted successfully!');
+      toast.success('Entry successfully!');
       clearForm();
     } catch (error) {
       toast.error('Error submitting form');
@@ -73,10 +78,9 @@ const InboundGate = () => {
       driver_name: '',
       driver_number: '',
       company_organization: '',
-      hazardous_materials_check: false,
-      security_clearance_check: false,
-      temperature_sensitive_cargo: false,
+      security_check: '',
     });
+    setSearchTerm('');
   };
 
   const handleShowReport = () => {
@@ -94,25 +98,27 @@ const InboundGate = () => {
                 <h2 className='text-lg font-bold'>Container Information:</h2>
                 <div className="flex justify-between items-center w-[70%] mt-5">
                   <label htmlFor="container_id" className="block font-semibold text-base">Container ID: </label>
-                  <Select
-                    name="container_id"
-                    options={containerOptions}
-                    isSearchable
-                    className='w-[400px]'
-                    value={containerOptions.find(option => option.value === formData.container_id)}
-                    onChange={handleSelectChange}
-                    required
-                  />
+                  <div className="">
+                    <Select
+                      options={initialData.map((item) => ({ value: item.container_id, label: item.container_id }))}
+                      value={searchTerm ? { value: searchTerm, label: searchTerm } : null}
+                      onChange={handleSearchTermChange}
+                      isSearchable
+                      placeholder="Select Container ID"
+                      className='outline-none p-2 w-[400px] rounded '
+                    />
+                  </div>
                 </div>
                 <div className="flex justify-between items-center w-[70%] my-2">
                   <label htmlFor="eto_gate_pass_no" className="block font-semibold text-base">ETO Gate Pass No: </label>
-
                   <input 
                     type="text"
+                    name="eto_gate_pass_no"
                     value={formData.eto_gate_pass_no}
                     onChange={handleInputChange}
                     className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]'
-                    required />
+                    required
+                  />
                 </div>
               </div>
 
@@ -178,35 +184,40 @@ const InboundGate = () => {
 
               <div className="my-10">
                 <h2 className='text-lg font-bold'>Security Check:</h2>
-                <div className="flex justify-between items-center w-[32%] mt-5">
-                  <label htmlFor="hazardous_materials_check" className="block font-semibold text-base">Hazardous Materials Check: </label>
-                  <input
-                    type='checkbox'
-                    name="hazardous_materials_check"
-                    className='w-[20px] h-[20px]'
-                    checked={formData.hazardous_materials_check}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="flex justify-between items-center w-[32%] my-4">
-                  <label htmlFor="security_clearance_check" className="block font-semibold text-base">Security Clearance Check: </label>
-                  <input
-                    type='checkbox'
-                    name="security_clearance_check"
-                    className='w-[20px] h-[20px]'
-                    checked={formData.security_clearance_check}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="flex justify-between items-center w-[32%] my-4">
-                  <label htmlFor="temperature_sensitive_cargo" className="block font-semibold text-base">Temperature-sensitive Cargo: </label>
-                  <input
-                    type='checkbox'
-                    name="temperature_sensitive_cargo"
-                    className='w-[20px] h-[20px]'
-                    checked={formData.temperature_sensitive_cargo}
-                    onChange={handleInputChange}
-                  />
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center">
+                    <input
+                      type='radio'
+                      name="security_check"
+                      value="hazardous_materials_check"
+                      checked={formData.security_check === 'hazardous_materials_check'}
+                      onChange={handleInputChange}
+                      className='w-[20px] h-[20px] mr-2'
+                    />
+                    <label htmlFor="hazardous_materials_check" className="block font-semibold text-base">Hazardous Materials Check</label>
+                  </div>
+                  <div className="flex items-center">
+                    <input
+                      type='radio'
+                      name="security_check"
+                      value="security_clearance_check"
+                      checked={formData.security_check === 'security_clearance_check'}
+                      onChange={handleInputChange}
+                      className='w-[20px] h-[20px] mr-2'
+                    />
+                    <label htmlFor="security_clearance_check" className="block font-semibold text-base">Security Clearance Check</label>
+                  </div>
+                  <div className="flex items-center">
+                    <input
+                      type='radio'
+                      name="security_check"
+                      value="temperature_sensitive_cargo"
+                      checked={formData.security_check === 'temperature_sensitive_cargo'}
+                      onChange={handleInputChange}
+                      className='w-[20px] h-[20px] mr-2'
+                    />
+                    <label htmlFor="temperature_sensitive_cargo" className="block font-semibold text-base">Temperature-sensitive Cargo</label>
+                  </div>
                 </div>
               </div>
 

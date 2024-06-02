@@ -1,7 +1,6 @@
-import { faCaretDown, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useRef, useEffect } from 'react';
-import Select from 'react-select';
 import axios from 'axios';
 import UploadBox from '../ManifestComponents/UploadBox';
 import { toast, ToastContainer } from 'react-toastify';
@@ -12,30 +11,92 @@ const AddContainer = () => {
   const [inputValue, setInputValue] = useState('');
   const [showUpload, setShowUpload] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
-  const [options2, setOptions2] = useState([]);
-  const [options3, setOptions3] = useState([]);
-  const [container_id, setcontainer_id] = useState('')
-  const [booking_number, setBooking_number] = useState('');
-  const [customer_name, setCustomer_name] = useState('');
-  const [shipping_line, setShipping_line] = useState('');
+  const [container_id, setContainerId] = useState('');
+  const [booking_number, setBookingNumber] = useState('');
+  const [customer_name, setCustomerName] = useState('');
+  const [shipping_line, setShippingLine] = useState('');
   const [origin, setOrigin] = useState('');
   const [temperature, setTemperature] = useState('');
+  const [vessel_name, setVesselName] = useState('');
+  const [arrival_date, setArrivalDate] = useState('');
+  const [departure_date, setDepartureDate] = useState('');
+  const [destination, setDestination] = useState('');
+  const [current_location, setCurrentLocation] = useState('');
 
-  const [terminal_annex, setterminal_annex] = useState('');
-  const [container_size, setcontainer_size] = useState(false)
-  const [container_type, setcontainer_type] = useState(false)
-  const [container_status, setcontainer_status] = useState(false)
-  const [container_import, setcontainer_import] = useState(false)
+  // State for radio inputs
+  const [container_size, setContainerSize] = useState('');
+  const [container_type, setContainerType] = useState('');
+  const [status, setStatus] = useState('');
+  const [container_import, setContainerImport] = useState('');
 
   const inputRef = useRef(null);
 
   useEffect(() => {
-
     document.addEventListener('click', handleClickOutside);
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    // Load data from localStorage when component mounts
+    const storedData = JSON.parse(localStorage.getItem('containerFormData'));
+    if (storedData) {
+      setContainerId(storedData.container_id || '');
+      setBookingNumber(storedData.booking_number || '');
+      setCustomerName(storedData.customer_name || '');
+      setShippingLine(storedData.shipping_line || '');
+      setOrigin(storedData.origin || '');
+      setTemperature(storedData.temperature || '');
+      setVesselName(storedData.vessel_name || '');
+      setArrivalDate(storedData.arrival_date || '');
+      setDepartureDate(storedData.departure_date || '');
+      setDestination(storedData.destination || '');
+      setCurrentLocation(storedData.current_location || '');
+      setContainerSize(storedData.container_size || '');
+      setContainerType(storedData.container_type || '');
+      setStatus(storedData.status || '');
+      setContainerImport(storedData.container_import || '');
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save data to localStorage whenever it changes
+    const formData = {
+      container_id,
+      booking_number,
+      customer_name,
+      shipping_line,
+      origin,
+      temperature,
+      vessel_name,
+      arrival_date,
+      departure_date,
+      destination,
+      current_location,
+      container_size,
+      container_type,
+      status,
+      container_import,
+    };
+    localStorage.setItem('containerFormData', JSON.stringify(formData));
+  }, [
+    container_id,
+    booking_number,
+    customer_name,
+    shipping_line,
+    origin,
+    temperature,
+    vessel_name,
+    arrival_date,
+    departure_date,
+    destination,
+    current_location,
+    container_size,
+    container_type,
+    status,
+    container_import,
+  ]);
 
   const handleClickOutside = (event) => {
     if (inputRef.current && !inputRef.current.contains(event.target)) {
@@ -69,42 +130,31 @@ const AddContainer = () => {
   };
 
   const handleSubmit = async () => {
+    const payload = {
+      container_id,
+      booking_number,
+      customer_name,
+      shipping_line,
+      origin,
+      temperature,
+      current_location,
+      container_size,
+      container_type,
+      status,
+      container_import,
+      vessel_name,
+      arrival_date,
+      departure_date,
+      destination,
+    };
+
     try {
-      const payload = {
-        container_id,
-        booking_number,
-        customer_name,
-        shipping_line,
-        origin,
-        temperature,
-        terminal_annex,
-        container_size,
-        container_type,
-        container_status,
-        container_import,
-      };
       const response = await axios.post('https://exprosys-backend.onrender.com/api/v1/containers/', payload);
       console.log('Response:', response.data);
-      toast.success('Container Added')
+      toast.success('Container Added');
+      localStorage.removeItem('containerFormData'); // Clear form data from localStorage on successful submission
     } catch (error) {
       console.error('Error submitting data:', error);
-    }
-  };
-
-
-
-
-  const fetchCustomer_names = async () => {
-    try {
-      const response = await axios.get('https://exprosys-backend.onrender.com/api/v1/customer-names/');
-      if (Array.isArray(response.data)) {
-        const customer_names = response.data.map(item => ({ value: item.id, label: item.customerName_n}));
-        setOptions3(customer_names);
-      } else {
-        console.error('Unexpected response format for customer names:', response.data);
-      }
-    } catch (error) {
-      console.error('Error fetching customer names:', error);
     }
   };
 
@@ -121,11 +171,11 @@ const AddContainer = () => {
               <label htmlFor="name" className='font-semibold text-base'>Container ID:</label>
               <div className="rounded flex items-center py-2">
                 <div ref={inputRef}>
-                  <div className="flex items-center justify-between pr-3 pl-2 py-1 rounded border-[#999999] border w-[400px]">
+                  <div className="flex items-center justify-between pr-3 pl-2 py-2 rounded border-[#999999] border w-[440px]">
                     <input
                       type="text"
                       value={container_id}
-                      onChange={(e) => setcontainer_id(e.target.value)}
+                      onChange={(e) => setContainerId(e.target.value)}
                       className='outline-none w-full'
                     />
                     <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
@@ -140,82 +190,110 @@ const AddContainer = () => {
                 </div>
               </div>
             </div>
-            {/* Additional form fields */}
-            {/* ... */}
+            <div>
+              <label htmlFor="temperature" className='font-semibold text-base'>Vessel Name:</label>
+              <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
+                <input 
+                  type="text" 
+                  className='outline-none w-full' 
+                  placeholder='Enter Name of vessel'
+                  value={vessel_name}
+                  onChange={(e) => setVesselName(e.target.value)}
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="temperature" className='font-semibold text-base'>Estimated Time of Arrival:</label>
+              <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
+                <input 
+                  type="date" 
+                  className='outline-none w-full' 
+                  value={arrival_date}
+                  onChange={(e) => setArrivalDate(e.target.value)}
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="temperature" className='font-semibold text-base'>Estimated Time of Depature:</label>
+              <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
+                <input 
+                  type="date" 
+                  className='outline-none w-full' 
+                  value={departure_date}
+                  onChange={(e) => setDepartureDate(e.target.value)}
+                />
+              </div>
+            </div>
             <div className="flex justify-between">
               {/* Container Size */}
               <div className="containerSize flex flex-col gap-3 my-3">
                 <div className='font-semibold text-base'>Container Size:</div>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" name="10FT" id="10FT" />
-                  <label htmlFor="10FT" className='text-base'>10FT</label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" name="20FT" id="20FT" />
-                  <label htmlFor="20FT" className='text-base'>20FT</label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" name="40FT" id="40FT" />
-                  <label htmlFor="40FT" className='text-base'>40FT</label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" name="45FT" id="45FT" />
-                  <label htmlFor="45FT" className='text-base'>45FT</label>
-                </div>
+                {['10FT', '20FT', '40FT', '45FT'].map((size) => (
+                  <div key={size} className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="container_size"
+                      id={size}
+                      value={size}
+                      checked={container_size === size}
+                      onChange={(e) => setContainerSize(e.target.value)}
+                    />
+                    <label htmlFor={size} className='text-base'>{size}</label>
+                  </div>
+                ))}
               </div>
               {/* Container Type */}
-              <div className="containerSize flex flex-col gap-3 my-3">
+              <div className="containerType flex flex-col gap-3 my-3">
                 <div className='font-semibold text-base'>Container Type:</div>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" name="Regular" id="Regular" />
-                  <label htmlFor="Regular" className='text-base'>Regular</label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" name="OOG" id="OOG" />
-                  <label htmlFor="OOG" className='text-base'>OOG</label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" name="OTFR" id="OTFR" />
-                  <label htmlFor="OTFR" className='text-base'>OTFR</label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" name="Reefer" id="Reefer" />
-                  <label htmlFor="Reefer" className='text-base'>Reefer</label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" name="Hazardous" id="Hazardous" />
-                  <label htmlFor="Hazardous" className='text-base'>Hazardous</label>
-                </div>
+                {['Standard', 'High cube', 'Reefer', 'Open top', 'Flat Rack'].map((type) => (
+                  <div key={type} className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="container_type"
+                      id={type}
+                      value={type}
+                      checked={container_type === type}
+                      onChange={(e) => setContainerType(e.target.value)}
+                    />
+                    <label htmlFor={type} className='text-base'>{type}</label>
+                  </div>
+                ))}
               </div>
             </div>
             <div className="flex justify-between">
               {/* Status */}
-              <div className="containerSize flex flex-col gap-3 my-3">
+              <div className="status flex flex-col gap-3 my-3">
                 <div className='font-semibold text-base'>Status:</div>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" name="InTransit" id="InTransit" />
-                  <label htmlFor="InTransit" className='text-base'>In Transit</label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" name="AwaitingDelivery" id="AwaitingDelivery" />
-                  <label htmlFor="AwaitingDelivery" className='text-base'>Awaiting Delivery</label>
+                {['In transit', 'Awaiting delivery', 'Hijacked'].map((statusOption) => (
+                  <div key={statusOption} className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="status"
+                      id={statusOption}
+                      value={statusOption}
+                      checked={status === statusOption}
+                      onChange={(e) => setStatus(e.target.value)}
+                    />
+                    <label htmlFor={statusOption} className='text-base'>{statusOption}</label>
                   </div>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" name="Discharge" id="Discharge" />
-                  <label htmlFor="Discharge" className='text-base'>Discharge</label>
-                </div>
+                ))}
               </div>
               {/* Import/Export */}
-              <div className="containerSize flex flex-col gap-3 my-3">
-                <div className='font-semibold text-base'>Export:</div>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" name="ExportFull" id="ExportFull" />
-                  <label htmlFor="ExportFull" className='text-base'>Export Full</label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" name="ExportEmpty" id="ExportEmpty" />
-                  <label htmlFor="ExportEmpty" className='text-base'>Export Empty</label>
-                </div>
+              <div className="container_import flex flex-col gap-3 my-3">
+                <div className='font-semibold text-base'>Import/Export:</div>
+                {['Import', 'Export'].map((impExp) => (
+                  <div key={impExp} className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="container_import"
+                      id={impExp}
+                      value={impExp}
+                      checked={container_import === impExp}
+                      onChange={(e) => setContainerImport(e.target.value)}
+                    />
+                    <label htmlFor={impExp} className='text-base'>{impExp}</label>
+                  </div>
+                ))}
               </div>
             </div>
           </div> 
@@ -224,12 +302,10 @@ const AddContainer = () => {
               <label htmlFor="booking_number" className='font-semibold text-base'>Booking Number:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                 <input
-                  // options={options2}
-                  // isSearchable
                   placeholder="Select Booking Number"
                   className='w-full outline-none'
                   value={booking_number}
-                  onChange={(e) => setBooking_number(e.target.value)}
+                  onChange={(e) => setBookingNumber(e.target.value)}
                 />
               </div>
             </div>
@@ -237,12 +313,10 @@ const AddContainer = () => {
               <label htmlFor="customer_name" className='font-semibold text-base'>Customer Name:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                 <input
-                  // options={options3}
-                  // isSearchable
                   placeholder="Customer name associated with container"
                   className='w-full outline-none'
                   value={customer_name}
-                  onChange={(e) => setCustomer_name(e.target.value)}
+                  onChange={(e) => setCustomerName(e.target.value)}
                 />
               </div>
             </div>
@@ -253,7 +327,7 @@ const AddContainer = () => {
                   type="text" 
                   className='outline-none w-full' 
                   value={shipping_line}
-                  onChange={(e) => setShipping_line(e.target.value)}
+                  onChange={(e) => setShippingLine(e.target.value)}
                 />
               </div>
             </div>
@@ -265,6 +339,17 @@ const AddContainer = () => {
                   className='outline-none w-full'
                   value={origin}
                   onChange={(e) => setOrigin(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="destination" className='font-semibold text-base'>Destination:</label>
+              <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
+                <input 
+                  type="text" 
+                  className='outline-none w-full'
+                  value={destination}
+                  onChange={(e) => setDestination(e.target.value)}
                 />
               </div>
             </div>
@@ -281,14 +366,14 @@ const AddContainer = () => {
               </div>
             </div>
             <div className="flex flex-col">
-              <label htmlFor="terminal_annex" className='font-semibold text-base'>Terminal annex:</label>
+              <label htmlFor="current_location" className='font-semibold text-base'>Terminal annex:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                 <input 
                   type="text" 
                   className='outline-none w-full' 
                   placeholder='Location within the terminal where the container will be stored.'
-                  value={terminal_annex}
-                  onChange={(e) => setterminal_annex(e.target.value)}
+                  value={current_location}
+                  onChange={(e) => setCurrentLocation(e.target.value)}
                 />
               </div>
             </div>
@@ -299,7 +384,7 @@ const AddContainer = () => {
         </div>
       </div>
       {showUpload && <UploadBox closeUploadBox={closeUploadBox} />}
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 };

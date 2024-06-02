@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios'; // Import axios for making HTTP requests
+import axios from 'axios';
 import OutboundGateReport from './OutboundGateReport';
 
 const OutboundGate = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [initialData, setInitialData] = useState([]);
   const [showReport, setShowReport] = useState(false);
   const [formData, setFormData] = useState({
     container_id: '',
@@ -30,18 +32,16 @@ const OutboundGate = () => {
   const [containerIdOptions, setContainerIdOptions] = useState([]);
 
   useEffect(() => {
-    // Fetch container IDs from the backend when the component mounts
-    axios.get('https://exprosys-backend.onrender.com/api/v1/containers/')
+    axios.get('https://exprosys-backend.onrender.com/api/v1/manage-containers/')
       .then(response => {
-        // Update the state with the received container IDs
-        setContainerIdOptions(response.data.map(container => ({
-          value: container.id,
-          label: container.id,
-        })));
+        if (Array.isArray(response.data)) {
+          setInitialData(response.data);
+        } else {
+          console.error("Unexpected response data format:", response.data);
+        }
       })
       .catch(error => {
-        toast.error('Error fetching container IDs!');
-        console.error('There was an error fetching container IDs!', error);
+        console.error('Error fetching data:', error);
       });
   }, []);
 
@@ -79,6 +79,13 @@ const OutboundGate = () => {
       });
   };
   
+  const handleSearchTermChange = (selectedOption) => {
+    setSearchTerm(selectedOption.value);
+    setFormData({
+      ...formData,
+      container_id: selectedOption.value,
+    });
+  };
 
   const handleShowReport = () => {
     setShowReport(true);
@@ -105,14 +112,16 @@ const OutboundGate = () => {
                     <h2 className='text-lg font-bold'>Loading Information:</h2>
                     <div className="flex justify-between items-center mt-7">
                       <label htmlFor="container_id" className="block font-semibold text-base">Container ID: </label>
-                      <Select
-                        options={containerIdOptions}
-                        isSearchable
-                        className='w-[300px]'
-                        required
-                        name="container_id"
-                        onChange={(selectedOption) => setFormData({ ...formData, container_id: selectedOption.value })}
-                      />
+                      <div className="">
+                        <Select
+                          options={initialData.map((item) => ({ value: item.container_id, label: item.container_id }))}
+                          value={searchTerm ? { value: searchTerm, label: searchTerm } : null}
+                          onChange={handleSearchTermChange}
+                          isSearchable
+                          placeholder="Select Container ID"
+                          className='outline-none p-2 w-[400px] rounded '
+                        />
+                      </div>
                     </div>
                   </div>
 

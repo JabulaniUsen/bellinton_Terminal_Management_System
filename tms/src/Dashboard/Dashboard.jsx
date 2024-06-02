@@ -45,6 +45,7 @@ import Splitbill from './Tabs/Documentation/Splitbill';
 import CargoBlocking from './Tabs/Documentation/CargoBlocking';
 import StorageFreeDays from './Tabs/Documentation/StorageFreeDays';
 import ContainerCMgt from './Tabs/Documentation/ContainerCMgt';
+import TruckQueueMgt from './Tabs/YardManagementComponent/TruckQueueMgt';
 
 
 const Dashboard = () => {
@@ -123,6 +124,7 @@ const Dashboard = () => {
         { label: 'Inbound Gate Entry', tabNumber: 15.1, },
         { label: 'Outbound Gate Exit', tabNumber: 16, },
         { label: 'Gate Access Control', tabNumber: 17, },
+        { label: 'Truck Queue Management', tabNumber: 18 }
       ],
     },
     {
@@ -215,7 +217,8 @@ const Dashboard = () => {
           { activeTab === 15.1 && <InboundGate/> } 
           { activeTab === 16 && <OutboundGate/>}
           { activeTab === 17 && <GateAccessControl/>}
-          { activeTab === 18 && <GateInsident/>}
+          { activeTab === 18 && <TruckQueueMgt/>}
+
           { activeTab === 38 && <EquipementMgt/> }
           { activeTab === 39 && <YardQueueManagement/>}
           { activeTab === 40 && <AssignContainer/> }

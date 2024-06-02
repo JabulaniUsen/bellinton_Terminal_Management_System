@@ -9,7 +9,7 @@ import axios from 'axios'; // Import axios for making HTTP requests
 const InboundGateReport = () => {
   const [errorText, setErrorText] = useState(false);
   const [data, setData] = useState([]);
-  const [containerNoSearchTerm, setContainerNoSearchTerm] = useState('');
+  const [container_idSearchTerm, setContainer_idSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]); // Initialize searchResults as an empty array
   const [selectedRow, setSelectedRow] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -23,8 +23,8 @@ const InboundGateReport = () => {
       .then(response => {
         const fetchedData = Array.isArray(response.data) ? response.data : [];
         setData(fetchedData);
-        setSearchResults(fetchedData); // Initialize searchResults with fetched data
-        console.log(fetchedData); // Log the data to the console
+        setSearchResults(fetchedData); 
+        console.log(fetchedData);
       })
       .catch(error => {
         console.error("There was an error fetching the data!", error);
@@ -42,23 +42,26 @@ const InboundGateReport = () => {
     }
   };
 
-  const handleSave = () => {
-    // Update the data in the table with the form data
-    const updatedData = [...searchResults]; // Copy searchResults state
-    updatedData[selectedRow] = formData; // Update the selected row with formData
-    setSearchResults(updatedData); // Update searchResults state with edited data
-
-    // Send updated data to the backend
-    axios.put(`https://exprosys-backend.onrender.com/api/v1/inbound-pre-gate-entries/${id}`, formData) // Replace with your API endpoint
-      .then(response => {
+  const handleSave = async () => {
+    if (selectedRow !== null && searchResults[selectedRow]?.id !== undefined) {
+      const id = searchResults[selectedRow].id;
+  
+      try {
+        const response = await axios.put(`https://exprosys-backend.onrender.com/api/v1/inbound-pre-gate-entries/${id}`, formData);
         console.log("Data updated successfully!", response.data);
-      })
-      .catch(error => {
+  
+        const updatedData = [...searchResults];
+        updatedData[selectedRow] = formData;
+        setSearchResults(updatedData);
+  
+        // Close modal
+        setModalOpen(false);
+      } catch (error) {
         console.error("There was an error updating the data!", error);
-      });
-
-    // Close modal
-    setModalOpen(false);
+      }
+    } else {
+      console.error("Selected row is invalid or has no ID");
+    }
   };
 
   const handleClose = () => {
@@ -78,21 +81,18 @@ const InboundGateReport = () => {
   };
 
   const handleButtonClick = (e) => {
-    e.stopPropagation(); // Prevent row click event when button is clicked
+    e.stopPropagation(); 
   };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Check if the click target is not within the table rows or buttons
       if (!event.target.closest("tr") && !event.target.closest("button")) {
-        setSelectedRow(null); // Reset selected row
+        setSelectedRow(null);
       }
     };
 
-    // Add event listener to detect clicks outside
     document.addEventListener("click", handleClickOutside);
 
-    // Remove event listener when component unmounts
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
@@ -165,11 +165,11 @@ const InboundGateReport = () => {
               </thead>
               <tbody>
                 {searchResults.map((rowData, index) => (
-                  <tr key={index} className={selectedRow === index ? "bg-blue-200" : ""} onClick={() => handleRowClick(index)}>
+                  <tr key={index} className={`cursor-pointer ${selectedRow === index ? "bg-blue-200" : ""}`} onClick={() => handleRowClick(index)}>
                     <td className="border border-gray-800 px-3 py-2">{rowData.entryDateAndTime}</td>
-                    <td className="border border-gray-800 px-3 py-2">{rowData.truckID}</td>
-                    <td className="border border-gray-800 px-3 py-2">{rowData.containerNo}</td>
-                    <td className="border border-gray-800 px-3 py-2">{rowData.companyName}</td>
+                    <td className="border border-gray-800 px-3 py-2">{rowData.truck_id}</td>
+                    <td className="border border-gray-800 px-3 py-2">{rowData.container_id}</td>
+                    <td className="border border-gray-800 px-3 py-2">{rowData.company_organization}</td>
                     <td className="border border-gray-800 px-3 py-2">{rowData.size}</td>
                     <td className="border border-gray-800 px-3 py-2">{rowData.cargoDesc}</td>
                     <td className="border border-gray-800 px-3 py-2">{rowData.arrivalTime}</td>
@@ -183,13 +183,13 @@ const InboundGateReport = () => {
         </div>
 
         <div className="flex gap-3 mx-[100px] m-16">
-          <button 
+          {/* <button 
             className={`text-white bg-[#4e9352] flex items-center justify-center rounded-md py-1 px-10 ${selectedRow === null ? "opacity-50 cursor-not-allowed" : ""}`}
             onClick={handleViewDetails}
             disabled={selectedRow === null}
           >
             View Details
-          </button>
+          </button> */}
 
           <motion.button
             whileHover={{ scale: 1.1 }}
@@ -252,8 +252,8 @@ const InboundGateReport = () => {
                     <label className="block mb-2">Truck ID</label>
                     <input
                       type="text"
-                      name="truckID"
-                      value={formData.truckID}
+                      name="truck_id"
+                      value={formData.truck_id}
                       onChange={handleInputChange}
                       className="border border-gray-300 p-2 rounded w-full"
                     />
@@ -262,8 +262,8 @@ const InboundGateReport = () => {
                     <label className="block mb-2">Container ID</label>
                     <input
                       type="text"
-                      name="containerNo"
-                      value={formData.containerNo}
+                      name="container_id"
+                      value={formData.container_id}
                       onChange={handleInputChange}
                       className="border border-gray-300 p-2 rounded w-full"
                     />
@@ -272,8 +272,8 @@ const InboundGateReport = () => {
                     <label className="block mb-2">Company Name</label>
                     <input
                       type="text"
-                      name="companyName"
-                      value={formData.companyName}
+                      name="company_name"
+                      value={formData.company_name}
                       onChange={handleInputChange}
                       className="border border-gray-300 p-2 rounded w-full"
                     />
@@ -301,7 +301,7 @@ const InboundGateReport = () => {
                   <div>
                     <label className="block mb-2">Arrival Time</label>
                     <input
-                      type="text"
+                      type="time"
                       name="arrivalTime"
                       value={formData.arrivalTime}
                       onChange={handleInputChange}

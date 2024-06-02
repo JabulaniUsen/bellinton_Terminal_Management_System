@@ -20,12 +20,35 @@ const ContainerTransfer = () => {
   const fetchData = async () => {
     try {
       const containerResponse = await axios.get('https://exprosys-backend.onrender.com/api/v1/containers/');
-      // const locationResponse = await axios.get('https://exprosys-backend.onrender.com/api/v1/containers/');
+      const locationResponse = await axios.get('https://exprosys-backend.onrender.com/api/v1/containers/');
       setContainers(containerResponse.data);
       setLocations(locationResponse.data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
+  };
+
+  const handleContainerChange = (e) => {
+    const selectedContainerId = e.target.value;
+    setContainer(selectedContainerId);
+
+    const selectedContainer = containers.find(cont => cont.container_id === selectedContainerId);
+    if (selectedContainer) {
+      const location = locations.find(loc => loc.location_id === selectedContainer.current_location);
+      if (location) {
+        setTransfer_from(location.location_name); // Assuming location_name is the correct property
+      } else {
+        setTransfer_from('');
+      }
+    } else {
+      setTransfer_from('');
+    }
+  };
+  const handleLocationChange = (e) => {
+    const selectedLocation = e.target.value;
+    setTransfer_from(selectedLocation);
+
+    
   };
 
   const handleSubmit = async () => {
@@ -73,7 +96,7 @@ const ContainerTransfer = () => {
                 <select
                   className='outline-none w-full'
                   value={container}
-                  onChange={(e) => setContainer(e.target.value)}
+                  onChange={handleContainerChange}
                 >
                   <option value="" className='text-[#a1a1a1]'>Enter the unique identifier for the container</option>
                   {containers.map((container) => (
@@ -82,22 +105,23 @@ const ContainerTransfer = () => {
                     </option>
                   ))}
                 </select>
-                {/* <input 
-                  type="text"
-                  value={container}
-                  onChange={(e) => setContainer(e.target.value)}
-                  className='w-full outline-none' /> */}
               </div>
             </div>
             <div className="flex flex-col">
               <label htmlFor="transfer_from" className='font-semibold text-base'>Transfer From:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
-                <input 
-                  type="text"
+                <select
                   className='outline-none w-full'
                   value={transfer_from}
-                  onChange={(e) => setTransfer_from(e.target.value)}
-                  />
+                  onChange={handleLocationChange}
+                >
+                  <option value="" className='text-[#a1a1a1]'>Select location for the container</option>
+                  {containers.map((container) => (
+                    <option key={container.origin} value={container.origin}>
+                      {container.origin}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="flex flex-col">
@@ -132,7 +156,7 @@ const ContainerTransfer = () => {
                   className='outline-none w-full'
                   value={transfer_to}
                   onChange={(e) => setTransferTo(e.target.value)} type="text"
-                  />
+                />
               </div>
             </div>
             <div className="flex flex-col">

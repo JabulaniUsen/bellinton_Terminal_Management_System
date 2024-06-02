@@ -10,26 +10,25 @@ const ViewContainer = () => {
   const [showUpload, setShowUpload] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [moreInfo, setMoreInfo] = useState(false);
-  const [initialData, setinitialData] = useState([]); 
+  const [initialData, setInitialData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
   const [selectedVesselDetails, setSelectedVesselDetails] = useState(null);
-
 
   useEffect(() => {
     axios.get('https://exprosys-backend.onrender.com/api/v1/manage-containers/')
-    .then(response => {
-      if (Array.isArray(response.data)) {
-        setinitialData(response.data);
-        setData(response.data);
-        console.log(response.data);
-      } else {
-        console.error("Unexpected response data format:", response.data);
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching data:', error);
-    }); // <- Added closing parenthesis here
+      .then(response => {
+        if (Array.isArray(response.data)) {
+          setInitialData(response.data);
+          setData(response.data);
+          console.log(response.data);
+        } else {
+          console.error("Unexpected response data format:", response.data);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
   }, []);
 
   const handleSearch = () => {
@@ -39,16 +38,15 @@ const ViewContainer = () => {
     }
     setErrorText(false);
     const filteredData = initialData.filter(item =>
-      item.customer_id.toLowerCase().includes(searchTerm.toLowerCase())
+      item.container_id && item.container_id.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setData(filteredData);
     setMoreInfo(true);
   };
 
-
   const resetSearch = () => {
     setSearchTerm('');
-    setinitialData([]); // Reset initialData to an empty array
+    setData(initialData);
     setMoreInfo(false);
   };
 
@@ -87,66 +85,65 @@ const ViewContainer = () => {
               <div className="">
                 <Select
                   options={initialData.map((item) => ({ value: item.container_id, label: item.container_id }))}
-                  value={{ value: searchTerm, label: searchTerm }}
+                  value={searchTerm ? { value: searchTerm, label: searchTerm } : null}
                   onChange={(selectedOption) => setSearchTerm(selectedOption.value)}
                   isSearchable
-                  placeholder="Select Cargo ID"
+                  placeholder="Select Container ID"
                   className='outline-none p-2 w-[300px] rounded '
                 />
-                {errorText && <p className="text-red-600">Please enter your cargo Id</p>}
+                {errorText && <p className="text-red-600">Please enter your container ID</p>}
               </div>
               <div className="flex flex-col justify-center items-center my-10">
-                <button className=' text-white bg-[#4E9352] rounded py-2 px-12' onClick={() => fetchContainerStatus(searchTerm)}>View</button>
+                <button className=' text-white bg-[#4E9352] rounded py-2 px-12' onClick={handleSearch}>View</button>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className={`moreInfo my-10 mx-10`}>
-        {initialData && 
+      {moreInfo && (
+        <div className={`moreInfo my-10 mx-10`}>
           <div className="my-10">
-            
-              <tbody>
-                {data.map((rowData, index) => (
-                  <div key={index} className="grid grid-cols-2 gap-20">
-                    <div className="">
-                      <p className="text-lg font-semibold">Container ID: <span className="text-base font-normal">{rowData.container_id}</span></p>
-                      <p className="text-lg font-semibold">Type: <span className="text-base font-normal">{rowData.type}</span></p>
-                      <p className="text-lg font-semibold">Current Location: <span className="text-base font-normal">{rowData.current_location}</span></p>
-                      <p className="text-lg font-semibold">Last Updated: <span className="text-base font-normal">{rowData.last_updated}</span></p>
-                    </div>
-
-                    <div className="">
-                      <p className="text-lg font-semibold">Current Status: <span className="text-base font-normal">{rowData.status}</span></p>
-                      <p className="text-lg font-semibold">Origin: <span className="text-base font-normal">{rowData.Classic_terminal}</span></p>
-                      <p className="text-lg font-semibold">Booking: <span className="text-base font-normal">{rowData.booking}</span></p>
-                      <p className="text-lg font-semibold">Estimated Arrival: <span className="text-base font-normal">{rowData.eta}</span></p>
-                      <p className="text-lg font-semibold">Shipping Line: <span className="text-base font-normal">{rowData.shipping_line}</span></p>
-                    </div>
-
-                    <div className="">
-                      <h4 className="text-xl font-semibold">Recent Event:</h4>
-                    </div>
-
-                    <div className="">
-                      <h4 className="text-xl font-semibold">Historical Movements:</h4>
-                    </div>
+            <div>
+              {data.map((rowData, index) => (
+                <div key={index} className="grid grid-cols-2 gap-20">
+                  <div className="">
+                    <p className="text-lg font-semibold">Container ID: <span className="text-base font-normal">{rowData.container_id}</span></p>
+                    <p className="text-lg font-semibold">Type: <span className="text-base font-normal">{rowData.container_type}</span></p>
+                    <p className="text-lg font-semibold">Current Location: <span className="text-base font-normal">{rowData.current_location}</span></p>
+                    <p className="text-lg font-semibold">Last Updated: <span className="text-base font-normal">{rowData.last_update}</span></p>
                   </div>
-                ))}
-              </tbody>
+
+                  <div className="">
+                    <p className="text-lg font-semibold">Current Status: <span className="text-base font-normal">{rowData.status}</span></p>
+                    <p className="text-lg font-semibold">Origin: <span className="text-base font-normal">{rowData.origin}</span></p>
+                    <p className="text-lg font-semibold">Booking: <span className="text-base font-normal">{rowData.booking_number}</span></p>
+                    <p className="text-lg font-semibold">Estimated Arrival: <span className="text-base font-normal">{rowData.arrival_date}</span></p>
+                    <p className="text-lg font-semibold">Shipping Line: <span className="text-base font-normal">{rowData.shipping_line}</span></p>
+                  </div>
+
+                  <div className="">
+                    <h4 className="text-xl font-semibold">Recent Event:</h4>
+                  </div>
+
+                  <div className="">
+                    <h4 className="text-xl font-semibold">Historical Movements:</h4>
+                  </div>
+                </div>
+              ))}
+            </div>
             <div className="flex flex-col justify-end items-end my-10">
               <button className=' text-white bg-[#4E9352] rounded py-2 px-12' onClick={resetSearch}>Back</button>
             </div>
           </div>
-        }
-      </div>
+        </div>
+      )}
 
       {showUpload &&
         <UploadBox closeUploadBox={closeUploadBox} />
       }
 
-      {uploadSuccess &&
+      {uploadSuccess && 
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -163,7 +160,6 @@ const ViewContainer = () => {
         </motion.div>
       }
 
-     
       {selectedVesselDetails &&
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
