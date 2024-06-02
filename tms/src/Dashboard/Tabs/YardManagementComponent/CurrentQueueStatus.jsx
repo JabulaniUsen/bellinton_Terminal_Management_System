@@ -19,7 +19,6 @@ const CurrentQueueStatus = () => {
         <GateStatus/>
       </div>
       <div className="mt-10 flex justify-between flex-wrap gap-10">
-        <InboundGateEntry/>
         <GateStatus2/>
       </div>
     </div>

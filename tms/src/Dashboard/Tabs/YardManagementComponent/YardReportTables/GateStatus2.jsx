@@ -1,34 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const GateStatus2 = () => {
-  const data = [
-    { lastUpdated: '2024-02-17 10:15 AM', status: 'Open', gateNumber: 'Gate 1'},
-    { lastUpdated: '2024-02-17 09:30 AM', status: 'Closed', gateNumber: 'Gate 2'},
-    { lastUpdated: '2024-02-17 10:45 AM', status: 'Restricted', gateNumber: 'Gate 3'},
-  ];
+  const [queueMetrics, setQueueMetrics] = useState(null);
+
+  useEffect(() => {
+    const fetchQueueMetrics = async () => {
+      try {
+        const response = await axios.get('https://exprosys-backend.onrender.com/api/v1/queue-metrics/');
+        setQueueMetrics(response.data);
+      } catch (error) {
+        console.error('Error fetching queue metrics:', error);
+      }
+    };
+
+    fetchQueueMetrics();
+  }, []);
 
   return (
     <div className='poppins'>
-        <div className=''>
-        <h2 className='font-semibold mb-2'>Gate Status</h2>
-        <table className='border-collapse border border-gray-800'>
-          <thead>
-            <tr className='bg-gray-200'>
-              <th className='border border-gray-800 px-2 py-1'>Gate Number</th>
-              <th className='border border-gray-800 px-2 py-1'>status</th>
-              <th className='border border-gray-800 px-2 py-1'>Last Updated</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((row, index) => (
-              <tr key={index} className='hover:bg-[#dbbfff] hover:text-[#351959] font-semibold'>
-                <td className='border border-gray-800 px-2 py-1'>{row.gateNumber}</td>
-                <td className='border border-gray-800 px-2 py-1'>{row.status}</td>
-                <td className='border border-gray-800 px-2 py-1'>{row.lastUpdated}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className=''>
+        <h2 className='font-semibold mb-2'>Queue Status</h2>
+        <div className="">
+          <ul className='w-[550px]'>
+            <li className='flex justify-between'>
+              <p>● Total Containers in Queue:</p>
+              <span>{queueMetrics ? queueMetrics.total_containers_in_queue : 'Loading...'}</span>
+            </li>
+            <li className='flex justify-between'>
+              <p>● Average Queue Waiting Time:</p>
+              <span>{queueMetrics ? queueMetrics.average_queue_waiting_time : 'Loading...'}</span>
+            </li>
+            <li className='flex justify-between'>
+              <p>● Average Container Processing Time: </p>
+              <span>{queueMetrics ? queueMetrics.average_container_processing_time : 'Loading...'}</span>
+            </li>
+            <li className='flex justify-between'>
+              <p>● Estimated Time of Next Container Assignment: </p>
+              <span>{queueMetrics ? queueMetrics.estimated_time_of_next_container_assignment : 'Loading...'}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="buttons">
+        <button onClick={() => window.print()}>Print</button>
+        <button>Export file</button>
       </div>
     </div>
   );
