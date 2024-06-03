@@ -46,6 +46,7 @@ const ManageCustomer = () => {
         axios.get('https://exprosys-backend.onrender.com/api/v1/customers/')
             .then(response => {
                 setCustomerData(response.data);
+                console.log(response.data);
             })
             .catch(error => {
                 console.error('Error fetching customer data:', error);
@@ -59,14 +60,14 @@ const ManageCustomer = () => {
     };
 
     const handleUpdate = () => {
-        const index = customerData.findIndex((customer) => customer.customerId === selectedCustomer.customerId);
+        const index = customerData.findIndex((customer) => customer.customer_id === selectedCustomer.customer_id);
 
         if (index !== -1) {
             const updatedCustomerData = [...customerData];
             updatedCustomerData[index] = selectedCustomer;
             setCustomerData(updatedCustomerData);
 
-            axios.put(`https://exprosys-backend.onrender.com/api/v1/customers/${selectedCustomer.customerId}`, selectedCustomer)
+            axios.put(`https://exprosys-backend.onrender.com/api/v1/customers/${selectedCustomer.customer_id}/`, selectedCustomer)
                 .then(response => {
                     setSelectedCustomer(null);
                     setEditBoxVisible(false);
@@ -89,8 +90,8 @@ const ManageCustomer = () => {
     };
 
     return (
-        <div className="">
-            <div className="m-5" ref={componentRef}>
+        <div className=""  ref={componentRef}>
+            <div className="m-5">
                 <h3 className="text-2xl font-bold">Manage Customer</h3>
 
                 <table className="border border-collapse my-10 text-sm">
@@ -111,9 +112,9 @@ const ManageCustomer = () => {
                                 className="hover:bg-[#d7c9ff] cursor-pointer"
                                 onClick={() => handleRowClick(rowData)}
                             >
-                                <td className="border border-black px-3 py-2">{rowData.customerId}</td>
-                                <td className="border border-black px-3 py-2">{rowData.customerName}</td>
-                                <td className="border border-black px-3 py-2">{rowData.contactPerson}</td>
+                                <td className="border border-black px-3 py-2">{rowData.customer_id}</td>
+                                <td className="border border-black px-3 py-2">{rowData.customer_name}</td>
+                                <td className="border border-black px-3 py-2">{rowData.contact_person}</td>
                                 <td className="border border-black px-3 py-2">{rowData.email}</td>
                                 <td className="border border-black w-[170px] px-3 py-2">{rowData.phone}</td>
                                 <td className="border border-black px-3 py-2">{rowData.address}</td>
@@ -147,27 +148,27 @@ const ManageCustomer = () => {
                                 <h3 className="text-2xl font-bold mb-7 text-center">Edit Customer Data</h3>
                                 <div className="flex flex-col gap-2 justify-center">
                                     <div className="flex gap-10 items-center justify-between">
-                                        <label htmlFor="editedCustomerName" className='font-semibold text-base'>Customer Name:</label>
+                                        <label htmlFor="editedCustomer_name" className='font-semibold text-base'>Customer Name:</label>
                                         <input
                                             className='outline-none rounded-lg px-3 py-2 border-[1px] border-gray-600'
                                             type="text"
-                                            id="editedCustomerName"
-                                            value={selectedCustomer?.customerName || ''}
+                                            id="editedCustomer_name"
+                                            value={selectedCustomer?.customer_name || ''}
                                             onChange={(e) =>
-                                                setSelectedCustomer({ ...selectedCustomer, customerName: e.target.value })
+                                                setSelectedCustomer({ ...selectedCustomer, customer_name: e.target.value })
                                             }
                                             onKeyPress={handleKeyPress}
                                         />
                                     </div>
                                     <div className="flex gap-10 items-center justify-between">
-                                        <label htmlFor="editedContactPerson" className='font-semibold text-base'>Contact Person:</label>
+                                        <label htmlFor="editedContact_person" className='font-semibold text-base'>Contact Person:</label>
                                         <input
                                             className='outline-none rounded-lg px-2 py-1 border-[1px] border-gray-600'
                                             type="text"
-                                            id="editedContactPerson"
-                                            value={selectedCustomer?.contactPerson || ''}
+                                            id="editedContact_person"
+                                            value={selectedCustomer?.contact_person || ''}
                                             onChange={(e) =>
-                                                setSelectedCustomer({ ...selectedCustomer, contactPerson: e.target.value })
+                                                setSelectedCustomer({ ...selectedCustomer, contact_person: e.target.value })
                                             }
                                             onKeyPress={handleKeyPress}
                                         />
@@ -189,7 +190,7 @@ const ManageCustomer = () => {
                                         <label htmlFor="editedCustomerPhone" className='font-semibold text-base'>Phone:</label>
                                         <input
                                             className='outline-none rounded-lg px-2 py-1 border-[1px] border-gray-600'
-                                            type="text"
+                                            type="number"
                                             id="editedCustomerPhone"
                                             value={selectedCustomer?.phone || ''}
                                             onChange={(e) =>
@@ -225,27 +226,27 @@ const ManageCustomer = () => {
                                         />
                                     </div>
                                     <div className="flex gap-10 items-center justify-between">
-                                        <label htmlFor="editedCustomerStateProvince" className='font-semibold text-base'>State/Province:</label>
+                                        <label htmlFor="editedCustomerState_province" className='font-semibold text-base'>State/Province:</label>
                                         <input
                                             className='outline-none rounded-lg px-2 py-1 border-[1px] border-gray-600'
                                             type="text"
-                                            id="editedCustomerStateProvince"
-                                            value={selectedCustomer?.stateProvince || ''}
+                                            id="editedCustomerState_province"
+                                            value={selectedCustomer?.state_province || ''}
                                             onChange={(e) =>
-                                                setSelectedCustomer({ ...selectedCustomer, stateProvince: e.target.value })
+                                                setSelectedCustomer({ ...selectedCustomer, state_province: e.target.value })
                                             }
                                             onKeyPress={handleKeyPress}
                                         />
                                     </div>
                                     <div className="flex gap-10 items-center justify-between">
-                                        <label htmlFor="editedCustomerPostalCode" className='font-semibold text-base'>Postal Code:</label>
+                                        <label htmlFor="editedCustomerPostal_code" className='font-semibold text-base'>Postal Code:</label>
                                         <input
                                             className='outline-none rounded-lg px-2 py-1 border-[1px] border-gray-600'
-                                            type="text"
-                                            id="editedCustomerPostalCode"
-                                            value={selectedCustomer?.postalCode || ''}
+                                            type="number"
+                                            id="editedCustomerPostal_code"
+                                            value={selectedCustomer?.postal_code || ''}
                                             onChange={(e) =>
-                                                setSelectedCustomer({ ...selectedCustomer, postalCode: e.target.value })
+                                                setSelectedCustomer({ ...selectedCustomer, postal_code: e.target.value })
                                             }
                                             onKeyPress={handleKeyPress}
                                         />
