@@ -28,6 +28,7 @@ const ViewCustomer = () => {
         } else if (response.data && typeof response.data === 'object') {
           setInitialData([response.data]);
           setData([response.data]);
+          console.log(response.data);
         } else {
           console.error('Unexpected response data format:', response.data);
         }

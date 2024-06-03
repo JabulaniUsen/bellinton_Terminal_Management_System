@@ -183,7 +183,7 @@ function CreateAccount() {
               Next <FontAwesomeIcon icon={faAngleRight} className='px-2 py-[0.3rem] rounded-full border-[4px] font-bold' />
             </button>
           ) : (
-            <button className='bg-[#4e9352] py-3 px-5 w-[400px] justify-between rounded-xl text-white roboto' onClick={handleSubmitAllForms}>
+            <button className='bg-[#4e9352] py-3 px-5 w-[400px] justify-between rounded-xl text-white roboto flex item-center gap-2' onClick={handleSubmitAllForms}>
               Agree, Next <FontAwesomeIcon icon={faAngleRight} className='px-2 py-[0.3rem] rounded-full border-[4px] font-bold' />
             </button>
           )}
