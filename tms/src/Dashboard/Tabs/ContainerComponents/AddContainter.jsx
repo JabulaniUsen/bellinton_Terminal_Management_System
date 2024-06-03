@@ -11,23 +11,24 @@ const AddContainer = () => {
   const [inputValue, setInputValue] = useState('');
   const [showUpload, setShowUpload] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
-  const [container_id, setContainerId] = useState('');
-  const [booking_number, setBookingNumber] = useState('');
-  const [customer_name, setCustomerName] = useState('');
-  const [shipping_line, setShippingLine] = useState('');
-  const [origin, setOrigin] = useState('');
-  const [temperature, setTemperature] = useState('');
-  const [vessel_name, setVesselName] = useState('');
-  const [arrival_date, setArrivalDate] = useState('');
-  const [departure_date, setDepartureDate] = useState('');
-  const [destination, setDestination] = useState('');
-  const [current_location, setCurrentLocation] = useState('');
 
-  // State for radio inputs
-  const [container_size, setContainerSize] = useState('');
-  const [container_type, setContainerType] = useState('');
-  const [status, setStatus] = useState('');
-  const [container_import, setContainerImport] = useState('');
+  const [formData, setFormData] = useState({
+    container_id: '',
+    booking_number: '',
+    customer: '',
+    shipping_line: '',
+    origin: '',
+    temperature: '',
+    vessel_name: '',
+    arrival_date: '',
+    departure_date: '',
+    destination: '',
+    current_location: '',
+    container_size: '',
+    container_type: '',
+    status: '',
+    container_import: '',
+  });
 
   const inputRef = useRef(null);
 
@@ -39,64 +40,15 @@ const AddContainer = () => {
   }, []);
 
   useEffect(() => {
-    // Load data from localStorage when component mounts
     const storedData = JSON.parse(localStorage.getItem('containerFormData'));
     if (storedData) {
-      setContainerId(storedData.container_id || '');
-      setBookingNumber(storedData.booking_number || '');
-      setCustomerName(storedData.customer_name || '');
-      setShippingLine(storedData.shipping_line || '');
-      setOrigin(storedData.origin || '');
-      setTemperature(storedData.temperature || '');
-      setVesselName(storedData.vessel_name || '');
-      setArrivalDate(storedData.arrival_date || '');
-      setDepartureDate(storedData.departure_date || '');
-      setDestination(storedData.destination || '');
-      setCurrentLocation(storedData.current_location || '');
-      setContainerSize(storedData.container_size || '');
-      setContainerType(storedData.container_type || '');
-      setStatus(storedData.status || '');
-      setContainerImport(storedData.container_import || '');
+      setFormData(storedData);
     }
   }, []);
 
   useEffect(() => {
-    // Save data to localStorage whenever it changes
-    const formData = {
-      container_id,
-      booking_number,
-      customer_name,
-      shipping_line,
-      origin,
-      temperature,
-      vessel_name,
-      arrival_date,
-      departure_date,
-      destination,
-      current_location,
-      container_size,
-      container_type,
-      status,
-      container_import,
-    };
     localStorage.setItem('containerFormData', JSON.stringify(formData));
-  }, [
-    container_id,
-    booking_number,
-    customer_name,
-    shipping_line,
-    origin,
-    temperature,
-    vessel_name,
-    arrival_date,
-    departure_date,
-    destination,
-    current_location,
-    container_size,
-    container_type,
-    status,
-    container_import,
-  ]);
+  }, [formData]);
 
   const handleClickOutside = (event) => {
     if (inputRef.current && !inputRef.current.contains(event.target)) {
@@ -105,17 +57,26 @@ const AddContainer = () => {
   };
 
   const handleInputChange = (e) => {
-    const value = e.target.value;
-    setInputValue(value);
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
 
-    // Filter suggestions based on the input value
-    const filteredSuggestions = suggestions.filter((item) =>
-      item.toLowerCase().includes(value.toLowerCase())
-    );
-    setSuggestions(filteredSuggestions);
+    if (name === 'container_id') {
+      setInputValue(value);
+      const filteredSuggestions = suggestions.filter((item) =>
+        item.toLowerCase().includes(value.toLowerCase())
+      );
+      setSuggestions(filteredSuggestions);
+    }
   };
 
   const handleSuggestionClick = (suggestion) => {
+    setFormData({
+      ...formData,
+      container_id: suggestion,
+    });
     setInputValue(suggestion);
     setSuggestions([]);
   };
@@ -131,30 +92,23 @@ const AddContainer = () => {
 
   const handleSubmit = async () => {
     const payload = {
-      container_id,
-      booking_number,
-      customer_name,
-      shipping_line,
-      origin,
-      temperature,
-      current_location,
-      container_size,
-      container_type,
-      status,
-      container_import,
-      vessel_name,
-      arrival_date,
-      departure_date,
-      destination,
+      ...formData,
+      container_id: parseInt(formData.container_id, 10),
     };
+
+    if (isNaN(payload.container_id)) {
+      toast.error('Container ID must be a valid integer');
+      return;
+    }
 
     try {
       const response = await axios.post('https://exprosys-backend.onrender.com/api/v1/containers/', payload);
       console.log('Response:', response.data);
       toast.success('Container Added');
-      localStorage.removeItem('containerFormData'); // Clear form data from localStorage on successful submission
+      localStorage.removeItem('containerFormData');
     } catch (error) {
       console.error('Error submitting data:', error);
+      toast.error('Error submitting data');
     }
   };
 
@@ -168,14 +122,15 @@ const AddContainer = () => {
         <div className="body my-5 grid grid-cols-2 gap-20">
           <div className="col1 flex flex-col gap-4">
             <div className="flex flex-col">
-              <label htmlFor="name" className='font-semibold text-base'>Container ID:</label>
+              <label htmlFor="container_id" className='font-semibold text-base'>Container ID:</label>
               <div className="rounded flex items-center py-2">
                 <div ref={inputRef}>
                   <div className="flex items-center justify-between pr-3 pl-2 py-2 rounded border-[#999999] border w-[440px]">
                     <input
                       type="text"
-                      value={container_id}
-                      onChange={(e) => setContainerId(e.target.value)}
+                      name="container_id"
+                      value={formData.container_id}
+                      onChange={handleInputChange}
                       className='outline-none w-full'
                     />
                     <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
@@ -191,36 +146,39 @@ const AddContainer = () => {
               </div>
             </div>
             <div>
-              <label htmlFor="temperature" className='font-semibold text-base'>Vessel Name:</label>
+              <label htmlFor="vessel_name" className='font-semibold text-base'>Vessel Name:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                 <input 
                   type="text" 
+                  name="vessel_name"
                   className='outline-none w-full' 
                   placeholder='Enter Name of vessel'
-                  value={vessel_name}
-                  onChange={(e) => setVesselName(e.target.value)}
+                  value={formData.vessel_name}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
             <div>
-              <label htmlFor="temperature" className='font-semibold text-base'>Estimated Time of Arrival:</label>
+              <label htmlFor="arrival_date" className='font-semibold text-base'>Estimated Time of Arrival:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                 <input 
                   type="date" 
+                  name="arrival_date"
                   className='outline-none w-full' 
-                  value={arrival_date}
-                  onChange={(e) => setArrivalDate(e.target.value)}
+                  value={formData.arrival_date}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
             <div>
-              <label htmlFor="temperature" className='font-semibold text-base'>Estimated Time of Depature:</label>
+              <label htmlFor="departure_date" className='font-semibold text-base'>Estimated Time of Depature:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                 <input 
                   type="date" 
+                  name="departure_date"
                   className='outline-none w-full' 
-                  value={departure_date}
-                  onChange={(e) => setDepartureDate(e.target.value)}
+                  value={formData.departure_date}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
@@ -235,8 +193,8 @@ const AddContainer = () => {
                       name="container_size"
                       id={size}
                       value={size}
-                      checked={container_size === size}
-                      onChange={(e) => setContainerSize(e.target.value)}
+                      checked={formData.container_size === size}
+                      onChange={handleInputChange}
                     />
                     <label htmlFor={size} className='text-base'>{size}</label>
                   </div>
@@ -252,8 +210,8 @@ const AddContainer = () => {
                       name="container_type"
                       id={type}
                       value={type}
-                      checked={container_type === type}
-                      onChange={(e) => setContainerType(e.target.value)}
+                      checked={formData.container_type === type}
+                      onChange={handleInputChange}
                     />
                     <label htmlFor={type} className='text-base'>{type}</label>
                   </div>
@@ -271,8 +229,8 @@ const AddContainer = () => {
                       name="status"
                       id={statusOption}
                       value={statusOption}
-                      checked={status === statusOption}
-                      onChange={(e) => setStatus(e.target.value)}
+                      checked={formData.status === statusOption}
+                      onChange={handleInputChange}
                     />
                     <label htmlFor={statusOption} className='text-base'>{statusOption}</label>
                   </div>
@@ -288,8 +246,8 @@ const AddContainer = () => {
                       name="container_import"
                       id={impExp}
                       value={impExp}
-                      checked={container_import === impExp}
-                      onChange={(e) => setContainerImport(e.target.value)}
+                      checked={formData.container_import === impExp}
+                      onChange={handleInputChange}
                     />
                     <label htmlFor={impExp} className='text-base'>{impExp}</label>
                   </div>
@@ -302,21 +260,23 @@ const AddContainer = () => {
               <label htmlFor="booking_number" className='font-semibold text-base'>Booking Number:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                 <input
+                  name="booking_number"
                   placeholder="Select Booking Number"
                   className='w-full outline-none'
-                  value={booking_number}
-                  onChange={(e) => setBookingNumber(e.target.value)}
+                  value={formData.booking_number}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
             <div className="flex flex-col">
-              <label htmlFor="customer_name" className='font-semibold text-base'>Customer Name:</label>
+              <label htmlFor="customer" className='font-semibold text-base'>Customer Name:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                 <input
+                  name="customer"
                   placeholder="Customer name associated with container"
                   className='w-full outline-none'
-                  value={customer_name}
-                  onChange={(e) => setCustomerName(e.target.value)}
+                  value={formData.customer}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
@@ -325,9 +285,10 @@ const AddContainer = () => {
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                 <input 
                   type="text" 
+                  name="shipping_line"
                   className='outline-none w-full' 
-                  value={shipping_line}
-                  onChange={(e) => setShippingLine(e.target.value)}
+                  value={formData.shipping_line}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
@@ -336,9 +297,10 @@ const AddContainer = () => {
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                 <input 
                   type="text" 
+                  name="origin"
                   className='outline-none w-full'
-                  value={origin}
-                  onChange={(e) => setOrigin(e.target.value)}
+                  value={formData.origin}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
@@ -347,9 +309,10 @@ const AddContainer = () => {
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                 <input 
                   type="text" 
+                  name="destination"
                   className='outline-none w-full'
-                  value={destination}
-                  onChange={(e) => setDestination(e.target.value)}
+                  value={formData.destination}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
@@ -358,10 +321,11 @@ const AddContainer = () => {
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                 <input 
                   type="text" 
+                  name="temperature"
                   className='outline-none w-full' 
                   placeholder='Enter the temperature for Reefer containers in Celsius.'
-                  value={temperature}
-                  onChange={(e) => setTemperature(e.target.value)}
+                  value={formData.temperature}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
@@ -370,10 +334,11 @@ const AddContainer = () => {
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                 <input 
                   type="text" 
+                  name="current_location"
                   className='outline-none w-full' 
                   placeholder='Location within the terminal where the container will be stored.'
-                  value={current_location}
-                  onChange={(e) => setCurrentLocation(e.target.value)}
+                  value={formData.current_location}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>

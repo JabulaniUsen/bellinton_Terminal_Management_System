@@ -17,11 +17,13 @@ const InboundGate = () => {
     driver_name: '',
     driver_number: '',
     company_organization: '',
-    security_check: '',
+    hazardous_materials_check: false,
+    security_clearance_check: false,
+    temperature_sensitive_cargo: false,
   });
 
   useEffect(() => {
-    axios.get('https://exprosys-backend.onrender.com/api/v1/manage-containers/')
+    axios.get('https://exprosys-backend.onrender.com/api/v1/containers/')
       .then(response => {
         if (Array.isArray(response.data)) {
           setInitialData(response.data);
@@ -78,7 +80,9 @@ const InboundGate = () => {
       driver_name: '',
       driver_number: '',
       company_organization: '',
-      security_check: '',
+      hazardous_materials_check: false,
+      security_clearance_check: false,
+      temperature_sensitive_cargo: false,
     });
     setSearchTerm('');
   };
@@ -187,10 +191,9 @@ const InboundGate = () => {
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center">
                     <input
-                      type='radio'
-                      name="security_check"
-                      value="hazardous_materials_check"
-                      checked={formData.security_check === 'hazardous_materials_check'}
+                      type='checkbox'
+                      name="hazardous_materials_check"
+                      checked={formData.hazardous_materials_check}
                       onChange={handleInputChange}
                       className='w-[20px] h-[20px] mr-2'
                     />
@@ -198,10 +201,9 @@ const InboundGate = () => {
                   </div>
                   <div className="flex items-center">
                     <input
-                      type='radio'
-                      name="security_check"
-                      value="security_clearance_check"
-                      checked={formData.security_check === 'security_clearance_check'}
+                      type='checkbox'
+                      name="security_clearance_check"
+                      checked={formData.security_clearance_check}
                       onChange={handleInputChange}
                       className='w-[20px] h-[20px] mr-2'
                     />
@@ -209,10 +211,9 @@ const InboundGate = () => {
                   </div>
                   <div className="flex items-center">
                     <input
-                      type='radio'
-                      name="security_check"
-                      value="temperature_sensitive_cargo"
-                      checked={formData.security_check === 'temperature_sensitive_cargo'}
+                      type='checkbox'
+                      name="temperature_sensitive_cargo"
+                      checked={formData.temperature_sensitive_cargo}
                       onChange={handleInputChange}
                       className='w-[20px] h-[20px] mr-2'
                     />
