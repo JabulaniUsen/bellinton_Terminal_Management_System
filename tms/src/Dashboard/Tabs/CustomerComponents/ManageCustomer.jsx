@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import jsPDF from 'jspdf';
 import { useReactToPrint } from 'react-to-print';
 import 'jspdf-autotable';
+import axios from 'axios';
 
 const ManageCustomer = () => {
     const itemsPerPage = 17;
@@ -41,16 +42,11 @@ const ManageCustomer = () => {
         }
     };
 
-    // Fetch customer data from backend
     useEffect(() => {
-        fetch('https://exprosys-backend.onrender.com/api/v1/customers')
+        axios.get('https://exprosys-backend.onrender.com/api/v1/customers/')
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
+                setCustomerData(response.data);
             })
-            .then(data => setCustomerData(data))
             .catch(error => {
                 console.error('Error fetching customer data:', error);
                 setCustomerData([]);
@@ -70,15 +66,8 @@ const ManageCustomer = () => {
             updatedCustomerData[index] = selectedCustomer;
             setCustomerData(updatedCustomerData);
 
-            fetch(`https://exprosys-backend.onrender.com/api/v1/customers/${selectedCustomer.customerId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(selectedCustomer),
-            })
-                .then(response => response.json())
-                .then(data => {
+            axios.put(`https://exprosys-backend.onrender.com/api/v1/customers/${selectedCustomer.customerId}`, selectedCustomer)
+                .then(response => {
                     setSelectedCustomer(null);
                     setEditBoxVisible(false);
                 })
@@ -98,7 +87,7 @@ const ManageCustomer = () => {
         setSelectedCustomer(null);
         setEditBoxVisible(false);
     };
-    
+
     return (
         <div className="">
             <div className="m-5" ref={componentRef}>

@@ -46,6 +46,10 @@ const TruckQueueMgt = () => {
         priority: formData.priority,
         merge_containers: `${formData.container1}, ${formData.container2}, ${formData.container3}`,
         assigned_terminal: formData.assigned_terminal,
+        total_trucks_in_queue: formData.total_trucks_in_queue,
+        average_queue_waiting_time: formData.average_queue_waiting_time,
+        average_container_processing_time: formData.average_container_processing_time,
+        estimated_time_of_next_container_assignment: formData.estimated_time_of_next_container_assignment,
         status: 'Pending'
       });
       toast.success('Truck assigned successfully');

@@ -4,11 +4,13 @@ import axios from 'axios';
 const GateStatus2 = () => {
   const [queueMetrics, setQueueMetrics] = useState(null);
 
+
   useEffect(() => {
     const fetchQueueMetrics = async () => {
       try {
         const response = await axios.get('https://exprosys-backend.onrender.com/api/v1/queue-metrics/');
         setQueueMetrics(response.data);
+        console.log(response);
       } catch (error) {
         console.error('Error fetching queue metrics:', error);
       }
@@ -16,6 +18,8 @@ const GateStatus2 = () => {
 
     fetchQueueMetrics();
   }, []);
+
+
 
   return (
     <div className='poppins'>
@@ -25,7 +29,7 @@ const GateStatus2 = () => {
           <ul className='w-[550px]'>
             <li className='flex justify-between'>
               <p>● Total Containers in Queue:</p>
-              <span>{queueMetrics ? queueMetrics.total_containers_in_queue : 'Loading...'}</span>
+              <span>{queueMetrics ? queueMetrics.total_trucks_in_queue : 'Loading...'}</span>
             </li>
             <li className='flex justify-between'>
               <p>● Average Queue Waiting Time:</p>
@@ -43,10 +47,7 @@ const GateStatus2 = () => {
         </div>
       </div>
 
-      <div className="buttons">
-        <button onClick={() => window.print()}>Print</button>
-        <button>Export file</button>
-      </div>
+      
     </div>
   );
 }

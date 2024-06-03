@@ -1,10 +1,11 @@
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useEffect, useRef } from 'react';
-import { toast } from 'react-toastify';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import UploadBox from '../ManifestComponents/UploadBox';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddCustomer = () => {
   const [inputValue, setInputValue] = useState('');
@@ -14,9 +15,9 @@ const AddCustomer = () => {
   const [formData, setFormData] = useState({
     customer_id: '',
     customer_name: '',
-    email_address: '',
-    phone_number: '',
     contact_person: '',
+    email: '',
+    phone: '',
     address: '',
     city: '',
     country: '',
@@ -74,8 +75,8 @@ const AddCustomer = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,
       });
+      
       
     } catch (error) {
       toast.error('Failed to add customer', {
@@ -145,27 +146,27 @@ const AddCustomer = () => {
               />
             </div>
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="email_address" className='text-base font-semibold'>Email:</label>
+              <label htmlFor="email" className='text-base font-semibold'>Email:</label>
               <input
                 required
-                type="email_address"
+                type="email"
                 className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]'
-                id="email_address"
-                name="email_address"
-                value={formData.email_address}
+                id="email"
+                name="email"
+                value={formData.email}
                 onChange={handleChange}
                 placeholder='Enter email address:'
               />
             </div>
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="phone_number" className='text-base font-semibold'>Phone Number:</label>
+              <label htmlFor="phone" className='text-base font-semibold'>Phone Number:</label>
               <input
                 required
                 type="number"
                 className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]'
-                id="phone_number"
-                name="phone_number"
-                value={formData.phone_number}
+                id="phone"
+                name="phone"
+                value={formData.phone}
                 onChange={handleChange}
                 placeholder='Enter phone number:'
               />
@@ -262,6 +263,7 @@ const AddCustomer = () => {
       {showUpload &&
         <UploadBox closeUploadBox={closeUploadBox}/>
       }
+      <ToastContainer />
     </div>
   )
 }

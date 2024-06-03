@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from 'framer-motion';
 import Select from 'react-select';
 import AddCustomer from "./AddCustomer";
@@ -19,20 +19,25 @@ const ViewCustomer = () => {
   const [selectedVesselDetails, setSelectedVesselDetails] = useState(null);
 
   useEffect(() => {
-    // Fetch data from API
-    axios.get('https://exprosys-backend.onrender.com/api/v1/customers/') // Replace with your API endpoint
-    .then(response => {
-      if (Array.isArray(response.data)) {
-        setInitialData(response.data);
-        setData(response.data);
-      } else {
-        console.error('Unexpected response data format:', response.data);
+    const fetchCustomerData = async () => {
+      try {
+        const response = await axios.get(`https://exprosys-backend.onrender.com/api/v1/customers/${customer_id}`);
+        if (Array.isArray(response.data)) {
+          setInitialData(response.data);
+          setData(response.data);
+        } else if (response.data && typeof response.data === 'object') {
+          setInitialData([response.data]);
+          setData([response.data]);
+        } else {
+          console.error('Unexpected response data format:', response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
-    })
-    .catch(error => {
-      console.error('Error fetching data:', error);
-    });
-  }, []);
+    };
+
+    fetchCustomerData();
+  }, [customer_id]);
 
   const handleSearch = () => {
     if (searchTerm.trim() === "") {
@@ -78,7 +83,6 @@ const ViewCustomer = () => {
     setViewCustomer(false);
     setAddCustomer(true);
   };
-
 
   return (
     <div>
