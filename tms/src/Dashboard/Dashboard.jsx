@@ -25,12 +25,10 @@ import ViewCustomer from './Tabs/CustomerComponents/ViewCustomer';
 import ManageCustomer from './Tabs/CustomerComponents/ManageCustomer';
 import AddCustomer from './Tabs/CustomerComponents/AddCustomer';
 import ViewAgencies from './Tabs/CustomerComponents/ViewAgencies';
-import ManageAgencies from './Tabs/CustomerComponents/ManageAgencies';
 import AddAgencies from './Tabs/CustomerComponents/AddAgencies';
 import AddAgent from './Tabs/CustomerComponents/AddAgent';
 import ViewAgent from './Tabs/CustomerComponents/ViewAgent';
 import ManageAgent from './Tabs/CustomerComponents/ManageAgent';
-import ContainerMgt from './Tabs/YardManagementComponent/ContainerMgt';
 import { Link } from 'react-router-dom';
 import InboundGate from './Tabs/YardManagementComponent/InboundGate';
 import OutboundGate from './Tabs/YardManagementComponent/OutboundGate';
@@ -38,19 +36,14 @@ import GateAccessControl from './Tabs/YardManagementComponent/GateAccessControl'
 import ViewInvoice from './Tabs/InvoicePostingComponents/ViewInvoice';
 import AddInvoice from './Tabs/InvoicePostingComponents/AddInvoice';
 import PostPayment from './Tabs/InvoicePostingComponents/PostPayment';
-import ContainerR from './Tabs/Documentation/ContainerR';
 import ProcessEquipmentInterchange from './Tabs/Documentation/ProcessEquipmentInterchange';
-import ProcessTerminalDeliveryOrder from './Tabs/Documentation/ProcessTerminalDeliveryOrder';
-import Splitbill from './Tabs/Documentation/Splitbill';
-import CargoBlocking from './Tabs/Documentation/CargoBlocking';
-import StorageFreeDays from './Tabs/Documentation/StorageFreeDays';
 import ContainerCMgt from './Tabs/Documentation/ContainerCMgt';
 import TruckQueueMgt from './Tabs/YardManagementComponent/TruckQueueMgt';
 
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
-  const [selectedButton, setSelectedButton] = useState('Dashboard');
+  const [selectedButton, setSelectedButton] = useState('');
 
   const handleTabSwitch = (tabNumber) => {
     setActiveTab(tabNumber);
@@ -65,7 +58,7 @@ const Dashboard = () => {
       } py-3 hover:bg-[#013A57] hover:text-white text-black px-5 font-semibold w-[200px] flex items-center justify-between gap-2 focus:outline-none focus:shadow-outline`}
       onClick={() => {
         setSelectedButton(label);
-        setActiveTab(1);
+        // setActiveTab(1);
       }}
     >
       <div className="flex items-center gap-2">
