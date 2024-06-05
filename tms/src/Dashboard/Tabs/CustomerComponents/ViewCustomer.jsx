@@ -90,27 +90,27 @@ const ViewCustomer = () => {
       {viewCustomer && 
         <div className='py-10 roboto '>
           <div className="head flex justify-between mx-5">
-            <h3 className='text-2xl font-bold'>View Customer</h3>
+            <h3 className='text-2xl font-bold'>View Export</h3>
           </div>
           <div>
             <div className="flex justify-between items-center">
               <div className="">
                 <div className="flex gap-2 my-10 mx-7 items-center">
-                  <label htmlFor="" className='text-lg font-bold'>Enter Customers Name:</label>
+                  <label htmlFor="" className='text-lg font-bold'>Enter Exports Name:</label>
                   <div>
                     <Select
-                      options={initialData.map((item) => ({ value: item.customer_name, label: item.customer_name }))}
+                      options={initialData.map((item) => ({ value: item.export_name, label: item.export_name }))}
                       value={{ value: searchTerm, label: searchTerm }}
                       onChange={(selectedOption) => setSearchTerm(selectedOption.value)}
                       isSearchable
-                      placeholder="Select Customer name"
+                      placeholder="Select export name"
                       className='outline-none p-2 w-[300px] rounded '
                     />
-                    {errorText && <p className="text-red-600">Please enter customers name</p>}
+                    {errorText && <p className="text-red-600">Please enter exports name</p>}
                   </div>
                   <div className="flex gap-3 justify-center items-center my-10">
                     <button className='text-white bg-[#4e9352] rounded-xl py-2 px-10' onClick={handleSearch} >View</button>
-                    <button className='text-white bg-[#4e9352] rounded-xl py-2 px-10' onClick={handleAddCustomer} >Add Customer</button>
+                    <button className='text-white bg-[#4e9352] rounded-xl py-2 px-10' onClick={handleAddCustomer} >Add Exporter</button>
                   </div>
                 </div>
               </div>
@@ -122,8 +122,8 @@ const ViewCustomer = () => {
                 <table className="border border-collapse">
                   <thead>
                     <tr className="border">
-                      <th className="border border-black bg-yellow-100 px-4 py-2">Customer ID</th>
-                      <th className="border border-black bg-yellow-100 px-4 py-2">Customer Name</th>
+                      <th className="border border-black bg-yellow-100 px-4 py-2">Exporter ID</th>
+                      <th className="border border-black bg-yellow-100 px-4 py-2">Exporter Name</th>
                       <th className="border border-black bg-yellow-100 px-4 py-2">Contact Person</th>
                       <th className="border border-black bg-yellow-100 px-4 py-2">Email</th>
                       <th className="border border-black bg-yellow-100 px-4 py-2">Phone</th>
@@ -133,8 +133,8 @@ const ViewCustomer = () => {
                   <tbody>
                     {data.map((rowData, index) => (
                       <tr key={index} className="">
-                        <td className="border border-black px-4 py-2">{rowData.customer_id}</td>
-                        <td className="border border-black px-4 py-2">{rowData.customer_name}</td>
+                        <td className="border border-black px-4 py-2">{rowData.exporter_id}</td>
+                        <td className="border border-black px-4 py-2">{rowData.exporter_name}</td>
                         <td className="border border-black px-4 py-2">{rowData.contact_person}</td>
                         <td className="border border-black px-2 text-sm py-2">{rowData.email}</td>
                         <td className="border border-black px-4 py-2">{rowData.phone}</td>
@@ -159,7 +159,7 @@ const ViewCustomer = () => {
               className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-[#F2F2F2] bg-opacity-50"
             >
               <div className="bg-[#ffff] px-8 py-6 rounded-3xl text-center">
-                <p className="text-2xl font-bold mb-4">Manifest Uploaded successfully!</p>
+                <p className="text-2xl font-bold mb-4">Uploaded successfully!</p>
                 <div className="flex justify-center space-x-4">
                   <button onClick={handleModalOK} className="bg-[#4e9352] text-white px-6 py-1 rounded-full">OK</button>
                 </div>

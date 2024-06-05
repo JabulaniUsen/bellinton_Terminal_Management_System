@@ -13,7 +13,7 @@ const AddCustomer = () => {
   const inputRef = useRef(null);
   const [showUpload, setShowUpload] = useState(false);
   const [formData, setFormData] = useState({
-    customer_id: '',
+    exporter_id: '',
     customer_name: '',
     contact_person: '',
     email: '',
@@ -44,7 +44,6 @@ const AddCustomer = () => {
     const value = e.target.value;
     setInputValue(value);
 
-    // Filter suggestions based on the input value
     const filteredSuggestions = data.filter((item) =>
       item.toLowerCase().includes(value.toLowerCase())
     );
@@ -68,7 +67,7 @@ const AddCustomer = () => {
     e.preventDefault();
     try {
       await axios.post('https://exprosys-backend.onrender.com/api/v1/customers/', formData);
-      toast.success('Customer added successfully', {
+      toast.success('Exporter added successfully', {
         position: 'top-right',
         autoClose: 3000,
         hideProgressBar: true,
@@ -79,7 +78,7 @@ const AddCustomer = () => {
       
       
     } catch (error) {
-      toast.error('Failed to add customer', {
+      toast.error('Failed to add exporter', {
         position: 'top-right',
         autoClose: 3000,
         hideProgressBar: true,
@@ -104,20 +103,20 @@ const AddCustomer = () => {
   return (
     <div className='m-10'>
       <div className="head">
-        <h3 className='text-2xl font-bold'>Add Customer</h3>
+        <h3 className='text-2xl font-bold'>Add Exporter</h3>
       </div>
 
       <form action="" onSubmit={handleSubmit}>
         <div className='my-10 grid grid-cols-2'>
           <div className="sideOne">
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="customer_id" className='text-base font-semibold'>Customer ID:</label>
+              <label htmlFor="exporter_id" className='text-base font-semibold'>Exporter ID:</label>
               <div ref={inputRef}>
                 <div className="flex items-center justify-between pr-3 pl-2 py-2 rounded-md border-gray-500 border w-[400px]">
                   <input
                     type="text"
-                    name="customer_id"
-                    value={formData.customer_id}
+                    name="exporter_id"
+                    value={formData.exporter_id}
                     onChange={handleChange}
                     className='outline-none w-full'
                   />
@@ -133,7 +132,7 @@ const AddCustomer = () => {
               </div>
             </div>
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="customer_name" className='text-base font-semibold'>Customer Name:</label>
+              <label htmlFor="customer_name" className='text-base font-semibold'>Exporter Name:</label>
               <input
                 // readOnly
                 type="text"
@@ -142,7 +141,7 @@ const AddCustomer = () => {
                 name="customer_name"
                 value={formData.customer_name}
                 onChange={handleChange}
-                placeholder='Enter customer name:'
+                placeholder='Enter exporter name:'
               />
             </div>
             <div className="flex flex-col gap-2 my-5">
@@ -256,7 +255,7 @@ const AddCustomer = () => {
         </div>
         <div className="flex justify-center items-center gap-5 text-lg">
           <p onClick={handleUpload} className='underline text-[#4e9352] font-semibold cursor-pointer'>Upload CSV/XLS</p>
-          <button type="submit" className='bg-[#4e9352] hover:bg-[#4e93518c] rounded-lg text-white px-10 py-2'>Add Customer</button>
+          <button type="submit" className='bg-[#4e9352] hover:bg-[#4e93518c] rounded-lg text-white px-10 py-2'>Add Exporter</button>
           <button type="reset" className='bg-[#828282] rounded-lg text-white px-12 py-2'>Reset</button>
         </div>
       </form>

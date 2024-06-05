@@ -12,7 +12,9 @@ import {
   faFileContract,
   faUserCheck,
   faUserLarge,
-  faHouseChimneyUser
+  faHouseChimneyUser,
+  faFileExport,
+  faUserFriends
 } from '@fortawesome/free-solid-svg-icons';
 import Header from './Components/Header';
 import Operations from './Tabs/Operations';
@@ -39,7 +41,6 @@ import PostPayment from './Tabs/InvoicePostingComponents/PostPayment';
 import ProcessEquipmentInterchange from './Tabs/Documentation/ProcessEquipmentInterchange';
 import ContainerCMgt from './Tabs/Documentation/ContainerCMgt';
 import TruckQueueMgt from './Tabs/YardManagementComponent/TruckQueueMgt';
-
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -121,12 +122,12 @@ const Dashboard = () => {
       ],
     },
     {
-      label: 'Customers',
+      label: 'Exporters',
       icon: faUserAlt,
       subButtons: [
-        { label: 'View Customer', tabNumber: 6, },
-        { label: 'Add Customer', tabNumber: 7, },
-        { label: 'Manage Customer', tabNumber: 8, },
+        { label: 'View Exporter', tabNumber: 6, },
+        { label: 'Add Exporter', tabNumber: 7, },
+        { label: 'Manage Exporter', tabNumber: 8, },
       ]
     },
     {

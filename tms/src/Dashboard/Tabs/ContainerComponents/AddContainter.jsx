@@ -77,9 +77,8 @@ const AddContainer = () => {
     };
     localStorage.setItem('containerFormData', JSON.stringify(formData));
   }, [
-    container_id,
+    
     booking_number,
-    customer,
     shipping_line,
     origin,
     temperature,
@@ -127,9 +126,8 @@ const AddContainer = () => {
 
   const handleSubmit = async () => {
     const payload = {
-      container_id,
+      
       booking_number,
-      customer,
       shipping_line,
       origin,
       temperature,
@@ -163,29 +161,6 @@ const AddContainer = () => {
 
         <div className="body my-5 grid grid-cols-2 gap-20">
           <div className="col1 flex flex-col gap-4">
-            <div className="flex flex-col">
-              <label htmlFor="name" className='font-semibold text-base'>Container ID:</label>
-              <div className="rounded flex items-center py-2">
-                <div ref={inputRef}>
-                  <div className="flex items-center justify-between pr-3 pl-2 py-2 rounded border-[#999999] border w-[440px]">
-                    <input
-                      type="text"
-                      value={container_id}
-                      onChange={(e) => setContainerId(e.target.value)}
-                      className='outline-none w-full'
-                    />
-                    <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
-                  </div>
-                  <ul className=''>
-                    {suggestions.map((suggestion, index) => (
-                      <li key={index} className='cursor-pointer hover:bg-slate-100 p-2' onClick={() => handleSuggestionClick(suggestion)}>
-                        {suggestion}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
             <div>
               <label htmlFor="temperature" className='font-semibold text-base'>Vessel Name:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
@@ -305,7 +280,7 @@ const AddContainer = () => {
                 />
               </div>
             </div>
-            <div className="flex flex-col">
+            {/* <div className="flex flex-col">
               <label htmlFor="customer" className='font-semibold text-base'>Customer Name:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                 <input
@@ -315,7 +290,7 @@ const AddContainer = () => {
                   onChange={(e) => setCustomerName(e.target.value)}
                 />
               </div>
-            </div>
+            </div> */}
             <div className="flex flex-col">
               <label htmlFor="shipping_line" className='font-semibold text-base'>Shipping Line:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">

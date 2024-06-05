@@ -92,13 +92,13 @@ const ManageCustomer = () => {
     return (
         <div className=""  ref={componentRef}>
             <div className="m-5">
-                <h3 className="text-2xl font-bold">Manage Customer</h3>
+                <h3 className="text-2xl font-bold">Manage Exporter</h3>
 
                 <table className="border border-collapse my-10 text-sm">
                     <thead>
                         <tr className="border border-black">
-                            <th className="border border-black bg-yellow-100 px-3 py-2">Customer ID</th>
-                            <th className="border border-black bg-yellow-100 px-3 py-2">Customer Name</th>
+                            <th className="border border-black bg-yellow-100 px-3 py-2">Exporter ID</th>
+                            <th className="border border-black bg-yellow-100 px-3 py-2">Exporter Name</th>
                             <th className="border border-black bg-yellow-100 px-3 py-2">Contact Person</th>
                             <th className="border border-black bg-yellow-100 px-3 py-2">Email</th>
                             <th className="border border-black bg-yellow-100 px-3 py-2">Phone</th>
@@ -145,10 +145,10 @@ const ManageCustomer = () => {
                             backgroundColor: 'rgba(0, 0, 0, 0.5)',
                         }}>
                             <div className="modal-content bg-white p-10 rounded-xl">
-                                <h3 className="text-2xl font-bold mb-7 text-center">Edit Customer Data</h3>
+                                <h3 className="text-2xl font-bold mb-7 text-center">Edit Exporter Data</h3>
                                 <div className="flex flex-col gap-2 justify-center">
                                     <div className="flex gap-10 items-center justify-between">
-                                        <label htmlFor="editedCustomer_name" className='font-semibold text-base'>Customer Name:</label>
+                                        <label htmlFor="editedCustomer_name" className='font-semibold text-base'>Exporter Name:</label>
                                         <input
                                             className='outline-none rounded-lg px-3 py-2 border-[1px] border-gray-600'
                                             type="text"
