@@ -133,8 +133,8 @@ const ViewCustomer = () => {
                   <tbody>
                     {data.map((rowData, index) => (
                       <tr key={index} className="">
-                        <td className="border border-black px-4 py-2">{rowData.exporter_id}</td>
-                        <td className="border border-black px-4 py-2">{rowData.exporter_name}</td>
+                        <td className="border border-black px-4 py-2">{rowData.customer_id}</td>
+                        <td className="border border-black px-4 py-2">{rowData.customer_name}</td>
                         <td className="border border-black px-4 py-2">{rowData.contact_person}</td>
                         <td className="border border-black px-2 text-sm py-2">{rowData.email}</td>
                         <td className="border border-black px-4 py-2">{rowData.phone}</td>

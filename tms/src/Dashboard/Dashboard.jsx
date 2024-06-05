@@ -41,6 +41,7 @@ import PostPayment from './Tabs/InvoicePostingComponents/PostPayment';
 import ProcessEquipmentInterchange from './Tabs/Documentation/ProcessEquipmentInterchange';
 import ContainerCMgt from './Tabs/Documentation/ContainerCMgt';
 import TruckQueueMgt from './Tabs/YardManagementComponent/TruckQueueMgt';
+import ManageAgencies from './Tabs/CustomerComponents/ManageAgencies';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -143,9 +144,9 @@ const Dashboard = () => {
       label: 'Agency',
       icon: faHouseChimneyUser,
       subButtons: [
-        { label: 'View Agency', tabNumber: 12, },
-        { label: 'Manage Agency', tabNumber: 13, },
-        { label: 'Add Agency', tabNumber: 14, }
+        { label: 'View Agency', tabNumber: 47, },
+        { label: 'Manage Agency', tabNumber: 48, },
+        { label: 'Add Agency', tabNumber: 49, }
       ]
     },
     {
@@ -200,9 +201,9 @@ const Dashboard = () => {
           {activeTab === 6 && <ViewCustomer/>}
           {activeTab === 7 && <AddCustomer/>}
           {activeTab === 8 && <ManageCustomer/>}
-          {activeTab === 9 && <ViewAgencies/>}
-          {/* {activeTab === 10 && <ManageAgencies/>} */}
-          {activeTab === 11 && <AddAgencies/>}
+          {activeTab === 47 && <ViewAgencies/>}
+          {activeTab === 48 && <ManageAgencies/>}
+          {activeTab === 49 && <AddAgencies/>}
           {activeTab === 12 && <ViewAgent/>}
           {activeTab === 13 && <ManageAgent/>}
           {activeTab === 14 && <AddAgent/>}

@@ -18,11 +18,11 @@ const ViewAgent = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get('https://exprosys-backend.onrender.com/api/v1/agents/');
-      if (Array.isArray(response.data)) {
-        setAgentData(response.data);
+      if (Array.isArray(response.data.results)) {
+        setAgentData(response.data.results);
       } else {
         setData([]);
-        console.error('Fetched data is not an array:', response.data);
+        console.error('Fetched data is not an array:', response.data.results);
       }
     } catch (error) {
       console.error('Error fetching agent data:', error);
