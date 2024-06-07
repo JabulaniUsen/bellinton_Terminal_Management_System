@@ -116,10 +116,10 @@ const Dashboard = () => {
       icon: faWarehouse,
       // tabNumber: 16,
       subButtons: [
+        { label: 'Truck Queue Management', tabNumber: 18 },
         { label: 'Inbound Gate Entry', tabNumber: 15.1, },
         { label: 'Outbound Gate Exit', tabNumber: 16, },
         { label: 'Gate Access Control', tabNumber: 17, },
-        { label: 'Truck Queue Management', tabNumber: 18 }
       ],
     },
     {
@@ -163,8 +163,8 @@ const Dashboard = () => {
       label: 'Documentation',
       icon: faFile,
       subButtons: [
-        { label: 'Container Cycle', tabNumber: 45, },
-        { label: 'Equipment Interchange', tabNumber: 46, },
+        { label: 'Export Delivery Mgt', tabNumber: 45, },
+        { label: 'Final Export Validation', tabNumber: 46, },
       ]
     },
     

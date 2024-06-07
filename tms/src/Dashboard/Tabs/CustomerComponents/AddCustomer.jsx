@@ -110,28 +110,6 @@ const AddCustomer = () => {
         <div className='my-10 grid grid-cols-2'>
           <div className="sideOne">
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="exporter_id" className='text-base font-semibold'>Exporter ID:</label>
-              <div ref={inputRef}>
-                <div className="flex items-center justify-between pr-3 pl-2 py-2 rounded-md border-gray-500 border w-[400px]">
-                  <input
-                    type="text"
-                    name="exporter_id"
-                    value={formData.exporter_id}
-                    onChange={handleChange}
-                    className='outline-none w-full'
-                  />
-                  <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
-                </div>
-                <ul className=''>
-                  {suggestions.map((suggestion, index) => (
-                    <li key={index} className='cursor-pointer hover:bg-slate-100 p-2' onClick={() => handleSuggestionClick(suggestion)}>
-                      {suggestion}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div className="flex flex-col gap-2 my-5">
               <label htmlFor="customer_name" className='text-base font-semibold'>Exporter Name:</label>
               <input
                 // readOnly
@@ -183,9 +161,6 @@ const AddCustomer = () => {
                 placeholder='Enter contact person'
               />
             </div>
-          </div>
-
-          <div className="sideTwo">
             <div className="flex flex-col gap-2 my-5">
               <label htmlFor="address" className='text-base font-semibold'>Address:</label>
               <input
@@ -199,6 +174,9 @@ const AddCustomer = () => {
                 placeholder='Enter address:'
               />
             </div>
+          </div>
+
+          <div className="sideTwo">
             <div className="flex flex-col gap-2 my-5">
               <label htmlFor="city" className='text-base font-semibold'>City:</label>
               <input

@@ -31,7 +31,7 @@ const AddAgencies = () => {
   };
 
   const initialFormData = {
-    agency_idd: '',
+    agency_id: '',
     agency_name: '',
     email: '',
     phone_number: '',
@@ -88,9 +88,10 @@ const AddAgencies = () => {
         draggable: true,
         progress: undefined,
       });
+      console.log(formData);
       setFormData(initialFormData);
       setLetterOfAuthority(null);
-      setUploadStatus(''); // Reset upload status message
+      setUploadStatus(''); 
     } catch (error) {
       console.error('Error adding agency:', error);
       toast.error('Error adding agency. Please try again later.', {
@@ -117,10 +118,8 @@ const AddAgencies = () => {
 
   const handleFileChange = (e) => {
     setLetterOfAuthority(e.target.files[0]);
-    setUploadStatus('File uploaded successfully'); // Set upload status message
+    setUploadStatus('File uploaded successfully');
   };
-
-  const data = ["1001", "1002", "1003", "1004", "1005"];
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -159,10 +158,6 @@ const AddAgencies = () => {
       <form action="" onSubmit={handleSubmit}>
         <div className='my-10 grid grid-cols-2'>
           <div className="sideOne">
-            <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="agency_id" className='text-base font-semibold'>Agency ID:</label>
-              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="agency_id" name="agency_id" value={formData.agency_id} onChange={handleChange} placeholder='Enter Agency ID:' />
-            </div>
             <div className="flex flex-col gap-2 my-5">
               <label htmlFor="agency_name" className='text-base font-semibold'>Agency Name:</label>
               <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="agency_name" name="agency_name" value={formData.agency_name} onChange={handleChange} placeholder='Enter Agency name:' />

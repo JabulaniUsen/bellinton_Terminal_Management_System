@@ -9,31 +9,48 @@ import axios from 'axios';
 
 const AddAgent = () => {
   const [inputValue, setInputValue] = useState('');
-  const [agentId, setAgentId] = useState("CFC-AG-0001-0000");
+  const [agent_id, setAgentId] = useState("CFC-AG-0001-0000");
   const [suggestions, setSuggestions] = useState([]);
   const inputRef = useRef(null);
   const [showUpload, setShowUpload] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
+  const [profileImageFile, setProfileImageFile] = useState(null); // Store the file object
   const [agencies, setAgencies] = useState([]);
   const [selectedAgency, setSelectedAgency] = useState(null);
+  const [letterFile, setLetterFile] = useState(null);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setProfileImage(imageUrl);
+      setProfileImageFile(file); 
     }
   };
+
+  const handleLetterChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setLetterFile(file);
+    }
+  };
+
+
 
   useEffect(() => {
     const fetchAgencies = async () => {
       try {
-        const response = await axios.get('https://exprosys-backend.onrender.com/api/v1/agency/');
-        const agencyOptions = response.data.map((agency) => ({
-          value: agency.id,
-          label: agency.name,
-        }));
-        setAgencies(agencyOptions);
+        const response = await axios.get('https://exprosys-backend.onrender.com/api/v1/agency-list/');
+        console.log('Agency Response:', response.data.results); // Log the response
+        if (Array.isArray(response.data.results)) {
+          const agencyOptions = response.data.results.map((agency) => ({
+            value: agency.id,
+            label: agency.agency_name,
+          }));
+          setAgencies(agencyOptions);
+        } else {
+          console.error('Fetched data is not an array:', response.data.results);
+        }
       } catch (error) {
         console.error('Error fetching agencies:', error);
         toast.error('Failed to fetch agencies');
@@ -53,32 +70,53 @@ const AddAgent = () => {
   };
 
   const initialFormData = {
-    AgentID: '',
-    AgentName: '',
+    agent_id: '',
+    agent_name: '',
     email: '',
-    phoneNumber: '',
-    contactPerson: '',
+    phone_number: '',
+    contact_person: '',
     notes: '',
     address: '',
     city: '',
     country: '',
-    stateProvince: '',
-    postalCode: '',
-    billingAddress: '',
+    state_province: '',
+    postal_code: '',
+    billing_address: '',
   };
 
   const [formData, setFormData] = useState(initialFormData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const payload = {
-      ...formData,
-      agentId,
-      agency: selectedAgency ? selectedAgency.value : null,
-    };
+    const payload = new FormData();
+    payload.append('agent_id', agent_id);
+    payload.append('agent_name', formData.agent_name);
+    payload.append('email', formData.email);
+    payload.append('phone_number', formData.phone_number);
+    payload.append('contact_person', formData.contact_person);
+    payload.append('notes', formData.notes);
+    payload.append('address', formData.address);
+    payload.append('city', formData.city);
+    payload.append('country', formData.country);
+    payload.append('state_province', formData.state_province);
+    payload.append('postal_code', formData.postal_code);
+    payload.append('billing_address', formData.billing_address);
+    if (selectedAgency) {
+      payload.append('agency', selectedAgency.value);
+    }
+    if (profileImageFile) {
+      payload.append('profile_image', profileImageFile);
+    }
+    if (letterFile) {
+      payload.append('letter_of_authority', letterFile);
+    }
     
     try {
-      const response = await axios.post('https://exprosys-backend.onrender.com/api/v1/agents/create/', payload);
+      const response = await axios.post('https://exprosys-backend.onrender.com/api/v1/agents/create/', payload, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       console.log('Response:', response.data);
       toast.success('Agent added successfully', {
         position: 'top-right',
@@ -91,7 +129,9 @@ const AddAgent = () => {
       });
       setFormData(initialFormData);
       setProfileImage(null);
+      setProfileImageFile(null);
       setSelectedAgency(null);
+      setLetterFile(null);
       setAgentId("CFC-AG-0001-0000");
     } catch (error) {
       console.error('Error submitting data:', error);
@@ -115,6 +155,7 @@ const AddAgent = () => {
     );
     setSuggestions(filteredSuggestions);
   };
+
   const handleSuggestionClick = (suggestion) => {
     setInputValue(suggestion);
     setSuggestions([]);
@@ -126,7 +167,7 @@ const AddAgent = () => {
 
   const handleUpload = () => {
     setShowUpload(!showUpload);
-  }
+  };
 
   return (
     <div className='m-10'>
@@ -150,12 +191,12 @@ const AddAgent = () => {
                 />
               </div>
               <div className="flex flex-col gap-2 my-5">
-                <label htmlFor="agentId" className='text-base font-semibold'>Agent ID:</label>
+                <label htmlFor="agent_id" className='text-base font-semibold'>Agent ID:</label>
                 <div ref={inputRef}>
                   <div className="flex items-center justify-between pr-3 pl-2 py-2 rounded-md border-gray-500 border w-[350px]">
                     <input
                       type="text"
-                      value={agentId}
+                      value={agent_id}
                       onChange={handleInputChange}
                       className='outline-none w-full'
                     />
@@ -170,15 +211,15 @@ const AddAgent = () => {
                 </div>
               </div>
               <div className="flex flex-col gap-2 my-5">
-                <label htmlFor="AgentName" className='text-base font-semibold'>Agent Name:</label>
+                <label htmlFor="agent_name" className='text-base font-semibold'>Agent Name:</label>
                 <input
                   required
                   type="text"
                   className='rounded-lg p-2 border border-gray-500 outline-none w-[350px]'
-                  id="AgentName"
-                  name="AgentName"
+                  id="agent_name"
+                  name="agent_name"
                   placeholder='Enter Agent name:'
-                  value={formData.AgentName}
+                  value={formData.agent_name}
                   onChange={handleChange}
                 />
               </div>
@@ -196,15 +237,15 @@ const AddAgent = () => {
                 />
               </div>
               <div className="flex flex-col gap-2 my-5">
-                <label htmlFor="phoneNumber" className='text-base font-semibold'>Phone Number:</label>
+                <label htmlFor="phone_number" className='text-base font-semibold'>Phone Number:</label>
                 <input
                   required
                   type="number"
                   className='rounded-lg p-2 border border-gray-500 outline-none w-[350px]'
-                  id="phoneNumber"
-                  name="phoneNumber"
+                  id="phone_number"
+                  name="phone_number"
                   placeholder='Enter phone number:'
-                  value={formData.phoneNumber}
+                  value={formData.phone_number}
                   onChange={handleChange}
                 />
               </div>
@@ -251,28 +292,28 @@ const AddAgent = () => {
                 />
               </div>
               <div className="flex flex-col gap-2 my-5">
-                <label htmlFor="stateProvince" className='text-base font-semibold'>State/Province:</label>
+                <label htmlFor="state_province" className='text-base font-semibold'>State/Province:</label>
                 <input
                   required
                   type="text"
                   className='rounded-lg p-2 border border-gray-500 outline-none w-[350px]'
-                  id="stateProvince"
-                  name="stateProvince"
+                  id="state_province"
+                  name="state_province"
                   placeholder='Enter State/Province:'
-                  value={formData.stateProvince}
+                  value={formData.state_province}
                   onChange={handleChange}
                 />
               </div>
               <div className="flex flex-col gap-2 my-5">
-                <label htmlFor="postalCode" className='text-base font-semibold'>Postal Code:</label>
+                <label htmlFor="postal_code" className='text-base font-semibold'>Postal Code:</label>
                 <input
                   required
                   type="number"
                   className='rounded-lg p-2 border border-gray-500 outline-none w-[350px]'
-                  id="postalCode"
-                  name="postalCode"
+                  id="postal_code"
+                  name="postal_code"
                   placeholder='Enter Postal Code:'
-                  value={formData.postalCode}
+                  value={formData.postal_code}
                   onChange={handleChange}
                 />
               </div>
@@ -282,7 +323,7 @@ const AddAgent = () => {
                   Upload Letter of Authority
                   <FontAwesomeIcon icon={faUpload} />
                 </label>
-                <input type="file" name="uploadLetter" id="uploadLetter" style={{ display: 'none' }} />
+                <input type="file" name="uploadLetter" id="uploadLetter" style={{ display: 'none' }} onChange={handleLetterChange} />
               </div>
             </div>
           </div>

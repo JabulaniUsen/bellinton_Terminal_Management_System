@@ -21,8 +21,8 @@ const ManageAgent = () => {
         axios.get('https://exprosys-backend.onrender.com/api/v1/agents')
             .then(response => {
                 // Ensure the response data is an array
-                if (Array.isArray(response.data)) {
-                    setAgentData(response.data);
+                if (Array.isArray(response.data.results)) {
+                    setAgentData(response.data.results);
                 } else {
                     console.error('Unexpected response data format:', response.data);
                     setAgentData([]);

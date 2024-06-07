@@ -63,7 +63,7 @@ const InboundGate = () => {
     e.preventDefault();
     try {
       await axios.post('https://exprosys-backend.onrender.com/api/v1/inbound-pre-gate-entries/', formData);
-      toast.success('Entry successfully!');
+      toast.success('Inbound Gate Entry successfully!');
       clearForm();
     } catch (error) {
       toast.error('Error submitting form');
@@ -116,7 +116,7 @@ const InboundGate = () => {
                 <div className="flex justify-between items-center w-[70%] my-2">
                   <label htmlFor="eto_gate_pass_no" className="block font-semibold text-base">ETO Gate Pass No: </label>
                   <input 
-                    type="text"
+                    type="number"
                     name="eto_gate_pass_no"
                     value={formData.eto_gate_pass_no}
                     onChange={handleInputChange}
@@ -165,7 +165,7 @@ const InboundGate = () => {
                 <div className="flex justify-between items-center w-[70%] my-2">
                   <label htmlFor="driver_number" className="block font-semibold text-base">Driver's Contact Number:</label>
                   <input
-                    type='text'
+                    type='number'
                     name="driver_number"
                     className='border-gray-400 border-[1px] rounded-lg p-2 w-[400px]'
                     value={formData.driver_number}
