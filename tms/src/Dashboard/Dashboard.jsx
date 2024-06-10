@@ -42,6 +42,7 @@ import ProcessEquipmentInterchange from './Tabs/Documentation/ProcessEquipmentIn
 import ContainerCMgt from './Tabs/Documentation/ContainerCMgt';
 import TruckQueueMgt from './Tabs/YardManagementComponent/TruckQueueMgt';
 import ManageAgencies from './Tabs/CustomerComponents/ManageAgencies';
+import ManageInvoice from './Tabs/InvoicePostingComponents/ManageInvoice';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -221,6 +222,7 @@ const Dashboard = () => {
           {/* Invoice Posting */}
           { activeTab === 41 && <ViewInvoice/> }
           { activeTab === 42 && <AddInvoice/> }
+          { activeTab === 43 && <ManageInvoice/> }
           { activeTab === 44 && <PostPayment/> }
 
           {/* Documentation */}

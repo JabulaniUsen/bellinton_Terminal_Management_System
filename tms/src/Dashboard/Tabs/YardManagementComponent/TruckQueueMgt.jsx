@@ -139,15 +139,15 @@ const TruckQueueMgt = () => {
                     </div>
                     <div className="flex justify-between items-center mt-2">
                       <label htmlFor="average_queue_waiting_time" className="block font-semibold text-base">Average Queue Waiting Time: </label>
-                      <input type='text' name='average_queue_waiting_time' className='border-gray-400 border-[1px] rounded-lg p-1 w-[260px]' placeholder='' value={formData.average_queue_waiting_time} onChange={handleInputChange} />
+                      <input type='time' name='average_queue_waiting_time' className='border-gray-400 border-[1px] rounded-lg p-1 w-[260px]' placeholder='' value={formData.average_queue_waiting_time} onChange={handleInputChange} />
                     </div>
                     <div className="flex justify-between items-center mt-2">
                       <label htmlFor="average_container_processing_time" className="block font-semibold text-base">Average Container Processing Time: </label>
-                      <input type='text' name='average_container_processing_time' className='border-gray-400 border-[1px] rounded-lg p-1 w-[260px]' placeholder='' value={formData.average_container_processing_time} onChange={handleInputChange} />
+                      <input type='time' name='average_container_processing_time' className='border-gray-400 border-[1px] rounded-lg p-1 w-[260px]' placeholder='' value={formData.average_container_processing_time} onChange={handleInputChange} />
                     </div>
                     <div className="flex justify-between items-center mt-2">
                       <label htmlFor="estimated_time_of_next_container_assignment" className="block font-semibold text-base">Estimated Time of Next Container Assignment: </label>
-                      <input type='text' name='estimated_time_of_next_container_assignment' className='border-gray-400 border-[1px] rounded-lg p-1 w-[260px]' placeholder='' value={formData.estimated_time_of_next_container_assignment} onChange={handleInputChange} />
+                      <input type='time' name='estimated_time_of_next_container_assignment' className='border-gray-400 border-[1px] rounded-lg p-1 w-[260px]' placeholder='' value={formData.estimated_time_of_next_container_assignment} onChange={handleInputChange} />
                     </div>
                   </div>
                 </div>
