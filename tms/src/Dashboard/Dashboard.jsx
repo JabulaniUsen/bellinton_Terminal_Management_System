@@ -43,6 +43,7 @@ import ContainerCMgt from './Tabs/Documentation/ContainerCMgt';
 import TruckQueueMgt from './Tabs/YardManagementComponent/TruckQueueMgt';
 import ManageAgencies from './Tabs/CustomerComponents/ManageAgencies';
 import ManageInvoice from './Tabs/InvoicePostingComponents/ManageInvoice';
+import InvoicePostingReport from './Tabs/InvoicePostingComponents/InvoicePostingReport';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -154,10 +155,10 @@ const Dashboard = () => {
       label: 'Invoice Posting',
       icon: faFileContract,
       subButtons: [
-        { label: 'View Invoice', tabNumber: 41, },
+        // { label: 'View Invoice', tabNumber: 41, },
         { label: 'Add Invoice', tabNumber: 42, },
-        { label: 'Manage Invoice', tabNumber: 43, },
-        { label: 'Post Payment', tabNumber: 44 }
+        { label: 'Post Payment', tabNumber: 44 },
+        { label: 'Invoice Posting Report', tabNumber: 50 }
       ]
     },
     {
@@ -222,8 +223,8 @@ const Dashboard = () => {
           {/* Invoice Posting */}
           { activeTab === 41 && <ViewInvoice/> }
           { activeTab === 42 && <AddInvoice/> }
-          { activeTab === 43 && <ManageInvoice/> }
           { activeTab === 44 && <PostPayment/> }
+          { activeTab === 50 && <InvoicePostingReport/> }
 
           {/* Documentation */}
           {activeTab === 45 && <ContainerCMgt/>}

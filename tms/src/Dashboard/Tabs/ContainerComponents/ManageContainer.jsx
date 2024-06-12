@@ -110,7 +110,7 @@ const ManageBooking = () => {
                   <td className="border border-[#013a57] px-2 py-2">{rowData.arrival_date}</td>       
                   <td className="border border-[#013a57] px-2 py-2">{rowData.departure_date}</td>
                   <td className="border border-[#013a57] px-2 py-2">{rowData.vessel_name}</td>
-                  <td className="border border-[#013a57] px-2 py-2">{rowData.customer_name}</td>
+                  <td className="border border-[#013a57] px-2 py-2">{rowData.exporter}</td>
                   <td className="border border-[#013a57] px-2 py-2">
                     <button onClick={() => showVesselDetails(rowData.container_id)} className="underline">[ See details ]</button>
                   </td>

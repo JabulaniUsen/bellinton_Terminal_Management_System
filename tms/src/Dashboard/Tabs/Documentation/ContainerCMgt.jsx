@@ -12,14 +12,10 @@ const ContainerCMgt = () => {
     const formRef = useRef(null);
 
     const terminal = [
-        { value: '', label: 'Select Terminal', isDisabled: true },
-        { value: 'Terminal 1', label: 'Terminal 1' },
-        { value: 'Terminal 2', label: 'Terminal 2' },
+
     ];
     const bl = [
-        { value: '', label: 'Select BL', isDisabled: true },
-        { value: 'CON39829', label: 'CON39829' },
-        { value: 'CON37298', label: 'CON37298' },
+
     ];
 
     const handleCycleTypeChange = (e) => {
@@ -42,38 +38,14 @@ const ContainerCMgt = () => {
                     <form ref={formRef}>
                         <div className="m-10">
                             <h3 className='font-bold text-2xl text-[#045985]'>
-                                Container Cycle Management
+                                Export Delivery Management
                             </h3>
 
                             <div className="my-20">
                                 <div className="flex flex-col gap-4">
 
-                                    <div className="flex justify-between items-center w-[60%]">
-                                        <p className='font-semibold'> Cycle Type</p>
-                                        <div className="flex items-center gap-10">
-                                            <div className="flex items-center gap-2">
-                                                {/* <input
-                                                    type="radio"
-                                                    name="choice"
-                                                    id="Return"
-                                                    value="Export Delivery"
-                                                    onChange={handleCycleTypeChange}
-                                                /> */}
-                                                <label htmlFor="Export Delivery">Export Delivery</label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                         <div className='return flex flex-col gap-3'>
-                                            <div className="flex justify-between items-center w-[60%] my-2 gap-2">
-                                                <label htmlFor="" className="block font-semibold text-base">Destination Terminal: </label>
-                                                <Select
-                                                options={terminal}
-                                                isSearchable
-                                                className='w-[300px]'
-                                                required
-                                                />
-                                            </div>
-
                                             <div className="flex justify-between items-center w-[60%] my-2 gap-2">
                                                 <label htmlFor="" className="block font-semibold text-base">Select Booking Number: </label>
                                                 <Select
@@ -83,6 +55,7 @@ const ContainerCMgt = () => {
                                                 required
                                                 />
                                             </div>
+
                         
                                             <div className="flex justify-between items-center w-[60%] my-2 gap-2">
                                                 <label htmlFor="" className="block font-semibold text-base">Delivery Date: </label>
@@ -99,18 +72,36 @@ const ContainerCMgt = () => {
                                                 <div className="flex gap-3">
                                                     <div className="flex gap-2 items-center">
                                                         <input type='checkbox' className='border-gray-400 border-[1px] rounded p-1 w-5 h-5' />
-                                                        <label htmlFor="">OOLU5038886</label>
+                                                        <label htmlFor="">MEDU5038886</label>
                                                     </div>
                                                     <div className="flex gap-2 items-center">
                                                         <input type='checkbox' className='border-gray-400 border-[1px] rounded p-1 w-5 h-5' />
-                                                        <label htmlFor="">BMOU5038886</label>
+                                                        <label htmlFor="">MEDU5038886</label>
                                                     </div>
                                                 </div>
                                             </div>
 
+                                            <div className="flex justify-between items-center w-[60%] my-1">
+                                                <label htmlFor="" className="block font-semibold text-base">Container Part: </label>
+                                                <select name="" id="" className='border-gray-400 border-[1px] rounded p-1 px-2 w-[300px]'>
+                                                    <option value="All over">All over</option>
+                                                    <option value="Top">Top</option>
+                                                    <option value="Side">Side</option>
+                                                </select>
+                                            </div>
+
+                                            <div className="flex justify-between items-center w-[60%] my-1">
+                                                <label htmlFor="" className="block font-semibold text-base">Damage Status: </label>
+                                                <select name="" id="" className='border-gray-400 border-[1px] rounded p-1 px-2 w-[300px]'>
+                                                    <option value="Ok">Ok</option>
+                                                    <option value="Bent">Bent</option>
+                                                    <option value="Cut">Cut</option>
+                                                </select>
+                                            </div>
+
 
                                             <div className="flex justify-between items-center w-[60%]">
-                                                <p className='font-semibold'>Update Cont. Cycle:</p>
+                                                <p className='font-semibold'>Proceed to Validation:</p>
                                                 <div className="flex items-center gap-10">
                                                     <div className="flex items-center gap-2">
                                                         <input type="radio" name="choice" id="Yes" />
@@ -128,7 +119,7 @@ const ContainerCMgt = () => {
                         </div>
 
                         <div className="flex items-center justify-center gap-2 mb-20">
-                            <button className='px-7 py-2 rounded-md bg-[#4e9352] text-white mt-3' type='submit' onClick={viewReture}>Proceed to Process Doc</button>
+                            <button className='px-7 py-2 rounded-md bg-[#4e9352] text-white mt-3' type='submit' >Proceed to Process Doc</button>
                             <button className='px-7 py-2 rounded-md bg-gray-500 text-white mt-3' type='reset'>Reset</button>
                         </div>
 

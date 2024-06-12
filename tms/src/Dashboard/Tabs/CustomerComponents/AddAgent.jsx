@@ -9,12 +9,11 @@ import axios from 'axios';
 
 const AddAgent = () => {
   const [inputValue, setInputValue] = useState('');
-  const [agent_id, setAgentId] = useState("CFC-AG-0001-0000");
   const [suggestions, setSuggestions] = useState([]);
   const inputRef = useRef(null);
   const [showUpload, setShowUpload] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
-  const [profileImageFile, setProfileImageFile] = useState(null); // Store the file object
+  const [profileImageFile, setProfileImageFile] = useState(null);
   const [agencies, setAgencies] = useState([]);
   const [selectedAgency, setSelectedAgency] = useState(null);
   const [letterFile, setLetterFile] = useState(null);
@@ -70,7 +69,6 @@ const AddAgent = () => {
   };
 
   const initialFormData = {
-    agent_id: '',
     agent_name: '',
     email: '',
     phone_number: '',
@@ -89,7 +87,6 @@ const AddAgent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = new FormData();
-    payload.append('agent_id', agent_id);
     payload.append('agent_name', formData.agent_name);
     payload.append('email', formData.email);
     payload.append('phone_number', formData.phone_number);
@@ -132,7 +129,6 @@ const AddAgent = () => {
       setProfileImageFile(null);
       setSelectedAgency(null);
       setLetterFile(null);
-      setAgentId("CFC-AG-0001-0000");
     } catch (error) {
       console.error('Error submitting data:', error);
       toast.error('Error submitting data');
@@ -190,26 +186,7 @@ const AddAgent = () => {
                   required
                 />
               </div>
-              <div className="flex flex-col gap-2 my-5">
-                <label htmlFor="agent_id" className='text-base font-semibold'>Agent ID:</label>
-                <div ref={inputRef}>
-                  <div className="flex items-center justify-between pr-3 pl-2 py-2 rounded-md border-gray-500 border w-[350px]">
-                    <input
-                      type="text"
-                      value={agent_id}
-                      onChange={handleInputChange}
-                      className='outline-none w-full'
-                    />
-                  </div>
-                  <ul className=''>
-                    {suggestions.map((suggestion, index) => (
-                      <li key={index} className='cursor-pointer hover:bg-slate-100 p-2' onClick={() => handleSuggestionClick(suggestion)}>
-                        {suggestion}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+              
               <div className="flex flex-col gap-2 my-5">
                 <label htmlFor="agent_name" className='text-base font-semibold'>Agent Name:</label>
                 <input

@@ -13,11 +13,10 @@ const AddCustomer = () => {
   const inputRef = useRef(null);
   const [showUpload, setShowUpload] = useState(false);
   const [formData, setFormData] = useState({
-    exporter_id: '',
-    customer_name: '',
+    exporter_name: '',
     contact_person: '',
-    email: '',
-    phone: '',
+    email_address: '',
+    phone_number: '',
     address: '',
     city: '',
     country: '',
@@ -66,7 +65,7 @@ const AddCustomer = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('https://exprosys-backend.onrender.com/api/v1/customers/', formData);
+      await axios.post('https://exprosys-backend.onrender.com/api/v1/exporters/', formData);
       toast.success('Exporter added successfully', {
         position: 'top-right',
         autoClose: 3000,
@@ -110,40 +109,40 @@ const AddCustomer = () => {
         <div className='my-10 grid grid-cols-2'>
           <div className="sideOne">
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="customer_name" className='text-base font-semibold'>Exporter Name:</label>
+              <label htmlFor="exporter_name" className='text-base font-semibold'>Exporter Name:</label>
               <input
                 // readOnly
                 type="text"
                 className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]'
-                id="customer_name"
-                name="customer_name"
-                value={formData.customer_name}
+                id="exporter_name"
+                name="exporter_name"
+                value={formData.exporter_name}
                 onChange={handleChange}
                 placeholder='Enter exporter name:'
               />
             </div>
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="email" className='text-base font-semibold'>Email:</label>
+              <label htmlFor="email_address" className='text-base font-semibold'>Email:</label>
               <input
                 required
                 type="email"
                 className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]'
-                id="email"
-                name="email"
-                value={formData.email}
+                id="email_address"
+                name="email_address"
+                value={formData.email_address}
                 onChange={handleChange}
                 placeholder='Enter email address:'
               />
             </div>
             <div className="flex flex-col gap-2 my-5">
-              <label htmlFor="phone" className='text-base font-semibold'>Phone Number:</label>
+              <label htmlFor="phone_number" className='text-base font-semibold'>Phone Number:</label>
               <input
                 required
                 type="number"
                 className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]'
-                id="phone"
-                name="phone"
-                value={formData.phone}
+                id="phone_number"
+                name="phone_number"
+                value={formData.phone_number}
                 onChange={handleChange}
                 placeholder='Enter phone number:'
               />

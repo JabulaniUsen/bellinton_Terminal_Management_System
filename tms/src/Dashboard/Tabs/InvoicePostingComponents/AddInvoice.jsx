@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faMagnifyingGlass, faUpload } from '@fortawesome/free-solid-svg-icons';
@@ -14,6 +14,40 @@ const AddInvoice = () => {
   const inputRef = useRef(null);
   const [showUpload, setShowUpload] = useState(false);
   const [isFileUploaded, setIsFileUploaded] = useState(false);
+  const [exporterIds, setExporterIds] = useState([]);
+  const [container_numbers, setContainer_numbers] = useState([])
+  const [selectedCustomer, setSelectedCustomer] = useState('');
+
+  useEffect(() => {
+    axios.get('https://exprosys-backend.onrender.com/api/v1/exporters/')
+      .then(response => {
+        console.log('API response:', response.data.results);
+        if (Array.isArray(response.data.results)) {
+          setExporterIds(response.data.results.map(exporter => exporter.exporter_id));
+        } else {
+          console.error('Unexpected response data:', response.data.results);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching exporters:', error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios.get('https://exprosys-backend.onrender.com/api/v1/containers/')
+      .then(response => {
+        console.log('API response:', response.data);
+        if (Array.isArray(response.data)) {
+          setContainer_numbers(response.data.map(container => container.container_id));
+        } else {
+          console.error('Unexpected response data:', response.data);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching container number:', error);
+      });
+  }, []);
+
 
   const handleFileChange = (event) => {
     if (event.target.files.length > 0) {
@@ -48,7 +82,7 @@ const AddInvoice = () => {
     services_type: '',
     discounts_or_adjustments: '',
     rated_upto_date: '',
-    customer: '',
+    exporter: '',
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -59,6 +93,7 @@ const AddInvoice = () => {
     try {
       const response = await axios.post('https://exprosys-backend.onrender.com/api/v1/post-export-invoice/', formData);
       if (response.status === 200 || response.status === 201) {
+        console.log(response);
         toast.success('Export Invoice Posted Successfully!', {
           position: 'top-right',
           autoClose: 3000,
@@ -79,6 +114,8 @@ const AddInvoice = () => {
         });
       }
     } catch (error) {
+      
+      console.log(error.response);
       toast.error('Failed to post the invoice. Error: ' + error.message, {
         position: 'top-right',
         autoClose: 3000,
@@ -98,53 +135,13 @@ const AddInvoice = () => {
     }));
   };
 
-  const data = [];
-  const customerNameData = [];
-
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    setInputValue(value);
-
-    const filteredSuggestions = data.filter((item) =>
-      item.toLowerCase().includes(value.toLowerCase())
-    );
-    setSuggestions(filteredSuggestions);
-  };
-
-  const handleSuggestionClick = (suggestion) => {
-    setInputValue(suggestion);
-    setSuggestions([]);
+  const handleCustomerChange = (e) => {
+    const selectedValue = e.target.value;
+    setSelectedCustomer(selectedValue);
     setFormData((prevData) => ({
       ...prevData,
-      container_number: suggestion,
+      customer: selectedValue,
     }));
-  };
-
-  const handleInputChange2 = (e) => {
-    const value = e.target.value;
-    setInputValue2(value);
-
-    const filteredSuggestions2 = customerNameData.filter((item) =>
-      item.toLowerCase().includes(value.toLowerCase())
-    );
-    setSuggestions2(filteredSuggestions2);
-  };
-
-  const handleSuggestionClick2 = (suggestion2) => {
-    setInputValue2(suggestion2);
-    setSuggestions2([]);
-    setFormData((prevData) => ({
-      ...prevData,
-      customer: suggestion2,
-    }));
-  };
-
-  const closeUploadBox = () => {
-    setShowUpload(false);
-  };
-
-  const handleUpload = () => {
-    setShowUpload(!showUpload);
   };
 
   return (
@@ -158,49 +155,33 @@ const AddInvoice = () => {
           <h3 className='mt-10 mb-2 font-bold'>Invoice Details</h3>
           <div className="grid grid-cols-2">
             <div className="flex flex-col gap-2 my-2">
-              <label htmlFor="container_number" className='text-base font-semibold'>Customer ID:</label>
-              <div ref={inputRef}>
-                <div className="flex items-center justify-between pr-3 pl-2 py-2 rounded-md border-gray-500 border w-[400px]">
-                  <input
-                    type="text"
-                    name="container_number"
-                    value={formData.container_number}
-                    onChange={handleChange}
-                    className='outline-none w-full'
-                  />
-                  <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
-                </div>
-                <ul>
-                  {suggestions.map((suggestion, index) => (
-                    <li key={index} className='cursor-pointer hover:bg-slate-100 p-2' onClick={() => handleSuggestionClick(suggestion)}>
-                      {suggestion}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <label htmlFor="customer" className='text-base font-semibold'>Select Export ID:</label>
+              <select 
+                name="exporter" 
+                id="exporter" 
+                className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]'
+                value={formData.exporter}
+                onChange={handleChange}
+                required
+              >
+                <option value="" className='text-[#0000002a]'>Select Exporter ID</option>
+                {exporterIds.map((exporterId, index) => (
+                  <option key={index} value={exporterId}>{exporterId}</option>
+                ))}
+              </select>
+
             </div>
+
             <div className="flex flex-col gap-2 my-2">
-              <label htmlFor="customer" className='text-base font-semibold'>Customer Name:</label>
-              <div ref={inputRef}>
-                <div className="flex items-center justify-between pr-3 pl-2 py-2 rounded-md border-gray-500 border w-[400px]">
-                  <input
-                    type="text"
-                    name="customer"
-                    value={formData.customer}
-                    onChange={handleChange}
-                    className='outline-none w-full'
-                  />
-                  <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
-                </div>
-                <ul>
-                  {suggestions2.map((suggestions2, index) => (
-                    <li key={index} className='cursor-pointer hover:bg-slate-100 p-2' onClick={() => handleSuggestionClick2(suggestions2)}>
-                      {suggestions2}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <label htmlFor="container_number" className='text-base font-semibold'>Container Number:</label>
+              <select required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="container_number" name="container_number" onChange={handleChange} value={formData.container_number}>
+                <option value="">Select conatiner number</option>
+                {container_numbers.map((container, index) => (
+                  <option key={index} value={container}>{container}</option>
+                ))}
+              </select>
             </div>
+            
             <div className="flex flex-col gap-2 my-2">
               <label htmlFor="invoice_date" className='text-base font-semibold'>Invoice Date:</label>
               <input required type="date" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="invoice_date" name="invoice_date" onChange={handleChange} value={formData.invoice_date} />
@@ -215,12 +196,7 @@ const AddInvoice = () => {
             </div>
             <div className="flex flex-col gap-2 my-2">
               <label htmlFor="services_type" className='text-base font-semibold'>Service Type:</label>
-              <select name="services_type" id="services_type" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' onChange={handleChange} value={formData.services_type}>
-                <option value="" className='text-[#0000002a]'>Select service type</option>
-                <option value="type 1">type 1</option>
-                <option value="type 2">type 2</option>
-                <option value="type 3">type 3</option>
-              </select>
+              <input required type='text' name="services_type" id="services_type" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' onChange={handleChange} value={formData.services_type} />
             </div>
           </div>
           
@@ -270,6 +246,7 @@ const AddInvoice = () => {
           <button type="submit" className='bg-[#4e9352] hover:bg-[#4e93518c] rounded-lg text-white px-10 py-2'>Post Export Invoice</button>
         </div>
       </form>
+      <ToastContainer/>
     </div>
   );
 }

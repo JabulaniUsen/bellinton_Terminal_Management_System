@@ -24,7 +24,7 @@ const ManageCustomer = () => {
                 head: [Object.keys(customerData[0])],
                 body: customerData.map((row) => Object.values(row)),
             });
-            doc.save('customer_report.pdf');
+            doc.save('exporter_report.pdf');
         }
     };
 
@@ -36,17 +36,17 @@ const ManageCustomer = () => {
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement('a');
             link.setAttribute('href', encodedUri);
-            link.setAttribute('download', 'customer_report.csv');
+            link.setAttribute('download', 'exporter_report.csv');
             document.body.appendChild(link);
             link.click();
         }
     };
 
     useEffect(() => {
-        axios.get('https://exprosys-backend.onrender.com/api/v1/customers/')
+        axios.get('https://exprosys-backend.onrender.com/api/v1/exporters/')
             .then(response => {
-                setCustomerData(response.data);
-                console.log(response.data);
+                setCustomerData(response.data.results);
+                console.log(response.data.results);
             })
             .catch(error => {
                 console.error('Error fetching customer data:', error);
@@ -60,14 +60,14 @@ const ManageCustomer = () => {
     };
 
     const handleUpdate = () => {
-        const index = customerData.findIndex((customer) => customer.customer_id === selectedCustomer.customer_id);
+        const index = customerData.findIndex((customer) => customer.exporter_id === selectedCustomer.exporter_id);
 
         if (index !== -1) {
             const updatedCustomerData = [...customerData];
             updatedCustomerData[index] = selectedCustomer;
             setCustomerData(updatedCustomerData);
 
-            axios.put(`https://exprosys-backend.onrender.com/api/v1/customers/${selectedCustomer.customer_id}/`, selectedCustomer)
+            axios.put(`https://exprosys-backend.onrender.com/api/v1/exporters/${selectedCustomer.exporter_id}/`, selectedCustomer)
                 .then(response => {
                     setSelectedCustomer(null);
                     setEditBoxVisible(false);
@@ -112,11 +112,11 @@ const ManageCustomer = () => {
                                 className="hover:bg-[#d7c9ff] cursor-pointer"
                                 onClick={() => handleRowClick(rowData)}
                             >
-                                <td className="border border-black px-3 py-2">{rowData.customer_id}</td>
-                                <td className="border border-black px-3 py-2">{rowData.customer_name}</td>
+                                <td className="border border-black px-3 py-2">{rowData.exporter_id}</td>
+                                <td className="border border-black px-3 py-2">{rowData.exporter_name}</td>
                                 <td className="border border-black px-3 py-2">{rowData.contact_person}</td>
-                                <td className="border border-black px-3 py-2">{rowData.email}</td>
-                                <td className="border border-black w-[170px] px-3 py-2">{rowData.phone}</td>
+                                <td className="border border-black px-3 py-2">{rowData.email_address}</td>
+                                <td className="border border-black w-[170px] px-3 py-2">{rowData.phone_number}</td>
                                 <td className="border border-black px-3 py-2">{rowData.address}</td>
                             </tr>
                         ))}
@@ -148,14 +148,14 @@ const ManageCustomer = () => {
                                 <h3 className="text-2xl font-bold mb-7 text-center">Edit Exporter Data</h3>
                                 <div className="flex flex-col gap-2 justify-center">
                                     <div className="flex gap-10 items-center justify-between">
-                                        <label htmlFor="editedCustomer_name" className='font-semibold text-base'>Exporter Name:</label>
+                                        <label htmlFor="editedexporter_name" className='font-semibold text-base'>Exporter Name:</label>
                                         <input
                                             className='outline-none rounded-lg px-3 py-2 border-[1px] border-gray-600'
                                             type="text"
-                                            id="editedCustomer_name"
-                                            value={selectedCustomer?.customer_name || ''}
+                                            id="editedexporter_name"
+                                            value={selectedCustomer?.exporter_name || ''}
                                             onChange={(e) =>
-                                                setSelectedCustomer({ ...selectedCustomer, customer_name: e.target.value })
+                                                setSelectedCustomer({ ...selectedCustomer, exporter_name: e.target.value })
                                             }
                                             onKeyPress={handleKeyPress}
                                         />
@@ -179,7 +179,7 @@ const ManageCustomer = () => {
                                             className='outline-none rounded-lg px-2 py-1 border-[1px] border-gray-600'
                                             type="email"
                                             id="editedCustomerEmail"
-                                            value={selectedCustomer?.email || ''}
+                                            value={selectedCustomer?.email_address || ''}
                                             onChange={(e) =>
                                                 setSelectedCustomer({ ...selectedCustomer, email: e.target.value })
                                             }
@@ -192,7 +192,7 @@ const ManageCustomer = () => {
                                             className='outline-none rounded-lg px-2 py-1 border-[1px] border-gray-600'
                                             type="number"
                                             id="editedCustomerPhone"
-                                            value={selectedCustomer?.phone || ''}
+                                            value={selectedCustomer?.phone_number || ''}
                                             onChange={(e) =>
                                                 setSelectedCustomer({ ...selectedCustomer, phone: e.target.value })
                                             }

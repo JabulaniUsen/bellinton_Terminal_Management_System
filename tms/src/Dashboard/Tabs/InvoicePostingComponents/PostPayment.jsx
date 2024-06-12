@@ -7,19 +7,21 @@ import axios from 'axios';
 import UploadBox from '../ManifestComponents/UploadBox';
 
 const PostPayment = () => {
-  const [inputValue, setInputValue] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
   const [inputValue2, setInputValue2] = useState('');
-  const [suggestions2, setSuggestions2] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
+  const [containers, setContainers] = useState([]);
   const inputRef = useRef(null);
   const [showUpload, setShowUpload] = useState(false);
   const [isFileUploaded, setIsFileUploaded] = useState(false);
+  const [file, setFile] = useState(null);
 
   const handleFileChange = (event) => {
     if (event.target.files.length > 0) {
       setIsFileUploaded(true);
+      setFile(event.target.files[0]);
     } else {
       setIsFileUploaded(false);
+      setFile(null);
     }
   };
 
@@ -33,7 +35,6 @@ const PostPayment = () => {
   const handleClickOutside = (event) => {
     if (inputRef.current && !inputRef.current.contains(event.target)) {
       setSuggestions([]);
-      setSuggestions2([]);
     }
   };
 
@@ -45,49 +46,70 @@ const PostPayment = () => {
     services_type: '',
     confirmation_officer: '',
     payment_remarks: '',
-    customer: '',
+    export: '',
   };
 
   const [formData, setFormData] = useState(initialFormData);
 
+  useEffect(() => {
+    // Fetch export names
+    axios.get('https://exprosys-backend.onrender.com/api/v1/exporters/')
+      .then(response => {
+        setSuggestions(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching export names:', error);
+      });
+
+    // Fetch container numbers
+    axios.get('https://exprosys-backend.onrender.com/api/v1/containers/')
+      .then(response => {
+        setContainers(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching containers:', error);
+      });
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const payload = {
-      ...formData,
-      customer: parseInt(formData.customer, 10),
-    };
+    if (!formData.export) {
+      toast.error('Please select an export name.');
+      return;
+    }
+    if (!file) {
+      toast.error('Please upload a payment receipt.');
+      return;
+    }
+    
+    const payload = new FormData();
+    payload.append('container_number', formData.container_number);
+    payload.append('payment_date', formData.payment_date);
+    payload.append('invoice_number', formData.invoice_number);
+    payload.append('total_amount_paid', formData.total_amount_paid);
+    payload.append('services_type', formData.services_type);
+    payload.append('confirmation_officer', formData.confirmation_officer);
+    payload.append('payment_remarks', formData.payment_remarks);
+    payload.append('export', formData.export);
+    payload.append('payment_receipt', file);
 
     try {
-      const response = await axios.post('https://exprosys-backend.onrender.com/api/v1/post-payment/', payload);
+      const response = await axios.post('https://exprosys-backend.onrender.com/api/v1/post-payment/', payload, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       if (response.status === 200 || response.status === 201) {
-        toast.success('Payment Receipt Posted Successfully!', {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
+        toast.success('Payment Receipt Posted Successfully!');
         setFormData(initialFormData);
+        setFile(null);
+        setIsFileUploaded(false);
       } else {
-        toast.error('Failed to post the payment receipt.', {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
+        toast.error('Failed to post the payment receipt.');
       }
     } catch (error) {
-      toast.error(`Failed to post the payment receipt. Error: ${error.message}`, {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+      console.log(error);
+      toast.error(`Failed to post the payment receipt. Error: ${error.message}`);
     }
   };
 
@@ -99,54 +121,33 @@ const PostPayment = () => {
     }));
   };
 
-  const data = ["1001", "1002", "1003", "1004", "1005"];
-  const customerNameData = ["Michael", "Kate", "Williams", "Jabulani"];
-
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    setInputValue(value);
-
-    const filteredSuggestions = data.filter((item) =>
-      item.toLowerCase().includes(value.toLowerCase())
-    );
-    setSuggestions(filteredSuggestions);
-  };
-
-  const handleSuggestionClick = (suggestion) => {
-    setInputValue(suggestion);
-    setSuggestions([]);
-    setFormData((prevData) => ({
-      ...prevData,
-      container_number: suggestion,
-    }));
-  };
-
   const handleInputChange2 = (e) => {
     const value = e.target.value;
     setInputValue2(value);
-
-    const filteredSuggestions2 = customerNameData.filter((item) =>
-      item.toLowerCase().includes(value.toLowerCase())
-    );
-    setSuggestions2(filteredSuggestions2);
+  
+    if (Array.isArray(suggestions)) {
+      const filteredSuggestions = suggestions.filter((item) =>
+        item.export_name.toLowerCase().includes(value.toLowerCase())
+      );
+      setSuggestions(filteredSuggestions);
+    } else {
+      console.warn('suggestions is not an array, cannot filter');
+    }
   };
+  
+  
+  
 
   const handleSuggestionClick2 = (suggestion2) => {
-    setInputValue2(suggestion2);
-    setSuggestions2([]);
+    setInputValue2(suggestion2.export_name);
+    setSuggestions([]);
     setFormData((prevData) => ({
       ...prevData,
-      customer: suggestion2, // Adjust if the customer is an ID or other identifier
+      export: suggestion2.id, 
     }));
   };
+  
 
-  const closeUploadBox = () => {
-    setShowUpload(false);
-  };
-
-  const handleUpload = () => {
-    setShowUpload(!showUpload);
-  };
 
   return (
     <div className='m-10'>
@@ -163,12 +164,12 @@ const PostPayment = () => {
               <input required type="date" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="payment_date" name="payment_date" onChange={handleChange} value={formData.payment_date} />
             </div>
             <div className="flex flex-col gap-2 my-2">
-              <label htmlFor="customer" className='text-base font-semibold'>Customer Name:</label>
+              <label htmlFor="export" className='text-base font-semibold'>Export Name:</label>
               <div ref={inputRef}>
                 <div className="flex items-center justify-between pr-3 pl-2 py-2 rounded-md border-gray-500 border w-[400px]">
                   <input
                     type="text"
-                    name="customer"
+                    name="export"
                     value={inputValue2}
                     onChange={handleInputChange2}
                     className='outline-none w-full'
@@ -176,9 +177,9 @@ const PostPayment = () => {
                   <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
                 </div>
                 <ul>
-                  {suggestions2.map((suggestion2, index) => (
+                  {Array.isArray(suggestions) && suggestions.map((suggestion2, index) => (
                     <li key={index} className='cursor-pointer hover:bg-slate-100 p-2' onClick={() => handleSuggestionClick2(suggestion2)}>
-                      {suggestion2}
+                      {suggestion2.export_name}
                     </li>
                   ))}
                 </ul>
@@ -186,25 +187,12 @@ const PostPayment = () => {
             </div>
             <div className="flex flex-col gap-2 my-2">
               <label htmlFor="container_number" className='text-base font-semibold'>Container No:</label>
-              <div ref={inputRef}>
-                <div className="flex items-center justify-between pr-3 pl-2 py-2 rounded-md border-gray-500 border w-[400px]">
-                  <input
-                    type="text"
-                    name="container_number"
-                    value={inputValue}
-                    onChange={handleInputChange}
-                    className='outline-none w-full'
-                  />
-                  <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
-                </div>
-                <ul>
-                  {suggestions.map((suggestion, index) => (
-                    <li key={index} className='cursor-pointer hover:bg-slate-100 p-2' onClick={() => handleSuggestionClick(suggestion)}>
-                      {suggestion}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <select name="container_number" id="container_number" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' onChange={handleChange} value={formData.container_number}>
+                <option value="" className='text-[#0000002a]'>Select container number</option>
+                {containers.map((container) => (
+                  <option key={container.id} value={container.container_id}>{container.container_id}</option>
+                ))}
+              </select>
             </div>
             <div className="flex flex-col gap-2 my-2">
               <label htmlFor="total_amount_paid" className='text-base font-semibold'>Total Amount Paid:</label>

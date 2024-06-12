@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const ViewCustomer = () => {
   const [showManifestData, setShowManifestData] = useState(true);
-  const [customer_id, setCustomer_id] = useState("");
+  const [exporter_id, setexporter_id] = useState("");
   const [errorText, setErrorText] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
@@ -19,26 +19,27 @@ const ViewCustomer = () => {
   const [selectedVesselDetails, setSelectedVesselDetails] = useState(null);
 
   useEffect(() => {
-    const fetchCustomerData = async () => {
+    const fetchExportData = async () => {
       try {
-        const response = await axios.get(`https://exprosys-backend.onrender.com/api/v1/customers/${customer_id}`);
-        if (Array.isArray(response.data)) {
-          setInitialData(response.data);
-          setData(response.data);
-        } else if (response.data && typeof response.data === 'object') {
-          setInitialData([response.data]);
-          setData([response.data]);
-          console.log(response.data);
+        const response = await axios.get(`https://exprosys-backend.onrender.com/api/v1/exporters/${exporter_name}`);
+        if (Array.isArray(response.data.results)) {
+          setInitialData(response.data.results);
+          setData(response.data.results);
+          console.log(response.data.results);
+        } else if (response.data.results && typeof response.data.results === 'object') {
+          setInitialData([response.data.results]);
+          setData([response.data.results]);
+          console.log(response.data.results);
         } else {
-          console.error('Unexpected response data format:', response.data);
+          console.error('Unexpected response data format:', response.data.results);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    fetchCustomerData();
-  }, [customer_id]);
+    fetchExportData();
+  }, [exporter_id]);
 
   const handleSearch = () => {
     if (searchTerm.trim() === "") {
@@ -47,7 +48,7 @@ const ViewCustomer = () => {
     }
     setErrorText(false);
     const filteredData = initialData.filter(item =>
-      item.customer_name.toLowerCase().includes(searchTerm.toLowerCase())
+      item.export_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setData(filteredData);
     setMoreInfo(true);
@@ -96,10 +97,10 @@ const ViewCustomer = () => {
             <div className="flex justify-between items-center">
               <div className="">
                 <div className="flex gap-2 my-10 mx-7 items-center">
-                  <label htmlFor="" className='text-lg font-bold'>Enter Exports Name:</label>
+                  <label htmlFor="" className='text-lg font-bold'>Enter Exporter's Name:</label>
                   <div>
                     <Select
-                      options={initialData.map((item) => ({ value: item.export_name, label: item.export_name }))}
+                      options={initialData.map((item) => ({ value: item.exporter_name, label: item.exporter_name }))}
                       value={{ value: searchTerm, label: searchTerm }}
                       onChange={(selectedOption) => setSearchTerm(selectedOption.value)}
                       isSearchable
@@ -133,11 +134,11 @@ const ViewCustomer = () => {
                   <tbody>
                     {data.map((rowData, index) => (
                       <tr key={index} className="">
-                        <td className="border border-black px-4 py-2">{rowData.customer_id}</td>
-                        <td className="border border-black px-4 py-2">{rowData.customer_name}</td>
+                        <td className="border border-black px-4 py-2">{rowData.exporter_id}</td>
+                        <td className="border border-black px-4 py-2">{rowData.exporter_name}</td>
                         <td className="border border-black px-4 py-2">{rowData.contact_person}</td>
-                        <td className="border border-black px-2 text-sm py-2">{rowData.email}</td>
-                        <td className="border border-black px-4 py-2">{rowData.phone}</td>
+                        <td className="border border-black px-2 text-sm py-2">{rowData.email_address}</td>
+                        <td className="border border-black px-4 py-2">{rowData.phone_number}</td>
                         <td className="border border-black px-4 py-2">{rowData.address}</td>
                       </tr>
                     ))}
