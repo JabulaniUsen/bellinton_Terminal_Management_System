@@ -213,7 +213,7 @@ const AddInvoice = () => {
             </div>
             <div className="flex flex-col gap-2 my-2">
               <label htmlFor="haulage" className='text-base font-semibold'>Haulage (Truck):</label>
-              <input required type="text" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="haulage" name="haulage" placeholder='Enter Haulage' onChange={handleChange} value={formData.haulage} />
+              <input required type="number" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="haulage" name="haulage" placeholder='Enter Haulage' onChange={handleChange} value={formData.haulage} />
             </div>
             <div className="flex flex-col gap-2 my-2">
               <label htmlFor="discounts_or_adjustments" className='text-base font-semibold'>Discounts or Adjustments:</label>

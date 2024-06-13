@@ -14,6 +14,7 @@ const PostPayment = () => {
   const [showUpload, setShowUpload] = useState(false);
   const [isFileUploaded, setIsFileUploaded] = useState(false);
   const [file, setFile] = useState(null);
+  const [exporters, setExporters] = useState([]);  // Initialize as an empty array
 
   const handleFileChange = (event) => {
     if (event.target.files.length > 0) {
@@ -46,7 +47,7 @@ const PostPayment = () => {
     services_type: '',
     confirmation_officer: '',
     payment_remarks: '',
-    export: '',
+    exporter: '',
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -55,7 +56,11 @@ const PostPayment = () => {
     // Fetch export names
     axios.get('https://exprosys-backend.onrender.com/api/v1/exporters/')
       .then(response => {
-        setSuggestions(response.data);
+        if (Array.isArray(response.data.results)) {
+          setExporters(response.data.results);
+        } else {
+          console.error('Unexpected response data format:', response.data.results);
+        }
       })
       .catch(error => {
         console.error('Error fetching export names:', error);
@@ -73,7 +78,7 @@ const PostPayment = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.export) {
+    if (!formData.exporter) {
       toast.error('Please select an export name.');
       return;
     }
@@ -90,7 +95,7 @@ const PostPayment = () => {
     payload.append('services_type', formData.services_type);
     payload.append('confirmation_officer', formData.confirmation_officer);
     payload.append('payment_remarks', formData.payment_remarks);
-    payload.append('export', formData.export);
+    payload.append('exporter', formData.exporter);
     payload.append('payment_receipt', file);
 
     try {
@@ -101,14 +106,16 @@ const PostPayment = () => {
       });
       if (response.status === 200 || response.status === 201) {
         toast.success('Payment Receipt Posted Successfully!');
+        console.log('Successful');
         setFormData(initialFormData);
         setFile(null);
         setIsFileUploaded(false);
       } else {
         toast.error('Failed to post the payment receipt.');
+        console.log(error,': Some crazy stuff happened');
       }
     } catch (error) {
-      console.log(error);
+      console.log(error,': Some crazy stuff happened');
       toast.error(`Failed to post the payment receipt. Error: ${error.message}`);
     }
   };
@@ -125,29 +132,15 @@ const PostPayment = () => {
     const value = e.target.value;
     setInputValue2(value);
   
-    if (Array.isArray(suggestions)) {
-      const filteredSuggestions = suggestions.filter((item) =>
+    if (Array.isArray(suggestions) && suggestions.length > 0) {
+      const filteredSuggestions2 = suggestions.filter((item) =>
         item.export_name.toLowerCase().includes(value.toLowerCase())
       );
-      setSuggestions(filteredSuggestions);
+      setSuggestions(filteredSuggestions2);
     } else {
-      console.warn('suggestions is not an array, cannot filter');
+      console.warn('suggestions is not yet populated, cannot filter');
     }
   };
-  
-  
-  
-
-  const handleSuggestionClick2 = (suggestion2) => {
-    setInputValue2(suggestion2.export_name);
-    setSuggestions([]);
-    setFormData((prevData) => ({
-      ...prevData,
-      export: suggestion2.id, 
-    }));
-  };
-  
-
 
   return (
     <div className='m-10'>
@@ -164,26 +157,13 @@ const PostPayment = () => {
               <input required type="date" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' id="payment_date" name="payment_date" onChange={handleChange} value={formData.payment_date} />
             </div>
             <div className="flex flex-col gap-2 my-2">
-              <label htmlFor="export" className='text-base font-semibold'>Export Name:</label>
-              <div ref={inputRef}>
-                <div className="flex items-center justify-between pr-3 pl-2 py-2 rounded-md border-gray-500 border w-[400px]">
-                  <input
-                    type="text"
-                    name="export"
-                    value={inputValue2}
-                    onChange={handleInputChange2}
-                    className='outline-none w-full'
-                  />
-                  <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#999999]' />
-                </div>
-                <ul>
-                  {Array.isArray(suggestions) && suggestions.map((suggestion2, index) => (
-                    <li key={index} className='cursor-pointer hover:bg-slate-100 p-2' onClick={() => handleSuggestionClick2(suggestion2)}>
-                      {suggestion2.export_name}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <label htmlFor="exporter" className='text-base font-semibold'>Exporter ID:</label>
+              <select name="exporter" id="exporter" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' onChange={handleChange} value={formData.exporter}>
+                <option value="" className='text-[#0000002a]'>Select Exporter ID</option>
+                {exporters.map((exporter) => (
+                  <option key={exporter.exporter_id} value={exporter.exporter_id}>{exporter.exporter_id}</option>
+                ))}
+              </select>
             </div>
             <div className="flex flex-col gap-2 my-2">
               <label htmlFor="container_number" className='text-base font-semibold'>Container No:</label>
@@ -204,12 +184,7 @@ const PostPayment = () => {
             </div>
             <div className="flex flex-col gap-2 my-2">
               <label htmlFor="services_type" className='text-base font-semibold'>Service Type:</label>
-              <select name="services_type" id="services_type" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' onChange={handleChange} value={formData.services_type}>
-                <option value="" className='text-[#0000002a]'>Select service type</option>
-                <option value="type 1">type 1</option>
-                <option value="type 2">type 2</option>
-                <option value="type 3">type 3</option>
-              </select>
+              <input type='text' name="services_type" id="services_type" className='rounded-lg p-2 border border-gray-500 outline-none w-[400px]' onChange={handleChange} value={formData.services_type} placeholder='Enter service type' />
             </div>
           </div>
           <h3 className='mt-10 mb-2 font-bold'>Other Details</h3>

@@ -35,13 +35,13 @@ const ManageAgent = () => {
     }, []);
 
     const handleUpdate = () => {
-        const index = agentData.findIndex((agent) => agent.agentId === selectedAgent.agentId);
+        const index = agentData.findIndex((agent) => agent.agent_id === selectedAgent.agent_id);
     
         if (index !== -1) {
             const updatedAgentData = [...agentData];
             updatedAgentData[index] = selectedAgent;
     
-            axios.put(`https://exprosys-backend.onrender.com/api/v1/agents/${selectedAgent.agentId}/update`, selectedAgent)
+            axios.put(`https://exprosys-backend.onrender.com/api/v1/agents/${selectedAgent.agent_id}/update`, selectedAgent)
                 .then(response => {
                     setAgentData(updatedAgentData);
                     setSelectedAgent(null);
@@ -115,11 +115,11 @@ const ManageAgent = () => {
                                     className="hover:bg-[#d7c9ff] cursor-pointer"
                                     onClick={() => handleRowClick(rowData)}
                                 >
-                                    <td className="border border-black px-3 py-2">{rowData.agentId}</td>
-                                    <td className="border border-black px-3 py-2">{rowData.agentName}</td>
-                                    <td className="border border-black px-3 py-2">{rowData.contactPerson}</td>
+                                    <td className="border border-black px-3 py-2">{rowData.agent_id}</td>
+                                    <td className="border border-black px-3 py-2">{rowData.agent_name}</td>
+                                    <td className="border border-black px-3 py-2">{rowData.contact_person}</td>
                                     <td className="border border-black px-3 py-2">{rowData.email}</td>
-                                    <td className="border border-black w-[170px] px-3 py-2">{rowData.phone}</td>
+                                    <td className="border border-black w-[170px] px-3 py-2">{rowData.phone_number}</td>
                                     <td className="border border-black px-3 py-2">{rowData.address}</td>
                                 </tr>
                             ))
@@ -156,27 +156,27 @@ const ManageAgent = () => {
                                 <h3 className="text-2xl font-bold mb-7 text-center">Edit Agent Data</h3>
                                 <div className="flex flex-col gap-2  justify-center">
                                     <div className="flex gap-10 items-center justify-between ">
-                                        <label htmlFor="editedAgentName" className='font-semibold text-base'>Agent Name:</label>
+                                        <label htmlFor="editedAgent_name" className='font-semibold text-base'>Agent Name:</label>
                                         <input
                                             className='outline-none rounded-lg px-3 py-2 border-[1px] border-gray-600'
                                             type="text"
-                                            id="editedAgentName"
-                                            value={selectedAgent?.agentName || ''}
+                                            id="editedAgent_name"
+                                            value={selectedAgent?.agent_name || ''}
                                             onChange={(e) =>
-                                                setSelectedAgent({ ...selectedAgent, agentName: e.target.value })
+                                                setSelectedAgent({ ...selectedAgent, agent_name: e.target.value })
                                             }
                                             onKeyPress={handleKeyPress}
                                         />
                                     </div>
                                     <div className="flex gap-10 items-center justify-between ">
-                                        <label htmlFor="editedContactPerson" className='font-semibold text-base'>Contact Person:</label>
+                                        <label htmlFor="editedContact_person" className='font-semibold text-base'>Contact Person:</label>
                                         <input
                                             className='outline-none rounded-lg px-2 py-1 border-[1px] border-gray-600'
                                             type="text"
-                                            id="editedContactPerson"
-                                            value={selectedAgent?.contactPerson || ''}
+                                            id="editedContact_person"
+                                            value={selectedAgent?.contact_person || ''}
                                             onChange={(e) =>
-                                                setSelectedAgent({ ...selectedAgent, contactPerson: e.target.value })
+                                                setSelectedAgent({ ...selectedAgent, contact_person: e.target.value })
                                             }
                                             onKeyPress={handleKeyPress}
                                         />
@@ -200,7 +200,7 @@ const ManageAgent = () => {
                                             className='outline-none rounded-lg px-2 py-1 border-[1px] border-gray-600'
                                             type="text"
                                             id="editedAgentPhone"
-                                            value={selectedAgent?.phone || ''}
+                                            value={selectedAgent?.phone_number || ''}
                                             onChange={(e) =>
                                                 setSelectedAgent({ ...selectedAgent, phone: e.target.value })
                                             }

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import jsPDF from 'jspdf';
 import { useReactToPrint } from 'react-to-print';
 import 'jspdf-autotable';
+import { ToastContainer, toast } from 'react-toastify';
 
 const ManageAgencies = () => {
     const itemsPerPage = 17;
@@ -23,6 +24,7 @@ const ManageAgencies = () => {
                 }
             } catch (error) {
                 console.error('Error fetching agency data:', error);
+                toast.error(error.message)
             }
         };
 
@@ -288,6 +290,7 @@ const ManageAgencies = () => {
                 <button className='text-white bg-[#4e9352] rounded-md py-1 px-10' onClick={exportAsCSV}>Export as CSV</button>
                 <button className='text-white bg-[#4e9352] rounded-md py-1 px-10' onClick={exportAsPDF}>Export as PDF</button>
             </div>
+            <ToastContainer/>
         </div>
     );
 };

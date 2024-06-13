@@ -79,30 +79,14 @@ const AddAgencies = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      toast.success('Agency added successfully', {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.success('Agency added successfully');
       console.log(formData);
       setFormData(initialFormData);
       setLetterOfAuthority(null);
       setUploadStatus(''); 
     } catch (error) {
       console.error('Error adding agency:', error);
-      toast.error('Error adding agency. Please try again later.', {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error('Error adding agency. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -121,24 +105,6 @@ const AddAgencies = () => {
     setUploadStatus('File uploaded successfully');
   };
 
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    setInputValue(value);
-
-    const filteredSuggestions = data.filter((item) =>
-      item.toLowerCase().includes(value.toLowerCase())
-    );
-    setSuggestions(filteredSuggestions);
-  };
-
-  const handleSuggestionClick = (suggestion) => {
-    setInputValue(suggestion);
-    setFormData((prevData) => ({
-      ...prevData,
-      agency_id: suggestion,
-    }));
-    setSuggestions([]);
-  };
 
   const closeUploadBox = () => {
     setShowUpload(false);

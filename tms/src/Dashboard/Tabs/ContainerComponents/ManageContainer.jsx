@@ -97,7 +97,7 @@ const ManageBooking = () => {
                 <th className=" border border-black px-3 py-2">ETA</th>
                 <th className=" border border-black px-3 py-2">ETD</th>
                 <th className=" border border-black px-3 py-2">Vessel Name</th>
-                <th className=" border border-black px-3 py-2">Customer Name</th>
+                <th className=" border border-black px-3 py-2">Exporter Name</th>
                 <th className=" border border-black px-3 py-2">Action</th>
               </tr>
             </thead>

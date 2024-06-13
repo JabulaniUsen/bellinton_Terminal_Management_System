@@ -23,7 +23,7 @@ const AddAgent = () => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setProfileImage(imageUrl);
-      setProfileImageFile(file); 
+      setProfileImageFile(file);
     }
   };
 
@@ -33,8 +33,6 @@ const AddAgent = () => {
       setLetterFile(file);
     }
   };
-
-
 
   useEffect(() => {
     const fetchAgencies = async () => {
@@ -52,7 +50,7 @@ const AddAgent = () => {
         }
       } catch (error) {
         console.error('Error fetching agencies:', error);
-        toast.error('Failed to fetch agencies');
+        toast.error(error.message);
       }
     };
     fetchAgencies();
@@ -102,12 +100,12 @@ const AddAgent = () => {
       payload.append('agency', selectedAgency.value);
     }
     if (profileImageFile) {
-      payload.append('profile_image', profileImageFile);
+      payload.append('profile_picture', profileImageFile);
     }
     if (letterFile) {
       payload.append('letter_of_authority', letterFile);
     }
-    
+
     try {
       const response = await axios.post('https://exprosys-backend.onrender.com/api/v1/agents/create/', payload, {
         headers: {
