@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const ViewCustomer = () => {
   const [showManifestData, setShowManifestData] = useState(true);
-  const [exporter_id, setexporter_id] = useState("");
+  const [exporter_id, setExporterId] = useState("");
   const [errorText, setErrorText] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
@@ -21,7 +21,7 @@ const ViewCustomer = () => {
   useEffect(() => {
     const fetchExportData = async () => {
       try {
-        const response = await axios.get(`https://exprosys-backend.onrender.com/api/v1/exporters/${exporter_name}`);
+        const response = await axios.get(`https://exprosys-backend.onrender.com/api/v1/exporters/`);
         if (Array.isArray(response.data.results)) {
           setInitialData(response.data.results);
           setData(response.data.results);
@@ -39,7 +39,7 @@ const ViewCustomer = () => {
     };
 
     fetchExportData();
-  }, [exporter_id]);
+  }, []);
 
   const handleSearch = () => {
     if (searchTerm.trim() === "") {
@@ -48,7 +48,7 @@ const ViewCustomer = () => {
     }
     setErrorText(false);
     const filteredData = initialData.filter(item =>
-      item.export_name.toLowerCase().includes(searchTerm.toLowerCase())
+      item.exporter_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setData(filteredData);
     setMoreInfo(true);

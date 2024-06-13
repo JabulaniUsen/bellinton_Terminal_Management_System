@@ -11,26 +11,6 @@ const ProcessEquipmentInterchange = () => {
     const [showPrintTemplate, setShowPrintTemplate] = useState(false);
     const formRef = useRef(null);
 
-    const options = [
-        { value: '', label: 'Select options', isDisabled: true },
-        { value: 'option 1', label: 'option 1' },
-        { value: 'option 2', label: 'option 2' },
-    ];
-
-    const ExpoOptions = [
-        { value: '', label: '-Select- Bent, Cut, etc.', isDisabled: true },
-        { value: 'Bent', label: 'Bent' },
-        { value: 'Cut', label: 'Cut' },
-        { value: 'Bruised', label: 'Bruised' },
-        { value: 'Open', label: 'Open' },
-    ];
-
-    const damageOptions = [
-        { value: '', label: '-Select- (Full or Empty)', isDisabled: true },
-        { value: 'Full', label: 'Full' },
-        { value: 'Empty', label: 'Empty' },
-    ];
-
     const spring = {
         type: "spring",
         damping: 10,
@@ -39,7 +19,7 @@ const ProcessEquipmentInterchange = () => {
 
     const [formData, setFormData] = useState({
         booking_number: '',
-        delivery_date: '2024-06-10',
+        delivery_date: '',
         container_list: '',
         container_part: '',
         damage_status: '',
@@ -49,7 +29,7 @@ const ProcessEquipmentInterchange = () => {
         contact_number: '',
         shipping_line: '',
         vessel_name: '',
-        vessel_departure_date: '2024-06-10',
+        vessel_departure_date: '',
         port_of_loading: '',
         truck_to_port: true,
         stuffing: true,
@@ -127,160 +107,221 @@ const ProcessEquipmentInterchange = () => {
                                     Container Cycle Management
                                 </h3>
 
-                                <div className="my-20">
-                                    <div className="grid grid-cols-2 gap-10">
+                                <div className="my-12">
+                                    <div className="grid grid-cols-3 ">
 
                                         <div className="flex flex-col gap-4">
-                                            <div className="flex justify-between items-center">
-                                                <label htmlFor="container_list" className='font-semibold'>Select Container ID:</label>
-                                                <Select
-                                                    options={options}
-                                                    isSearchable
-                                                    className='w-[300px]'
-                                                    required
-                                                    onChange={(option) => handleSelectChange('container_list', option)}
+                                            <div className="flex justify-between flex-col">
+                                                <label htmlFor="container_list" className='font-semibold'>Date:</label>
+                                                <input 
+                                                    type="text"
+                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'  
                                                 />
                                             </div>
 
-                                            <div className="flex justify-between items-center my-2 gap-2">
-                                                <label htmlFor="container_part" className="block font-semibold text-base">Container Part: </label>
-                                                <Select
-                                                    options={options}
-                                                    isSearchable
-                                                    className='w-[300px]'
-                                                    required
-                                                    onChange={(option) => handleSelectChange('container_part', option)}
+                                            <div className="flex justify-between flex-col ">
+                                                <label htmlFor="container_part" className="block font-semibold text-base">Exporter ID: </label>
+                                                <input 
+                                                    type="text"
+                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'  
                                                 />
                                             </div>
 
-                                            <div className="flex justify-between items-center my-2 gap-2">
-                                                <label htmlFor="truck_id" className="block font-semibold text-base">Transport ID: </label>
-                                                <Select
-                                                    options={options}
-                                                    isSearchable
-                                                    className='w-[300px]'
-                                                    required
-                                                    onChange={(option) => handleSelectChange('truck_id', option)}
+                                            <div className="flex justify-between flex-col ">
+                                                <label htmlFor="truck_id" className="block font-semibold text-base">Exporter Name: </label>
+                                                <input 
+                                                    type="text"
+                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'  
                                                 />
                                             </div>
 
-                                            <div className="flex justify-between items-center my-2 gap-2">
-                                                <label htmlFor="truck_driver_name" className="block font-semibold text-base">Driver ID: </label>
-                                                <Select
-                                                    options={options}
-                                                    isSearchable
-                                                    className='w-[300px]'
-                                                    required
-                                                    onChange={(option) => handleSelectChange('truck_driver_name', option)}
+                                            <div className="flex justify-between flex-col">
+                                                <label htmlFor="exportType" className="block font-semibold text-base">Exporter Address: </label>
+                                                <input 
+                                                    type="text"
+                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'  
                                                 />
                                             </div>
+
+                                            <div className="flex justify-between flex-col">
+                                                <label htmlFor='damage_status' className="block font-semibold text-base">Bellington Annexes: </label>
+                                                <select  className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'>
+                                                    <option value="Okoko">Okoko</option>    
+                                                    <option value="Amuwo">Amuwo</option>    
+                                                    <option value="Apapa">Apapa</option>    
+                                                </select> 
+                                            </div>
+                                            <div className="flex justify-between flex-col">
+                                                <label htmlFor='contact_number' className="block font-semibold text-base">Validate Truck: </label>
+                                                <select name="" id="" className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'>
+                                                    <option value="Yes">Yes</option>
+                                                    <option value="No">No</option>
+                                                </select>
+                                            </div>
+                                            <div className="flex justify-between flex-col">
+                                                <label htmlFor='contact_number' className="block font-semibold text-base">Validate Booking: </label>
+                                                <select name="" id="" className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'>
+                                                    <option value="Yes">Yes</option>
+                                                    <option value="No">No</option>
+                                                </select>
+                                            </div>
+
                                         </div>
 
                                         <div className="flex flex-col gap-4">
-                                            <div className="flex justify-between items-center my-1">
-                                                <label htmlFor="exportType" className="block font-semibold text-base">Export Type: </label>
-                                                <Select
-                                                    options={ExpoOptions}
-                                                    isSearchable
-                                                    className='w-[300px]'
-                                                    required
-                                                    onChange={(option) => handleSelectChange('exportType', option)}
-                                                />
-                                            </div>
 
-                                            <div className="flex justify-between items-center my-1">
-                                                <label htmlFor='damage_status' className="block font-semibold text-base">Damaged Status: </label>
-                                                <Select
-                                                    options={damageOptions}
-                                                    isSearchable
-                                                    className='w-[300px]'
-                                                    required
-                                                    onChange={(option) => handleSelectChange('damage_status', option)}
-                                                />
-                                            </div>
-
-                                            <div className="flex justify-between items-center">
-                                                <label htmlFor='contact_number' className="block font-semibold text-base">Contact Number: </label>
+                                            <div className="flex justify-between flex-col">
+                                                <label htmlFor='agent_id' className="block font-semibold text-base">Agent ID: </label>
                                                 <input
                                                     type="text"
-                                                    name="contact_number"
-                                                    className='w-[300px]'
+                                                    name="agent_id"
+                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'
                                                     required
                                                     onChange={handleInputChange}
                                                 />
                                             </div>
 
-                                            <div className="flex justify-between items-center">
+                                            <div className="flex justify-between flex-col">
+                                                <label htmlFor='agent_name' className="block font-semibold text-base">Agent Name: </label>
+                                                <input
+                                                    type="text"
+                                                    name="agent_name"
+                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'
+                                                    required 
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
+
+                                            <div className="flex justify-between flex-col">
+                                                <label htmlFor='port_of_loading' className="block font-semibold text-base">Agent Address: </label>
+                                                <input
+                                                    type="text"
+                                                    name="agent_address"
+                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'
+                                                    required
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
+
+                                            <div className="flex justify-between flex-col">
+                                                <label htmlFor='cbm_weight' className="block font-semibold text-base">Contact Number: </label>
+                                                <input
+                                                    type="number"
+                                                    name="contact_number"
+                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'
+                                                    required
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
+
+                                            <div className="flex justify-between flex-col">
                                                 <label htmlFor='shipping_line' className="block font-semibold text-base">Shipping Line: </label>
                                                 <input
                                                     type="text"
                                                     name="shipping_line"
-                                                    className='w-[300px]'
+                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'
                                                     required
                                                     onChange={handleInputChange}
                                                 />
                                             </div>
 
-                                            <div className="flex justify-between items-center">
+                                            <div className="flex justify-between flex-col">
                                                 <label htmlFor='vessel_name' className="block font-semibold text-base">Vessel Name: </label>
                                                 <input
-                                                    type="text"
+                                                    type='text'
                                                     name="vessel_name"
-                                                    className='w-[300px]'
+                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'
                                                     required
                                                     onChange={handleInputChange}
                                                 />
                                             </div>
 
-                                            <div className="flex justify-between items-center">
+                                            <div className="flex justify-between flex-col">
+                                                <label htmlFor='vessel_departure_date' className="block font-semibold text-base">Vessel Departure Date: </label>
+                                                <input
+                                                    type="date"
+                                                    name="vessel_departure_date"
+                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'
+                                                    required
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
+                                        </div>
+
+
+                                        <div className="flex flex-col gap-4">
+
+                                            <div className="flex justify-between flex-col">
                                                 <label htmlFor='port_of_loading' className="block font-semibold text-base">Port of Loading: </label>
+                                                <select name="" id="" className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'>
+                                                    <option value="APMT">APMT</option>
+                                                    <option value="TICT">TICT</option>
+                                                    <option value="PCHS">PCHS</option>
+                                                    <option value="PTML">PTML</option>
+                                                    <option value="FIVE">FIVE</option>
+                                                    <option value="JOSEPDAM">JOSEPDAM</option>
+                                                    <option value="PORTS & TERMINAL">PORTS & TERMINAL</option>
+                                                    <option value="ABTL">ABTL</option>
+                                                    <option value="ENL">ENL</option>
+                                                    <option value="GDL">GDL</option>
+                                                    <option value="EKO SUPPORT">EKO SUPPORT</option>
+                                                    <option value="NIGERDOCK">NIGERDOCK</option>
+                                                    <option value="OTHER">OTHER</option>
+                                                </select>
+                                            </div>
+
+                                            <div className="flex justify-between flex-col">
+                                                <label htmlFor='truck_to_port' className="block font-semibold text-base">Truck to Port: </label>
+                                                <select name="" id="" className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'>
+                                                    <option value="Yes">Yes</option>
+                                                    <option value="No">No</option>
+                                                </select>
+                                            </div>
+
+                                            <div className="flex justify-between flex-col">
+                                                <label htmlFor='stuffing' className="block font-semibold text-base">Stuffing: </label>
+                                                <select name="" id="" className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'>
+                                                    <option value="Yes">Yes</option>
+                                                    <option value="No">No</option>
+                                                </select>
+                                            </div>
+
+                                            <div className="flex justify-between flex-col">
+                                                <label htmlFor='weightbridge' className="block font-semibold text-base">Weightbridge: </label>
+                                                <select name="" id="" className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'>
+                                                    <option value="Yes">Yes</option>
+                                                    <option value="No">No</option>
+                                                </select>
+                                            </div>
+
+                                            <div className="flex justify-between flex-col">
+                                                <label htmlFor='cbm/weight' className="block font-semibold text-base">CBM/Weight: </label>
                                                 <input
                                                     type="text"
-                                                    name="port_of_loading"
-                                                    className='w-[300px]'
+                                                    name="cbm/weight"
+                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'
                                                     required
                                                     onChange={handleInputChange}
                                                 />
                                             </div>
 
-                                            <div className="flex justify-between items-center">
-                                                <label htmlFor='cbm_weight' className="block font-semibold text-base">CBM Weight: </label>
+                                            <div className="flex justify-between flex-col">
+                                                <label htmlFor='truck_driver_details' className="block font-semibold text-base">Truck Driver Details: </label>
                                                 <input
-                                                    type="text"
-                                                    name="cbm_weight"
-                                                    className='w-[300px]'
+                                                    type='text'
+                                                    name="truck_driver_details"
+                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'
                                                     required
                                                     onChange={handleInputChange}
                                                 />
                                             </div>
 
-                                            <div className="flex justify-between items-center">
-                                                <label htmlFor='delivery_status' className="block font-semibold text-base">Delivery Status: </label>
+                                            <div className="flex justify-between flex-col">
+                                                <label htmlFor='truck_id' className="block font-semibold text-base">Truck ID:</label>
                                                 <input
                                                     type="text"
-                                                    name="delivery_status"
-                                                    className='w-[300px]'
-                                                    required
-                                                    onChange={handleInputChange}
-                                                />
-                                            </div>
-
-                                            <div className="flex justify-between items-center">
-                                                <label htmlFor='description' className="block font-semibold text-base">Description: </label>
-                                                <textarea
-                                                    name="description"
-                                                    className='w-[300px]'
-                                                    required
-                                                    onChange={handleInputChange}
-                                                />
-                                            </div>
-
-                                            <div className="flex justify-between items-center">
-                                                <label htmlFor='bellington_annexes' className="block font-semibold text-base">Bellington Annexes: </label>
-                                                <input
-                                                    type="text"
-                                                    name="bellington_annexes"
-                                                    className='w-[300px]'
+                                                    name="truck_id"
+                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'
                                                     required
                                                     onChange={handleInputChange}
                                                 />
@@ -289,14 +330,14 @@ const ProcessEquipmentInterchange = () => {
                                     </div>
                                 </div>
 
-                                <div className="flex items-center justify-center gap-2 mb-20">
+                                <div className="flex items-center justify-center gap-5 mb-20">
                                     <button
-                                        className='px-7 py-2 rounded-md bg-[#4e9352] text-white mt-3'
+                                        className='px-10 py-3 rounded-md bg-[#4e9352] text-white mt-3'
                                         type='submit'
                                     >
-                                        Process Doc
+                                        Submit/Print EDO
                                     </button>
-                                    <button className='px-7 py-2 rounded-md bg-gray-500 text-white mt-3' type='reset'>Reset</button>
+                                    <button className='px-10 py-3 rounded-md bg-gray-500 text-white mt-3' type='reset'>Reset</button>
                                 </div>
 
                             </div>
@@ -308,9 +349,9 @@ const ProcessEquipmentInterchange = () => {
                                 transition={spring}
                                 animate={{ scale: 1.1 }}
                                 className='fixed w-full flex justify-center items-center h-[100%] bg-black bg-opacity-50 top-0 right-0'>
-                                <div className="p-10 rounded-lg flex justify-center items-center gap-2 flex-col z-10 bg-white">
+                                <div className="p-10 rounded-lg flex justify-center items-center  flex-col z-10 bg-white">
                                     <p className='font-semibold text-lg'>Equipment Interchange Receipt Processed</p>
-                                    <div className="flex gap-2">
+                                    <div className="flex ">
                                         <button className='px-7 py-2 rounded-md bg-[#4e9352] text-white mt-3' onClick={() => setConfirmMessage(false)}>Ok</button>
                                         <button className='px-5 py-1 rounded-lg bg-black text-white mt-3' onClick={() => setConfirmMessage(false) || setShowPrintTemplate(true)}>Print</button>
                                     </div>
