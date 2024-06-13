@@ -18,29 +18,7 @@ const ProcessEquipmentInterchange = () => {
     };
 
     const [formData, setFormData] = useState({
-        booking_number: '',
-        delivery_date: '',
-        container_list: '',
-        container_part: '',
-        damage_status: '',
-        bellington_annexes: '',
-        validate_truck: true,
-        validate_booking: true,
-        contact_number: '',
-        shipping_line: '',
-        vessel_name: '',
-        vessel_departure_date: '',
-        port_of_loading: '',
-        truck_to_port: true,
-        stuffing: true,
-        weightbridge: true,
-        cbm_weight: '',
-        truck_driver_name: '',
-        truck_id: '',
-        delivery_status: '',
-        description: '',
-        exporter_id: 0,
-        agent_id: 0
+        
     });
 
     const handleInputChange = (e) => {
@@ -98,7 +76,7 @@ const ProcessEquipmentInterchange = () => {
 
     return (
         <>
-            {!showPrintTemplate ? (
+            {showPrintTemplate ? (
                 <>
                     <div>
                         <form ref={formRef} onSubmit={handleSubmit}>
@@ -141,7 +119,7 @@ const ProcessEquipmentInterchange = () => {
                                                     type="text"
                                                     className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'  
                                                 />
-                                            </div>
+                                            </div> 
 
                                             <div className="flex justify-between flex-col">
                                                 <label htmlFor='damage_status' className="block font-semibold text-base">Bellington Annexes: </label>
@@ -337,7 +315,7 @@ const ProcessEquipmentInterchange = () => {
                                     >
                                         Submit/Print EDO
                                     </button>
-                                    <button className='px-10 py-3 rounded-md bg-gray-500 text-white mt-3' type='reset'>Reset</button>
+                                    <button className='px-10 py-3 rounded-md text-[#4e9352] mt-3' type='reset'>Reset</button>
                                 </div>
 
                             </div>
