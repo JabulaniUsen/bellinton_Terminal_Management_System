@@ -17,9 +17,7 @@ const ProcessEquipmentInterchange = () => {
         stiffness: 800
     };
 
-    const [formData, setFormData] = useState({
-        
-    });
+    const [formData, setFormData] = useState({});
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -39,9 +37,10 @@ const ProcessEquipmentInterchange = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://exprosys-backend.onrender.com/api/v1/export-deliveries/', formData);
+            const edoNumber = formData.edo_number; // Assuming edo_number is part of the formData
+            const response = await axios.patch(`https://exprosys-backend.onrender.com/api/v1/export-deliveries/${edoNumber}/`, formData);
             if (response.status === 200 || response.status === 201) {
-                toast.success('Export Delivery Processed Successfully!', {
+                toast.success('Export Delivery Updated Successfully!', {
                     position: 'top-right',
                     autoClose: 3000,
                     hideProgressBar: true,
@@ -51,7 +50,7 @@ const ProcessEquipmentInterchange = () => {
                 });
                 setConfirmMessage(true);
             } else {
-                toast.error('Failed to process the export delivery.', {
+                toast.error('Failed to update the export delivery.', {
                     position: 'top-right',
                     autoClose: 3000,
                     hideProgressBar: true,
@@ -61,7 +60,7 @@ const ProcessEquipmentInterchange = () => {
                 });
             }
         } catch (error) {
-            toast.error(`Failed to process the export delivery. Error: ${error.message}`, {
+            toast.error(`Failed to update the export delivery. Error: ${error.message}`, {
                 position: 'top-right',
                 autoClose: 3000,
                 hideProgressBar: true,
@@ -76,7 +75,7 @@ const ProcessEquipmentInterchange = () => {
 
     return (
         <>
-            {showPrintTemplate ? (
+            {!showPrintTemplate ? (
                 <>
                     <div>
                         <form ref={formRef} onSubmit={handleSubmit}>
@@ -86,7 +85,7 @@ const ProcessEquipmentInterchange = () => {
                                 </h3>
 
                                 <div className="my-12">
-                                    <div className="grid grid-cols-3 ">
+                                    <div className="grid grid-cols-2 ">
 
                                         <div className="flex flex-col gap-4">
                                             <div className="flex justify-between flex-col">
@@ -97,33 +96,9 @@ const ProcessEquipmentInterchange = () => {
                                                 />
                                             </div>
 
-                                            <div className="flex justify-between flex-col ">
-                                                <label htmlFor="container_part" className="block font-semibold text-base">Exporter ID: </label>
-                                                <input 
-                                                    type="text"
-                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'  
-                                                />
-                                            </div>
-
-                                            <div className="flex justify-between flex-col ">
-                                                <label htmlFor="truck_id" className="block font-semibold text-base">Exporter Name: </label>
-                                                <input 
-                                                    type="text"
-                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'  
-                                                />
-                                            </div>
-
-                                            <div className="flex justify-between flex-col">
-                                                <label htmlFor="exportType" className="block font-semibold text-base">Exporter Address: </label>
-                                                <input 
-                                                    type="text"
-                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'  
-                                                />
-                                            </div> 
-
                                             <div className="flex justify-between flex-col">
                                                 <label htmlFor='damage_status' className="block font-semibold text-base">Bellington Annexes: </label>
-                                                <select  className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'>
+                                                <select className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'>
                                                     <option value="Okoko">Okoko</option>    
                                                     <option value="Amuwo">Amuwo</option>    
                                                     <option value="Apapa">Apapa</option>    
@@ -142,43 +117,6 @@ const ProcessEquipmentInterchange = () => {
                                                     <option value="Yes">Yes</option>
                                                     <option value="No">No</option>
                                                 </select>
-                                            </div>
-
-                                        </div>
-
-                                        <div className="flex flex-col gap-4">
-
-                                            <div className="flex justify-between flex-col">
-                                                <label htmlFor='agent_id' className="block font-semibold text-base">Agent ID: </label>
-                                                <input
-                                                    type="text"
-                                                    name="agent_id"
-                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'
-                                                    required
-                                                    onChange={handleInputChange}
-                                                />
-                                            </div>
-
-                                            <div className="flex justify-between flex-col">
-                                                <label htmlFor='agent_name' className="block font-semibold text-base">Agent Name: </label>
-                                                <input
-                                                    type="text"
-                                                    name="agent_name"
-                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'
-                                                    required 
-                                                    onChange={handleInputChange}
-                                                />
-                                            </div>
-
-                                            <div className="flex justify-between flex-col">
-                                                <label htmlFor='port_of_loading' className="block font-semibold text-base">Agent Address: </label>
-                                                <input
-                                                    type="text"
-                                                    name="agent_address"
-                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'
-                                                    required
-                                                    onChange={handleInputChange}
-                                                />
                                             </div>
 
                                             <div className="flex justify-between flex-col">
@@ -224,8 +162,8 @@ const ProcessEquipmentInterchange = () => {
                                                     onChange={handleInputChange}
                                                 />
                                             </div>
-                                        </div>
 
+                                        </div>
 
                                         <div className="flex flex-col gap-4">
 
@@ -275,8 +213,19 @@ const ProcessEquipmentInterchange = () => {
                                             <div className="flex justify-between flex-col">
                                                 <label htmlFor='cbm/weight' className="block font-semibold text-base">CBM/Weight: </label>
                                                 <input
+                                                    type="number"
+                                                    name="cbm_weight"
+                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'
+                                                    required
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
+
+                                            <div className="flex justify-between flex-col">
+                                                <label htmlFor='container_number' className="block font-semibold text-base">Container Number: </label>
+                                                <input
                                                     type="text"
-                                                    name="cbm/weight"
+                                                    name="container_number"
                                                     className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'
                                                     required
                                                     onChange={handleInputChange}
@@ -288,17 +237,6 @@ const ProcessEquipmentInterchange = () => {
                                                 <input
                                                     type='text'
                                                     name="truck_driver_details"
-                                                    className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'
-                                                    required
-                                                    onChange={handleInputChange}
-                                                />
-                                            </div>
-
-                                            <div className="flex justify-between flex-col">
-                                                <label htmlFor='truck_id' className="block font-semibold text-base">Truck ID:</label>
-                                                <input
-                                                    type="text"
-                                                    name="truck_id"
                                                     className='w-[300px] rounded-lg p-2 border border-gray-500 outline-none'
                                                     required
                                                     onChange={handleInputChange}

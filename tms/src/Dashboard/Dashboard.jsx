@@ -121,7 +121,7 @@ const Dashboard = () => {
         // { label: 'Truck Queue Management', tabNumber: 18 },
         { label: 'Inbound Gate Entry', tabNumber: 15.1, },
         { label: 'Outbound Gate Exit', tabNumber: 16, },
-        { label: 'Gate Access Control', tabNumber: 17, },
+        // { label: 'Gate Access Control', tabNumber: 17, },
       ],
     },
     {

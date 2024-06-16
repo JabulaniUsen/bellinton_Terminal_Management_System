@@ -162,12 +162,13 @@ const AddContainer = () => {
         <div className="body my-5 grid grid-cols-2 gap-20">
           <div className="col1 flex flex-col gap-4">
             <div>
-              <label htmlFor="temperature" className='font-semibold text-base'>Vessel Name:</label>
+              <label htmlFor="temperature" className='font-semibold text-base'>Container ID:</label>
               <div className="border-[#999999] rounded border-[1px] flex items-center p-2">
                 <input 
                   type="text" 
                   className='outline-none w-full' 
-                  placeholder='Enter Name of vessel'
+                  placeholder='Auto-generated'
+                  readOnly
                   value={vessel_name}
                   onChange={(e) => setVesselName(e.target.value)}
                 />
